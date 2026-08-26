@@ -7,11 +7,16 @@ import argparse
 import json
 import os
 from pathlib import Path
+import sys
 
 import numpy as np
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from table1_reproduction.official_runtime import verify_official_vendor  # noqa: E402
 
 
 def resolve_path(value: str, project_root: Path, config_dir: Path) -> Path:
@@ -25,6 +30,7 @@ def resolve_path(value: str, project_root: Path, config_dir: Path) -> Path:
 
 
 def main() -> int:
+    verify_official_vendor()
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "--config",

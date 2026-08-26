@@ -18,6 +18,10 @@ PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from table1_reproduction.official_runtime import configure_official_runtime  # noqa: E402
+
+configure_official_runtime()
+
 from graphcov.run.data import get_labels, load_dataset  # noqa: E402
 from graphcov.run.embeddings import load_or_compute_embeddings, load_or_compute_raw_dynamics  # noqa: E402
 from graphcov.run.eva import derive_eva_scores, get_optimal_windows  # noqa: E402

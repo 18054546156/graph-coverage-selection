@@ -4,6 +4,14 @@ This directory is the reproducibility package for the paper's Table 1. It is
 separate from `v11/`, which contains the PPR/margin research experiments, and
 it leaves room for a future `v12/` new-selector package.
 
+The Table 1 jobs do not import the mutable project-level `graphcov` package.
+They first verify and import the author-code snapshot at `vendor/graphcov/`,
+pinned to upstream commit
+`8cf757adc4c333dc1427d511f0de2f246d15ebac`. The file hashes are checked at
+startup and the job fails closed if the snapshot changes. Edits to the root
+`graphcov/`, `v11/`, or future `v12/` code therefore cannot silently change a
+Table 1 comparison method.
+
 ## What is and is not Table 1
 
 The paper's pasted Table 1 has exactly these eight columns:
@@ -81,6 +89,15 @@ table1_reproduction/outputs/job2_table1/
 The complete workload is `5 x 2 x 8 x 5 = 400` downstream runs. Selection is
 much smaller: 160 frozen selections under the seed policy above, with dynamics
 shared within each dataset.
+
+## Isolation rule
+
+`v11/` and `v12/` may use their own selectors, configs, caches, and output
+directories. Their results must not be copied into
+`table1_reproduction/outputs/`, and the `vendor/` snapshot must not be edited
+for ordinary method development. A deliberate upstream-version change is a
+new reproduction-package revision with a new pinned commit and regenerated
+manifest; it is not a v11/v12 modification.
 
 ## Server commands
 

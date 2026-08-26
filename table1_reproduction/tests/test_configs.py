@@ -5,6 +5,7 @@ from pathlib import Path
 
 from table1_reproduction.experiments.job1_select import selection_seeds
 from table1_reproduction.experiments.job2_downstream import expand_jobs, selection_seed_for
+from table1_reproduction.official_runtime import verify_official_vendor
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -12,6 +13,10 @@ ROOT = Path(__file__).resolve().parents[1]
 
 def load(name: str) -> dict:
     return json.loads((ROOT / "configs" / name).read_text(encoding="utf-8"))
+
+
+def test_official_vendor_snapshot_is_intact():
+    verify_official_vendor()
 
 
 def test_table1_methods_and_protocol_are_explicit():
