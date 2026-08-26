@@ -6,7 +6,6 @@ from pathlib import Path
 import numpy as np
 
 from v11.experiments.job1_select import load_frozen_reference, validate_job
-from v11.experiments.job2_downstream import expand_jobs
 from v11.methods.selection import MarginResult
 
 
@@ -27,6 +26,8 @@ def test_all_job1_dependencies_are_ordered():
 
 
 def test_job2_counts_and_protocol():
+    from v11.experiments.job2_downstream import expand_jobs
+
     derma = load("job2_derma_atomic_seed42.json")
     table = load("job2_table1_validation_3seeds.json")
     assert len(expand_jobs(derma)) == 12
