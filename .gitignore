@@ -2,3 +2,5 @@ __pycache__/
 *.pyc
 graphcov/cache/
 graphcov/results/
+/cache/
+/envs/
