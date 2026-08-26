@@ -75,7 +75,8 @@ sacct -j "$PREFLIGHT_JOB" --format=JobID,State,ExitCode,Elapsed
 cat "table1_reproduction/logs/preflight_${PREFLIGHT_JOB}.out"
 ```
 
-预期日志以 `PREFLIGHT PASSED` 结束，并报告 Table 1 `160/400`，v11 `100/25/75`。
+预期日志以 `PREFLIGHT PASSED` 结束，并报告 Table 1 `160/400`；v11 Job 1 为
+`5 dataset jobs / 100 selections`，validation 为 `25/75`。
 当前复用环境没有安装 pytest，因此正式启动门槛使用上述可执行 preflight；不为测试工具改动共享
 训练环境。
 

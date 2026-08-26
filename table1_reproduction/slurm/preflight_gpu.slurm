@@ -74,7 +74,6 @@ root = Path(sys.argv[1])
 expected = {
     "table1_job1.json": 160,
     "table1_job2.json": 400,
-    "v11_job1.json": 100,
     "v11_val1.json": 25,
     "v11_val3.json": 75,
 }
@@ -82,6 +81,12 @@ for name, count in expected.items():
     jobs = json.loads((root / name).read_text(encoding="utf-8"))
     assert len(jobs) == count, f"{name}: {len(jobs)} != {count}"
     print(f"{name}: {len(jobs)} jobs")
+
+v11_job1 = json.loads((root / "v11_job1.json").read_text(encoding="utf-8"))
+selection_count = sum(len(job["ratios"]) * len(job["variants"]) for job in v11_job1)
+assert len(v11_job1) == 5, f"v11_job1.json: {len(v11_job1)} dataset jobs != 5"
+assert selection_count == 100, f"v11 Job 1 selections: {selection_count} != 100"
+print(f"v11_job1.json: {len(v11_job1)} dataset jobs, {selection_count} selections")
 PY
 
 echo "PREFLIGHT PASSED end=$(date --iso-8601=seconds)"
