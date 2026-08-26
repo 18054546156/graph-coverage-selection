@@ -15,11 +15,10 @@ SOURCE_COMMIT = "8cf757adc4c333dc1427d511f0de2f246d15ebac"
 
 
 def _sha256(path: Path) -> str:
-    digest = hashlib.sha256()
-    with path.open("rb") as handle:
-        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(chunk)
-    return digest.hexdigest()
+    # Git stores this text-only snapshot with LF, while Windows checkouts may
+    # materialize CRLF. Hash canonical LF bytes so the lock is cross-platform.
+    content = path.read_bytes().replace(b"\r\n", b"\n")
+    return hashlib.sha256(content).hexdigest()
 
 
 def verify_official_vendor() -> None:
@@ -32,6 +31,8 @@ def verify_official_vendor() -> None:
             "Table 1 vendor source commit mismatch: "
             f"{manifest.get('source_commit')} != {SOURCE_COMMIT}"
         )
+    if manifest.get("hash_normalization") != "lf":
+        raise RuntimeError("Table 1 vendor manifest must use canonical LF hashes")
 
     expected = {
         str(item["path"]): str(item["sha256"])
