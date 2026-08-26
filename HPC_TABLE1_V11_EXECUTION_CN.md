@@ -51,24 +51,33 @@ export GRAPHCOV_PYTHON=/project/prj-sis01/xuxiaoyu/graph_bench/envs/graphcov-py3
 
 ## 3. 启动前检查
 
-登录节点只能做静态检查，不能用 `faiss.get_num_gpus()`：
+FAISS GPU 1.9.0 在登录节点导入时会访问 CUDA driver，并可能直接 abort。因此不要在登录节点
+运行 Table 1 dry-run 或 `faiss.get_num_gpus()`。先做不导入 FAISS 的 shell/Slurm 静态检查：
 
 ```bash
 cd /project/prj-sis01/xuxiaoyu/graph_bench
 
-$GRAPHCOV_PYTHON -m compileall -q \
-  table1_reproduction/experiments table1_reproduction/official_runtime.py \
-  v11/experiments v11/methods
-
-$GRAPHCOV_PYTHON -m pytest -q table1_reproduction/tests v11/tests
-
-$GRAPHCOV_PYTHON table1_reproduction/experiments/job1_select.py \
-  --config table1_reproduction/configs/job1_table1.json --dry-run > /tmp/table1_job1.json
-$GRAPHCOV_PYTHON table1_reproduction/experiments/job2_downstream.py \
-  --config table1_reproduction/configs/job2_table1.json --dry-run > /tmp/table1_job2.json
+bash -n table1_reproduction/slurm/*.slurm v11/slurm/*.slurm
+sbatch --test-only table1_reproduction/slurm/job1_select_array.slurm
+sbatch --test-only table1_reproduction/slurm/job2_downstream_array.slurm
+sbatch --test-only v11/slurm/job1_select_array.slurm
+sbatch --test-only v11/slurm/job2_array.slurm
 ```
 
-预期：Table 1 Job 1 为 160 个 frozen selections；Job 2 为 400 个训练任务。
+再提交一次短 GPU preflight。它不做选择和训练，只验证 CUDA/FAISS、vendor hash、数据与 UNI
+cache、编译和 dry-run 数量：
+
+```bash
+PREFLIGHT_JOB=$(sbatch --parsable table1_reproduction/slurm/preflight_gpu.slurm)
+echo "$PREFLIGHT_JOB"
+squeue -j "$PREFLIGHT_JOB"
+sacct -j "$PREFLIGHT_JOB" --format=JobID,State,ExitCode,Elapsed
+cat "table1_reproduction/logs/preflight_${PREFLIGHT_JOB}.out"
+```
+
+预期日志以 `PREFLIGHT PASSED` 结束，并报告 Table 1 `160/400`，v11 `100/25/75`。
+当前复用环境没有安装 pytest，因此正式启动门槛使用上述可执行 preflight；不为测试工具改动共享
+训练环境。
 
 ## 4. Table 1
 
