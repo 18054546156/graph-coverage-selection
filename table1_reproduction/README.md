@@ -1,5 +1,8 @@
 # Isolated Table 1 reproduction
 
+For the HCP/Slurm deployment and the ordered Table 1 -> v11 workflow, see
+[`../HPC_TABLE1_V11_EXECUTION_CN.md`](../HPC_TABLE1_V11_EXECUTION_CN.md).
+
 This directory is the reproducibility package for the paper's Table 1. It is
 separate from `v11/`, which contains the PPR/margin research experiments, and
 it leaves room for a future `v12/` new-selector package.

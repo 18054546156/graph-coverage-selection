@@ -41,3 +41,17 @@ def test_table1_has_dataset_specific_targets():
     assert targets["organamnist"] == {"k": 20, "hops": 4, "max_degree": 70}
     assert targets["pathmnist"] == {"k": 20, "hops": 3, "max_degree": 70}
     assert targets["tissuemnist"] == {"k": 15, "hops": 3, "max_degree": 50}
+
+
+def test_table1_all_reference_indices_are_required_and_isolated():
+    config = load("job1_table1_calibration.json")
+    assert len(config["jobs"]) == 5
+    for job in config["jobs"]:
+        frozen = job["frozen_reference_indices"]
+        assert set(frozen) == {"r0p02", "r0p05"}
+        for ratio_key, spec in frozen.items():
+            assert spec["required"] is True
+            assert spec["path"].startswith(
+                "{project_root}/table1_reproduction/outputs/job1_selection/"
+            )
+            assert f"/{job['dataset']}/{ratio_key}/graph_a2/seed42/" in spec["path"]

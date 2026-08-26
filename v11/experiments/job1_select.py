@@ -590,8 +590,9 @@ def main() -> int:
             )
         )
     rows = [flatten_summary(summary) for summary in all_summaries]
+    results_name = f"results_{args.only_dataset}.csv" if args.only_dataset else "results.csv"
     if rows:
-        with (output_root / "results.csv").open("w", newline="", encoding="utf-8") as handle:
+        with (output_root / results_name).open("w", newline="", encoding="utf-8") as handle:
             writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
             writer.writeheader()
             writer.writerows(rows)
@@ -604,8 +605,9 @@ def main() -> int:
         "cache_root": str(cache_root),
         "n_completed_selections": len(rows),
     }
-    write_json(output_root / "manifest.json", manifest)
-    print(f"[v11:job1] complete: {output_root / 'results.csv'}", flush=True)
+    manifest_name = f"manifest_{args.only_dataset}.json" if args.only_dataset else "manifest.json"
+    write_json(output_root / manifest_name, manifest)
+    print(f"[v11:job1] complete: {output_root / results_name}", flush=True)
     return 0
 
 

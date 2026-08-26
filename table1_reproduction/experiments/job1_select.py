@@ -201,7 +201,12 @@ def run(config_path: Path, project_root: Path, args: argparse.Namespace) -> int:
         return 0
 
     output_root.mkdir(parents=True, exist_ok=True)
-    (output_root / "resolved_config.json").write_text(
+    resolved_name = (
+        f"resolved_config_{args.only_dataset}.json"
+        if args.only_dataset
+        else "resolved_config.json"
+    )
+    (output_root / resolved_name).write_text(
         json.dumps(json_ready(config), indent=2, sort_keys=True), encoding="utf-8"
     )
     embedding_cache: dict[str, np.ndarray] = {}
@@ -327,7 +332,12 @@ def run(config_path: Path, project_root: Path, args: argparse.Namespace) -> int:
                         f"selection_seed={selection_seed} n={len(selected)}",
                         flush=True,
                     )
-    (output_root / "selection_manifest.json").write_text(
+    manifest_name = (
+        f"selection_manifest_{args.only_dataset}.json"
+        if args.only_dataset
+        else "selection_manifest.json"
+    )
+    (output_root / manifest_name).write_text(
         json.dumps(json_ready({"schema": "graphcov-table1/selection-manifest-v1", "jobs": summary_jobs}), indent=2, sort_keys=True),
         encoding="utf-8",
     )

@@ -68,13 +68,60 @@ def summarize(rows: list[dict], ratio: float) -> dict[tuple[str, str], dict]:
     return output
 
 
+def expected_calibration_keys(config: dict, ratio: float) -> set[tuple[str, float, str, int]]:
+    expected = set()
+    for job in config.get("jobs", []):
+        job_ratios = [float(value) for value in job.get("ratios", [])]
+        if not any(np.isclose(value, ratio) for value in job_ratios):
+            continue
+        for variant in job.get("variants", []):
+            for seed in job.get("seeds", []):
+                expected.add((str(job["dataset"]), float(ratio), str(variant), int(seed)))
+    if not expected:
+        raise ValueError(f"validation config has no jobs at calibration ratio {ratio}")
+    return expected
+
+
+def validate_calibration_rows(
+    rows: list[dict], expected: set[tuple[str, float, str, int]]
+) -> None:
+    observed = []
+    for row in rows:
+        key = (
+            str(row["dataset"]),
+            float(row["ratio"]),
+            str(row["variant"]),
+            int(row["training_seed"]),
+        )
+        observed.append(key)
+    duplicates = sorted({key for key in observed if observed.count(key) > 1})
+    if duplicates:
+        raise ValueError(f"duplicate validation results: {duplicates}")
+    observed_set = set(observed)
+    unexpected = sorted(observed_set - expected)
+    missing = sorted(expected - observed_set)
+    if unexpected:
+        raise ValueError(f"validation results are outside the frozen config: {unexpected}")
+    if missing:
+        raise ValueError(f"validation results are incomplete: {missing}")
+
+
 def main() -> int:
     args = parse_args()
     source_config = json.loads(args.validation_config.read_text(encoding="utf-8"))
     if source_config.get("schema") != "graphcov-v11/job2-config-v1":
         raise ValueError("unexpected validation config schema")
-    stats = summarize(load_rows(args.validation_root), args.calibration_ratio)
-    datasets = sorted({dataset for dataset, _ in stats})
+    rows = load_rows(args.validation_root)
+    expected = expected_calibration_keys(source_config, args.calibration_ratio)
+    expected_seed_count = len({key[3] for key in expected})
+    if expected_seed_count != args.required_calibration_seeds:
+        raise ValueError(
+            f"validation config has {expected_seed_count} seeds; "
+            f"expected {args.required_calibration_seeds}"
+        )
+    validate_calibration_rows(rows, expected)
+    stats = summarize(rows, args.calibration_ratio)
+    datasets = sorted({key[0] for key in expected})
     decisions = {}
     jobs = []
     for dataset in datasets:

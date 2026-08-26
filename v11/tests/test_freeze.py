@@ -39,6 +39,18 @@ def test_freeze_selects_safe_validation_winner_and_writes_test_config(tmp_path, 
             {
                 "schema": "graphcov-v11/job2-config-v1",
                 "training": {"size": 224, "epochs": 1000},
+                "jobs": [
+                    {
+                        "dataset": "dermamnist",
+                        "ratios": [0.05],
+                        "variants": [
+                            "a0_original",
+                            "safe_candidate",
+                            "unsafe_candidate",
+                        ],
+                        "seeds": [42, 43, 44],
+                    }
+                ],
             }
         ),
         encoding="utf-8",

@@ -1,5 +1,9 @@
 # GraphCov v11: atomic calibration and frozen downstream evaluation
 
+For the HCP/Slurm deployment, resource limits, and the complete frozen
+calibration workflow, see
+[`../HPC_TABLE1_V11_EXECUTION_CN.md`](../HPC_TABLE1_V11_EXECUTION_CN.md).
+
 v11 is an experiment package, not a claim that PPR is already better than
 Graph-A2. It separates selection, validation calibration, and final test access
 so that dataset-specific parameters can be tuned without using the test split.
