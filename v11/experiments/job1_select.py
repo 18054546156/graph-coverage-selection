@@ -144,6 +144,22 @@ def validate_job(job: dict) -> None:
         raise ValueError(f"duplicate variant id in {job['dataset']}")
     if str(job["reference_variant"]) not in ids:
         raise ValueError(f"reference variant missing in {job['dataset']}")
+    reference_mode = str(job.get("reference_mode", "generated"))
+    if reference_mode not in {"generated", "frozen"}:
+        raise ValueError(
+            f"{job['dataset']}: reference_mode must be generated or frozen"
+        )
+    if reference_mode == "frozen":
+        frozen = job.get("frozen_reference_indices", {})
+        missing = [
+            ratio_key(float(ratio))
+            for ratio in job["ratios"]
+            if ratio_key(float(ratio)) not in frozen
+        ]
+        if missing:
+            raise ValueError(
+                f"{job['dataset']}: frozen reference missing ratios {missing}"
+            )
     seen: set[str] = set()
     for variant in variants:
         if int(variant["k"]) < 1:
@@ -223,6 +239,66 @@ def audit_frozen_reference(
             f"Jaccard={result['jaccard']:.6f}"
         )
     return result
+
+
+def load_frozen_reference(
+    spec: dict,
+    *,
+    labels: np.ndarray,
+    margins: MarginResult,
+    budget: int,
+    project_root: Path,
+    config_dir: Path,
+) -> tuple[SelectionResult, dict[str, object]]:
+    """Load an official frozen subset without regenerating it in v11."""
+    path = resolve_path(str(spec["path"]), project_root, config_dir)
+    if not path.exists():
+        raise FileNotFoundError(f"required frozen reference is missing: {path}")
+
+    selected = np.asarray(np.load(path), dtype=np.int64).reshape(-1)
+    classes = np.unique(labels)
+    expected = int(budget * len(classes))
+    if len(selected) != expected or len(np.unique(selected)) != expected:
+        raise ValueError(
+            f"invalid frozen reference size or duplicates: {len(selected)} != {expected}"
+        )
+    if expected and (int(selected.min()) < 0 or int(selected.max()) >= len(labels)):
+        raise ValueError(f"frozen reference contains an out-of-range index: {path}")
+    class_counts = {
+        int(cls): int(np.sum(labels[selected] == cls)) for cls in classes
+    }
+    if any(value != budget for value in class_counts.values()):
+        raise ValueError(f"frozen reference class quota violation: {class_counts}")
+
+    order_path = path.with_name("selection_order.npy")
+    if order_path.exists():
+        order = np.asarray(np.load(order_path), dtype=np.int64).reshape(-1)
+        if not np.array_equal(np.sort(order), np.sort(selected)):
+            raise ValueError(
+                f"frozen selection order does not contain the selected set: {order_path}"
+            )
+    else:
+        order = selected.copy()
+
+    unsafe_counts = {
+        int(cls): int(np.sum(margins.unsafe[selected[labels[selected] == cls]]))
+        for cls in classes
+    }
+    result = SelectionResult(selected.copy(), order.copy(), class_counts, unsafe_counts)
+    audit = {
+        "path": str(path),
+        "order_path": str(order_path) if order_path.exists() else None,
+        "status": "reused_frozen",
+        "required": True,
+        "direct_reuse": True,
+        "n_frozen": int(len(selected)),
+        "exact_array_match": True,
+        "exact_set_match": True,
+        "jaccard": 1.0,
+        "frozen_index_sha256": sha256_array(selected),
+        "frozen_set_sha256": sha256_array(np.sort(selected)),
+    }
+    return result, audit
 
 
 def selection_summary(
@@ -365,6 +441,7 @@ def process_job(
     variants = list(job["variants"])
     variant_by_id = {str(variant["id"]): variant for variant in variants}
     reference_id = str(job["reference_variant"])
+    reference_mode = str(job.get("reference_mode", "generated"))
     signatures: list[str] = []
     grouped: dict[str, list[dict]] = {}
     for variant in variants:
@@ -417,7 +494,19 @@ def process_job(
                 constraint = variant.get("constraint", {"mode": "none"})
                 mode = str(constraint.get("mode", "none"))
                 unsafe_caps = None
-                if mode == "none":
+                frozen_audit = None
+                if variant_id == reference_id and reference_mode == "frozen":
+                    frozen_specs = job["frozen_reference_indices"]
+                    result, frozen_audit = load_frozen_reference(
+                        frozen_specs[ratio_key(ratio)],
+                        labels=labels,
+                        margins=margins,
+                        budget=budget,
+                        project_root=project_root,
+                        config_dir=config_dir,
+                    )
+                    frozen_reference_audits[ratio_key(ratio)] = frozen_audit
+                elif mode == "none":
                     result = greedy_facility(
                         kernel, labels, budget, unsafe=margins.unsafe
                     )
@@ -457,7 +546,7 @@ def process_job(
                     raise ValueError(f"unknown constraint mode: {mode}")
                 selections[(ratio, variant_id)] = result
 
-                if variant_id == reference_id:
+                if variant_id == reference_id and reference_mode == "generated":
                     frozen_specs = job.get("frozen_reference_indices", {})
                     frozen_audit = audit_frozen_reference(
                         result.indices,
@@ -485,6 +574,14 @@ def process_job(
                     kernel_audit=audit,
                     unsafe_caps=unsafe_caps,
                 )
+                is_frozen_reference = (
+                    variant_id == reference_id and reference_mode == "frozen"
+                )
+                summary["selection_source"] = (
+                    "frozen_table1" if is_frozen_reference else "v11_generated"
+                )
+                if is_frozen_reference:
+                    summary["frozen_reference"] = frozen_audit
                 run_dir = dataset_output / ratio_key(ratio) / variant_id
                 run_dir.mkdir(parents=True, exist_ok=True)
                 np.save(run_dir / "selected_indices.npy", result.indices)
@@ -512,6 +609,7 @@ def process_job(
         "label_archive": str(label_archive),
         "train_margin": train_margin,
         "reference_variant": reference_id,
+        "reference_mode": reference_mode,
         "reference_kernel": reference_kernel_metadata,
         "frozen_reference_audits": frozen_reference_audits,
     }

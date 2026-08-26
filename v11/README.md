@@ -143,8 +143,10 @@ margin statistics, self-kernel and Graph-A2 coverage, kNN purity, graph
 sparsity, cross-class mass, and asymmetry.
 
 Derma 5% and OrganA 5% also have required real-data reproduction checks against
-the frozen official Graph-A2 indices already present on the 3090 server. Job 1
-stops immediately unless the generated and frozen sets match exactly.
+the frozen official Graph-A2 indices produced by the isolated Table 1 pipeline.
+For Table 1 calibration, `reference_mode: frozen` makes Job 1 copy those arrays
+directly into `a0_original`; v11 generates only the modified candidate subsets.
+The source path and array hashes are recorded in every A0 selection audit.
 
 ## Job 2: frozen ResNet-18 evaluation
 

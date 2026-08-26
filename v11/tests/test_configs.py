@@ -3,8 +3,11 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from v11.experiments.job1_select import validate_job
+import numpy as np
+
+from v11.experiments.job1_select import load_frozen_reference, validate_job
 from v11.experiments.job2_downstream import expand_jobs
+from v11.methods.selection import MarginResult
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -47,6 +50,7 @@ def test_table1_all_reference_indices_are_required_and_isolated():
     config = load("job1_table1_calibration.json")
     assert len(config["jobs"]) == 5
     for job in config["jobs"]:
+        assert job["reference_mode"] == "frozen"
         frozen = job["frozen_reference_indices"]
         assert set(frozen) == {"r0p02", "r0p05"}
         for ratio_key, spec in frozen.items():
@@ -55,3 +59,35 @@ def test_table1_all_reference_indices_are_required_and_isolated():
                 "{project_root}/table1_reproduction/outputs/job1_selection/"
             )
             assert f"/{job['dataset']}/{ratio_key}/graph_a2/seed42/" in spec["path"]
+
+
+def test_frozen_reference_is_reused_exactly(tmp_path):
+    run_dir = tmp_path / "table1" / "r0p02" / "graph_a2" / "seed42"
+    run_dir.mkdir(parents=True)
+    selected = np.asarray([3, 0, 2, 1], dtype=np.int64)
+    order = np.asarray([0, 3, 1, 2], dtype=np.int64)
+    np.save(run_dir / "selected_indices.npy", selected)
+    np.save(run_dir / "selection_order.npy", order)
+    labels = np.asarray([0, 1, 0, 1, 1, 0], dtype=np.int64)
+    margins = MarginResult(
+        same_distance=np.ones(6, dtype=np.float32),
+        different_distance=np.ones(6, dtype=np.float32),
+        ratio=np.ones(6, dtype=np.float32),
+        gap=np.zeros(6, dtype=np.float32),
+        unsafe=np.asarray([False, True, False, False, True, False]),
+    )
+
+    result, audit = load_frozen_reference(
+        {"path": str(run_dir / "selected_indices.npy"), "required": True},
+        labels=labels,
+        margins=margins,
+        budget=2,
+        project_root=tmp_path,
+        config_dir=tmp_path,
+    )
+
+    assert np.array_equal(result.indices, selected)
+    assert np.array_equal(result.order, order)
+    assert audit["status"] == "reused_frozen"
+    assert audit["direct_reuse"] is True
+    assert audit["exact_array_match"] is True

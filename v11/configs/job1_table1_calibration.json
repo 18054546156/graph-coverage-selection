@@ -11,6 +11,7 @@
       "dataset": "organsmnist",
       "ratios": [0.02, 0.05],
       "reference_variant": "a0_original",
+      "reference_mode": "frozen",
       "frozen_reference_indices": {
         "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/organsmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
         "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/organsmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
@@ -33,6 +34,7 @@
       "dataset": "organamnist",
       "ratios": [0.02, 0.05],
       "reference_variant": "a0_original",
+      "reference_mode": "frozen",
       "frozen_reference_indices": {
         "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/organamnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
         "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/organamnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
@@ -55,6 +57,7 @@
       "dataset": "pathmnist",
       "ratios": [0.02, 0.05],
       "reference_variant": "a0_original",
+      "reference_mode": "frozen",
       "frozen_reference_indices": {
         "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/pathmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
         "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/pathmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
@@ -77,6 +80,7 @@
       "dataset": "tissuemnist",
       "ratios": [0.02, 0.05],
       "reference_variant": "a0_original",
+      "reference_mode": "frozen",
       "frozen_reference_indices": {
         "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/tissuemnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
         "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/tissuemnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
@@ -99,6 +103,7 @@
       "dataset": "bloodmnist",
       "ratios": [0.02, 0.05],
       "reference_variant": "a0_original",
+      "reference_mode": "frozen",
       "frozen_reference_indices": {
         "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/bloodmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
         "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/bloodmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
