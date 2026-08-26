@@ -1,0 +1,54 @@
+{
+  "schema": "graphcov-v11/dataset-registry-v1",
+  "scope": "Training embeddings and training labels only",
+  "datasets": {
+    "dermamnist": {
+      "embedding": "{project_root}/v5/cache/embeddings/dermamnist_train_uni_224.npz",
+      "label_archive": "~/.medmnist/dermamnist_224.npz",
+      "label_key": "train_labels",
+      "n_train": 7007,
+      "n_classes": 7,
+      "embedding_dim": 1024
+    },
+    "organsmnist": {
+      "embedding": "{project_root}/cache/embeddings/organsmnist_train_uni_224.npz",
+      "label_archive": "~/.medmnist/organsmnist_224.npz",
+      "label_key": "train_labels",
+      "n_train": 13932,
+      "n_classes": 11,
+      "embedding_dim": 1024
+    },
+    "organamnist": {
+      "embedding": "{project_root}/cache/embeddings/organamnist_train_uni_224.npz",
+      "label_archive": "~/.medmnist/organamnist_224.npz",
+      "label_key": "train_labels",
+      "n_train": 34561,
+      "n_classes": 11,
+      "embedding_dim": 1024
+    },
+    "pathmnist": {
+      "embedding": "{project_root}/cache/embeddings/pathmnist_train_uni_224.npz",
+      "label_archive": "~/.medmnist/pathmnist_224.npz",
+      "label_key": "train_labels",
+      "n_train": 89996,
+      "n_classes": 9,
+      "embedding_dim": 1024
+    },
+    "tissuemnist": {
+      "embedding": "{project_root}/cache/embeddings/tissuemnist_train_uni_224.npz",
+      "label_archive": "~/.medmnist/tissuemnist_224.npz",
+      "label_key": "train_labels",
+      "n_train": 165466,
+      "n_classes": 8,
+      "embedding_dim": 1024
+    },
+    "bloodmnist": {
+      "embedding": "{project_root}/cache/embeddings/bloodmnist_train_uni_224.npz",
+      "label_archive": "~/.medmnist/bloodmnist_224.npz",
+      "label_key": "train_labels",
+      "n_train": 11959,
+      "n_classes": 8,
+      "embedding_dim": 1024
+    }
+  }
+}

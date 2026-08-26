@@ -1,0 +1,28 @@
+{
+  "schema": "graphcov-v11/job2-config-v1",
+  "purpose": "Cheap seed-42 validation screen for every Derma atomic selector",
+  "selection_root": "{project_root}/v11/outputs/job1_derma_atomic",
+  "output_root": "{project_root}/v11/outputs/job2_derma_atomic_seed42",
+  "evaluation_split": "val",
+  "training": {
+    "size": 224,
+    "epochs": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.1,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0005,
+    "augmentation": false,
+    "evaluate_every": 10,
+    "num_workers": 4,
+    "deterministic": false
+  },
+  "jobs": [
+    {
+      "dataset": "dermamnist",
+      "ratios": [0.05],
+      "variants": ["a0_original", "a1_final_top70", "a2_perhop_top70", "a3_symmetrized", "a4_decay_h2", "a5_k50_h2", "a6_k10_h6", "a7_ppr_uncapped", "a8_ppr_hardcap_1x", "a9_ppr_posthoc_1x", "a10_ppr_hardcap_075x", "a11_ppr_hardcap_125x"],
+      "seeds": [42]
+    }
+  ]
+}

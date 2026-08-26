@@ -1,0 +1,107 @@
+{
+  "schema": "graphcov-v11/job1-config-v1",
+  "purpose": "Train-only dataset-specific calibration for the five Table-1 datasets",
+  "datasets_file": "datasets_server_3090.json",
+  "output_root": "{project_root}/v11/outputs/job1_table1_calibration",
+  "cache_root": "{project_root}/v11/cache",
+  "knn": {"backend": "faiss", "gpu": 0},
+  "margin": {"backend": "faiss", "gpu": 0, "batch_size": 512},
+  "jobs": [
+    {
+      "dataset": "organsmnist",
+      "ratios": [0.02, 0.05],
+      "reference_variant": "a0_original",
+      "calibration_target": {"k": 30, "hops": 4, "max_degree": 70},
+      "variants": [
+        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-70", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a3_more_hops", "description": "A2 with H=4", "k": 10, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a4_larger_k", "description": "A2 with k=30", "k": 30, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a5_full_ppr", "description": "Combined k=30,H=4 candidate", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a6_full_ppr_cap1", "description": "A5 hard cap 1.0x A0", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.0}},
+        {"id": "a7_full_ppr_cap075", "description": "A5 hard cap 0.75x A0", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 0.75}},
+        {"id": "a8_full_ppr_cap125", "description": "A5 hard cap 1.25x A0", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.25}},
+        {"id": "a9_full_ppr_repair1", "description": "A5 post-hoc repair to A0 cap", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "posthoc_repair", "source_variant": "a0_original", "base_variant": "a5_full_ppr", "multiplier": 1.0}}
+      ]
+    },
+    {
+      "dataset": "organamnist",
+      "ratios": [0.02, 0.05],
+      "reference_variant": "a0_original",
+      "frozen_reference_indices": {
+        "r0p05": {
+          "path": "{project_root}/v4/outputs/tail_aware/organamnist_r0.05/selected_indices/graph_a2.npy",
+          "required": true
+        }
+      },
+      "calibration_target": {"k": 20, "hops": 4, "max_degree": 70},
+      "variants": [
+        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-70", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a3_more_hops", "description": "A2 with H=4", "k": 10, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a4_larger_k", "description": "A2 with k=20", "k": 20, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a5_full_ppr", "description": "Combined k=20,H=4 candidate", "k": 20, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a6_full_ppr_cap1", "description": "A5 hard cap 1.0x A0", "k": 20, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.0}},
+        {"id": "a7_full_ppr_cap075", "description": "A5 hard cap 0.75x A0", "k": 20, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 0.75}},
+        {"id": "a8_full_ppr_cap125", "description": "A5 hard cap 1.25x A0", "k": 20, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.25}},
+        {"id": "a9_full_ppr_repair1", "description": "A5 post-hoc repair to A0 cap", "k": 20, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "posthoc_repair", "source_variant": "a0_original", "base_variant": "a5_full_ppr", "multiplier": 1.0}}
+      ]
+    },
+    {
+      "dataset": "pathmnist",
+      "ratios": [0.02, 0.05],
+      "reference_variant": "a0_original",
+      "calibration_target": {"k": 20, "hops": 3, "max_degree": 70},
+      "variants": [
+        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-70", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a3_more_hops", "description": "A2 with H=3", "k": 10, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a4_larger_k", "description": "A2 with k=20", "k": 20, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a5_full_ppr", "description": "Combined k=20,H=3 candidate", "k": 20, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a6_full_ppr_cap1", "description": "A5 hard cap 1.0x A0", "k": 20, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.0}},
+        {"id": "a7_full_ppr_cap075", "description": "A5 hard cap 0.75x A0", "k": 20, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 0.75}},
+        {"id": "a8_full_ppr_cap125", "description": "A5 hard cap 1.25x A0", "k": 20, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.25}},
+        {"id": "a9_full_ppr_repair1", "description": "A5 post-hoc repair to A0 cap", "k": 20, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "posthoc_repair", "source_variant": "a0_original", "base_variant": "a5_full_ppr", "multiplier": 1.0}}
+      ]
+    },
+    {
+      "dataset": "tissuemnist",
+      "ratios": [0.02, 0.05],
+      "reference_variant": "a0_original",
+      "calibration_target": {"k": 15, "hops": 3, "max_degree": 50},
+      "variants": [
+        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-50", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a3_more_hops", "description": "A2 with H=3", "k": 10, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a4_larger_k", "description": "A2 with k=15", "k": 15, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a5_full_ppr", "description": "Memory-bounded k=15,H=3 candidate", "k": 15, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a6_full_ppr_cap1", "description": "A5 hard cap 1.0x A0", "k": 15, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.0}},
+        {"id": "a7_full_ppr_cap075", "description": "A5 hard cap 0.75x A0", "k": 15, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 0.75}},
+        {"id": "a8_full_ppr_cap125", "description": "A5 hard cap 1.25x A0", "k": 15, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.25}},
+        {"id": "a9_full_ppr_repair1", "description": "A5 post-hoc repair to A0 cap", "k": 15, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "posthoc_repair", "source_variant": "a0_original", "base_variant": "a5_full_ppr", "multiplier": 1.0}}
+      ]
+    },
+    {
+      "dataset": "bloodmnist",
+      "ratios": [0.02, 0.05],
+      "reference_variant": "a0_original",
+      "calibration_target": {"k": 30, "hops": 4, "max_degree": 70},
+      "variants": [
+        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-70", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a3_more_hops", "description": "A2 with H=4", "k": 10, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a4_larger_k", "description": "A2 with k=30", "k": 30, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a5_full_ppr", "description": "Combined k=30,H=4 candidate", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a6_full_ppr_cap1", "description": "A5 hard cap 1.0x A0", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.0}},
+        {"id": "a7_full_ppr_cap075", "description": "A5 hard cap 0.75x A0", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 0.75}},
+        {"id": "a8_full_ppr_cap125", "description": "A5 hard cap 1.25x A0", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.25}},
+        {"id": "a9_full_ppr_repair1", "description": "A5 post-hoc repair to A0 cap", "k": 30, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "posthoc_repair", "source_variant": "a0_original", "base_variant": "a5_full_ppr", "multiplier": 1.0}}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,209 @@
+# GraphCov v11: atomic calibration and frozen downstream evaluation
+
+v11 is an experiment package, not a claim that PPR is already better than
+Graph-A2. It separates selection, validation calibration, and final test access
+so that dataset-specific parameters can be tuned without using the test split.
+
+## Non-negotiable protocol
+
+- Job 1 reads only training UNI embeddings and `train_labels`.
+- Job 1 builds global graphs and enforces equal per-class budgets.
+- Job 2 loads frozen `selected_indices.npy`; it cannot regenerate a subset.
+- Validation chooses one parameterization per dataset at 5%.
+- The chosen parameterization is then frozen and reused at both 2% and 5%.
+- Test is read only by the generated five-seed confirmation config.
+- No image files are copied. All variants share the same MedMNIST archives and
+  embedding caches.
+
+## Methods under test
+
+The baseline is the official global Graph-A2 configuration:
+
+```text
+k=10, H=2, uniform weights, no truncation, equal class quotas
+K = A_hat + A_hat^2
+```
+
+The bounded diffusion candidate is:
+
+```text
+K = sum_{h=1..H} gamma^(h-1) A_hat^h
+```
+
+`gamma=0.85` is the continuation factor corresponding to restart probability
+`r=0.15`. The common factor `r` is omitted because multiplying every kernel
+entry by the same positive constant does not change facility-location greedy
+selection. `per_hop` truncation keeps only the strongest `max_degree` entries
+in each row after every sparse multiplication and accumulation.
+
+Margin safety is defined on the full training pool:
+
+```text
+gap_i = nearest_different_cosine_distance - nearest_same_cosine_distance
+unsafe_i = gap_i <= 0
+```
+
+The hard-cap variants constrain each class's unsafe count relative to the
+original Graph-A2 subset. The post-hoc variant starts from the exact same
+uncapped subset and performs only the number of swaps required to meet that
+cap. This distinguishes diffusion from safety instead of changing both at once.
+
+## Experiment map
+
+| Config | Purpose | Downstream runs |
+|---|---|---:|
+| `job1_derma_atomic.json` | Generate 12 Derma 5% atomic subsets | 0 |
+| `job2_derma_atomic_seed42.json` | Cheap first screen | 12 |
+| `job2_derma_atomic_3seeds.json` | Full Derma mechanism ablation | 36 |
+| `job1_table1_calibration.json` | Generate five-dataset 2%/5% subsets | 0 |
+| `job2_table1_validation_seed42.json` | Cheap 5% validation screen | 25 |
+| `job2_table1_validation_3seeds.json` | Stable 5% validation calibration | 75 |
+| generated test config | Baseline vs frozen winner, 2%/5%, 5 seeds | at most 100 |
+
+The five-dataset target parameters are deliberately different:
+
+| Dataset | Target k | Target H | Max row degree | Reason for bounded search |
+|---|---:|---:|---:|---|
+| OrganS | 30 | 4 | 70 | medium graph, moderate diffusion |
+| OrganA | 20 | 4 | 70 | v10 k=50/H=6 changed the set heavily but gave only a small mean gain |
+| Path | 20 | 3 | 70 | UNI graph is already very pure; avoid unnecessary long diffusion |
+| Tissue | 15 | 3 | 50 | largest dataset and weaker UNI domain match; control fill-in |
+| Blood | 30 | 4 | 70 | small graph permits moderate expansion |
+
+These values are candidates, not reported winners. `a3_more_hops`,
+`a4_larger_k`, `a5_full_ppr`, and `a6_full_ppr_cap1` isolate propagation,
+neighborhood size, their combination, and safety.
+
+## Server setup
+
+```bash
+ssh lab
+cd /root/graphcov_pathmnist_sota
+git fetch origin
+git switch codex/sync-remote-reproduction
+git pull --ff-only
+export GRAPHCOV_PYTHON=/root/miniconda3/envs/graphcov_pathmnist/bin/python
+
+$GRAPHCOV_PYTHON v11/experiments/preflight_server.py
+$GRAPHCOV_PYTHON -m pytest -q v11/tests
+```
+
+The preflight checks all six UNI caches, MedMNIST archives, dimensions,
+dependencies, and CUDA visibility before any selection starts.
+
+## Job 1: selection only
+
+Derma atomic selection:
+
+```bash
+bash v11/scripts/run_job1.sh v11/configs/job1_derma_atomic.json
+```
+
+Five Table-1 datasets:
+
+```bash
+bash v11/scripts/run_job1.sh v11/configs/job1_table1_calibration.json
+```
+
+To run only one dataset or to inspect a config without loading data:
+
+```bash
+$GRAPHCOV_PYTHON v11/experiments/job1_select.py \
+  --config v11/configs/job1_table1_calibration.json \
+  --only-dataset pathmnist
+
+$GRAPHCOV_PYTHON v11/experiments/job1_select.py \
+  --config v11/configs/job1_table1_calibration.json --dry-run
+```
+
+Each subset is written as:
+
+```text
+v11/outputs/<job1>/DATASET/r0p05/VARIANT/
+  selected_indices.npy
+  selection_order.npy
+  selection_metrics.json
+  variant_config.json
+```
+
+`selection_metrics.json` records index hashes, Jaccard with Graph-A2, exact
+margin statistics, self-kernel and Graph-A2 coverage, kNN purity, graph
+sparsity, cross-class mass, and asymmetry.
+
+Derma 5% and OrganA 5% also have required real-data reproduction checks against
+the frozen official Graph-A2 indices already present on the 3090 server. Job 1
+stops immediately unless the generated and frozen sets match exactly.
+
+## Job 2: frozen ResNet-18 evaluation
+
+Check GPU availability before launch:
+
+```bash
+nvidia-smi --query-gpu=index,memory.used,memory.total --format=csv,noheader
+```
+
+Launch deterministic shards in two screen sessions. Replace the config path as
+needed:
+
+```bash
+screen -dmS v11_val_gpu0 bash -lc \
+  'cd /root/graphcov_pathmnist_sota && bash v11/scripts/run_job2_gpu0.sh v11/configs/job2_table1_validation_3seeds.json'
+
+screen -dmS v11_val_gpu1 bash -lc \
+  'cd /root/graphcov_pathmnist_sota && bash v11/scripts/run_job2_gpu1.sh v11/configs/job2_table1_validation_3seeds.json'
+
+screen -ls
+tail -f v11/logs/job2_table1_validation_3seeds_gpu0.log
+```
+
+The three-seed config uses the same output root as the seed-42 config, so
+completed seed-42 runs are skipped rather than repeated.
+
+Summarize completed runs:
+
+```bash
+bash v11/scripts/summarize_job2.sh \
+  v11/outputs/job2_table1_validation
+```
+
+Outputs include final accuracy, balanced accuracy, worst-class recall,
+class-CVaR20, best validation BA, per-class recall, training history, elapsed
+time, and the frozen selection hashes.
+
+## Freeze validation winners, then read test
+
+Run this only after all 75 validation runs exist:
+
+```bash
+$GRAPHCOV_PYTHON v11/experiments/freeze_validation_winners.py \
+  --validation-root v11/outputs/job2_table1_validation \
+  --validation-config v11/configs/job2_table1_validation_3seeds.json \
+  --selection-root v11/outputs/job1_table1_calibration \
+  --output-config v11/configs/generated_job2_table1_test.json \
+  --test-output-root v11/outputs/job2_table1_test
+```
+
+The default freeze rule selects the highest mean validation BA candidate only
+when its mean worst-class recall is no more than 2 percentage points below the
+Graph-A2 baseline. If no candidate passes, Graph-A2 remains the winner. The
+script writes both the test config and a `freeze_manifest.json` decision audit.
+
+Then launch the generated config on both GPUs using the same Job-2 scripts.
+Do not modify its dataset-specific winners after seeing test results.
+
+## Code layout
+
+```text
+v11/
+  configs/                 explicit parameter combinations
+  methods/selection.py     graph, diffusion, margins, constrained greedy
+  experiments/job1_select.py
+  experiments/job2_downstream.py
+  experiments/freeze_validation_winners.py
+  experiments/summarize_downstream.py
+  scripts/                 server launchers
+  tests/                   synthetic and config tests
+```
+
+`--force` intentionally recomputes and overwrites a completed stage. Without
+it, Job 2 is resumable and skips result JSON files that already exist.
