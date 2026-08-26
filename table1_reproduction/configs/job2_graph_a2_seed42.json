@@ -1,0 +1,37 @@
+{
+  "schema": "graphcov-table1/job2-config-v1",
+  "purpose": "Single-seed Graph-A2 downstream test pilot using frozen official indices",
+  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection",
+  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1",
+  "evaluation_split": "test",
+  "datasets": [
+    "organsmnist",
+    "organamnist",
+    "pathmnist",
+    "tissuemnist",
+    "bloodmnist"
+  ],
+  "ratios": [0.02, 0.05],
+  "methods": ["graph_a2"],
+  "training_seeds": [42],
+  "fixed_selection_seed": 42,
+  "selection_seed_policy": {"default": "fixed"},
+  "training": {
+    "size": 224,
+    "epochs": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.1,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0005,
+    "augmentation": false,
+    "evaluate_every": 10,
+    "num_workers": 4,
+    "deterministic": false
+  },
+  "assumptions": [
+    "This pilot reads the ten frozen Graph-A2 subsets produced by Job 26635.",
+    "Each run saves its final test result, training history, and per-class metrics.",
+    "The output root matches the full Table 1 run so future jobs can resume without repeating seed 42."
+  ]
+}
