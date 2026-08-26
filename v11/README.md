@@ -79,14 +79,22 @@ neighborhood size, their combination, and safety.
 ```bash
 ssh lab
 cd /root/graphcov_pathmnist_sota
-git fetch origin
-git switch codex/sync-remote-reproduction
-git pull --ff-only
+
+# Safe for the existing server worktree: fetch the fork and update only v11/.
+git fetch https://github.com/18054546156/graph-coverage-selection.git \
+  codex/sync-remote-reproduction
+git checkout FETCH_HEAD -- v11
+
 export GRAPHCOV_PYTHON=/root/miniconda3/envs/graphcov_pathmnist/bin/python
 
 $GRAPHCOV_PYTHON v11/experiments/preflight_server.py
 $GRAPHCOV_PYTHON -m pytest -q v11/tests
 ```
+
+For a clean clone, use
+`https://github.com/18054546156/graph-coverage-selection.git` and switch to
+branch `codex/sync-remote-reproduction`. The original author's `origin` does
+not contain this branch.
 
 The preflight checks all six UNI caches, MedMNIST archives, dimensions,
 dependencies, and CUDA visibility before any selection starts.
