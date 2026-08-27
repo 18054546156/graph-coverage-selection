@@ -48,7 +48,8 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
         grouped.setdefault(key, []).append(row)
     output = []
     for (dataset, ratio, method), values in sorted(grouped.items()):
-        ba = [float(value["balanced_accuracy"]) for value in values]
+        best_ba = [float(value["best_balanced_accuracy"]) for value in values]
+        final_ba = [float(value["balanced_accuracy"]) for value in values]
         acc = [float(value["accuracy"]) for value in values]
         worst = [float(value["worst_class_recall"]) for value in values]
         cvar = [float(value["class_cvar20"]) for value in values]
@@ -59,8 +60,10 @@ def aggregate(rows: list[dict[str, Any]]) -> list[dict[str, Any]]:
                 "method": method,
                 "n_seeds": len(values),
                 "training_seeds": ",".join(str(value["training_seed"]) for value in values),
-                "balanced_accuracy_mean": statistics.mean(ba),
-                "balanced_accuracy_std": statistics.stdev(ba) if len(ba) > 1 else 0.0,
+                "best_balanced_accuracy_mean": statistics.mean(best_ba),
+                "best_balanced_accuracy_std": statistics.stdev(best_ba) if len(best_ba) > 1 else 0.0,
+                "final_balanced_accuracy_mean": statistics.mean(final_ba),
+                "final_balanced_accuracy_std": statistics.stdev(final_ba) if len(final_ba) > 1 else 0.0,
                 "accuracy_mean": statistics.mean(acc),
                 "accuracy_std": statistics.stdev(acc) if len(acc) > 1 else 0.0,
                 "worst_class_recall_mean": statistics.mean(worst),
@@ -81,7 +84,8 @@ def table_markdown(rows: list[dict[str, Any]]) -> str:
     lines = [
         "# Table 1 Reproduction",
         "",
-        "Values are test balanced accuracy (%) mean +/- sample std over the available training seeds.",
+        "Values are best-epoch test balanced accuracy (%) mean +/- sample std over the available training seeds.",
+        "Final-epoch balanced accuracy and class metrics remain in the CSV as diagnostics.",
         "A missing cell means that Job 2 has not produced all or any result for that condition.",
         "",
         "| Dataset | Ratio | Random | EL2N | Forgetting | EVA | Facility | FPS | Herding | Graph-A2/Ours |",
@@ -96,7 +100,7 @@ def table_markdown(rows: list[dict[str, Any]]) -> str:
                     cells.append("--")
                 else:
                     cells.append(
-                        f"{fmt(row['balanced_accuracy_mean'])} +/- {fmt(row['balanced_accuracy_std'])}"
+                        f"{fmt(row['best_balanced_accuracy_mean'])} +/- {fmt(row['best_balanced_accuracy_std'])}"
                     )
             lines.append("| " + " | ".join(cells) + " |")
     return "\n".join(lines) + "\n"
@@ -106,7 +110,8 @@ def write_csv(path: Path, rows: list[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     fields = [
         "dataset", "ratio", "method", "n_seeds", "training_seeds",
-        "balanced_accuracy_mean", "balanced_accuracy_std",
+        "best_balanced_accuracy_mean", "best_balanced_accuracy_std",
+        "final_balanced_accuracy_mean", "final_balanced_accuracy_std",
         "accuracy_mean", "accuracy_std",
         "worst_class_recall_mean", "worst_class_recall_std",
         "class_cvar20_mean", "class_cvar20_std",

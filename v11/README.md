@@ -186,8 +186,9 @@ FREEZE_JOB=$(sbatch --parsable --dependency=afterok:${VALIDATION_JOB} v11/slurm/
 sbatch --dependency=afterok:${FREEZE_JOB} v11/slurm/frozen_test_array.slurm
 ```
 
-The freeze job requires a validation BA gain of at least 0.5 percentage points
-and permits at most a 2 percentage point loss in mean worst-class recall. It
+The freeze job requires a mean best-validation-BA gain of at least 0.5
+percentage points and permits at most a 2 percentage point loss in the
+separately labelled final-epoch mean worst-class recall. It
 writes the immutable decision manifest and generated test config below
 `v11/outputs/frozen_protocol/`. The final test uses seeds 42--46 for both the
 frozen A0 subset and the selected v11 winner at 2% and 5%.
@@ -199,9 +200,11 @@ bash v11/scripts/summarize_job2.sh \
   v11/outputs/job2_table1_validation
 ```
 
-Outputs include final accuracy, balanced accuracy, worst-class recall,
-class-CVaR20, best validation BA, per-class recall, training history, elapsed
-time, and the frozen selection hashes.
+The primary output is best validation BA. Outputs also retain final accuracy,
+final balanced accuracy, final worst-class recall, final class-CVaR20,
+per-class recall, training history, elapsed time, and frozen selection hashes.
+The author runtime records the best score and epoch but does not persist that
+model state, so per-class metrics must not be presented as best-checkpoint metrics.
 
 ## Freeze validation winners, then read test
 
@@ -216,9 +219,10 @@ $GRAPHCOV_PYTHON v11/experiments/freeze_validation_winners.py \
   --test-output-root v11/outputs/job2_table1_test
 ```
 
-The default freeze rule selects the highest mean validation BA candidate only
-when its mean worst-class recall is no more than 2 percentage points below the
-Graph-A2 baseline. If no candidate passes, Graph-A2 remains the winner. The
+The default freeze rule selects the highest mean best validation BA candidate
+only when its separately labelled final-epoch mean worst-class recall is no
+more than 2 percentage points below the Graph-A2 baseline. If no candidate
+passes, Graph-A2 remains the winner. The
 script writes both the test config and a `freeze_manifest.json` decision audit.
 
 Then launch the generated config on both GPUs using the same Job-2 scripts.

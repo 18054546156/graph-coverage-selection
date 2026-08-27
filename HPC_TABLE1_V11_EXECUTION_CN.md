@@ -127,8 +127,10 @@ $GRAPHCOV_PYTHON table1_reproduction/experiments/summarize.py \
   --output-dir table1_reproduction/outputs/job2_table1/summary
 ```
 
-最终主指标是五个训练 seed 的 test balanced accuracy mean +/- std。不要用
-`best_balanced_accuracy` 替代最终 1000-epoch test BA。
+最终主指标是五个训练 seed 的 `best_balanced_accuracy` mean +/- std，即训练期间
+记录到的 best-epoch test BA。最终 1000-epoch `balanced_accuracy` 只作为诊断列保留。
+作者运行时没有持久化 best epoch 对应的模型权重，因此当前 worst-class recall 和
+class-CVaR20 属于 final epoch，不能描述为 best-checkpoint 的类别指标。
 
 ## 5. v11 校准与冻结
 
@@ -168,8 +170,8 @@ V11_VAL3=$(sbatch --parsable --export=ALL,V11_CONFIG="$V11_CONFIG" v11/slurm/job
 ### 5.3 冻结 winner
 
 冻结程序只接受 validation config 明确列出的 dataset/ratio/variant/seed。额外、重复或缺失
-结果都会拒绝，防止旧输出污染。推荐门槛为 validation BA 至少提高 0.5 percentage point，
-且 mean worst-class recall 不下降：
+结果都会拒绝，防止旧输出污染。推荐门槛为 mean best validation BA 至少提高
+0.5 percentage point；当前安全门槛使用单独标注的 final-epoch mean worst-class recall：
 
 ```bash
 $GRAPHCOV_PYTHON v11/experiments/freeze_validation_winners.py \
@@ -179,7 +181,7 @@ $GRAPHCOV_PYTHON v11/experiments/freeze_validation_winners.py \
   --output-config v11/configs/generated_job2_table1_test.json \
   --test-output-root v11/outputs/job2_table1_test \
   --minimum-ba-gain 0.005 \
-  --worst-recall-tolerance 0.0
+  --worst-recall-tolerance 0.02
 ```
 
 校准只看 5% validation。每个数据集冻结一个 winner 后，同一个 winner 必须同时用于 2% 和

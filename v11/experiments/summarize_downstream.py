@@ -11,7 +11,7 @@ from pathlib import Path
 import numpy as np
 
 
-METRICS = ("accuracy", "balanced_accuracy", "worst_class_recall", "class_cvar20")
+FINAL_METRICS = ("accuracy", "balanced_accuracy", "worst_class_recall", "class_cvar20")
 
 
 def main() -> int:
@@ -35,7 +35,7 @@ def main() -> int:
         "variant",
         "training_seed",
         "evaluation_split",
-        *METRICS,
+        *FINAL_METRICS,
         "best_balanced_accuracy",
         "elapsed_seconds",
         "result_path",
@@ -64,10 +64,19 @@ def main() -> int:
             "n_seeds": len(values),
             "seeds": ",".join(str(value["training_seed"]) for value in values),
         }
-        for metric in METRICS:
+        best_observations = np.asarray(
+            [float(value["best_balanced_accuracy"]) for value in values]
+        )
+        summary["best_balanced_accuracy_mean"] = float(np.mean(best_observations))
+        summary["best_balanced_accuracy_std"] = (
+            float(np.std(best_observations, ddof=1)) if len(values) > 1 else 0.0
+        )
+        for metric in FINAL_METRICS:
             observations = np.asarray([float(value[metric]) for value in values])
-            summary[f"{metric}_mean"] = float(np.mean(observations))
-            summary[f"{metric}_std"] = float(np.std(observations, ddof=1)) if len(values) > 1 else 0.0
+            summary[f"final_{metric}_mean"] = float(np.mean(observations))
+            summary[f"final_{metric}_std"] = (
+                float(np.std(observations, ddof=1)) if len(values) > 1 else 0.0
+            )
         summaries.append(summary)
     with (output_dir / "summary.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(summaries[0]))
@@ -77,7 +86,8 @@ def main() -> int:
     lines = [
         "# v11 downstream summary",
         "",
-        "All values are final-split percentages. Best-epoch BA is intentionally not summarized.",
+        "Primary BA is the best-epoch value on the configured evaluation split.",
+        "Worst recall and CVaR20 are final-epoch diagnostics because the author runtime does not persist the best model state.",
         "",
         "| Dataset | Ratio | Variant | Seeds | BA | Worst recall | CVaR20 |",
         "|---|---:|---|---:|---:|---:|---:|",
@@ -85,12 +95,12 @@ def main() -> int:
     for row in summaries:
         lines.append(
             f"| {row['dataset']} | {100 * row['ratio']:.0f}% | {row['variant']} | "
-            f"{row['n_seeds']} | {100 * row['balanced_accuracy_mean']:.2f} +/- "
-            f"{100 * row['balanced_accuracy_std']:.2f} | "
-            f"{100 * row['worst_class_recall_mean']:.2f} +/- "
-            f"{100 * row['worst_class_recall_std']:.2f} | "
-            f"{100 * row['class_cvar20_mean']:.2f} +/- "
-            f"{100 * row['class_cvar20_std']:.2f} |"
+            f"{row['n_seeds']} | {100 * row['best_balanced_accuracy_mean']:.2f} +/- "
+            f"{100 * row['best_balanced_accuracy_std']:.2f} | "
+            f"{100 * row['final_worst_class_recall_mean']:.2f} +/- "
+            f"{100 * row['final_worst_class_recall_std']:.2f} | "
+            f"{100 * row['final_class_cvar20_mean']:.2f} +/- "
+            f"{100 * row['final_class_cvar20_std']:.2f} |"
         )
     (output_dir / "SUMMARY.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(output_dir / "SUMMARY.md")

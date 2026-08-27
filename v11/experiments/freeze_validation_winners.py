@@ -60,10 +60,28 @@ def summarize(rows: list[dict], ratio: float) -> dict[tuple[str, str], dict]:
         output[key] = {
             "n_seeds": len(values),
             "seeds": seeds,
-            "balanced_accuracy_mean": float(np.mean([item["balanced_accuracy"] for item in values])),
-            "balanced_accuracy_std": float(np.std([item["balanced_accuracy"] for item in values], ddof=1)) if len(values) > 1 else 0.0,
-            "worst_class_recall_mean": float(np.mean([item["worst_class_recall"] for item in values])),
-            "class_cvar20_mean": float(np.mean([item["class_cvar20"] for item in values])),
+            "best_balanced_accuracy_mean": float(
+                np.mean([item["best_balanced_accuracy"] for item in values])
+            ),
+            "best_balanced_accuracy_std": float(
+                np.std(
+                    [item["best_balanced_accuracy"] for item in values], ddof=1
+                )
+            ) if len(values) > 1 else 0.0,
+            "final_balanced_accuracy_mean": float(
+                np.mean([item["balanced_accuracy"] for item in values])
+            ),
+            "final_balanced_accuracy_std": float(
+                np.std([item["balanced_accuracy"] for item in values], ddof=1)
+            ) if len(values) > 1 else 0.0,
+            # The author runtime does not persist the best model state. These
+            # class metrics therefore belong to the final epoch only.
+            "final_worst_class_recall_mean": float(
+                np.mean([item["worst_class_recall"] for item in values])
+            ),
+            "final_class_cvar20_mean": float(
+                np.mean([item["class_cvar20"] for item in values])
+            ),
         }
     return output
 
@@ -139,10 +157,14 @@ def main() -> int:
                     f"need {args.required_calibration_seeds}"
                 )
             safe = (
-                values["worst_class_recall_mean"]
-                >= reference["worst_class_recall_mean"] - args.worst_recall_tolerance
+                values["final_worst_class_recall_mean"]
+                >= reference["final_worst_class_recall_mean"]
+                - args.worst_recall_tolerance
             )
-            gain = values["balanced_accuracy_mean"] - reference["balanced_accuracy_mean"]
+            gain = (
+                values["best_balanced_accuracy_mean"]
+                - reference["best_balanced_accuracy_mean"]
+            )
             candidates.append((safe and gain >= args.minimum_ba_gain, gain, variant, values))
         eligible = [item for item in candidates if item[0]]
         winner = max(eligible, key=lambda item: (item[1], item[2])) if eligible else None
@@ -153,7 +175,9 @@ def main() -> int:
         decisions[dataset] = {
             "reference": args.reference_variant,
             "winner": winner_id,
-            "winner_ba_gain": float(winner[1]) if winner is not None else 0.0,
+            "winner_best_balanced_accuracy_gain": (
+                float(winner[1]) if winner is not None else 0.0
+            ),
             "reference_metrics": reference,
             "all_candidates": {variant: values for _, _, variant, values in candidates},
         }
@@ -183,6 +207,13 @@ def main() -> int:
             {
                 "schema": "graphcov-v11/frozen-winners-v1",
                 "calibration_ratio": args.calibration_ratio,
+                "selection_metric": "best_balanced_accuracy",
+                "safety_metric": "final_worst_class_recall",
+                "checkpoint_note": (
+                    "The author runtime records best balanced accuracy and epoch "
+                    "but does not persist the corresponding model state. Final-epoch "
+                    "worst-class recall is used only as a separately labelled safety gate."
+                ),
                 "required_calibration_seeds": args.required_calibration_seeds,
                 "minimum_ba_gain": args.minimum_ba_gain,
                 "worst_recall_tolerance": args.worst_recall_tolerance,
