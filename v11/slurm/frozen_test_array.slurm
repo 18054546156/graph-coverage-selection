@@ -34,6 +34,7 @@ echo "config=${CONFIG} host=$(hostname) start=$(date --iso-8601=seconds)"
 "${PYTHON}" v11/experiments/job2_downstream.py \
   --config "${CONFIG}" \
   --project-root "${PROJECT}" \
+  --evaluation-split test \
   --shard-index "${SLURM_ARRAY_TASK_ID}" \
   --num-shards "${NUM_SHARDS}"
 

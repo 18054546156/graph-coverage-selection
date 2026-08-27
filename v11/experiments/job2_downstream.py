@@ -48,9 +48,28 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--num-shards", type=int, default=1)
     parser.add_argument("--only-dataset")
     parser.add_argument("--only-variant")
+    parser.add_argument(
+        "--evaluation-split",
+        choices=("val", "test"),
+        default=None,
+        help="Evaluation split. Defaults to val; test must be requested explicitly.",
+    )
     parser.add_argument("--force", action="store_true")
     parser.add_argument("--dry-run", action="store_true")
     return parser.parse_args()
+
+
+def resolve_evaluation_split(config: dict, cli_value: str | None) -> str:
+    """Require an explicit CLI opt-in before any test split can be read."""
+    evaluation_split = cli_value or "val"
+    declared = str(config.get("evaluation_split", "val"))
+    if declared != evaluation_split:
+        raise ValueError(
+            f"config evaluation_split={declared!r} does not match CLI split "
+            f"{evaluation_split!r}; pass --evaluation-split test explicitly "
+            "to authorize test access"
+        )
+    return evaluation_split
 
 
 def resolve_path(value: str, project_root: Path, config_dir: Path) -> Path:
@@ -235,9 +254,7 @@ def main() -> int:
     config_dir = config_path.parent
     selection_root = resolve_path(config["selection_root"], project_root, config_dir)
     output_root = resolve_path(config["output_root"], project_root, config_dir)
-    evaluation_split = str(config.get("evaluation_split", "val"))
-    if evaluation_split not in {"val", "test"}:
-        raise ValueError("evaluation_split must be val or test")
+    evaluation_split = resolve_evaluation_split(config, args.evaluation_split)
     jobs = expand_jobs(config)
     jobs = [
         job

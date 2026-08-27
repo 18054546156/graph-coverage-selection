@@ -26,7 +26,7 @@ def test_all_job1_dependencies_are_ordered():
 
 
 def test_job2_counts_and_protocol():
-    from v11.experiments.job2_downstream import expand_jobs
+    from v11.experiments.job2_downstream import expand_jobs, resolve_evaluation_split
 
     derma = load("job2_derma_atomic_seed42.json")
     table = load("job2_table1_validation_3seeds.json")
@@ -37,6 +37,18 @@ def test_job2_counts_and_protocol():
         assert config["training"]["epochs"] == 1000
         assert config["training"]["size"] == 224
         assert config["training"]["augmentation"] is False
+    assert resolve_evaluation_split(table, None) == "val"
+
+
+def test_job2_requires_explicit_test_authorization():
+    import pytest
+
+    from v11.experiments.job2_downstream import resolve_evaluation_split
+
+    test_config = {"evaluation_split": "test"}
+    assert resolve_evaluation_split(test_config, "test") == "test"
+    with pytest.raises(ValueError, match="--evaluation-split test"):
+        resolve_evaluation_split(test_config, None)
 
 
 def test_table1_has_dataset_specific_targets():

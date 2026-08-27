@@ -173,6 +173,10 @@ tail -f v11/logs/job2_table1_validation_3seeds_gpu0.log
 The three-seed config uses the same output root as the seed-42 config, so
 completed seed-42 runs are skipped rather than repeated.
 
+Job 2 defaults to validation regardless of the selected config. Reading the
+test split requires both a test config and the explicit CLI authorization
+`--evaluation-split test`; otherwise the process stops before loading data.
+
 On the Lingnan Slurm cluster, the auditable end-to-end chain is:
 
 ```bash
