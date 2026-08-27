@@ -66,11 +66,23 @@ def verify_official_vendor() -> None:
 def configure_official_runtime() -> Path:
     """Verify and prepend the immutable vendor root before importing graphcov."""
     verify_official_vendor()
+    vendor_package = (VENDOR_ROOT / "graphcov").resolve()
     loaded = sys.modules.get("graphcov")
     if loaded is not None:
-        raise RuntimeError("graphcov was imported before Table 1 vendor isolation was configured")
+        loaded_file = getattr(loaded, "__file__", None)
+        if loaded_file is None:
+            raise RuntimeError(
+                "graphcov was imported before Table 1 vendor isolation was configured"
+            )
+        loaded_path = Path(loaded_file).resolve()
+        if loaded_path != vendor_package / "__init__.py":
+            raise RuntimeError(
+                "non-vendored graphcov was imported before Table 1 isolation: "
+                f"{loaded_path}"
+            )
+        return vendor_package
     vendor_root = str(VENDOR_ROOT)
     if vendor_root in sys.path:
         sys.path.remove(vendor_root)
     sys.path.insert(0, vendor_root)
-    return VENDOR_ROOT / "graphcov"
+    return vendor_package
