@@ -173,6 +173,21 @@ tail -f v11/logs/job2_table1_validation_3seeds_gpu0.log
 The three-seed config uses the same output root as the seed-42 config, so
 completed seed-42 runs are skipped rather than repeated.
 
+On the Lingnan Slurm cluster, the auditable end-to-end chain is:
+
+```bash
+VALIDATION_JOB=$(sbatch --parsable v11/slurm/validation_3seeds_array.slurm)
+A2_JOB=$(sbatch --parsable table1_reproduction/slurm/graph_a2_3seeds_downstream.slurm)
+FREEZE_JOB=$(sbatch --parsable --dependency=afterok:${VALIDATION_JOB} v11/slurm/freeze_table1_winners.slurm)
+sbatch --dependency=afterok:${FREEZE_JOB} v11/slurm/frozen_test_array.slurm
+```
+
+The freeze job requires a validation BA gain of at least 0.5 percentage points
+and permits at most a 2 percentage point loss in mean worst-class recall. It
+writes the immutable decision manifest and generated test config below
+`v11/outputs/frozen_protocol/`. The final test uses seeds 42--46 for both the
+frozen A0 subset and the selected v11 winner at 2% and 5%.
+
 Summarize completed runs:
 
 ```bash

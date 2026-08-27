@@ -53,6 +53,16 @@ def test_job2_has_exact_table1_workload():
     assert len({(job["dataset"], job["ratio"], job["method"]) for job in jobs}) == 80
 
 
+def test_graph_a2_three_seed_reproduction_workload():
+    config = load("job2_graph_a2_3seeds.json")
+    jobs = expand_jobs(config)
+    assert config["evaluation_split"] == "test"
+    assert config["methods"] == ["graph_a2"]
+    assert config["training_seeds"] == [42, 43, 44]
+    assert len(jobs) == 5 * 2 * 1 * 3
+    assert all(selection_seed_for("graph_a2", seed, config) == 42 for seed in (42, 43, 44))
+
+
 def test_job1_expected_selection_workload():
     config = load("job1_table1.json")
     count = 0

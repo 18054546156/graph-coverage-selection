@@ -1,0 +1,37 @@
+{
+  "schema": "graphcov-table1/job2-config-v1",
+  "purpose": "Three-seed Graph-A2 test reproduction using the isolated official implementation",
+  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection",
+  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1",
+  "evaluation_split": "test",
+  "datasets": [
+    "organsmnist",
+    "organamnist",
+    "pathmnist",
+    "tissuemnist",
+    "bloodmnist"
+  ],
+  "ratios": [0.02, 0.05],
+  "methods": ["graph_a2"],
+  "training_seeds": [42, 43, 44],
+  "fixed_selection_seed": 42,
+  "selection_seed_policy": {"default": "fixed"},
+  "training": {
+    "size": 224,
+    "epochs": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.1,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0005,
+    "augmentation": false,
+    "evaluate_every": 10,
+    "num_workers": 4,
+    "deterministic": false
+  },
+  "assumptions": [
+    "Graph-A2 selection is deterministic and reuses the ten frozen seed-42 subsets.",
+    "Training seeds 42, 43, and 44 match the first three seeds of the final protocol.",
+    "Existing seed-42 results are verified and skipped rather than overwritten."
+  ]
+}
