@@ -48,9 +48,14 @@ def test_selection_seed_policy_matches_official_runner():
 
 
 def test_job2_has_exact_table1_workload():
-    jobs = expand_jobs(load("job2_table1.json"))
+    config = load("job2_table1.json")
+    jobs = expand_jobs(config)
     assert len(jobs) == 5 * 2 * 8 * 5
     assert len({(job["dataset"], job["ratio"], job["method"]) for job in jobs}) == 80
+    assert config["validation_split"] == "val"
+    assert config["evaluation_split"] == "test"
+    assert config["output_root"].endswith("job2_table1_valckpt")
+    assert config["training"]["evaluate_every"] == 10
 
 
 def test_graph_a2_three_seed_reproduction_workload():

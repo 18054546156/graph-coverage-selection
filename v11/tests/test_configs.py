@@ -69,7 +69,7 @@ def test_table1_all_reference_indices_are_required_and_isolated():
         for ratio_key, spec in frozen.items():
             assert spec["required"] is True
             assert spec["path"].startswith(
-                "{project_root}/table1_reproduction/outputs/job1_selection/"
+                "{project_root}/table1_reproduction/outputs/job1_selection_clean/"
             )
             assert f"/{job['dataset']}/{ratio_key}/graph_a2/seed42/" in spec["path"]
 

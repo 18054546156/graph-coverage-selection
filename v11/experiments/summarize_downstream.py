@@ -73,8 +73,8 @@ def main() -> int:
         )
         for metric in FINAL_METRICS:
             observations = np.asarray([float(value[metric]) for value in values])
-            summary[f"final_{metric}_mean"] = float(np.mean(observations))
-            summary[f"final_{metric}_std"] = (
+            summary[f"selected_{metric}_mean"] = float(np.mean(observations))
+            summary[f"selected_{metric}_std"] = (
                 float(np.std(observations, ddof=1)) if len(values) > 1 else 0.0
             )
         summaries.append(summary)
@@ -86,8 +86,8 @@ def main() -> int:
     lines = [
         "# v11 downstream summary",
         "",
-        "Primary BA is the best-epoch value on the configured evaluation split.",
-        "Worst recall and CVaR20 are final-epoch diagnostics because the author runtime does not persist the best model state.",
+        "Primary BA is the configured evaluation split at the validation-selected checkpoint.",
+        "Worst recall and CVaR20 are measured at the validation-selected checkpoint.",
         "",
         "| Dataset | Ratio | Variant | Seeds | BA | Worst recall | CVaR20 |",
         "|---|---:|---|---:|---:|---:|---:|",
@@ -97,10 +97,10 @@ def main() -> int:
             f"| {row['dataset']} | {100 * row['ratio']:.0f}% | {row['variant']} | "
             f"{row['n_seeds']} | {100 * row['best_balanced_accuracy_mean']:.2f} +/- "
             f"{100 * row['best_balanced_accuracy_std']:.2f} | "
-            f"{100 * row['final_worst_class_recall_mean']:.2f} +/- "
-            f"{100 * row['final_worst_class_recall_std']:.2f} | "
-            f"{100 * row['final_class_cvar20_mean']:.2f} +/- "
-            f"{100 * row['final_class_cvar20_std']:.2f} |"
+            f"{100 * row['selected_worst_class_recall_mean']:.2f} +/- "
+            f"{100 * row['selected_worst_class_recall_std']:.2f} | "
+            f"{100 * row['selected_class_cvar20_mean']:.2f} +/- "
+            f"{100 * row['selected_class_cvar20_std']:.2f} |"
         )
     (output_dir / "SUMMARY.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
     print(output_dir / "SUMMARY.md")

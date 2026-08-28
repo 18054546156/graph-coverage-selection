@@ -70,7 +70,7 @@ EL2N/Forgetting/EVA, creates or loads one training-dynamics cache. It never
 loads validation or test data and saves frozen indices at:
 
 ```text
-table1_reproduction/outputs/job1_selection/
+table1_reproduction/outputs/job1_selection_clean/
   DATASET/r0p02/METHOD/seed42/selected_indices.npy
   DATASET/r0p02/METHOD/seed42/selection_metrics.json
 ```
@@ -80,14 +80,23 @@ seed follows the training seed. Each directory also contains the exact
 selection order and a sorted copy for audit.
 
 Job 2 never regenerates a subset. It verifies the index hash, range, uniqueness,
-and class quota, then trains ResNet-18. The final outputs are:
+and class quota, then trains ResNet-18. During training it reads only the
+validation split, saves the checkpoint with the highest validation balanced
+accuracy, reloads that checkpoint, and evaluates the test split exactly once.
+The strict-run outputs are:
 
 ```text
-table1_reproduction/outputs/job2_table1/
+table1_reproduction/outputs/job2_table1_valckpt/
   DATASET/r0p02/METHOD/seed42/test_result.json
+  DATASET/r0p02/METHOD/seed42/best_val_checkpoint.pt
   DATASET/r0p02/METHOD/seed42/history.json
   DATASET/r0p02/METHOD/seed42/per_class.json
 ```
+
+`test_result.json` reports test balanced accuracy at the validation-selected
+checkpoint. It does not report the maximum test score observed during
+training. The previous `outputs/job2_table1/` directory is historical and
+must not be merged into the strict summary.
 
 The complete workload is `5 x 2 x 8 x 5 = 400` downstream runs. Selection is
 much smaller: 160 frozen selections under the seed policy above, with dynamics
@@ -147,7 +156,7 @@ $GRAPHCOV_PYTHON table1_reproduction/experiments/job2_downstream.py \
 
 Do not launch the full Job 2 until Job 1 has finished and its selection
 manifest shows the expected quotas. The summarizer writes
-`outputs/job2_table1/summary/table1_reproduction.md` and a machine-readable
+`outputs/job2_table1_valckpt/summary/table1_reproduction.md` and a machine-readable
 `per_condition_mean_std.csv`.
 
 ## Local verification

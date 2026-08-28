@@ -1,7 +1,7 @@
 {
   "schema": "graphcov-table1/job1-config-v1",
   "purpose": "Official Table 1 selection stage; no validation or test data is read",
-  "output_root": "{project_root}/table1_reproduction/outputs/job1_selection",
+  "output_root": "{project_root}/table1_reproduction/outputs/job1_selection_clean",
   "embedding_cache_root": "{project_root}/cache/embeddings",
   "dynamics_cache_root": "{project_root}/cache/embeddings",
   "dataset_registry": "{config_dir}/datasets_server_3090.json",
@@ -26,7 +26,7 @@
     "k_neighbors": 10,
     "k_hops": 2,
     "global_selection": false,
-    "sparse_cpu": true,
+    "sparse_cpu": false,
     "facility_block_size": 2048
   },
   "methods": {

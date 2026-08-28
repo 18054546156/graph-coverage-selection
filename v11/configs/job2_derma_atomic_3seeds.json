@@ -2,7 +2,8 @@
   "schema": "graphcov-v11/job2-config-v1",
   "purpose": "Three-seed validation ablation; run after the seed-42 screen",
   "selection_root": "{project_root}/v11/outputs/job1_derma_atomic",
-  "output_root": "{project_root}/v11/outputs/job2_derma_atomic_3seeds",
+  "output_root": "{project_root}/v11/outputs/job2_derma_atomic_3seeds_valckpt",
+  "validation_split": "val",
   "evaluation_split": "val",
   "training": {
     "size": 224,

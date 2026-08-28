@@ -1,8 +1,9 @@
 {
   "schema": "graphcov-table1/job2-config-v1",
   "purpose": "Frozen-index downstream Table 1 evaluation",
-  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection",
-  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1",
+  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection_clean",
+  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1_valckpt",
+  "validation_split": "val",
   "evaluation_split": "test",
   "datasets": [
     "organsmnist",
@@ -45,6 +46,7 @@
   "assumptions": [
     "Job 2 only consumes Job 1 selected indices; it never regenerates a subset.",
     "The paper reports balanced accuracy; accuracy, worst-class recall and CVaR20 are retained as audit metrics.",
-    "Test is read only in this final Table 1 stage after selection is frozen."
+    "Training reads validation only and saves the best validation checkpoint; test is loaded after training and evaluated exactly once.",
+    "The old job2_table1 output is retained as a historical run and is not mixed with this strict validation-checkpoint output."
   ]
 }

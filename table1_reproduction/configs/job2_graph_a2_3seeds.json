@@ -1,8 +1,9 @@
 {
   "schema": "graphcov-table1/job2-config-v1",
   "purpose": "Three-seed Graph-A2 test reproduction using the isolated official implementation",
-  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection",
-  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1",
+  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection_clean",
+  "output_root": "{project_root}/table1_reproduction/outputs/job2_graph_a2_3seeds_valckpt",
+  "validation_split": "val",
   "evaluation_split": "test",
   "datasets": [
     "organsmnist",
@@ -32,6 +33,7 @@
   "assumptions": [
     "Graph-A2 selection is deterministic and reuses the ten frozen seed-42 subsets.",
     "Training seeds 42, 43, and 44 match the first three seeds of the final protocol.",
-    "Existing seed-42 results are verified and skipped rather than overwritten."
+    "Existing results in the old job2_table1 directory are retained; this strict run writes to a separate output root.",
+    "Training reads validation only, saves the best validation checkpoint, then evaluates test exactly once."
   ]
 }

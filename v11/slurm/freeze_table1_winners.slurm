@@ -22,17 +22,17 @@ cd "${PROJECT}"
 mkdir -p "${PROTOCOL_DIR}"
 
 "${PYTHON}" v11/experiments/freeze_validation_winners.py \
-  --validation-root "${PROJECT}/v11/outputs/job2_table1_validation" \
+  --validation-root "${PROJECT}/v11/outputs/job2_table1_validation_valckpt" \
   --validation-config "${PROJECT}/v11/configs/job2_table1_validation_3seeds.json" \
   --selection-root "${PROJECT}/v11/outputs/job1_table1_calibration" \
   --output-config "${PROTOCOL_DIR}/job2_table1_test.json" \
-  --test-output-root "${PROJECT}/v11/outputs/job2_table1_test" \
+  --test-output-root "${PROJECT}/v11/outputs/job2_table1_test_valckpt" \
   --required-calibration-seeds 3 \
   --minimum-ba-gain 0.005 \
   --worst-recall-tolerance 0.02
 
 "${PYTHON}" v11/experiments/summarize_downstream.py \
-  --input-root "${PROJECT}/v11/outputs/job2_table1_validation" \
+  --input-root "${PROJECT}/v11/outputs/job2_table1_validation_valckpt" \
   --output-dir "${PROTOCOL_DIR}/validation_summary"
 
 echo "frozen_config=${PROTOCOL_DIR}/job2_table1_test.json"

@@ -1,8 +1,9 @@
 {
   "schema": "graphcov-table1/job2-config-v1",
   "purpose": "Single-seed Graph-A2 downstream test pilot using frozen official indices",
-  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection",
-  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1",
+  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection_clean",
+  "output_root": "{project_root}/table1_reproduction/outputs/job2_graph_a2_seed42_valckpt",
+  "validation_split": "val",
   "evaluation_split": "test",
   "datasets": [
     "organsmnist",
@@ -32,6 +33,7 @@
   "assumptions": [
     "This pilot reads the ten frozen Graph-A2 subsets produced by Job 26635.",
     "Each run saves its final test result, training history, and per-class metrics.",
-    "The output root matches the full Table 1 run so future jobs can resume without repeating seed 42."
+    "This strict pilot writes to a separate output root and does not mix with the old test-selected results.",
+    "Training reads validation only, saves the best validation checkpoint, then evaluates test exactly once."
   ]
 }

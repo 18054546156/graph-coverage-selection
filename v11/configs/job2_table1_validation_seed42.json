@@ -2,7 +2,8 @@
   "schema": "graphcov-v11/job2-config-v1",
   "purpose": "Seed-42 validation screen at 5%; no test access",
   "selection_root": "{project_root}/v11/outputs/job1_table1_calibration",
-  "output_root": "{project_root}/v11/outputs/job2_table1_validation",
+  "output_root": "{project_root}/v11/outputs/job2_table1_validation_valckpt",
+  "validation_split": "val",
   "evaluation_split": "val",
   "training": {"size": 224, "epochs": 1000, "batch_size": 256, "learning_rate": 0.1, "momentum": 0.9, "nesterov": false, "weight_decay": 0.0005, "augmentation": false, "evaluate_every": 10, "num_workers": 4, "deterministic": false},
   "jobs": [

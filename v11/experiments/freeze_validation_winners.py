@@ -35,7 +35,12 @@ def load_rows(root: Path) -> list[dict]:
     rows = []
     for path in sorted(root.rglob("*_result.json")):
         row = json.loads(path.read_text(encoding="utf-8"))
-        if row.get("evaluation_split") != "val" or row.get("test_read", False):
+        if (
+            row.get("evaluation_split") != "val"
+            or row.get("test_read", False)
+            or row.get("test_evaluations") != 0
+            or row.get("evaluation_protocol") != "validation_checkpoint_v1"
+        ):
             raise ValueError(f"calibration input is not validation-only: {path}")
         row["result_path"] = str(path)
         rows.append(row)
@@ -74,12 +79,12 @@ def summarize(rows: list[dict], ratio: float) -> dict[tuple[str, str], dict]:
             "final_balanced_accuracy_std": float(
                 np.std([item["balanced_accuracy"] for item in values], ddof=1)
             ) if len(values) > 1 else 0.0,
-            # The author runtime does not persist the best model state. These
-            # class metrics therefore belong to the final epoch only.
-            "final_worst_class_recall_mean": float(
+            # Strict v11 persists the validation-selected checkpoint, so these
+            # class metrics are measured at that checkpoint.
+            "worst_class_recall_mean": float(
                 np.mean([item["worst_class_recall"] for item in values])
             ),
-            "final_class_cvar20_mean": float(
+            "class_cvar20_mean": float(
                 np.mean([item["class_cvar20"] for item in values])
             ),
         }
@@ -157,8 +162,8 @@ def main() -> int:
                     f"need {args.required_calibration_seeds}"
                 )
             safe = (
-                values["final_worst_class_recall_mean"]
-                >= reference["final_worst_class_recall_mean"]
+                values["worst_class_recall_mean"]
+                >= reference["worst_class_recall_mean"]
                 - args.worst_recall_tolerance
             )
             gain = (
@@ -195,6 +200,7 @@ def main() -> int:
         "purpose": "Frozen test confirmation generated from validation-only calibration",
         "selection_root": str(args.selection_root.resolve()),
         "output_root": str(args.test_output_root.resolve()),
+        "validation_split": "val",
         "evaluation_split": "test",
         "training": source_config["training"],
         "jobs": jobs,
@@ -208,11 +214,11 @@ def main() -> int:
                 "schema": "graphcov-v11/frozen-winners-v1",
                 "calibration_ratio": args.calibration_ratio,
                 "selection_metric": "best_balanced_accuracy",
-                "safety_metric": "final_worst_class_recall",
+                "safety_metric": "worst_class_recall_at_validation_selected_checkpoint",
                 "checkpoint_note": (
-                    "The author runtime records best balanced accuracy and epoch "
-                    "but does not persist the corresponding model state. Final-epoch "
-                    "worst-class recall is used only as a separately labelled safety gate."
+                    "The strict v11 runtime persists best_val_checkpoint.pt. "
+                    "The safety metric is measured at that validation-selected "
+                    "checkpoint and calibration never reads test."
                 ),
                 "required_calibration_seeds": args.required_calibration_seeds,
                 "minimum_ba_gain": args.minimum_ba_gain,

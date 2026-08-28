@@ -14,14 +14,20 @@ import time
 
 import numpy as np
 import torch
-from torch.utils.data import Dataset
+from torch.utils.data import DataLoader, Dataset, Subset
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
-from graphcov.run.data import load_dataset  # noqa: E402
-from graphcov.run.evaluation import evaluate_selection  # noqa: E402
+from graphcov.run.data import load_dataset, wrap_with_augmentation  # noqa: E402
+from graphcov.run.embeddings import ResNet18WithFeatures  # noqa: E402
+from graphcov.run.evaluation import (  # noqa: E402
+    device,
+    evaluate_model,
+    set_seed,
+    train_one_epoch,
+)
 
 
 class LongLabelDataset(Dataset):
@@ -130,12 +136,155 @@ def validate_selection(selected: np.ndarray, labels: np.ndarray, budget: int) ->
     return counts
 
 
+def train_with_validation_checkpoint(
+    train_dataset: Dataset,
+    validation_dataset: Dataset,
+    selected_indices: list[int],
+    num_classes: int,
+    in_channels: int,
+    training: dict,
+    seed: int,
+    checkpoint_path: Path,
+) -> dict:
+    """Train on train, select by validation BA, and persist the best model.
+
+    The upstream ``evaluate_selection`` function calls its evaluation input
+    ``test_dataset`` and reads it throughout training. v11 needs a separate
+    validation-selection phase so that the final test score is not used to
+    choose a checkpoint.
+    """
+    set_seed(seed, deterministic=bool(training.get("deterministic", False)))
+
+    selected_subset: Dataset = Subset(train_dataset, selected_indices)
+    if bool(training.get("augmentation", False)):
+        selected_subset = wrap_with_augmentation(
+            selected_subset, in_channels=in_channels, size=int(training["size"])
+        )
+
+    batch_size = int(training["batch_size"])
+    num_workers = int(training.get("num_workers", 4))
+    train_loader = DataLoader(
+        selected_subset,
+        batch_size=batch_size,
+        shuffle=True,
+        num_workers=num_workers,
+        pin_memory=True,
+    )
+    validation_loader = DataLoader(
+        validation_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=num_workers,
+        pin_memory=False,
+    )
+
+    model = ResNet18WithFeatures(num_classes, in_channels, pretrained=False).to(device)
+    optimizer = torch.optim.SGD(
+        model.parameters(),
+        lr=float(training["learning_rate"]),
+        momentum=float(training.get("momentum", 0.9)),
+        weight_decay=float(training.get("weight_decay", 5e-4)),
+        nesterov=bool(training.get("nesterov", False)),
+    )
+    epochs = int(training["epochs"])
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
+    criterion = torch.nn.CrossEntropyLoss()
+    evaluate_every = max(1, int(training.get("evaluate_every", 10)))
+    history = []
+    best_val_acc = -float("inf")
+    best_val_balanced_accuracy = -float("inf")
+    best_epoch = 0
+
+    checkpoint_path.parent.mkdir(parents=True, exist_ok=True)
+    for epoch in range(epochs):
+        train_loss, train_acc = train_one_epoch(
+            model, train_loader, optimizer, criterion
+        )
+        scheduler.step()
+        epoch_number = epoch + 1
+        val_acc = None
+        val_balanced_accuracy = None
+        if epoch_number % evaluate_every == 0 or epoch_number == epochs:
+            val_acc, val_balanced_accuracy = evaluate_model(model, validation_loader)
+            if (
+                val_balanced_accuracy > best_val_balanced_accuracy
+                or best_epoch == 0
+            ):
+                best_val_acc = float(val_acc)
+                best_val_balanced_accuracy = float(val_balanced_accuracy)
+                best_epoch = epoch_number
+                torch.save(
+                    {
+                        "schema": "graphcov-v11/best-checkpoint-v1",
+                        "epoch": best_epoch,
+                        "seed": seed,
+                        "best_val_accuracy": best_val_acc,
+                        "best_val_balanced_accuracy": best_val_balanced_accuracy,
+                        "model_state_dict": {
+                            key: value.detach().cpu()
+                            for key, value in model.state_dict().items()
+                        },
+                    },
+                    checkpoint_path,
+                )
+
+        entry = {
+            "epoch": epoch_number,
+            "train_loss": round(float(train_loss), 6),
+            "train_acc": round(float(train_acc), 6),
+            "lr": round(float(scheduler.get_last_lr()[0]), 8),
+        }
+        if val_acc is not None:
+            entry["val_acc"] = round(float(val_acc), 6)
+            entry["val_bal_acc"] = round(float(val_balanced_accuracy), 6)
+        history.append(entry)
+
+    if best_epoch == 0 or not checkpoint_path.exists():
+        raise RuntimeError("training ended without a validation checkpoint")
+
+    return {
+        "history": history,
+        "best_val_accuracy": best_val_acc,
+        "best_val_balanced_accuracy": best_val_balanced_accuracy,
+        "best_epoch": best_epoch,
+    }
+
+
+def evaluate_checkpoint(
+    checkpoint_path: Path,
+    evaluation_dataset: Dataset,
+    num_classes: int,
+    in_channels: int,
+    batch_size: int,
+    num_workers: int,
+) -> tuple[float, float, dict]:
+    """Load one validation-selected checkpoint and evaluate one split once."""
+    evaluation_loader = DataLoader(
+        evaluation_dataset,
+        batch_size=batch_size,
+        shuffle=False,
+        num_workers=num_workers,
+        pin_memory=False,
+    )
+    checkpoint = torch.load(checkpoint_path, map_location=device)
+    model = ResNet18WithFeatures(num_classes, in_channels, pretrained=False).to(device)
+    model.load_state_dict(checkpoint["model_state_dict"])
+    return evaluate_model(
+        model,
+        evaluation_loader,
+        verbose=True,
+        verbose_per_class=True,
+        return_per_class=True,
+    )
+
+
 def run_one(
     job: dict[str, object],
     *,
     selection_root: Path,
     output_root: Path,
     training: dict,
+    validation_split: str,
     evaluation_split: str,
     force: bool,
 ) -> dict[str, object]:
@@ -168,11 +317,11 @@ def run_one(
     train_raw, info = load_dataset(
         dataset_name, "train", size=int(training["size"]), verbose=True
     )
-    evaluation_raw, _ = load_dataset(
-        dataset_name, evaluation_split, size=int(training["size"]), verbose=True
+    validation_raw, _ = load_dataset(
+        dataset_name, validation_split, size=int(training["size"]), verbose=True
     )
     train_dataset = LongLabelDataset(train_raw)
-    evaluation_dataset = LongLabelDataset(evaluation_raw)
+    validation_dataset = LongLabelDataset(validation_raw)
     labels = np.asarray(train_raw.labels, dtype=np.int64).reshape(-1)
     class_counts = validate_selection(selected, labels, budget)
     classes = np.unique(labels)
@@ -184,28 +333,35 @@ def run_one(
         flush=True,
     )
     started = time.perf_counter()
-    accuracy, balanced_accuracy, history, best_metrics, per_class = evaluate_selection(
+    checkpoint_path = run_dir / "best_val_checkpoint.pt"
+    training_result = train_with_validation_checkpoint(
         train_dataset=train_dataset,
-        test_dataset=evaluation_dataset,
+        validation_dataset=validation_dataset,
         selected_indices=selected.tolist(),
         num_classes=len(classes),
         in_channels=int(info["n_channels"]),
-        training_paradigm="epoch",
-        epochs=int(training["epochs"]),
-        batch_size=int(training["batch_size"]),
-        lr=float(training["learning_rate"]),
-        momentum=float(training.get("momentum", 0.9)),
-        nesterov=bool(training.get("nesterov", False)),
-        weight_decay=float(training.get("weight_decay", 5e-4)),
-        augment=bool(training.get("augmentation", False)),
-        size=int(training["size"]),
+        training=training,
         seed=seed,
-        return_history=True,
-        verbose=True,
-        verbose_per_class=True,
-        deterministic=bool(training.get("deterministic", False)),
-        num_workers=int(training.get("num_workers", 4)),
-        test_every_n_epochs=int(training.get("evaluate_every", 10)),
+        checkpoint_path=checkpoint_path,
+    )
+    # Validation calibration never reads test. Frozen confirmation reads test
+    # only after training, from the checkpoint chosen by validation.
+    if evaluation_split == "val":
+        evaluation_dataset = validation_dataset
+        test_evaluations = 0
+    else:
+        evaluation_raw, _ = load_dataset(
+            dataset_name, "test", size=int(training["size"]), verbose=True
+        )
+        evaluation_dataset = LongLabelDataset(evaluation_raw)
+        test_evaluations = 1
+    accuracy, balanced_accuracy, per_class = evaluate_checkpoint(
+        checkpoint_path,
+        evaluation_dataset,
+        len(classes),
+        int(info["n_channels"]),
+        int(training["batch_size"]),
+        int(training.get("num_workers", 4)),
     )
     recalls = [float(value["accuracy"]) for value in per_class.values()]
     cvar_count = max(1, int(math.ceil(0.2 * len(recalls))))
@@ -215,8 +371,11 @@ def run_one(
         "ratio": ratio,
         "variant": variant,
         "training_seed": seed,
+        "evaluation_protocol": "validation_checkpoint_v1",
+        "validation_split": validation_split,
         "evaluation_split": evaluation_split,
         "test_read": evaluation_split == "test",
+        "test_evaluations": test_evaluations,
         "selection_path": str(selection_path),
         "selection_file_sha256": sha256_file(selection_path),
         "selection_index_sha256": observed_index_hash,
@@ -229,12 +388,19 @@ def run_one(
         "balanced_accuracy": float(balanced_accuracy),
         "worst_class_recall": float(min(recalls)),
         "class_cvar20": float(np.mean(sorted(recalls)[:cvar_count])),
-        "best_balanced_accuracy": float(best_metrics["best_bal_acc"]),
-        "best_epoch": int(best_metrics.get("best_epoch", -1)),
+        "best_balanced_accuracy": float(balanced_accuracy),
+        "best_val_accuracy": float(training_result["best_val_accuracy"]),
+        "best_val_balanced_accuracy": float(
+            training_result["best_val_balanced_accuracy"]
+        ),
+        "best_epoch": int(training_result["best_epoch"]),
+        "checkpoint_path": str(checkpoint_path),
         "elapsed_seconds": float(time.perf_counter() - started),
     }
     result_path.write_text(json.dumps(row, indent=2, sort_keys=True), encoding="utf-8")
-    (run_dir / "history.json").write_text(json.dumps(history), encoding="utf-8")
+    (run_dir / "history.json").write_text(
+        json.dumps(training_result["history"]), encoding="utf-8"
+    )
     (run_dir / "per_class.json").write_text(
         json.dumps(per_class, indent=2, sort_keys=True), encoding="utf-8"
     )
@@ -255,6 +421,11 @@ def main() -> int:
     selection_root = resolve_path(config["selection_root"], project_root, config_dir)
     output_root = resolve_path(config["output_root"], project_root, config_dir)
     evaluation_split = resolve_evaluation_split(config, args.evaluation_split)
+    validation_split = str(config.get("validation_split", "val"))
+    if validation_split not in {"val", "test"}:
+        raise ValueError("validation_split must be val or test")
+    if evaluation_split == "test" and validation_split != "val":
+        raise ValueError("final test evaluation requires validation_split=val")
     jobs = expand_jobs(config)
     jobs = [
         job
@@ -273,6 +444,7 @@ def main() -> int:
             selection_root=selection_root,
             output_root=output_root,
             training=config["training"],
+            validation_split=validation_split,
             evaluation_split=evaluation_split,
             force=args.force,
         )

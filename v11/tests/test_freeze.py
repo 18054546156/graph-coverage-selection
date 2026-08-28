@@ -9,8 +9,9 @@ from v11.experiments.freeze_validation_winners import main
 def test_freeze_selects_safe_validation_winner_and_writes_test_config(tmp_path, monkeypatch):
     validation_root = tmp_path / "validation"
     validation_root.mkdir()
-    # Final BA deliberately disagrees with best BA. Winner selection must use
-    # best_balanced_accuracy while the safety gate remains final-epoch recall.
+    # The selected-checkpoint BA deliberately disagrees with the old-style
+    # best field. Winner selection uses validation-selected BA, while the
+    # safety gate uses recall from that same selected checkpoint.
     for variant, final_ba, best_ba, worst in (
         ("a0_original", 0.70, 0.50, 0.40),
         ("safe_candidate", 0.40, 0.52, 0.39),
@@ -26,8 +27,11 @@ def test_freeze_selects_safe_validation_winner_and_writes_test_config(tmp_path, 
                         "ratio": 0.05,
                         "variant": variant,
                         "training_seed": seed,
+                        "evaluation_protocol": "validation_checkpoint_v1",
+                        "validation_split": "val",
                         "evaluation_split": "val",
                         "test_read": False,
+                        "test_evaluations": 0,
                         "balanced_accuracy": final_ba,
                         "best_balanced_accuracy": best_ba,
                         "best_epoch": 500,
@@ -79,13 +83,14 @@ def test_freeze_selects_safe_validation_winner_and_writes_test_config(tmp_path, 
     )
     assert main() == 0
     config = json.loads(output.read_text(encoding="utf-8"))
+    assert config["validation_split"] == "val"
     assert config["evaluation_split"] == "test"
     assert config["jobs"][0]["variants"] == ["a0_original", "safe_candidate"]
     manifest = json.loads(
         output.with_suffix(".freeze_manifest.json").read_text(encoding="utf-8")
     )
     assert manifest["selection_metric"] == "best_balanced_accuracy"
-    assert manifest["safety_metric"] == "final_worst_class_recall"
+    assert manifest["safety_metric"] == "worst_class_recall_at_validation_selected_checkpoint"
     assert manifest["decisions"]["dermamnist"]["winner"] == "safe_candidate"
     decision = manifest["decisions"]["dermamnist"]
     assert abs(decision["winner_best_balanced_accuracy_gain"] - 0.02) < 1e-12

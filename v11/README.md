@@ -188,7 +188,7 @@ sbatch --dependency=afterok:${FREEZE_JOB} v11/slurm/frozen_test_array.slurm
 
 The freeze job requires a mean best-validation-BA gain of at least 0.5
 percentage points and permits at most a 2 percentage point loss in the
-separately labelled final-epoch mean worst-class recall. It
+mean worst-class recall at the validation-selected checkpoint. It
 writes the immutable decision manifest and generated test config below
 `v11/outputs/frozen_protocol/`. The final test uses seeds 42--46 for both the
 frozen A0 subset and the selected v11 winner at 2% and 5%.
@@ -197,14 +197,17 @@ Summarize completed runs:
 
 ```bash
 bash v11/scripts/summarize_job2.sh \
-  v11/outputs/job2_table1_validation
+  v11/outputs/job2_table1_validation_valckpt
 ```
 
-The primary output is best validation BA. Outputs also retain final accuracy,
-final balanced accuracy, final worst-class recall, final class-CVaR20,
-per-class recall, training history, elapsed time, and frozen selection hashes.
-The author runtime records the best score and epoch but does not persist that
-model state, so per-class metrics must not be presented as best-checkpoint metrics.
+The primary output is the balanced accuracy at the validation-selected
+checkpoint. Outputs also retain validation BA, accuracy, worst-class recall,
+class-CVaR20, per-class recall, training history, elapsed time, checkpoint path,
+and frozen selection hashes.
+The strict v11 runner persists `best_val_checkpoint.pt`. It trains while
+checking validation only, then loads that checkpoint. Validation calibration
+does not read test; frozen confirmation reads test once after training. All
+reported per-class diagnostics are from the validation-selected checkpoint.
 
 ## Freeze validation winners, then read test
 
@@ -212,15 +215,15 @@ Run this only after all 75 validation runs exist:
 
 ```bash
 $GRAPHCOV_PYTHON v11/experiments/freeze_validation_winners.py \
-  --validation-root v11/outputs/job2_table1_validation \
+  --validation-root v11/outputs/job2_table1_validation_valckpt \
   --validation-config v11/configs/job2_table1_validation_3seeds.json \
   --selection-root v11/outputs/job1_table1_calibration \
   --output-config v11/configs/generated_job2_table1_test.json \
-  --test-output-root v11/outputs/job2_table1_test
+  --test-output-root v11/outputs/job2_table1_test_valckpt
 ```
 
 The default freeze rule selects the highest mean best validation BA candidate
-only when its separately labelled final-epoch mean worst-class recall is no
+only when its mean worst-class recall at the validation-selected checkpoint is no
 more than 2 percentage points below the Graph-A2 baseline. If no candidate
 passes, Graph-A2 remains the winner. The
 script writes both the test config and a `freeze_manifest.json` decision audit.

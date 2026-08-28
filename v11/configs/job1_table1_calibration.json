@@ -13,8 +13,8 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/organsmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/organsmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/organsmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/organsmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 30, "hops": 4, "max_degree": 70},
       "variants": [
@@ -36,8 +36,8 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/organamnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/organamnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/organamnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/organamnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 20, "hops": 4, "max_degree": 70},
       "variants": [
@@ -59,8 +59,8 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/pathmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/pathmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/pathmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/pathmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 20, "hops": 3, "max_degree": 70},
       "variants": [
@@ -82,8 +82,8 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/tissuemnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/tissuemnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/tissuemnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/tissuemnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 15, "hops": 3, "max_degree": 50},
       "variants": [
@@ -105,8 +105,8 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/bloodmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection/bloodmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/bloodmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/bloodmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 30, "hops": 4, "max_degree": 70},
       "variants": [

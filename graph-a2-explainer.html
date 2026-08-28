@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Graph-A2：从嵌入到可解释的数据选择</title>
+<style>
+:root{--ink:#18212b;--muted:#61707d;--line:#dce4e9;--paper:#f7f9fa;--card:#fff;--teal:#087f80;--teal-soft:#e4f3f1;--orange:#c4611d;--orange-soft:#fff0e5;--blue:#235c9d;--blue-soft:#eaf1fb;--red:#a53f3f;--red-soft:#fcebea;--green:#2f7953;--green-soft:#e8f4ec;--shadow:0 12px 32px rgba(25,47,64,.08)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--ink);background:var(--paper);font:16px/1.75 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}a{color:var(--blue)}.wrap{width:min(1160px,calc(100% - 36px));margin:0 auto}
+.hero{background:linear-gradient(135deg,#173c4b 0%,#1d5f65 60%,#c4611d 160%);color:#fff;padding:58px 0 48px}.eyebrow{margin:0 0 12px;color:#bde3de;font-size:.82rem;letter-spacing:.12em;text-transform:uppercase}h1,h2,h3,p{margin-top:0}h1{max-width:850px;margin-bottom:18px;font-size:clamp(2rem,5vw,4.1rem);line-height:1.08;letter-spacing:0}h2{margin:0 0 16px;font-size:clamp(1.55rem,3vw,2.25rem);line-height:1.2}h3{margin-bottom:8px;font-size:1.15rem;line-height:1.35}.hero p{max-width:850px;color:#e7f1f0;font-size:1.08rem}.hero-note{border-left:3px solid #f0b37b;padding-left:15px;margin-top:24px;color:#fff}
+.nav{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.94);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}.nav .wrap{display:flex;gap:8px;overflow-x:auto;padding:10px 0}.nav a{flex:0 0 auto;padding:5px 10px;color:var(--muted);text-decoration:none;font-size:.9rem}.nav a:hover{color:var(--teal);background:var(--teal-soft)}
+section{padding:56px 0 8px}.lead{max-width:840px;color:var(--muted);font-size:1.04rem}.grid{display:grid;gap:18px}.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.card{padding:22px;background:var(--card);border:1px solid var(--line);border-radius:8px;box-shadow:var(--shadow)}.card.flat{box-shadow:none}.card p:last-child,.card ul:last-child{margin-bottom:0}.tag{display:inline-block;padding:3px 8px;margin:0 5px 6px 0;border-radius:999px;font-size:.78rem;line-height:1.4;font-weight:700}.tag.teal{color:var(--teal);background:var(--teal-soft)}.tag.orange{color:var(--orange);background:var(--orange-soft)}.tag.blue{color:var(--blue);background:var(--blue-soft)}.tag.green{color:var(--green);background:var(--green-soft)}.tag.red{color:var(--red);background:var(--red-soft)}
+.pipeline{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;align-items:stretch;margin-top:28px}.pipe{position:relative;min-height:142px;padding:16px 12px;background:#fff;border:1px solid #cfe1df;border-top:4px solid var(--teal);border-radius:8px}.pipe:not(:last-child)::after{content:"→";position:absolute;right:-17px;top:49px;color:var(--orange);font-size:24px;font-weight:700;z-index:1}.pipe .num{color:var(--orange);font-size:.75rem;font-weight:800}.pipe strong{display:block;margin:4px 0 5px;font-size:1rem}.pipe small{color:var(--muted);font-size:.8rem;line-height:1.45}
+.formula{display:block;overflow-x:auto;margin:14px 0;padding:14px 16px;color:#143c4b;background:#f0f6f6;border-left:4px solid var(--teal);border-radius:4px;font:600 1.08rem/1.8 Georgia,"Times New Roman",serif;white-space:nowrap}.formula.orange{border-left-color:var(--orange);background:#fff7f0}.formula.blue{border-left-color:var(--blue);background:#f1f5fc}.plain{padding:14px 16px;background:#f6f8f9;border:1px solid var(--line);border-radius:6px}.plain strong{color:var(--teal)}ul{padding-left:1.25rem}li+li{margin-top:7px}
+.symbol-table,.result-table{width:100%;border-collapse:collapse;background:#fff}.symbol-table th,.symbol-table td,.result-table th,.result-table td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}.symbol-table th,.result-table th{color:#fff;background:#215765;font-weight:700}.symbol-table td:first-child{width:20%;color:var(--teal);font:700 1.02rem Georgia,serif}.audit{border-left:4px solid}.audit.pass{border-left-color:var(--green);background:var(--green-soft)}.audit.warn{border-left-color:var(--orange);background:var(--orange-soft)}.audit.stop{border-left-color:var(--red);background:var(--red-soft)}
+.stepbar{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}button{cursor:pointer;border:1px solid #b9ced0;border-radius:5px;padding:9px 13px;color:#20505b;background:#fff;font:inherit;font-weight:700}button:hover,button.active{color:#fff;background:var(--teal);border-color:var(--teal)}
+.example-grid{display:grid;grid-template-columns:290px minmax(0,1fr);gap:18px;align-items:start}.sample-list{display:grid;gap:8px}.sample{display:grid;grid-template-columns:30px 1fr auto;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--line);border-radius:5px;background:#fff}.dot{width:13px;height:13px;border-radius:50%;display:inline-block}.red-dot{background:#c95252}.blue-dot{background:#3d72b8}.green-dot{background:#48946c}.sample code{color:var(--muted);font-size:.82rem}.stage-copy{min-height:106px;margin-bottom:16px}.matrix-wrap{overflow:auto;max-width:100%;border:1px solid var(--line)}.matrix{border-collapse:collapse;min-width:580px;background:#fff;font-size:.82rem}.matrix th,.matrix td{min-width:70px;padding:7px 8px;border:1px solid #e4eaed;text-align:right}.matrix th{color:#315766;background:#f0f5f6;font-weight:800;text-align:center}.matrix td:first-child{text-align:center;color:var(--teal);font-weight:800}.matrix .diag{color:#9aa6ad;background:#fafafa}.matrix .hot{color:#8a3d10;background:#ffe1c7;font-weight:800}.knn-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:15px}.knn-item{padding:9px 11px;background:#fff;border:1px solid var(--line);border-radius:5px}.knn-item strong{color:var(--teal)}.log{margin:0;padding:14px;overflow:auto;max-height:360px;color:#e9f2f2;background:#172b34;border-radius:6px;font:.84rem/1.65 ui-monospace,SFMono-Regular,Consolas,monospace;white-space:pre-wrap}
+.callout{margin:16px 0;padding:17px 19px;border-radius:7px;background:var(--blue-soft);border:1px solid #ccdaf0}.callout strong{color:var(--blue)}.two-col-list{columns:2;column-gap:34px}.two-col-list li{break-inside:avoid}.code{overflow-x:auto;padding:16px;color:#eaf2f2;background:#172b34;border-radius:6px;font:.82rem/1.65 ui-monospace,SFMono-Regular,Consolas,monospace}.footer{margin-top:60px;padding:32px 0 46px;color:var(--muted);border-top:1px solid var(--line)}.small{color:var(--muted);font-size:.9rem}.center{text-align:center}
+@media(max-width:900px){.pipeline{grid-template-columns:repeat(3,1fr)}.pipe:nth-child(3)::after,.pipe:nth-child(6)::after{content:""}.pipe:nth-child(1)::after,.pipe:nth-child(2)::after,.pipe:nth-child(4)::after,.pipe:nth-child(5)::after{right:-16px}.example-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.wrap{width:min(100% - 24px,1160px)}.hero{padding:40px 0 34px}section{padding-top:40px}.grid-2,.grid-3{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr 1fr}.pipe{min-height:125px}.pipe:not(:last-child)::after{content:""}.knn-list{grid-template-columns:1fr}.two-col-list{columns:1}.symbol-table th,.symbol-table td,.result-table th,.result-table td{padding:8px;font-size:.88rem}}
+</style>
+</head>
+<body>
+<header class="hero"><div class="wrap">
+<p class="eyebrow">Paper explainer · Graph coverage selection</p>
+<h1>Graph-A2：为什么“覆盖邻域”比只看距离更适合选数据？</h1>
+<p>这页把论文第 2.1–2.3 节翻译成一个可以手算、可以点击运行的小实验：先把图像变成向量，再把向量变成图，最后在每个类别预算有限时，贪心地挑出最能覆盖全体数据的样本。</p>
+<p class="hero-note"><strong>先给结论：</strong>Graph-A2 的可验证核心是“图上的两跳覆盖 + 受类别预算约束的 facility-location 贪心”。它能给出组合优化目标的理论保证，但不能自动保证 ResNet 的 balanced accuracy，也不能仅凭公式证明“二跳一定最好”。</p>
+</div></header>
+<nav class="nav" aria-label="页面导航"><div class="wrap">
+<a href="#idea">一句话</a><a href="#symbols">符号表</a><a href="#steps">逐步公式</a><a href="#demo">可计算例子</a><a href="#audit">真伪核验</a><a href="#repro">复现边界</a>
+</div></nav>
+<main class="wrap">
+<section id="idea">
+<span class="tag teal">核心思想</span><span class="tag orange">面向外行</span>
+<h2>把“选代表图片”改写成“覆盖更多邻域”</h2>
+<p class="lead">普通的随机选择只问“抽到了哪些图片”；只看欧氏距离的方法只问“图片之间离得多远”。Graph-A2 额外问了一层：一张图片周围有多少相似图片？两个不直接相似的区域，是否通过共同邻居连接？因此一个样本的价值，不只是它自己像谁，而是它能代表多大的局部结构。</p>
+<div class="pipeline" aria-label="Graph-A2流程">
+<div class="pipe"><span class="num">01</span><strong>图像 + 标签</strong><small>训练集中的图片，以及它属于哪个类别。</small></div>
+<div class="pipe"><span class="num">02</span><strong>UNI embedding</strong><small>冻结视觉模型，把每张图变成 1024 维向量。</small></div>
+<div class="pipe"><span class="num">03</span><strong>全局 k-NN 图</strong><small>每个样本连接最相似的 k 个邻居，允许跨类别连边。</small></div>
+<div class="pipe"><span class="num">04</span><strong>两跳覆盖核 K</strong><small>K = A<sub>sym</sub> + A<sub>sym</sub><sup>2</sup>，合并直接和间接邻域。</small></div>
+<div class="pipe"><span class="num">05</span><strong>类别预算</strong><small>每个类别只能挑 B 个，防止大类把预算全占走。</small></div>
+<div class="pipe"><span class="num">06</span><strong>贪心挑选</strong><small>每次选择当前新增覆盖量最大的合法样本。</small></div>
+</div>
+</section>
+<section id="symbols">
+<span class="tag blue">先认符号</span><h2>公式里每个字母到底是谁？</h2>
+<p class="lead">论文用矩阵表达“谁和谁相似”。下表把数学符号和程序中的直观对象一一对应起来。</p>
+<div class="card flat" style="padding:0;overflow:auto"><table class="symbol-table">
+<thead><tr><th>符号</th><th>含义</th><th>外行版理解</th></tr></thead>
+<tbody>
+<tr><td>N</td><td>训练样本总数</td><td>一共有多少张待选择的训练图片。</td></tr>
+<tr><td>x<sub>i</sub></td><td>第 i 张图片的 embedding 向量</td><td>图片被 UNI 压缩成的一串数字；下标 i 是“第几张”。</td></tr>
+<tr><td>y<sub>i</sub></td><td>第 i 张图片的类别标签</td><td>例如 PathMNIST 的类别编号。</td></tr>
+<tr><td>G</td><td>邻域图</td><td>把样本当作节点，把相似关系当作边。</td></tr>
+<tr><td>A<sub>ij</sub></td><td>邻接矩阵第 i 行第 j 列</td><td>第 i 个样本是否由第 j 个样本连接，以及这条边有多强。</td></tr>
+<tr><td>k</td><td>每个节点保留的近邻数</td><td>每张图片只保留最相似的 k 个邻居。</td></tr>
+<tr><td>D</td><td>度矩阵，D = diag(A1)</td><td>把每个节点所有边权加起来，记录它连接得有多“繁忙”。</td></tr>
+<tr><td>A<sub>sym</sub></td><td>对称归一化邻接矩阵</td><td>削弱高连接节点的支配作用，并让传播关系按两端节点的连接量校正。</td></tr>
+<tr><td>K</td><td>覆盖核，K = A<sub>sym</sub> + A<sub>sym</sub><sup>2</sup></td><td>挑一个节点后，它能直接覆盖谁，加上通过一个中间节点间接覆盖谁。</td></tr>
+<tr><td>S</td><td>已经选出的样本集合</td><td>目前已经放进小数据集的图片。</td></tr>
+<tr><td>B</td><td>每个类别的选择预算</td><td>每个类别最多或需要挑多少张。</td></tr>
+<tr><td>c<sub>i</sub></td><td>当前样本 i 的覆盖值</td><td>在已选集合 S 里，最能代表 i 的那张图的覆盖强度。</td></tr>
+<tr><td>Δ(j | S)</td><td>加入候选 j 后的边际覆盖增益</td><td>现在把 j 加进去，整体覆盖比原来多了多少。</td></tr>
+<tr><td>ρ</td><td>相关性系数，例如 Spearman 相关</td><td>两个方法给每个样本打分的排序是否相近；不是准确率。</td></tr>
+</tbody></table></div>
+</section>
+<section id="steps">
+<span class="tag teal">公式拆解</span><h2>从 embedding 到选择：每一步怎么算？</h2>
+<div class="grid grid-2">
+<article class="card"><h3>1. 把图片变成可比较的向量</h3><p>UNI 接收一张 224×224 图像，输出向量 x<sub>i</sub>。这一步没有挑样本，只是在建立一个“图片坐标系”。之后只比较向量，不再更新 UNI。</p><div class="formula">x&#772;<sub>i</sub> = x<sub>i</sub> / ||x<sub>i</sub>||<sub>2</sub></div><p><strong>||x<sub>i</sub>||<sub>2</sub></strong> 是向量长度。除以它以后，每个向量都落在单位圆/单位球面上，长度差异不会冒充语义相似度。</p></article>
+<article class="card"><h3>2. cosine 相似度怎么计算？</h3><div class="formula orange">cos(x<sub>i</sub>, x<sub>j</sub>) = (x<sub>i</sub> · x<sub>j</sub>) / (||x<sub>i</sub>||<sub>2</sub> ||x<sub>j</sub>||<sub>2</sub>)</div><p>点积“·”就是对应位置相乘后相加。结果接近 1 表示方向相同，0 表示大致无关，-1 表示方向相反。</p><p><strong>例：</strong>A = (1, 0)，B = (0.97, 0.243)，那么 cos(A,B) = 1×0.97 + 0×0.243 ≈ 0.97，说明两者很接近。</p></article>
+<article class="card"><h3>3. 为什么论文说 Euclidean k-NN 等价？</h3><p>当两个向量都已经 L2-normalized 时：</p><div class="formula blue">||x&#772;<sub>i</sub> − x&#772;<sub>j</sub>||<sup>2</sup><sub>2</sub> = 2 − 2 cos(x<sub>i</sub>, x<sub>j</sub>)</div><p>右边只是 cosine 的单调变换：cos 越大，距离越小。所以“按 cosine 找最近”和“按 Euclidean 找最近”会得到同样的排序。这个等价性依赖于<strong>先归一化</strong>。</p></article>
+<article class="card"><h3>4. 生成 k-NN 邻接矩阵 A</h3><div class="formula">A<sub>ij</sub> = { similarity(i,j), 若 j ∈ kNN(i); 0, 否则 }</div><p>这里的 i 是“发出观察”的节点，j 是“被观察”的候选邻居。先按每一行找 k 个近邻，因此原始图可能是有向的：i 认为 j 近，不代表 j 也把 i 排进前 k。</p><div class="plain"><strong>论文的对称化：</strong> A ← max(A, A<sup>T</sup>)。逐元素取较大值；只要任一方向发现了这条边，最后就保留它。</div></article>
+<article class="card"><h3>5. 为什么要做对称归一化？</h3><div class="formula">D = diag(A1),　A<sub>sym</sub> = D<sup>−1/2</sup>A D<sup>−1/2</sup></div><p>1 是全 1 列向量，所以 A1 会把每一行求和；D 的第 i 个对角元素就是节点 i 的总连接权。D<sup>−1/2</sup> 在左边和右边各放一次，意味着一条 i→j 的边会被节点 i、j 的连接量共同校正。</p><p>直观上：一个连接特别多的“枢纽”不能仅凭边多就覆盖所有人；归一化让不同密度区域更可比。</p></article>
+<article class="card"><h3>6. 两跳覆盖核 K</h3><div class="formula orange">K = A<sub>sym</sub> + A<sub>sym</sub><sup>2</sup></div><div class="formula orange">(A<sub>sym</sub><sup>2</sup>)<sub>ij</sub> = Σ<sub>l=1</sub><sup>N</sup> (A<sub>sym</sub>)<sub>il</sub>(A<sub>sym</sub>)<sub>lj</sub></div><p>l 是中间节点。第一项表示 i 和 j 直接相连；第二项把所有“i→l→j”的两步路径乘起来再相加。共享中间邻居越多、边越强，间接覆盖越高。</p></article>
+</div>
+<div class="card" style="margin-top:18px"><h3>7. facility location 的贪心选择</h3><p>选中集合 S 后，样本 i 被覆盖的程度取决于 S 里最能覆盖它的那个样本：</p><div class="formula">cov<sub>i</sub>(S) = max<sub>j∈S</sub> K<sub>ij</sub></div><p>尝试把候选 j 加入时，只有比当前覆盖更高的部分才算新增收益：</p><div class="formula blue">Δ(j | S) = Σ<sub>i=1</sub><sup>N</sup> max(0, K<sub>ij</sub> − cov<sub>i</sub>(S))</div><p>每轮做三件事：</p><ol><li>对每个还没选的候选 j 计算 Δ(j | S)。</li><li>丢弃所属类别已经达到预算 B 的候选。</li><li>选择剩余候选中 Δ 最大的一个，加入 S，更新所有 cov<sub>i</sub>。</li></ol><div class="plain"><strong>“global” 的含义：</strong>图在所有类别混合后一次性构建。预算仍按类别限制，但边可以跨类别，因此靠近决策边界的样本可能同时覆盖两侧结构。</div></div>
+</section>
+<section id="demo">
+<span class="tag orange">现场计算</span><span class="tag teal">无需服务器</span><h2>6 个样本的完整手算器</h2>
+<p class="lead">下面把 N 缩小到 6，令 k = 2、每类预算 B = 1。点击阶段按钮，矩阵和日志会实时变化。为了让 facility-location 的非负覆盖含义清楚，示例把负 cosine 截断为 0；这是教学示例的明确假设，不应默认为论文代码一定这样处理。</p>
+<div class="example-grid"><div class="card flat"><h3>样本表</h3><div class="sample-list">
+<div class="sample"><span class="dot red-dot"></span><strong>A</strong><code>红类 · (1, 0)</code></div>
+<div class="sample"><span class="dot red-dot"></span><strong>B</strong><code>红类 · (0.97, 0.243)</code></div>
+<div class="sample"><span class="dot blue-dot"></span><strong>C</strong><code>蓝类 · (0, 1)</code></div>
+<div class="sample"><span class="dot blue-dot"></span><strong>D</strong><code>蓝类 · (-0.97, 0.243)</code></div>
+<div class="sample"><span class="dot green-dot"></span><strong>E</strong><code>绿类 · (-1, 0)</code></div>
+<div class="sample"><span class="dot green-dot"></span><strong>F</strong><code>绿类 · (0, -1)</code></div>
+</div><p class="small" style="margin-top:15px">参数：k = 2；每类 B = 1；对角线不作为自己的邻居。</p></div>
+<div class="card"><div class="stepbar" role="tablist" aria-label="计算阶段">
+<button data-stage="0" class="active">① 向量</button><button data-stage="1">② 相似度 + kNN</button><button data-stage="2">③ A</button><button data-stage="3">④ A<sub>sym</sub></button><button data-stage="4">⑤ K</button><button data-stage="5">⑥ 贪心</button>
+</div><div id="stage-copy" class="stage-copy"></div><div id="matrix-box"></div><div id="knn-box"></div><pre id="greedy-log" class="log" hidden></pre></div></div>
+</section>
+<section id="audit">
+<span class="tag blue">真伪核验</span><h2>哪些结论是定理，哪些只是实验说法？</h2><p class="lead">这是复现时最容易混淆的地方。论文中的算法公式、优化理论和下游准确率，属于三个不同层次。</p>
+<div class="grid grid-2">
+<article class="card audit pass"><h3>可以严格成立：归一化后的距离等价</h3><p>只要 x<sub>i</sub>、x<sub>j</sub> 都已 L2-normalized，平方 Euclidean 距离与 cosine 相似度满足上面的恒等式。因此 k-NN 的排序一致。这是代数事实。</p></article>
+<article class="card audit pass"><h3>条件下成立：facility location 的次模性</h3><p>若 K<sub>ij</sub> 非负，目标 F(S) = Σ<sub>i</sub> max<sub>j∈S</sub> K<sub>ij</sub> 是单调次模函数；加入一个样本带来的收益会随着 S 变大而不增加。每类预算构成 partition matroid，标准简单 greedy 有 1/2 近似保证。</p><p class="small">保证对象是 F(S) 这个组合优化目标，不是 balanced accuracy、训练损失或“选出的图像看起来更好”。</p></article>
+<article class="card audit warn"><h3>不能直接说成立：K 是 heat kernel</h3><p>令 L = I − A<sub>sym</sub>，真正的热扩散核是：</p><div class="formula">exp(−tL) = exp(−t) Σ<sub>m=0</sub><sup>∞</sup> (t<sup>m</sup> / m!) A<sub>sym</sub><sup>m</sup></div><p>论文的 K = A<sub>sym</sub> + A<sub>sym</sub><sup>2</sup> 没有 identity 项，也没有 Poisson 衰减系数。因此更严谨的说法是<strong>受 heat diffusion 启发的稀疏二项式 surrogate</strong>，不是一般情况下精确等于 heat kernel。</p></article>
+<article class="card audit warn"><h3>必须用数据验证：二跳足够、相关性 ρ &gt; 0.999</h3><p>“A<sup>3</sup> 以后贡献很小”“二项式 K 与 full heat kernel 排序几乎一致”“ρ &gt; 0.999”都依赖具体数据、k、hop、归一化和实现。它们是 ablation 或相关性实验结论，不能从公式本身推出。</p></article>
+<article class="card audit stop"><h3>当前复现不能声称：五数据集完整 Table 1 已确认</h3><p>当前隔离目录已有 Graph-A2 三种子以及 v11 的 validation/test 结果，但完整八方法、五个数据集、两个比例、五个训练种子的全部下游结果尚未全部完成。没有跑完的单元必须标为 TODO。</p></article>
+<article class="card audit warn"><h3>评估风险：用 test 选 best checkpoint 会泄漏</h3><p>如果每 10 个 epoch 都查看 test balanced accuracy，并从中挑 test 上最好的 epoch，那么 test 已参与模型选择。严谨协议应在 validation 选择 checkpoint，最后只在 test 上报告一次；代码若显式使用 test，应在报告中说明。</p></article>
+</div>
+</section>
+<section id="repro">
+<span class="tag green">当前复现</span><h2>论文 Table 1 应该怎样复现？</h2><p class="lead">论文报告的是 5 个数据集 × 2 个比例 × 8 个方法 × 5 个训练种子。选择阶段和下游训练阶段要分开记录，才能知道差异来自选集还是 ResNet 的随机性。</p>
+<div class="grid grid-3">
+<article class="card"><h3>数据与特征</h3><p>OrganAMNIST、OrganSMNIST、PathMNIST、TissueMNIST、BloodMNIST 的 MedMNIST+ 224×224 训练图像；UNI 冻结提取 1024 维 embedding。</p></article>
+<article class="card"><h3>下游训练</h3><p>ResNet-18，从零训练；SGD，lr 0.1，momentum 0.9，weight decay 5×10<sup>−4</sup>，batch size 256，1000 epochs，cosine annealing，无数据增强。</p></article>
+<article class="card"><h3>统计口径</h3><p>每个选集固定后，用训练 seed 42、43、44、45、46 分别训练；报告 balanced accuracy 的 mean ± std，并明确使用 best checkpoint 还是 final checkpoint。</p></article>
+</div>
+<div class="card" style="margin-top:18px"><h3>任务数量怎么数？</h3><ul class="two-col-list">
+<li>选择配置：5 × 8 × 2 = <strong>80 组</strong>。</li>
+<li>若 Random、FPS、Graph-FPS 每个 trial 都重新选择：额外按 5 个 seed 生成选集。</li>
+<li>下游训练：5 × 8 × 2 × 5 = <strong>400 个 ResNet 训练任务</strong>。</li>
+<li>只跑 Graph-A2：5 × 2 = 10 个选集，10 × 5 = <strong>50 个训练任务</strong>。</li>
+<li>确定性方法通常可复用同一选集，但仍要用 5 个训练 seed 形成均值和标准差。</li>
+<li>“选择一次”不等于“只训练一次”：selection seed 与 downstream training seed 是两件事。</li>
+</ul></div>
+<div class="card" style="margin-top:18px"><h3>当前 HPC 复现边界</h3><table class="result-table">
+<thead><tr><th>项目</th><th>当前情况</th><th>路径 / 说明</th></tr></thead><tbody>
+<tr><td>Table 1 隔离目录</td><td>已建立</td><td><code>/project/prj-sis01/xuxiaoyu/graph_bench/table1_reproduction/outputs/</code></td></tr>
+<tr><td>Graph-A2</td><td>五数据集、10 个条件已有 42/43/44 三种子</td><td>可作为当前对照；还缺 seed 45、46 才是原文五种子。</td></tr>
+<tr><td>v11</td><td>validation 75/75、final test 60/60 已完成</td><td>Tissue 2% A0 44.74±0.28，v11 44.64±0.95；Tissue 5% A0 48.28±0.45，v11 48.37±0.66，不能称稳定超过。</td></tr>
+<tr><td>完整八方法 selection</td><td>曾完成 138/160</td><td>TissueMNIST Facility selection 因 GPU OOM 失败，必须补跑并保留日志。</td></tr>
+<tr><td>完整八方法下游</td><td><strong>TODO</strong></td><td>未完成的 5 个数据集 × 8 方法 × 2 比例 × 5 seed 训练结果不能用论文数字替代。</td></tr>
+</tbody></table></div>
+<div class="callout"><strong>判断标准：</strong>只有当选集文件、每个 seed 的 best checkpoint 指标、最终 test 指标、配置和日志都齐全时，某个 Table 1 单元才算“复现完成”。若只有均值没有每个 seed，或者只有 selection 没有下游训练，都应标记为部分完成。</div>
+<div class="card"><h3>建议的最小审计记录</h3><pre class="code">dataset, method, ratio, selection_seed, train_seed
+PathMNIST, graph_a2, 0.02, 42, 42
+PathMNIST, graph_a2, 0.02, 42, 43
+...
+
+每个 run 至少保存：
+- config.json：数据、k、hop、ratio、seed、checkpoint 规则
+- selected_indices.npz：选中的原始训练集索引
+- best_metrics.json：best epoch、best validation BA、对应 test BA
+- train.log：每个 epoch 的训练/验证记录
+- environment.txt：Python、PyTorch、CUDA、FAISS 版本</pre></div>
+</section>
+</main>
+<footer class="footer"><div class="wrap"><p><strong>参考入口：</strong>论文 arXiv: 2606.22002 · 作者代码仓库：<a href="https://github.com/zahiriddin-rustamov/graph-coverage-selection" target="_blank" rel="noreferrer">graph-coverage-selection</a></p><p class="small">本页面是方法解释和复现审计工具，不替代论文原文、代码和实际日志。所有“当前复现状态”以 HPC 输出文件为准。</p></div></footer>
+<script>
+(function(){
+"use strict";
+const samples=[
+{name:"A",cls:"红类",v:[1,0]},{name:"B",cls:"红类",v:[.97,.243]},{name:"C",cls:"蓝类",v:[0,1]},
+{name:"D",cls:"蓝类",v:[-.97,.243]},{name:"E",cls:"绿类",v:[-1,0]},{name:"F",cls:"绿类",v:[0,-1]}
+];
+const n=samples.length,k=2,budget=1;
+const stageCopy=document.getElementById("stage-copy"),matrixBox=document.getElementById("matrix-box"),knnBox=document.getElementById("knn-box"),greedyLog=document.getElementById("greedy-log");
+function dot(a,b){return a.reduce((sum,x,i)=>sum+x*b[i],0)}function norm(a){return Math.sqrt(dot(a,a))}function normalize(a){const length=norm(a)||1;return a.map(x=>x/length)}function zeros(){return Array.from({length:n},()=>Array(n).fill(0))}function clean(x){return Math.abs(x)<.0005?0:x}function fmt(x){return clean(x).toFixed(3)}
+function multiply(a,b){return Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>{let value=0;for(let l=0;l<n;l++)value+=a[i][l]*b[l][j];return value}))}
+const vectors=samples.map(s=>normalize(s.v)),similarity=zeros();
+for(let i=0;i<n;i++)for(let j=0;j<n;j++)similarity[i][j]=i===j?0:dot(vectors[i],vectors[j]);
+const knn=vectors.map((_,i)=>similarity[i].map((value,j)=>({j,value})).filter(item=>item.j!==i).sort((a,b)=>b.value-a.value).slice(0,k));
+const adjacency=zeros();for(let i=0;i<n;i++)for(const item of knn[i])adjacency[i][item.j]=Math.max(0,item.value);
+const sym=zeros();for(let i=0;i<n;i++)for(let j=0;j<n;j++)sym[i][j]=Math.max(adjacency[i][j],adjacency[j][i]);
+const degree=sym.map(row=>row.reduce((sum,value)=>sum+value,0)),asym=zeros();
+for(let i=0;i<n;i++)for(let j=0;j<n;j++)asym[i][j]=sym[i][j]/Math.sqrt((degree[i]||1)*(degree[j]||1));
+const asym2=multiply(asym,asym),kernel=asym.map((row,i)=>row.map((value,j)=>value+asym2[i][j]));
+function matrixHtml(matrix,label,heat){
+let html="<div class='matrix-wrap'><table class='matrix'><thead><tr><th>"+label+"</th>";
+for(const s of samples)html+="<th>"+s.name+"</th>";html+="</tr></thead><tbody>";
+for(let i=0;i<n;i++){html+="<tr><th>"+samples[i].name+"</th>";for(let j=0;j<n;j++){const value=matrix[i][j],cls=i===j?"diag":(heat&&value>.5?"hot":"");html+="<td class='"+cls+"'>"+fmt(value)+"</td>"}html+="</tr>"}return html+"</tbody></table></div>"
+}
+function knnHtml(){let html="<div class='knn-list'>";for(let i=0;i<n;i++){html+="<div class='knn-item'><strong>"+samples[i].name+"</strong> 的 top-"+k+"：";html+=knn[i].map(item=>samples[item.j].name+" ("+fmt(item.value)+")").join("、")+"</div>"}return html+"</div>"}
+function greedy(){
+const selected=[],counts={},coverage=Array(n).fill(0),lines=["目标：每类最多 B = 1 个；每轮选边际增益 Δ 最大的合法候选。",""];let round=1;
+while(selected.length<n){const candidates=[];for(let j=0;j<n;j++){if(selected.includes(j))continue;const cls=samples[j].cls;if((counts[cls]||0)>=budget)continue;let gain=0;for(let i=0;i<n;i++)gain+=Math.max(0,kernel[i][j]-coverage[i]);candidates.push({j,gain})}if(!candidates.length)break;
+candidates.sort((a,b)=>b.gain-a.gain||a.j-b.j);const winner=candidates[0],candidateText=candidates.map(item=>samples[item.j].name+":"+item.gain.toFixed(3)).join("  ");
+selected.push(winner.j);counts[samples[winner.j].cls]=(counts[samples[winner.j].cls]||0)+1;for(let i=0;i<n;i++)coverage[i]=Math.max(coverage[i],kernel[i][winner.j]);
+lines.push("第 "+round+" 轮：候选增益 "+candidateText);lines.push("  选择 "+samples[winner.j].name+"（"+samples[winner.j].cls+"），Δ = "+winner.gain.toFixed(3));lines.push("  当前覆盖 = ["+coverage.map(value=>value.toFixed(3)).join(", ")+"]");round++}
+lines.push("","停止：三个类别各达到 B = 1。最终集合 S = {"+selected.map(i=>samples[i].name).join(", ")+"}。","注意：如果预算是每类必须选 B 个，停止条件就是总数 = 类别数 × B；大规模代码还需处理并列、空图和非法预算。");return lines.join("\n")
+}
+function render(stage){
+document.querySelectorAll("button[data-stage]").forEach(button=>button.classList.toggle("active",Number(button.dataset.stage)===stage));knnBox.innerHTML="";greedyLog.hidden=true;
+if(stage===0){stageCopy.innerHTML="<h3>阶段 1：向量先统一长度</h3><p>例如 B 的原始长度约为 1.000，所以归一化后仍接近 (0.970, 0.243)。下面展示每个样本的单位向量坐标。</p>";matrixBox.innerHTML=vectors.map((v,i)=>"<div class='plain' style='margin-bottom:8px'><strong>"+samples[i].name+"（"+samples[i].cls+"）</strong>：("+v.map(fmt).join(", ")+")，长度 = "+norm(v).toFixed(3)+"</div>").join("")}
+else if(stage===1){stageCopy.innerHTML="<h3>阶段 2：先算两两相似度，再取每行最大的 2 个</h3><p>对角线设为 0，因为一个样本不应把自己当作邻居。A 与 B 的 cosine 约为 0.970；A 与 E 方向相反，为 -1，在本教学示例中会被截断成 0 以保持非负覆盖。</p>";matrixBox.innerHTML=matrixHtml(similarity,"cos",true);knnBox.innerHTML=knnHtml()}
+else if(stage===2){stageCopy.innerHTML="<h3>阶段 3：把 top-k 结果写进 A</h3><p>只有 k-NN 边写入，其余位置是 0。由于每行独立找邻居，A 可能不对称；然后论文用逐元素 max(A, Aᵀ) 对称化。</p>";matrixBox.innerHTML=matrixHtml(adjacency,"A",true);knnBox.innerHTML="<div class='plain'><strong>对称化：</strong>当前矩阵左下角如果有一条边、右上角没有，取 max 后两边都会保留较大权重。下一阶段展示归一化后的对称矩阵。</div>"}
+else if(stage===3){stageCopy.innerHTML="<h3>阶段 4：按两端节点的度做校正</h3><p>这里对称化后的每行总和是 degree。每个 A<sub>sym</sub>[i,j] = A[i,j] / √(degree[i]·degree[j])。连接很多的节点，其单条边会被相对压低。</p>";matrixBox.innerHTML=matrixHtml(asym,"A_sym",true);knnBox.innerHTML="<div class='plain'><strong>degree：</strong> ["+degree.map(fmt).join(", ")+"]。它们是对称化矩阵每一行的权重总和。</div>"}
+else if(stage===4){stageCopy.innerHTML="<h3>阶段 5：把直接覆盖和两跳覆盖相加</h3><p>例如 K<sub>ij</sub> 不只看 i、j 是否直接相连，还会累加所有中间节点 l 对 i→l→j 的贡献。颜色较深的格子表示覆盖分数较大。</p>";matrixBox.innerHTML=matrixHtml(kernel,"K",true);knnBox.innerHTML="<div class='plain'><strong>两跳项 A_sym²：</strong>它是 A_sym 与自身的矩阵乘法；第 i 行第 j 列等于沿所有 l 的路径权重乘积之和。</div>"}
+else{stageCopy.innerHTML="<h3>阶段 6：每轮挑当前新增覆盖最大的合法样本</h3><p>初始 coverage 全为 0。选中一个样本后，每个 i 的覆盖更新为 max(旧 coverage、K<sub>i,j</sub>)。当某类别达到 B = 1，该类别的其余候选会暂时失去资格。</p>";matrixBox.innerHTML=matrixHtml(kernel,"K",true);greedyLog.textContent=greedy();greedyLog.hidden=false}
+}
+document.querySelectorAll("button[data-stage]").forEach(button=>button.addEventListener("click",()=>render(Number(button.dataset.stage))));render(0);
+}());
+</script>
+</body>
+</html>

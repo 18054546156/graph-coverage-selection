@@ -103,7 +103,7 @@ squeue -j "$TABLE1_JOB1"
 
 ```bash
 sacct -j "$TABLE1_JOB1" --format=JobID,State,ExitCode,Elapsed
-find table1_reproduction/outputs/job1_selection \
+find table1_reproduction/outputs/job1_selection_clean \
   -name 'selection_manifest_*.json' -maxdepth 1 -type f
 ```
 
@@ -123,14 +123,13 @@ squeue -j "$TABLE1_JOB2"
 
 ```bash
 $GRAPHCOV_PYTHON table1_reproduction/experiments/summarize.py \
-  --input-root table1_reproduction/outputs/job2_table1 \
-  --output-dir table1_reproduction/outputs/job2_table1/summary
+  --input-root table1_reproduction/outputs/job2_table1_valckpt \
+  --output-dir table1_reproduction/outputs/job2_table1_valckpt/summary
 ```
 
-最终主指标是五个训练 seed 的 `best_balanced_accuracy` mean +/- std，即训练期间
-记录到的 best-epoch test BA。最终 1000-epoch `balanced_accuracy` 只作为诊断列保留。
-作者运行时没有持久化 best epoch 对应的模型权重，因此当前 worst-class recall 和
-class-CVaR20 属于 final epoch，不能描述为 best-checkpoint 的类别指标。
+严格复现的主指标是五个训练 seed 的 test BA mean +/- std：每个 run 只在
+validation 上选择 `best_val_checkpoint.pt`，训练结束后加载该权重并在 test 上评估一次。
+旧的 `outputs/job2_table1/` 是 test 反复评估并选择最高分的历史结果，不能与严格结果合并。
 
 ## 5. v11 校准与冻结
 
@@ -171,15 +170,15 @@ V11_VAL3=$(sbatch --parsable --export=ALL,V11_CONFIG="$V11_CONFIG" v11/slurm/job
 
 冻结程序只接受 validation config 明确列出的 dataset/ratio/variant/seed。额外、重复或缺失
 结果都会拒绝，防止旧输出污染。推荐门槛为 mean best validation BA 至少提高
-0.5 percentage point；当前安全门槛使用单独标注的 final-epoch mean worst-class recall：
+0.5 percentage point；当前安全门槛使用 validation-selected checkpoint 的 mean worst-class recall：
 
 ```bash
 $GRAPHCOV_PYTHON v11/experiments/freeze_validation_winners.py \
-  --validation-root v11/outputs/job2_table1_validation \
+  --validation-root v11/outputs/job2_table1_validation_valckpt \
   --validation-config v11/configs/job2_table1_validation_3seeds.json \
   --selection-root v11/outputs/job1_table1_calibration \
   --output-config v11/configs/generated_job2_table1_test.json \
-  --test-output-root v11/outputs/job2_table1_test \
+  --test-output-root v11/outputs/job2_table1_test_valckpt \
   --minimum-ba-gain 0.005 \
   --worst-recall-tolerance 0.02
 ```
@@ -198,8 +197,8 @@ generated config 同时评估 Graph-A2 baseline 与 frozen winner，最多 100 �
 
 ```bash
 $GRAPHCOV_PYTHON v11/experiments/summarize_downstream.py \
-  --input-root v11/outputs/job2_table1_test \
-  --output-dir v11/outputs/job2_table1_test/summary
+  --input-root v11/outputs/job2_table1_test_valckpt \
+  --output-dir v11/outputs/job2_table1_test_valckpt/summary
 ```
 
 ## 6. v11 参数与论文结论 gate

@@ -84,8 +84,8 @@ def table_markdown(rows: list[dict[str, Any]]) -> str:
     lines = [
         "# Table 1 Reproduction",
         "",
-        "Values are best-epoch test balanced accuracy (%) mean +/- sample std over the available training seeds.",
-        "Final-epoch balanced accuracy and class metrics remain in the CSV as diagnostics.",
+        "Values are test balanced accuracy (%) from the checkpoint selected by validation, mean +/- sample std over the available training seeds.",
+        "The strict runner evaluates test exactly once after loading best_val_checkpoint.pt; historical test-selected runs must not be mixed into this summary.",
         "A missing cell means that Job 2 has not produced all or any result for that condition.",
         "",
         "| Dataset | Ratio | Random | EL2N | Forgetting | EVA | Facility | FPS | Herding | Graph-A2/Ours |",

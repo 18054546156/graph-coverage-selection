@@ -2,7 +2,8 @@
   "schema": "graphcov-v11/job2-config-v1",
   "purpose": "Cheap seed-42 validation screen for every Derma atomic selector",
   "selection_root": "{project_root}/v11/outputs/job1_derma_atomic",
-  "output_root": "{project_root}/v11/outputs/job2_derma_atomic_seed42",
+  "output_root": "{project_root}/v11/outputs/job2_derma_atomic_seed42_valckpt",
+  "validation_split": "val",
   "evaluation_split": "val",
   "training": {
     "size": 224,
