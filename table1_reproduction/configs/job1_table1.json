@@ -26,7 +26,8 @@
     "k_neighbors": 10,
     "k_hops": 2,
     "global_selection": false,
-    "sparse_cpu": true
+    "sparse_cpu": true,
+    "facility_block_size": 2048
   },
   "methods": {
     "random": {

@@ -13,6 +13,7 @@ import time
 from typing import Any
 
 import numpy as np
+import torch
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
@@ -38,6 +39,78 @@ TABLE1_METHODS = {
     "herding",
     "graph_a2",
 }
+
+
+def select_facility_blockwise(
+    embeddings: np.ndarray,
+    labels: np.ndarray,
+    budget_per_class: int,
+    importance: np.ndarray,
+    seed: int,
+    block_size: int,
+    verbose: bool,
+) -> list[int]:
+    """Exact facility greedy selection without materializing a full matrix.
+
+    The dense vendor implementation computes the same cosine-similarity
+    objective, but its per-class ``n x n`` matrix exceeds GPU memory for
+    TissueMNIST. Row blocks preserve the objective and argmax tie-breaking
+    while bounding peak memory.
+    """
+    if block_size < 1:
+        raise ValueError("facility_block_size must be positive")
+    np.random.seed(seed)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    selected: list[int] = []
+    for cls in np.unique(labels):
+        class_indices = np.where(labels == cls)[0]
+        k = min(int(budget_per_class), len(class_indices))
+        if k >= len(class_indices):
+            selected.extend(class_indices.tolist())
+            continue
+
+        class_emb = torch.from_numpy(
+            np.asarray(embeddings[class_indices], dtype=np.float32)
+        ).to(device)
+        class_emb = torch.nn.functional.normalize(class_emb, dim=1)
+        class_importance = torch.from_numpy(
+            np.asarray(importance[class_indices], dtype=np.float32)
+        ).to(device)
+        n = len(class_indices)
+        max_coverage = torch.zeros(n, device=device, dtype=torch.float32)
+        available = torch.ones(n, device=device, dtype=torch.bool)
+        chosen: list[int] = []
+
+        for _ in range(k):
+            gains = torch.zeros(n, device=device, dtype=torch.float32)
+            for start in range(0, n, block_size):
+                stop = min(start + block_size, n)
+                similarity = class_emb[start:stop] @ class_emb.T
+                marginal = (similarity - max_coverage[start:stop, None]).clamp_min(0)
+                gains += (marginal * class_importance[start:stop, None]).sum(dim=0)
+                del similarity, marginal
+            gains.masked_fill_(~available, float("-inf"))
+            best = int(torch.argmax(gains).item())
+            chosen.append(best)
+            available[best] = False
+            for start in range(0, n, block_size):
+                stop = min(start + block_size, n)
+                similarity = class_emb[start:stop] @ class_emb[best]
+                max_coverage[start:stop] = torch.maximum(
+                    max_coverage[start:stop], similarity
+                )
+                del similarity
+            if verbose and (_ < 5 or (_ + 1) % 100 == 0):
+                print(
+                    f"    [Facility-blockwise] class={cls} "
+                    f"iter={_ + 1}/{k}",
+                    flush=True,
+                )
+        selected.extend(class_indices[np.asarray(chosen, dtype=np.int64)].tolist())
+        del class_emb, class_importance, max_coverage, available
+        if device.type == "cuda":
+            torch.cuda.empty_cache()
+    return selected
 
 
 def resolve_path(value: str, project_root: Path, config_dir: Path) -> Path:
@@ -280,23 +353,37 @@ def run(config_path: Path, project_root: Path, args: argparse.Namespace) -> int:
                     }
                     if "k_hops" in method_cfg or official_method == "graph_a2":
                         overrides["k_hops"] = int(method_cfg.get("k_hops", selection_cfg.get("k_hops", 2)))
-                    selected = np.asarray(
-                        select(
-                            method=official_method,
-                            labels=labels,
-                            budget_per_class=budget,
-                            embeddings=embeddings,
-                            el2n_scores=scores["el2n_scores"],
-                            eva_scores=scores["eva_scores"],
-                            forgetting_scores=scores["forgetting_scores"],
-                            importance=np.ones(len(labels), dtype=np.float32),
-                            seed=selection_seed,
-                            verbose=True,
-                            _verbose_level=1,
-                            **overrides,
-                        ),
-                        dtype=np.int64,
-                    ).reshape(-1)
+                    if method_id == "facility":
+                        selected = np.asarray(
+                            select_facility_blockwise(
+                                embeddings=embeddings,
+                                labels=labels,
+                                budget_per_class=budget,
+                                importance=np.ones(len(labels), dtype=np.float32),
+                                seed=selection_seed,
+                                block_size=int(selection_cfg.get("facility_block_size", 2048)),
+                                verbose=True,
+                            ),
+                            dtype=np.int64,
+                        ).reshape(-1)
+                    else:
+                        selected = np.asarray(
+                            select(
+                                method=official_method,
+                                labels=labels,
+                                budget_per_class=budget,
+                                embeddings=embeddings,
+                                el2n_scores=scores["el2n_scores"],
+                                eva_scores=scores["eva_scores"],
+                                forgetting_scores=scores["forgetting_scores"],
+                                importance=np.ones(len(labels), dtype=np.float32),
+                                seed=selection_seed,
+                                verbose=True,
+                                _verbose_level=1,
+                                **overrides,
+                            ),
+                            dtype=np.int64,
+                        ).reshape(-1)
                     counts = validate_selected(selected, labels, budget)
                     np.save(run_dir / "selected_indices.npy", selected)
                     np.save(run_dir / "selection_order.npy", selected)
