@@ -40,18 +40,23 @@ PAPER = {
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--outputs', type=Path, nargs='+', required=True)
+    parser.add_argument('--report-dir', type=Path, required=True)
     parser.add_argument('--seed', type=int, default=42)
     return parser.parse_args()
 
 
 def main() -> None:
     args = parse_args()
-    results_path = args.output / 'results.csv'
-    if not results_path.exists():
-        raise FileNotFoundError(results_path)
-
-    results = pd.read_csv(results_path)
+    frames = []
+    for output_root in args.outputs:
+        results_path = output_root / 'results.csv'
+        if not results_path.exists():
+            raise FileNotFoundError(results_path)
+        frame = pd.read_csv(results_path)
+        frame['output_root'] = str(output_root.resolve())
+        frames.append(frame)
+    results = pd.concat(frames, ignore_index=True)
     results = results[
         results['dataset'].isin(['pathmnist', 'bloodmnist'])
         & results['ratio'].isin([0.02, 0.05])
@@ -80,7 +85,7 @@ def main() -> None:
         paper_mean, paper_std = PAPER[key][row.base_method]
         reproduced = float(row.balanced_accuracy) * 100.0
         delta = reproduced - paper_mean
-        artifact_dir = args.output / Path(row.artifact_dir)
+        artifact_dir = Path(row.output_root) / Path(row.artifact_dir)
         artifact_ok = True
         try:
             verify_artifacts(artifact_dir)
@@ -104,7 +109,8 @@ def main() -> None:
         })
 
     comparison = pd.DataFrame(rows).sort_values(['dataset', 'ratio', 'method'])
-    comparison_path = args.output / 'single_seed_comparison.csv'
+    args.report_dir.mkdir(parents=True, exist_ok=True)
+    comparison_path = args.report_dir / 'single_seed_comparison.csv'
     comparison.to_csv(comparison_path, index=False)
 
     complete = not missing and not unexpected and len(comparison) == 32
@@ -133,7 +139,7 @@ def main() -> None:
         report_lines.extend(['', f'Unexpected: {unexpected}'])
     if artifact_errors:
         report_lines.extend(['', 'Artifact errors:', *[f'- {item}' for item in artifact_errors]])
-    report_path = args.output / 'SINGLE_SEED_REPORT.md'
+    report_path = args.report_dir / 'SINGLE_SEED_REPORT.md'
     report_path.write_text('\n'.join(report_lines) + '\n', encoding='utf-8')
 
     print(comparison[['dataset', 'ratio', 'method', 'reproduced_ba_pct',
