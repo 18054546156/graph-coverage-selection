@@ -14,6 +14,9 @@ from pathlib import Path
 from typing import Dict, List, Optional, Any
 import numpy as np
 import pandas as pd
+import medmnist
+import torch
+import torchvision
 from tqdm import tqdm
 
 from .data import load_dataset, get_labels, get_dataset_info
@@ -33,6 +36,10 @@ from .results import (
     generate_run_id, create_run_dir, save_config as _save_config,
     save_summary as _save_summary, get_git_commit,
     append_to_csv as _append_to_csv_shared,
+)
+from .artifacts import (
+    save_selected_indices, save_final_model_checkpoint, create_artifact_dir,
+    load_selection_metadata,
 )
 
 # Default directories
@@ -157,6 +164,7 @@ def run_single(
     config: Dict,
     importance_method: Optional[str] = None,
     selection_cache: Optional[Dict] = None,
+    run_dir: Optional[Path] = None,
 ) -> Dict[str, Any]:
     """
     Run a single experiment configuration.
@@ -523,6 +531,7 @@ def run_single(
         size=config.get('size', 224),
         seed=seed,
         return_history=True,
+        return_model=True,
         verbose=verbose,
         verbose_per_class=(verbose and _verbose_level >= 2),
         deterministic=config.get('deterministic', False),
@@ -531,8 +540,8 @@ def run_single(
 
     training_time = time.time() - t_train_start
 
-    # Both paradigms now return: acc, bal_acc, history, best_metrics, per_class
-    acc, bal_acc, history, best_metrics, per_class = eval_result
+    # return_model=True appends the final trained model to the official 5-item tuple.
+    acc, bal_acc, history, best_metrics, per_class, model = eval_result
 
     result = {
         'accuracy': acc,
@@ -553,6 +562,125 @@ def run_single(
         result['best_iteration'] = best_metrics['best_iteration']
     else:
         result['best_epoch'] = best_metrics['best_epoch']
+
+    if run_dir is None:
+        raise ValueError('run_dir is required when saving reproducibility artifacts')
+
+    unique_labels, label_counts = np.unique(labels, return_counts=True)
+    selection_metadata = {
+        'run_id': Path(run_dir).name,
+        'command': ' '.join(sys.argv),
+        'git_commit': config.get('git_commit'),
+        'software_versions': {
+            'medmnist': getattr(medmnist, '__version__', None),
+            'numpy': np.__version__,
+            'torch': torch.__version__,
+            'torchvision': torchvision.__version__,
+        },
+        'dataset': dataset_name,
+        'dataset_split': 'train',
+        'dataset_length': int(len(train_dataset)),
+        'class_counts': {str(int(k)): int(v) for k, v in zip(unique_labels, label_counts)},
+        'method': method,
+        'embedding': embedding_source,
+        'importance': importance_method,
+        'ratio_requested': float(ratio),
+        'budget_per_class': int(budget_per_class),
+        'actual_total_budget': int(len(selected)),
+        'seed': int(seed),
+        'base_seed': int(config['seed']),
+        'trial_zero_based': int(trial),
+        'trial_one_based': int(trial + 1),
+        'selection_parameters': {
+            'k_neighbors': int(config.get('k_neighbors', 10)),
+            'k_hops': config.get('k_hops'),
+            'coverage_mode': config.get('coverage_mode', 'prob'),
+            'global_selection': bool(config.get('global_selection', False)),
+            'sparse_cpu': bool(config.get('sparse_cpu', False)),
+        },
+        'full_config': config,
+    }
+
+    artifact_dir = create_artifact_dir(
+        base_dir=Path(run_dir) / 'artifacts',
+        dataset=dataset_name,
+        ratio=ratio,
+        method=method,
+        embedding=embedding_source,
+        seed=seed,
+        trial=trial,
+        include_importance=(importance_method is not None),
+        importance=importance_method
+    )
+
+    indices_path = save_selected_indices(
+        indices=selected,
+        output_dir=artifact_dir,
+        metadata=selection_metadata,
+        verbose=(verbose and _verbose_level >= 2)
+    )
+    persisted_selection_metadata = load_selection_metadata(
+        artifact_dir / 'selection_metadata.json'
+    )
+
+    save_final_model_checkpoint(
+        model=model,
+        output_dir=artifact_dir,
+        metadata={
+            'run_id': Path(run_dir).name,
+            'git_commit': config.get('git_commit'),
+            'dataset': dataset_name,
+            'dataset_split_evaluated': 'test',
+            'selected_indices_file': indices_path.name,
+            'selected_indices_sha256': persisted_selection_metadata['indices_sha256'],
+            'model': {
+                'wrapper': 'ResNet18WithFeatures',
+                'architecture': 'torchvision.models.resnet18',
+                'num_classes': int(num_classes),
+                'in_channels': int(in_channels),
+                'pretrained': False,
+            },
+            'preprocessing': {
+                'image_size': int(config.get('size', 224)),
+                'normalization_mean': [0.5] * int(in_channels),
+                'normalization_std': [0.5] * int(in_channels),
+                'data_augmentation': bool(config.get('augment', False)),
+            },
+            'training': {
+                'paradigm': training_paradigm,
+                'epochs': int(config.get('epochs', 200)),
+                'iterations': int(config.get('iterations', 40000)),
+                'batch_size': int(config.get('batch_size', 256)),
+                'learning_rate': float(config.get('lr', 0.1)),
+                'momentum': float(config.get('momentum', 0.9)),
+                'nesterov': bool(config.get('nesterov', False)),
+                'weight_decay': float(config.get('weight_decay', 0.0005)),
+                'seed': int(seed),
+                'completed_step': int(
+                    config.get('iterations', 40000)
+                    if training_paradigm == 'iteration'
+                    else config.get('epochs', 200)
+                ),
+            },
+            'final_test_metrics': {
+                'accuracy': float(acc),
+                'balanced_accuracy': float(bal_acc),
+            },
+            'periodic_test_maxima': {
+                'accuracy_at_best_balanced_accuracy': float(best_metrics['best_acc']),
+                'best_balanced_accuracy': float(best_metrics['best_bal_acc']),
+                'step': int(best_metrics.get('best_epoch', best_metrics.get('best_iteration', 0))),
+            },
+            'checkpoint_semantics': (
+                'Final model after the configured training budget. Periodic test maxima are '
+                'diagnostics only and were not used to select these weights.'
+            ),
+            'full_config': config,
+        },
+        verbose=(verbose and _verbose_level >= 2)
+    )
+
+    result['artifact_dir'] = str(artifact_dir)
 
     return result
 
@@ -590,6 +718,7 @@ def run_experiment(config: Dict) -> str:
     # Setup directories
     output_dir = Path(config.get('output_dir', DEFAULT_OUTPUT_DIR))
     run_dir = create_run_dir(run_id, base_dir=output_dir)
+    config['git_commit'] = get_git_commit()
 
     results_csv = output_dir / 'results.csv'
 
@@ -718,6 +847,7 @@ def run_experiment(config: Dict) -> str:
                 config=config,
                 importance_method=imp_method,
                 selection_cache=selection_cache,
+                run_dir=run_dir,
             )
 
             # Add identifiers to history
@@ -767,6 +897,7 @@ def run_experiment(config: Dict) -> str:
             # Add timing
             result_row['selection_time_s'] = result['selection_time_s']
             result_row['training_time_s'] = result['training_time_s']
+            result_row['artifact_dir'] = str(Path(result['artifact_dir']).relative_to(output_dir))
             append_to_csv(results_csv, result_row)
             all_results.append(result_row)
 

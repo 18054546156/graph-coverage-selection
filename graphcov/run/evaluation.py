@@ -369,6 +369,7 @@ def evaluate_selection(
     # Other settings
     seed: int = 42,
     return_history: bool = False,
+    return_model: bool = False,
     verbose: bool = True,
     verbose_per_class: bool = False,
     deterministic: bool = False,
@@ -409,17 +410,22 @@ def evaluate_selection(
         size: Image size for augmentation (default: 224)
         seed: Random seed
         return_history: If True, also return training history
+        return_model: If True, append the final trained model to the history tuple
         verbose: If True, show progress bar
         deterministic: If True, enable full determinism (slower)
 
     Returns:
         If training_paradigm='epoch':
             If return_history=False: (accuracy, balanced_accuracy)
-            If return_history=True: (accuracy, balanced_accuracy, history)
+            If return_history=True: (accuracy, balanced_accuracy, history, best_metrics, per_class)
         If training_paradigm='iteration':
             If return_history=False: (accuracy, balanced_accuracy)
-            If return_history=True: (accuracy, balanced_accuracy, history, best_metrics)
+            If return_history=True: (accuracy, balanced_accuracy, history, best_metrics, per_class)
                 where best_metrics = {best_acc, best_bal_acc, best_iteration}
+
+        When return_history=True and return_model=True, the final trained model
+        is appended as a sixth item. The default return shape remains compatible
+        with the released comparison scripts.
     """
     set_seed(seed, deterministic=deterministic)
 
@@ -483,7 +489,8 @@ def evaluate_selection(
                 'best_bal_acc': result['best_bal_acc'],
                 'best_iteration': result['best_iteration'],
             }
-            return acc, bal_acc, result['history'], best_metrics, per_class
+            values = (acc, bal_acc, result['history'], best_metrics, per_class)
+            return values + (model,) if return_model else values
         return acc, bal_acc
 
     else:
@@ -549,7 +556,8 @@ def evaluate_selection(
                 'best_bal_acc': best_bal_acc,
                 'best_epoch': best_epoch,
             }
-            return acc, bal_acc, history, best_metrics, per_class
+            values = (acc, bal_acc, history, best_metrics, per_class)
+            return values + (model,) if return_model else values
         return acc, bal_acc
 
 

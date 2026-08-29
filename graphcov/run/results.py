@@ -17,7 +17,7 @@ DEFAULT_OUTPUT_DIR = Path(__file__).parent.parent / 'results'
 
 def generate_run_id() -> str:
     """Generate a timestamp-based run ID."""
-    return datetime.now().strftime('%Y%m%d_%H%M%S')
+    return datetime.now().strftime('%Y%m%d_%H%M%S_%f')
 
 
 def create_run_dir(run_id: str, base_dir: Optional[Path] = None) -> Path:
