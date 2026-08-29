@@ -69,9 +69,13 @@ def test_table1_all_reference_indices_are_required_and_isolated():
         for ratio_key, spec in frozen.items():
             assert spec["required"] is True
             assert spec["path"].startswith(
-                "{project_root}/table1_reproduction/outputs/job1_selection_clean/"
+                "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/"
             )
             assert f"/{job['dataset']}/{ratio_key}/graph_a2/seed42/" in spec["path"]
+        reference = next(variant for variant in job["variants"] if variant["id"] == "a0_original")
+        assert reference["k"] == 50
+        assert reference["kernel"]["hops"] == 2
+        assert reference["kernel"]["weight_mode"] == "uniform"
 
 
 def test_frozen_reference_is_reused_exactly(tmp_path):

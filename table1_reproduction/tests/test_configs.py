@@ -27,10 +27,11 @@ def test_table1_methods_and_protocol_are_explicit():
         "random", "el2n", "forgetting", "eva",
         "facility", "fps", "herding", "graph_a2",
     ]
-    assert config["selection"]["k_neighbors"] == 10
+    assert config["selection"]["k_neighbors"] == 50
     assert config["selection"]["k_hops"] == 2
     assert config["selection"]["global_selection"] is False
     assert config["methods"]["graph_a2"]["global_selection"] is True
+    assert config["methods"]["graph_a2"]["k_neighbors"] == 50
     assert config["methods"]["facility"]["global_selection"] is False
     assert config["dynamics"] == {"size": 28, "epochs": 200, "window_size": 10, "seed": 42}
 
@@ -54,7 +55,8 @@ def test_job2_has_exact_table1_workload():
     assert len({(job["dataset"], job["ratio"], job["method"]) for job in jobs}) == 80
     assert config["validation_split"] == "val"
     assert config["evaluation_split"] == "test"
-    assert config["output_root"].endswith("job2_table1_valckpt")
+    assert config["selection_root"].endswith("job1_selection_k50_global")
+    assert config["output_root"].endswith("job2_table1_k50_global_valckpt")
     assert config["training"]["evaluate_every"] == 10
 
 

@@ -3,7 +3,7 @@ set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 PYTHON_BIN="${GRAPHCOV_PYTHON:-/root/miniconda3/envs/graphcov_pathmnist/bin/python}"
-INPUT_ROOT="${1:-table1_reproduction/outputs/job2_table1_valckpt}"
+INPUT_ROOT="${1:-table1_reproduction/outputs/job2_table1_k50_global_valckpt}"
 OUTPUT_DIR="${2:-${INPUT_ROOT}/summary}"
 
 cd "${PROJECT_ROOT}"

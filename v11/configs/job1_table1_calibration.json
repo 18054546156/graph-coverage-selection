@@ -1,8 +1,10 @@
 {
   "schema": "graphcov-v11/job1-config-v1",
-  "purpose": "Train-only dataset-specific calibration for the five Table-1 datasets",
+  "purpose": "Train-only exploratory calibration against the corrected frozen global k=50 Graph-A2 baseline",
+  "calibration_status": "requires_rerun_and_candidate_redesign",
+  "candidate_provenance": "Candidate IDs and k=10/15/20/30 settings predate the corrected k=50 baseline; they are exploratory lower-k/PPR variants, not a progressive ablation from A0.",
   "datasets_file": "datasets_server_3090.json",
-  "output_root": "{project_root}/v11/outputs/job1_table1_calibration",
+  "output_root": "{project_root}/v11/outputs/job1_table1_calibration_k50baseline",
   "cache_root": "{project_root}/v11/cache",
   "knn": {"backend": "faiss", "gpu": 0},
   "margin": {"backend": "faiss", "gpu": 0, "batch_size": 512},
@@ -13,12 +15,12 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/organsmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/organsmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/organsmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/organsmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 30, "hops": 4, "max_degree": 70},
       "variants": [
-        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a0_original", "description": "Paper-identified global Graph-A2 (frozen Table 1 indices)", "k": 50, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-70", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a3_more_hops", "description": "A2 with H=4", "k": 10, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
@@ -36,12 +38,12 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/organamnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/organamnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/organamnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/organamnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 20, "hops": 4, "max_degree": 70},
       "variants": [
-        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a0_original", "description": "Paper-identified global Graph-A2 (frozen Table 1 indices)", "k": 50, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-70", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a3_more_hops", "description": "A2 with H=4", "k": 10, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
@@ -59,12 +61,12 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/pathmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/pathmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/pathmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/pathmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 20, "hops": 3, "max_degree": 70},
       "variants": [
-        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a0_original", "description": "Paper-identified global Graph-A2 (frozen Table 1 indices)", "k": 50, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-70", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a3_more_hops", "description": "A2 with H=3", "k": 10, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
@@ -82,12 +84,12 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/tissuemnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/tissuemnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/tissuemnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/tissuemnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 15, "hops": 3, "max_degree": 50},
       "variants": [
-        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a0_original", "description": "Paper-identified global Graph-A2 (frozen Table 1 indices)", "k": 50, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-50", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a3_more_hops", "description": "A2 with H=3", "k": 10, "kernel": {"hops": 3, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 50, "symmetrize_after": false}, "constraint": {"mode": "none"}},
@@ -105,12 +107,12 @@
       "reference_variant": "a0_original",
       "reference_mode": "frozen",
       "frozen_reference_indices": {
-        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/bloodmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
-        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_clean/bloodmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
+        "r0p02": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/bloodmnist/r0p02/graph_a2/seed42/selected_indices.npy", "required": true},
+        "r0p05": {"path": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global/bloodmnist/r0p05/graph_a2/seed42/selected_indices.npy", "required": true}
       },
       "calibration_target": {"k": 30, "hops": 4, "max_degree": 70},
       "variants": [
-        {"id": "a0_original", "description": "Official global Graph-A2", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
+        {"id": "a0_original", "description": "Paper-identified global Graph-A2 (frozen Table 1 indices)", "k": 50, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a1_truncated_h2", "description": "A0 plus per-hop top-70", "k": 10, "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a2_decay_h2", "description": "A1 plus decay", "k": 10, "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},
         {"id": "a3_more_hops", "description": "A2 with H=4", "k": 10, "kernel": {"hops": 4, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false}, "constraint": {"mode": "none"}},

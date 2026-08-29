@@ -24,7 +24,7 @@ so that dataset-specific parameters can be tuned without using the test split.
 The baseline is the official global Graph-A2 configuration:
 
 ```text
-k=10, H=2, uniform weights, no truncation, equal class quotas
+k=50, H=2, uniform weights, no truncation, equal class quotas
 K = A_hat + A_hat^2
 ```
 
@@ -74,9 +74,12 @@ The five-dataset target parameters are deliberately different:
 | Tissue | 15 | 3 | 50 | largest dataset and weaker UNI domain match; control fill-in |
 | Blood | 30 | 4 | 70 | small graph permits moderate expansion |
 
-These values are candidates, not reported winners. `a3_more_hops`,
-`a4_larger_k`, `a5_full_ppr`, and `a6_full_ppr_cap1` isolate propagation,
-neighborhood size, their combination, and safety.
+These values are candidates, not reported winners. They were designed when the
+baseline was incorrectly assumed to use k=10. Against the corrected k=50 A0,
+the legacy ID `a4_larger_k` and the k=10/15/20/30 variants are lower-k
+exploratory candidates, not a valid progressive ablation. Existing v11
+selection and validation outputs therefore require rerunning in the new
+`*_k50baseline` roots, followed by candidate redesign before a novelty claim.
 
 ## Server setup
 
@@ -197,7 +200,7 @@ Summarize completed runs:
 
 ```bash
 bash v11/scripts/summarize_job2.sh \
-  v11/outputs/job2_table1_validation_valckpt
+  v11/outputs/job2_table1_validation_k50baseline_valckpt
 ```
 
 The primary output is the balanced accuracy at the validation-selected
@@ -215,9 +218,9 @@ Run this only after all 75 validation runs exist:
 
 ```bash
 $GRAPHCOV_PYTHON v11/experiments/freeze_validation_winners.py \
-  --validation-root v11/outputs/job2_table1_validation_valckpt \
+  --validation-root v11/outputs/job2_table1_validation_k50baseline_valckpt \
   --validation-config v11/configs/job2_table1_validation_3seeds.json \
-  --selection-root v11/outputs/job1_table1_calibration \
+  --selection-root v11/outputs/job1_table1_calibration_k50baseline \
   --output-config v11/configs/generated_job2_table1_test.json \
   --test-output-root v11/outputs/job2_table1_test_valckpt
 ```

@@ -1,8 +1,8 @@
 {
   "schema": "graphcov-table1/job2-config-v1",
   "purpose": "Frozen-index downstream Table 1 evaluation",
-  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection_clean",
-  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1_valckpt",
+  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global",
+  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1_k50_global_valckpt",
   "validation_split": "val",
   "evaluation_split": "test",
   "datasets": [

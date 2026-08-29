@@ -46,9 +46,13 @@ The config uses the paper's stated protocol:
 - training seeds 42, 43, 44, 45, 46;
 - test balanced accuracy is the Table 1 metric.
 
+The exact evidence and unresolved assumptions are recorded in
+[`CONFIG_EVIDENCE.md`](CONFIG_EVIDENCE.md).
+
 The repository supplies details that the paper text does not fully spell out:
 
-- original Graph-A2 uses global kNN, `k=10`, `H=2`, and `K=A_hat+A_hat^2`;
+- paper Table 2 identifies the Table 1 Graph-A2 setting as global kNN,
+  `k=50`, `H=2`, and `K=A_hat+A_hat^2`;
 - Facility uses the public runner's per-class full-cosine implementation. A
   global full-cosine matrix is not a viable Table 1 job for Path/Tissue on a
   24 GiB 3090; making Facility global would be a different engineering
@@ -60,8 +64,8 @@ The repository supplies details that the paper text does not fully spell out:
   selection seed for each training trial, while deterministic methods reuse a
   seed-42 subset and only vary the downstream training seed.
 
-These last four items are implementation assumptions, not claims that every
-detail is explicitly confirmed by the paper.
+Facility scope, dynamics details, and seed/budget behavior are implementation
+assumptions; the Graph-A2 k=50/global/H=2 setting is paper-supported.
 
 ## Two jobs
 
@@ -70,7 +74,7 @@ EL2N/Forgetting/EVA, creates or loads one training-dynamics cache. It never
 loads validation or test data and saves frozen indices at:
 
 ```text
-table1_reproduction/outputs/job1_selection_clean/
+table1_reproduction/outputs/job1_selection_k50_global/
   DATASET/r0p02/METHOD/seed42/selected_indices.npy
   DATASET/r0p02/METHOD/seed42/selection_metrics.json
 ```
@@ -86,7 +90,7 @@ accuracy, reloads that checkpoint, and evaluates the test split exactly once.
 The strict-run outputs are:
 
 ```text
-table1_reproduction/outputs/job2_table1_valckpt/
+table1_reproduction/outputs/job2_table1_k50_global_valckpt/
   DATASET/r0p02/METHOD/seed42/test_result.json
   DATASET/r0p02/METHOD/seed42/best_val_checkpoint.pt
   DATASET/r0p02/METHOD/seed42/history.json
@@ -95,8 +99,9 @@ table1_reproduction/outputs/job2_table1_valckpt/
 
 `test_result.json` reports test balanced accuracy at the validation-selected
 checkpoint. It does not report the maximum test score observed during
-training. The previous `outputs/job2_table1/` directory is historical and
-must not be merged into the strict summary.
+training. Previous k=10 roots, including `outputs/job1_selection_clean/` and
+`outputs/job2_table1_valckpt/`, are historical and must not be merged into the
+corrected strict summary.
 
 The complete workload is `5 x 2 x 8 x 5 = 400` downstream runs. Selection is
 much smaller: 160 frozen selections under the seed policy above, with dynamics
@@ -156,7 +161,7 @@ $GRAPHCOV_PYTHON table1_reproduction/experiments/job2_downstream.py \
 
 Do not launch the full Job 2 until Job 1 has finished and its selection
 manifest shows the expected quotas. The summarizer writes
-`outputs/job2_table1_valckpt/summary/table1_reproduction.md` and a machine-readable
+`outputs/job2_table1_k50_global_valckpt/summary/table1_reproduction.md` and a machine-readable
 `per_condition_mean_std.csv`.
 
 ## Local verification

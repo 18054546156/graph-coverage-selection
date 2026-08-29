@@ -83,7 +83,9 @@ cat "table1_reproduction/logs/preflight_${PREFLIGHT_JOB}.out"
 ## 4. Table 1
 
 Table 1 固定八个方法：Random、EL2N、Forgetting、EVA、Facility、FPS、Herding、
-Graph-A2。Graph-A2 固定 global、`k=10`、`H=2`、`K=A_hat+A_hat^2`。
+Graph-A2。Graph-A2 固定 global、`k=50`、`H=2`、`K=A_hat+A_hat^2`。`k=50`
+由论文 Table 2 的 k-ablation 坐实：Blood 与 OrganS 的四个数值和 Table 1
+Graph-A2 列逐项相同。完整证据见 `table1_reproduction/CONFIG_EVIDENCE.md`。
 
 ### 4.1 Job 1：五数据集并行选择
 
@@ -103,7 +105,7 @@ squeue -j "$TABLE1_JOB1"
 
 ```bash
 sacct -j "$TABLE1_JOB1" --format=JobID,State,ExitCode,Elapsed
-find table1_reproduction/outputs/job1_selection_clean \
+find table1_reproduction/outputs/job1_selection_k50_global \
   -name 'selection_manifest_*.json' -maxdepth 1 -type f
 ```
 
@@ -123,8 +125,8 @@ squeue -j "$TABLE1_JOB2"
 
 ```bash
 $GRAPHCOV_PYTHON table1_reproduction/experiments/summarize.py \
-  --input-root table1_reproduction/outputs/job2_table1_valckpt \
-  --output-dir table1_reproduction/outputs/job2_table1_valckpt/summary
+  --input-root table1_reproduction/outputs/job2_table1_k50_global_valckpt \
+  --output-dir table1_reproduction/outputs/job2_table1_k50_global_valckpt/summary
 ```
 
 严格复现的主指标是五个训练 seed 的 test BA mean +/- std：每个 run 只在
@@ -174,9 +176,9 @@ V11_VAL3=$(sbatch --parsable --export=ALL,V11_CONFIG="$V11_CONFIG" v11/slurm/job
 
 ```bash
 $GRAPHCOV_PYTHON v11/experiments/freeze_validation_winners.py \
-  --validation-root v11/outputs/job2_table1_validation_valckpt \
+  --validation-root v11/outputs/job2_table1_validation_k50baseline_valckpt \
   --validation-config v11/configs/job2_table1_validation_3seeds.json \
-  --selection-root v11/outputs/job1_table1_calibration \
+  --selection-root v11/outputs/job1_table1_calibration_k50baseline \
   --output-config v11/configs/generated_job2_table1_test.json \
   --test-output-root v11/outputs/job2_table1_test_valckpt \
   --minimum-ba-gain 0.005 \

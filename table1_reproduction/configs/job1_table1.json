@@ -1,7 +1,7 @@
 {
   "schema": "graphcov-table1/job1-config-v1",
   "purpose": "Official Table 1 selection stage; no validation or test data is read",
-  "output_root": "{project_root}/table1_reproduction/outputs/job1_selection_clean",
+  "output_root": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global",
   "embedding_cache_root": "{project_root}/cache/embeddings",
   "dynamics_cache_root": "{project_root}/cache/embeddings",
   "dataset_registry": "{config_dir}/datasets_server_3090.json",
@@ -23,7 +23,7 @@
   },
   "selection": {
     "embedding_source": "uni",
-    "k_neighbors": 10,
+    "k_neighbors": 50,
     "k_hops": 2,
     "global_selection": false,
     "sparse_cpu": false,
@@ -70,14 +70,14 @@
       "official_method": "graph_a2",
       "selection_seed_policy": "fixed",
       "global_selection": true,
-      "k_neighbors": 10,
+      "k_neighbors": 50,
       "k_hops": 2,
       "description": "Original global Graph-A2: K = A_hat + A_hat^2"
     }
   },
   "assumptions": [
-    "The paper confirms UNI 224 embeddings and balanced per-class budgets but does not spell out every repository default.",
-    "This reproduction uses global Graph-A2 with k=10 and H=2; the public runner's Facility method remains per-class to keep its full pairwise matrix tractable.",
+    "Paper Table 2 identifies k=50: its Blood and OrganS values exactly match the Table 1 Graph-A2 column; Graph-A2 therefore uses a global k=50 graph with H=2.",
+    "Facility remains per-class because the paper does not unambiguously establish its graph scope; a top-level global flag would also change Facility in the public runner.",
     "Training-dynamics scoring follows the repository implementation: 28x28, 200 epochs, window size 10.",
     "The paper says trials vary training seeds; this runner also varies selection seeds for Random and FPS, matching the official runner behavior.",
     "Effective budget is floor(floor(n_train * ratio) / n_classes) per class, as in the official runner."
