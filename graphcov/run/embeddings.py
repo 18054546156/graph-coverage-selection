@@ -282,7 +282,7 @@ def compute_el2n_scores(
     for epoch in range(epochs_el2n):
         model.train()
         for imgs, labels, indices in loader:
-            imgs, labels = imgs.to(device), labels.to(device)
+            imgs, labels = imgs.to(device), labels.to(device).long()
             indices_gpu = indices.to(device)
 
             optimizer.zero_grad()
@@ -313,7 +313,7 @@ def compute_el2n_scores(
     for epoch_idx in range(n_var_epochs):
         model.train()
         for imgs, labels, indices in loader:
-            imgs, labels = imgs.to(device), labels.to(device)
+            imgs, labels = imgs.to(device), labels.to(device).long()
             indices_gpu = indices.to(device)
 
             optimizer.zero_grad()
@@ -421,7 +421,7 @@ def train_full_model(
         epoch_total = 0
 
         for imgs, labels, indices in loader:
-            imgs, labels = imgs.to(device), labels.to(device)
+            imgs, labels = imgs.to(device), labels.to(device).long()
             indices_gpu = indices.to(device)
 
             optimizer.zero_grad()

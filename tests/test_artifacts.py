@@ -49,6 +49,7 @@ def test_indices_and_checkpoint_round_trip(tmp_path: Path):
             'selected_indices_sha256': selection_metadata['indices_sha256'],
             'model': {'architecture': 'torch.nn.Linear', 'in_features': 4, 'out_features': 3},
             'final_test_metrics': {'balanced_accuracy': 0.5},
+            'full_config': {'output_dir': tmp_path},
         },
     )
 

@@ -122,7 +122,7 @@ def train_one_epoch(
 
     for imgs, labels in loader:
         imgs = imgs.to(device, non_blocking=True)
-        labels = labels.to(device, non_blocking=True)
+        labels = labels.to(device, non_blocking=True).long()
         if labels.dim() > 1:
             labels = labels.squeeze(1)  # Squeeze label dim only, keep batch dim
 
@@ -273,7 +273,7 @@ def train_iterations(
             imgs, labels = next(data_iter)
 
         imgs = imgs.to(device, non_blocking=True)
-        labels = labels.to(device, non_blocking=True)
+        labels = labels.to(device, non_blocking=True).long()
         if labels.dim() > 1:
             labels = labels.squeeze(1)  # Squeeze label dim only, keep batch dim
 

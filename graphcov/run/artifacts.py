@@ -27,6 +27,10 @@ def _json_default(value: Any) -> Any:
     raise TypeError(f"Object of type {type(value).__name__} is not JSON serializable")
 
 
+def _json_safe(value: Any) -> Any:
+    return json.loads(json.dumps(value, default=_json_default))
+
+
 def _sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open('rb') as handle:
@@ -145,7 +149,7 @@ def save_final_model_checkpoint(
         'artifact_format_version': ARTIFACT_FORMAT_VERSION,
         'artifact_type': 'final_inference_checkpoint',
         'model_state_dict': model.state_dict(),
-        'metadata': dict(metadata),
+        'metadata': _json_safe(metadata),
         'saved_at_utc': datetime.now(timezone.utc).isoformat(),
     }
     _atomic_torch_save(payload, checkpoint_path)
@@ -173,7 +177,10 @@ def load_model_checkpoint(
 ) -> torch.nn.Module:
     """Load a structured checkpoint or a legacy raw state_dict."""
     map_location = device if device is not None else torch.device('cpu')
-    checkpoint = torch.load(Path(checkpoint_path), map_location=map_location)
+    try:
+        checkpoint = torch.load(Path(checkpoint_path), map_location=map_location, weights_only=True)
+    except TypeError:  # PyTorch versions before weights_only was introduced
+        checkpoint = torch.load(Path(checkpoint_path), map_location=map_location)
     state_dict = checkpoint.get('model_state_dict', checkpoint) if isinstance(checkpoint, dict) else checkpoint
     model.load_state_dict(state_dict)
     return model

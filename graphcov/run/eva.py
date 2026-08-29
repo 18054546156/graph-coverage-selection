@@ -60,7 +60,7 @@ def compute_epoch_metrics(
         for imgs, labels in loader:
             batch_size = len(labels)
             imgs = imgs.to(device, non_blocking=True)
-            labels_flat = labels.to(device, non_blocking=True)
+            labels_flat = labels.to(device, non_blocking=True).long()
             if labels_flat.dim() > 1:
                 labels_flat = labels_flat.squeeze(1)  # Squeeze label dim only, keep batch dim
 
@@ -286,7 +286,7 @@ def compute_training_dynamics(
         model.train()
         for imgs, labels in train_loader:
             imgs = imgs.to(device, non_blocking=True)
-            labels = labels.to(device, non_blocking=True)
+            labels = labels.to(device, non_blocking=True).long()
             if labels.dim() > 1:
                 labels = labels.squeeze(1)  # Squeeze label dim only, keep batch dim
 

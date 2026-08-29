@@ -21,6 +21,10 @@ scores, selected-index order, optimizer steps, scheduler steps, or test metrics.
   - links every result row to its artifact directory.
 - `graphcov/run/results.py`
   - uses microseconds in run IDs to prevent same-second run collisions.
+- `graphcov/run/evaluation.py`, `embeddings.py`, and `eva.py`
+  - cast MedMNIST labels to `torch.int64` before CrossEntropy/one-hot indexing;
+  - this fixes a runtime incompatibility with MedMNIST versions returning
+    `int32` labels and does not change the mathematical objective.
 
 ## Deliberate semantics
 
@@ -38,4 +42,3 @@ without its promised artifacts is incomplete.
 The formal commands are split because `--global` also changes Facility. Graph-A2
 is run globally; the Facility baseline is run without `--global`. See
 `TABLE1_REPRODUCTION.md`.
-
