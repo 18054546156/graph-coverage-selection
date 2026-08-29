@@ -70,6 +70,16 @@ def test_graph_a2_three_seed_reproduction_workload():
     assert all(selection_seed_for("graph_a2", seed, config) == 42 for seed in (42, 43, 44))
 
 
+def test_path_blood_single_seed_pilot_workload():
+    config = load("job2_path_blood_single_seed.json")
+    jobs = expand_jobs(config)
+    assert config["datasets"] == ["pathmnist", "bloodmnist"]
+    assert config["training_seeds"] == [42]
+    assert config["evaluation_split"] == "test"
+    assert len(jobs) == 2 * 2 * 8 * 1
+    assert all(selection_seed_for(job["method"], 42, config) == 42 for job in jobs)
+
+
 def test_job1_expected_selection_workload():
     config = load("job1_table1.json")
     count = 0
