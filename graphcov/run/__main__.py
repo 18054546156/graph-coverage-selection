@@ -206,7 +206,7 @@ Examples:
                         help='Coverage mode for global_influence: prob (probabilistic) or max (default: prob)')
     parser.add_argument('--global', dest='global_selection', action='store_true',
                         help='Build graph across all classes (global) instead of per-class. '
-                             'Applies to: graph_a2, graph_coverage, heat_kernel, facility')
+                             'Applies to Graph-A2 variants, graph_coverage, heat_kernel, and facility')
     parser.add_argument('--sparse-cpu', action='store_true',
                         help='Force sparse CPU path for greedy selection')
     parser.add_argument('--linear-probe', action='store_true',

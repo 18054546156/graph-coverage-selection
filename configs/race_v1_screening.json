@@ -1,0 +1,38 @@
+{
+  "schema": "graphcov-sota-race-v1",
+  "purpose": "Fast same-protocol screening before strict Table 1 confirmation",
+  "base_commit": "b66ae44",
+  "dataset": "tissuemnist",
+  "ratio": 0.02,
+  "embedding": "uni",
+  "image_size": 224,
+  "global_selection": true,
+  "k_neighbors": 50,
+  "k_hops": 2,
+  "seed": 42,
+  "trials": 2,
+  "derived_seeds": [42, 43],
+  "training_paradigm": "iteration",
+  "iterations": 1000,
+  "test_interval": 1000,
+  "batch_size": 256,
+  "learning_rate": 0.1,
+  "momentum": 0.9,
+  "weight_decay": 0.0005,
+  "metric": "balanced_accuracy",
+  "baseline": "graph_a2",
+  "gpu0_methods": [
+    "graph_a2",
+    "graph_a2_dec",
+    "graph_a2_damp50",
+    "graph_a2_marginal"
+  ],
+  "gpu1_methods": [
+    "graph_a2_sqrt",
+    "graph_a2_dec_sqrt",
+    "graph_a2_dec_marginal",
+    "graph_a2_damp25",
+    "graph_a2_damp75"
+  ],
+  "interpretation": "Diagnostic screening only; winners require strict five-seed epoch-protocol confirmation"
+}

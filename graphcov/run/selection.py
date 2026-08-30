@@ -1895,3 +1895,8 @@ def _select_proto_then_diverse(
     return selected
 
 
+# Register controlled Graph-A2 optimization variants after all shared helpers
+# are defined. The imported module uses register_method for first-class CLI use.
+from . import selection_opt as _selection_opt  # noqa: E402,F401
+
+

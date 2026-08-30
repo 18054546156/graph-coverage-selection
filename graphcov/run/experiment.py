@@ -832,7 +832,12 @@ def run_experiment(config: Dict) -> str:
             display_name = method
 
         # Add global suffix for methods that support it
-        GLOBAL_CAPABLE = {'graph_a2', 'graph_coverage', 'heat_kernel', 'facility'}
+        GLOBAL_CAPABLE = {
+            'graph_a2', 'graph_coverage', 'heat_kernel', 'facility',
+            'graph_a2_dec', 'graph_a2_damp25', 'graph_a2_damp50',
+            'graph_a2_damp75', 'graph_a2_sqrt', 'graph_a2_dec_sqrt',
+            'graph_a2_marginal', 'graph_a2_dec_marginal',
+        }
         if config.get('global_selection', False) and method in GLOBAL_CAPABLE:
             display_name += " (global)"
 
