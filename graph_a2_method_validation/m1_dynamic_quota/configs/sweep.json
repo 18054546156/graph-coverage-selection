@@ -1,0 +1,16 @@
+{
+  "method": "graph_a2_m1",
+  "datasets": ["organsmnist", "organamnist", "pathmnist", "tissuemnist", "bloodmnist"],
+  "ratios": [0.02, 0.05],
+  "seeds": [42, 43, 44],
+  "k_values": [10, 50],
+  "hops": 2,
+  "cases": [
+    {"name": "disabled_equal", "params": {"quota_floor_ratio": 1.0, "quota_normalization": "self_optimum"}},
+    {"name": "floor75_self", "params": {"quota_floor_ratio": 0.75, "quota_normalization": "self_optimum"}},
+    {"name": "floor50_self", "params": {"quota_floor_ratio": 0.5, "quota_normalization": "self_optimum"}},
+    {"name": "floor75_mass", "params": {"quota_floor_ratio": 0.75, "quota_normalization": "mass"}},
+    {"name": "floor50_mass", "params": {"quota_floor_ratio": 0.5, "quota_normalization": "mass"}}
+  ]
+}
+

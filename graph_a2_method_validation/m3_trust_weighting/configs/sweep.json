@@ -1,0 +1,19 @@
+{
+  "method": "graph_a2_m3",
+  "datasets": ["organsmnist", "organamnist", "pathmnist", "tissuemnist", "bloodmnist"],
+  "ratios": [0.02, 0.05],
+  "seeds": [42, 43, 44],
+  "k_values": [10, 50],
+  "hops": 2,
+  "cases": [
+    {"name": "disabled_baseline", "params": {"purity_exponent": 0.0, "trust_mode": "purity"}},
+    {"name": "purity_b025", "params": {"purity_exponent": 0.25, "trust_mode": "purity"}},
+    {"name": "purity_b050", "params": {"purity_exponent": 0.5, "trust_mode": "purity"}},
+    {"name": "purity_b100", "params": {"purity_exponent": 1.0, "trust_mode": "purity"}},
+    {"name": "purity_b200", "params": {"purity_exponent": 2.0, "trust_mode": "purity"}},
+    {"name": "adaptive_b050", "params": {"purity_exponent": 0.5, "trust_mode": "adaptive"}},
+    {"name": "adaptive_b100", "params": {"purity_exponent": 1.0, "trust_mode": "adaptive"}},
+    {"name": "adaptive_b200", "params": {"purity_exponent": 2.0, "trust_mode": "adaptive"}},
+    {"name": "adaptive_b100_floor10", "params": {"purity_exponent": 1.0, "trust_mode": "adaptive", "trust_weight_floor": 0.1}}
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "method": "graph_a2",
+  "datasets": ["organsmnist", "organamnist", "pathmnist", "tissuemnist", "bloodmnist"],
+  "ratios": [0.02, 0.05],
+  "seeds": [42, 43, 44],
+  "k_values": [10, 50],
+  "hops": 2,
+  "cases": [{"name": "official", "params": {}}]
+}
+

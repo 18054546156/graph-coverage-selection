@@ -1,0 +1,20 @@
+{
+  "method": "graph_a2_m2",
+  "datasets": ["organsmnist", "organamnist", "pathmnist", "tissuemnist", "bloodmnist"],
+  "ratios": [0.02, 0.05],
+  "seeds": [42, 43, 44],
+  "k_values": [10, 50],
+  "hops": 2,
+  "cases": [
+    {"name": "disabled_baseline", "params": {"relation_mode": "baseline"}},
+    {"name": "same_class", "params": {"relation_mode": "same_class"}},
+    {"name": "scalar25", "params": {"relation_mode": "scalar", "cross_credit": 0.25}},
+    {"name": "scalar50", "params": {"relation_mode": "scalar", "cross_credit": 0.5}},
+    {"name": "scalar75", "params": {"relation_mode": "scalar", "cross_credit": 0.75}},
+    {"name": "pair_s25", "params": {"relation_mode": "class_pair", "relation_strength": 0.25, "pair_min_credit": 0.0}},
+    {"name": "pair_s50", "params": {"relation_mode": "class_pair", "relation_strength": 0.5, "pair_min_credit": 0.0}},
+    {"name": "pair_s100", "params": {"relation_mode": "class_pair", "relation_strength": 1.0, "pair_min_credit": 0.0}},
+    {"name": "pair_s100_floor25", "params": {"relation_mode": "class_pair", "relation_strength": 1.0, "pair_min_credit": 0.25}}
+  ]
+}
+

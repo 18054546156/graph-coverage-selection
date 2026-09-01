@@ -1,0 +1,5 @@
+**/outputs/
+**/graphcov/cache/
+**/graphcov/results/
+**/__pycache__/
+*.pyc
