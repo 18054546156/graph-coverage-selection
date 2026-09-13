@@ -1,0 +1,65 @@
+{
+  "created": "2026-09-13",
+  "purpose": "Pinned source preparation for the eight-selector medical reliability audit",
+  "repos": [
+    {
+      "name": "graphcov",
+      "url": "https://github.com/zahiriddin-rustamov/graph-coverage-selection.git",
+      "commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+      "path": "repos/graphcov",
+      "status": "cloned_and_detached",
+      "role": "primary eight-selector implementation"
+    },
+    {
+      "name": "medmnistc",
+      "url": "https://github.com/francescodisalvo05/medmnistc-api.git",
+      "commit": "8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7",
+      "path": "repos/medmnistc",
+      "status": "cloned_and_detached",
+      "role": "MedMNIST-C generation and BE/rBE reference evaluation"
+    },
+    {
+      "name": "fd-shifts",
+      "url": "https://github.com/IML-DKFZ/fd-shifts.git",
+      "commit": "c4467aec134e99691359da209f811d91283fc1e3",
+      "path": "repos/fd-shifts",
+      "status": "cloned_and_detached",
+      "role": "risk-coverage and AURC reference implementation"
+    },
+    {
+      "name": "google-research",
+      "url": "https://github.com/google-research/google-research.git",
+      "commit": "08a8d6736475776f42ffac23b2c13111a28e5795",
+      "path": "repos/google-research-sparse",
+      "status": "clone_metadata_present_windows_checkout_blocked",
+      "role": "NLL/Brier/ECE reference source",
+      "fallback": "sources/google_uq/*_pinned.source"
+    },
+    {
+      "name": "temperature_scaling",
+      "url": "https://github.com/gpleiss/temperature_scaling.git",
+      "commit": "ce1154ec7d5235eee046f28875c3dd8421f11d45",
+      "path": "repos/temperature_scaling",
+      "status": "cloned_and_detached",
+      "role": "classic logits-based ECE and temperature-scaling reference"
+    },
+    {
+      "name": "uncertainty_ICLR",
+      "url": "https://github.com/geifmany/uncertainty_ICLR.git",
+      "commit": "495f82d9d9a24e1dd62e62dd1f86d78e4f53a471",
+      "path": "repos/uncertainty_ICLR",
+      "status": "cloned_and_detached",
+      "role": "early selective-classification / risk-coverage reference"
+    }
+  ],
+  "not_cloned": [
+    {
+      "name": "robustness_metrics",
+      "reason": "The prior GitHub API lookup failed and no repository commit was verified; not a required runtime dependency."
+    },
+    {
+      "name": "DeepCore/Data Diet/D2/ELFS/ZCore/confounder-aware",
+      "reason": "Mentioned as literature or optional cross-checks, but not needed to run the fixed GraphCov eight-method benchmark and no pinned source evidence was available in this workspace."
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+# Minimal packages used by reliability_code_prep.ipynb
+nbformat
+numpy
+scikit-learn
+scipy
+torch
+torchvision
+Pillow
+
+# Required by the actual MedMNIST-C generation/evaluation stage
+medmnist==3.0.1
+scikit-image==0.23.2
+opencv-python
+wand
+
+# Required only if importing the Google UQ reference module directly
+tensorflow
+tensorflow-probability
+six

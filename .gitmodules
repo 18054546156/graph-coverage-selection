@@ -1,0 +1,18 @@
+[submodule "repos/graphcov"]
+    path = repos/graphcov
+    url = https://github.com/zahiriddin-rustamov/graph-coverage-selection.git
+[submodule "repos/medmnistc"]
+    path = repos/medmnistc
+    url = https://github.com/francescodisalvo05/medmnistc-api.git
+[submodule "repos/fd-shifts"]
+    path = repos/fd-shifts
+    url = https://github.com/IML-DKFZ/fd-shifts.git
+[submodule "repos/google-research-sparse"]
+    path = repos/google-research-sparse
+    url = https://github.com/google-research/google-research.git
+[submodule "repos/temperature_scaling"]
+    path = repos/temperature_scaling
+    url = https://github.com/gpleiss/temperature_scaling.git
+[submodule "repos/uncertainty_ICLR"]
+    path = repos/uncertainty_ICLR
+    url = https://github.com/geifmany/uncertainty_ICLR.git
