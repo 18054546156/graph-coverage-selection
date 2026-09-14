@@ -228,7 +228,7 @@ OrganS/OrganA/Path/Blood: 8 CPU, 1 GPU, 64G RAM
 Tissue:                    8 CPU, 1 GPU, 96G RAM
 ```
 
-训练只读 selected clean train 和 clean validation。选择 validation BA 最佳 checkpoint；不得读取 corrupted test 来选 checkpoint。
+训练只读 selected clean train。v29 固定使用 final epoch checkpoint，不读取 validation 或 corrupted test 来选择 checkpoint。
 
 ### Stage 3：clean/corrupted evaluation
 
@@ -338,7 +338,7 @@ Stage 3 评估：约 0.5-2 天
 - [ ] 五数据集八方法的 selected indices 数量和类别配额正确
 - [ ] 所有 selection 记录包含 seed、config、SHA256
 - [ ] 400 个训练运行的 checkpoint/日志/指标路径唯一
-- [ ] checkpoint 只由 clean validation 选择
+- [ ] checkpoint 使用 final epoch，且没有用 validation/corruption test 选择
 - [ ] 每个 checkpoint 的 clean test 和 corrupted test 使用同一模型
 - [ ] 没有按 corruption 重新训练
 - [ ] summary 表只从 raw metrics 生成

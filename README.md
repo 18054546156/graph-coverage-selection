@@ -11,10 +11,11 @@ reliability experiment.
 - `reliability_code_prep.ipynb`: the only experiment code file. It imports
   upstream functions, defines the small adapters inline, prints commit status,
   runs tiny metric checks, and records the full-run command templates.
-- `reliability_full_experiment.ipynb`: the only new long-run experiment code.
+- `reliability_full_experiment.ipynb`: the long-run experiment code.
   It calls the pinned GraphCov selectors and MedMNIST-C dataset class, trains
   final-epoch ResNet-18 checkpoints, saves per-sample predictions, and writes
-  clean/corruption metrics. It is resumable through `metrics.jsonl`.
+  per-run clean/corruption metrics. It resumes only after checking a complete
+  run marker and all expected prediction files.
 - `clone_manifest.json`: URLs, commits, roles, and the Google Windows fallback.
 
 ## Important status
@@ -28,7 +29,8 @@ for manual verification. This is recorded rather than hidden.
 The preparation notebook intentionally does not train. The full notebook does
 download official 224-pixel MedMNIST files when absent, creates missing
 MedMNIST-C files through the pinned `DatasetManager`, trains, and evaluates.
-It never uses the validation split.
+It never uses the validation split. The current data-preparation package and
+its status record are in `reliability_medmnistc_ab/`.
 
 ## Fixed experiment contract
 
@@ -41,21 +43,30 @@ final-epoch evaluation, and shared seeds. Save `sample_id`, `y_true`,
 
 ## Long-run environment variables
 
-The full notebook defaults to `pathmnist,organsmnist`, ratios `0.02,0.05`,
-seeds `0,1,2`, 1000 epochs, 224-pixel inputs, and the `uni` embedding source.
-Set `DATASETS`, `RATIOS`, `SEEDS`, `EPOCHS`, `DYNAMICS_EPOCHS`,
-`MEDMNIST_ROOT`, `MEDMNISTC_ROOT`, `RELIABILITY_OUT`, and `GRAPH_CACHE` before
-execution. The `uni` source requires the same `timm`/model weights used by the
-pinned GraphCov release. A failed dependency or missing model must be fixed
-rather than silently replaced by another encoder.
+The full notebook defaults to all five target datasets, ratios `0.02,0.05`,
+selection seed `42`, training seeds `42,43,44,45,46`, 1000 epochs, 224-pixel
+inputs, and the `uni` embedding source. Set `DATASETS`, `RATIOS`,
+`SELECTION_SEED`, `TRAINING_SEEDS`, `EPOCHS`, `DYNAMICS_EPOCHS`,
+`MEDMNIST_ROOT`, `MEDMNISTC_ROOT`, `RELIABILITY_OUT`, `SELECTION_OUT`, and
+`GRAPH_CACHE` before execution. `SEEDS` remains accepted as a legacy alias for
+`TRAINING_SEEDS`. The `uni` source requires the same `timm`/model weights used
+by the pinned GraphCov release. A failed dependency or missing model must be
+fixed rather than silently replaced by another encoder.
 
 Example remote execution from this directory:
 
 ```bash
-DATASETS=pathmnist,organsmnist RATIOS=0.02,0.05 SEEDS=0,1,2 \
+DATASETS=pathmnist,organsmnist RATIOS=0.02,0.05 \
+  SELECTION_SEED=42 TRAINING_SEEDS=42,43,44,45,46 \
   jupyter nbconvert --to notebook --execute reliability_full_experiment.ipynb \
   --output reliability_full_experiment.executed.ipynb
 ```
+
+Each run writes to a unique path below `RELIABILITY_OUT/<dataset>/<method>/`
+with separate selection and training seed components. Selection artifacts are
+also written below `SELECTION_OUT/<method>/<dataset>/`. The notebook evaluates
+all corruption names in the pinned registry by default; use `CORRUPTIONS` only
+for an explicitly labelled smoke or pilot run.
 
 ## Related source repositories
 

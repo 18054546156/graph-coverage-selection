@@ -57,6 +57,6 @@ The selection-robustness audit is a separate stress test. It compares selected-i
 
 ## Reproducibility contract
 
-The strict run must use selection seed 42 for each method, then vary only downstream training seeds 42, 43, 44, 45, and 46. Checkpoint selection uses clean validation BA only. The same checkpoint is evaluated on the official clean test and every MedMNIST-C corruption at severities 1-5.
+The strict run must use selection seed 42 for each method, then vary only downstream training seeds 42, 43, 44, 45, and 46. The v29 protocol uses the final epoch checkpoint and does not read validation or corrupted test data for checkpoint choice. The same checkpoint is evaluated on the official clean test and every MedMNIST-C corruption at severities 1-5.
 
 The frozen configuration is in `protocol/protocol.json`. The detailed execution order, Slurm resources, expected output paths, and acceptance checklist are in `handoff.md`.
