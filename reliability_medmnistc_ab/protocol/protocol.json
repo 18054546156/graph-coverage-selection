@@ -1,0 +1,93 @@
+{
+  "experiment_name": "reliability_medmnistc_ab",
+  "purpose": "Audit selector-set stability and downstream clean/corrupted-test reliability without modifying official source code.",
+  "status": "data_preparation_complete_formal_runs_pending",
+  "source_repositories": {
+    "graphcov": {
+      "path": "/project/prj-sis01/xuxiaoyu/graph_select_pristine_origin_main",
+      "commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+      "dirty_tree_allowed": false
+    },
+    "medmnistc": {
+      "path": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/sources/medmnistc-api",
+      "commit": "8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7",
+      "dirty_tree_allowed": false
+    }
+  },
+  "full_experiment_snapshot": {
+    "url": "https://github.com/18054546156/graph-coverage-selection.git",
+    "ref": "codex/reliability-audit-v29",
+    "commit": "be53fd357ed8ceffd1ed536b11ed0dab06f89519",
+    "path": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/sources/graph-coverage-selection-codex-reliability-audit-v29",
+    "notebook": "reliability_full_experiment.ipynb",
+    "submodules": {
+      "graphcov": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+      "medmnistc": "8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7"
+    },
+    "default_overrides_required_for_strict_five_dataset_run": {
+      "DATASETS": "organsmnist,organamnist,pathmnist,tissuemnist,bloodmnist",
+      "RATIOS": "0.02,0.05",
+      "SEEDS": "42,43,44,45,46",
+      "EPOCHS": 1000,
+      "DYNAMICS_EPOCHS": 200,
+      "BATCH_SIZE": 256,
+      "NUM_WORKERS": 4,
+      "IMAGE_SIZE": 224,
+      "AUGMENT": 0,
+      "EMBEDDING_SOURCE": "uni"
+    }
+  },
+  "datasets": ["organsmnist", "organamnist", "pathmnist", "tissuemnist", "bloodmnist"],
+  "ratios": [0.02, 0.05],
+  "methods": ["random", "el2n_top", "forgetting", "eva", "facility", "fps", "herding", "graph_a2"],
+  "selection_seeds": [42, 43, 44, 45, 46],
+  "selection_seed_pilot": {
+    "seeds": [1, 42, 2026],
+    "methods_with_evidence": ["random", "graph_a2"],
+    "purpose": "Pilot selection-set stability audit using existing isolated Table 1 selection artifacts; not a Table 1 rerun.",
+    "methods_pending": ["el2n_top", "forgetting", "eva", "facility", "fps", "herding"]
+  },
+  "selection_config": {
+    "embedding": "UNI",
+    "image_size": 224,
+    "graph_scope": "global",
+    "k_neighbors": 50,
+    "k_hops": 2,
+    "kernel": "A_sym + A_sym^2",
+    "quota": "equal_per_class",
+    "dynamic_methods_use_clean_train_only": true
+  },
+  "selection_robustness_metrics": [
+    "pairwise_jaccard",
+    "jaccard_to_seed42",
+    "class_count_deviation",
+    "selection_size",
+    "index_order_sha256"
+  ],
+  "downstream_protocol": {
+    "selection_source": "clean_train",
+    "training_source": "selected_clean_train",
+    "clean_test_source": "official_test",
+    "corrupted_test_source": "MedMNIST-C",
+    "retrain_per_corruption": false,
+    "checkpoint_selection_uses_corrupted_test": false,
+    "official_test_used_for_selection": false,
+    "official_test_used_for_tuning": false,
+    "primary_metric": "balanced_accuracy",
+    "secondary_metrics": ["accuracy", "per_class_recall", "worst_class_recall", "nll", "brier", "ece", "aurc"]
+  },
+  "paths": {
+    "local_package": "C:/Users/Administrator/Documents/ChatGPT/New project/reliability_medmnistc_ab",
+    "hpc_package": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab",
+    "clean_data": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/data/medmnist",
+    "corrupted_data": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc",
+    "selection_artifacts": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/artifacts/selections",
+    "raw_results": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/results/raw_metrics"
+  },
+  "data_integrity": {
+    "official_224_required_for_medmnistc_generation": true,
+    "synthetic_smoke_outputs_are_not_results": true,
+    "medmnist_version_required": "3.0.1",
+    "medmnistc_version": "0.1.0"
+  }
+}

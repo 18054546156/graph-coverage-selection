@@ -1,0 +1,12 @@
+# Large or machine-local experiment inputs and outputs are not published.
+data/
+envs/
+artifacts/
+__pycache__/
+*.pyc
+*.npz
+*.pt
+*.pth
+*.ckpt
+logs/*.out
+logs/*.err

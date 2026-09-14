@@ -1,0 +1,26 @@
+{
+  "hpc_host": "luhpc",
+  "python_environment": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311",
+  "python": "3.11.9",
+  "packages": {
+    "torch": "2.5.1",
+    "torchvision": "0.20.1",
+    "medmnist": "3.0.1",
+    "numpy": "1.26.4",
+    "scikit-image": "0.23.2",
+    "scikit-learn": "1.9.0",
+    "scipy": "1.17.1",
+    "opencv-python-headless": "4.10.0.84",
+    "wand": "0.7.2",
+    "nbclient": "0.11.0"
+  },
+  "imagemagick_prefix": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/imagemagick",
+  "imagemagick": "7.1.2-31 Q16-HDRI",
+  "runtime_environment": {
+    "LD_LIBRARY_PATH_prefix": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/imagemagick/lib",
+    "MAGICK_HOME": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/imagemagick",
+    "PYTHONPATH": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/sources/medmnistc-api"
+  },
+  "source_status_after_test": "clean",
+  "source_commit": "8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7"
+}

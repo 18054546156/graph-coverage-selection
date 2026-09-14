@@ -1,0 +1,1082 @@
+[
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "organsmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "organamnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "pathmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "tissuemnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_002",
+    "method": "herding",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "el2n_top",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "forgetting",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "eva",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "facility",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "fps",
+    "seed": 2026
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 1
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 42
+  },
+  {
+    "dataset": "bloodmnist",
+    "ratio": "ratio_005",
+    "method": "herding",
+    "seed": 2026
+  }
+]
