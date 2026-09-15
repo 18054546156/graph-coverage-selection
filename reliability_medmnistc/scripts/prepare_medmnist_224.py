@@ -6,14 +6,20 @@ train a model, or create MedMNIST-C files.
 
 from __future__ import annotations
 
+from pathlib import Path
+import sys
+
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+sys.path = [entry for entry in sys.path if Path(entry or ".").resolve() != SCRIPT_DIR]
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+
 import argparse
 import hashlib
 import json
 import os
 import subprocess
-import sys
 import time
-from pathlib import Path
 
 
 DATASETS = [
