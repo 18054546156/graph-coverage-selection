@@ -48,6 +48,12 @@ class ConfigContractTests(unittest.TestCase):
             source = path.read_text(encoding="utf-8")
             self.assertIn("SLURM_SUBMIT_DIR", source, path.name)
 
+    def test_command_wrappers_do_not_shadow_standard_library_select(self):
+        for filename in ("select.py", "train.py", "evaluate.py", "summarize.py", "run_pipeline_full.py"):
+            source = (ROOT / "scripts" / filename).read_text(encoding="utf-8")
+            self.assertIn("sys.path = [entry for entry in sys.path", source, filename)
+            self.assertIn("from reliability_medmnistc.scripts.run_pipeline import main", source, filename)
+
 
 if __name__ == "__main__":
     unittest.main()
