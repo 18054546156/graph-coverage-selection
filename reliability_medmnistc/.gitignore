@@ -1,0 +1,12 @@
+# Local data and generated experiment state.
+data/
+cache/
+runs/
+artifacts/
+logs/
+__pycache__/
+*.pyc
+*.npz
+*.pt
+*.pth
+*.ckpt

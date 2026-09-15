@@ -88,6 +88,15 @@ Results are saved to `graphcov/results/runs/<run_id>/`.
   <sub><b>DermaMNIST.</b> Global selection spends budget where it matters: more samples in ambiguous, overlapping regions, fewer in compact clusters already well-represented by a single pick.</sub>
 </p>
 
+## MedMNIST-C reliability experiments
+
+The reproducible clean/corrupted-test pipeline is in
+[`reliability_medmnistc/`](reliability_medmnistc/). It contains the frozen
+configs, official MedMNIST 224-pixel preparation, MedMNIST-C generation,
+selection, ResNet-18 final-checkpoint training, clean/corruption evaluation,
+metrics, and Slurm entry points. Datasets, checkpoints, predictions, caches,
+and logs are intentionally excluded from Git.
+
 ## Citation
 
 If you use this code, please cite:
