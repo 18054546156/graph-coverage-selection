@@ -10,9 +10,7 @@ import hashlib
 import json
 import math
 import os
-import platform
 import random
-import socket
 import sys
 import time
 
@@ -54,6 +52,11 @@ SIZE = int(os.environ.get("IMAGE_SIZE", "224"))
 SMOKE_N = int(os.environ.get("SMOKE_N", "0"))
 RUN_FULL_TRAIN = os.environ.get("RUN_FULL_TRAIN", "1") == "1"
 CORR_HASH = os.environ.get("CORR_HASH", "0") == "1"
+AUTO_CONSOLIDATE = os.environ.get("AUTO_CONSOLIDATE", "1") == "1"
+ALLOW_MISSING_CLASSES = os.environ.get("ALLOW_MISSING_CLASSES", "0") == "1"
+EXPECTED_GRAPHCOV_COMMIT = os.environ.get(
+    "EXPECTED_GRAPHCOV_COMMIT", "8cf757adc4c333dc1427d511f0de2f246d15ebac"
+)
 PHASE = os.environ.get("PHASE", "full").strip().lower()
 if PHASE not in {"select", "train", "evaluate", "full", "summarize"}:
     raise ValueError("PHASE must be select, train, evaluate, full, or summarize")
@@ -72,6 +75,7 @@ OUT.mkdir(parents=True, exist_ok=True)
 CACHE.mkdir(parents=True, exist_ok=True)
 CORR_ROOT.mkdir(parents=True, exist_ok=True)
 SELECTION_OUT.mkdir(parents=True, exist_ok=True)
+VERIFIED_SOURCE_FILES = {}
 
 
 def parse_corruptions(name):
@@ -101,7 +105,7 @@ def json_default(value):
 def atomic_write_text(path, text):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_name(path.name + ".tmp")
+    tmp = path.with_name(path.name + f".tmp.{os.getpid()}")
     tmp.write_text(text, encoding="utf-8")
     os.replace(tmp, path)
 
@@ -113,7 +117,7 @@ def atomic_write_json(path, value):
 def atomic_save_npy(path, value):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_name(path.name + ".tmp.npy")
+    tmp = path.with_name(path.name + f".tmp.{os.getpid()}.npy")
     np.save(tmp, value)
     os.replace(tmp, path)
 
@@ -121,7 +125,7 @@ def atomic_save_npy(path, value):
 def atomic_save_npz(path, **values):
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_name(path.name + ".tmp.npz")
+    tmp = path.with_name(path.name + f".tmp.{os.getpid()}.npz")
     np.savez_compressed(tmp, **values)
     os.replace(tmp, path)
 
@@ -140,6 +144,27 @@ def file_sha256(path, chunk_size=1024 * 1024):
                 break
             digest.update(chunk)
     return digest.hexdigest()
+
+
+def verify_source_file(path, expected_sha256):
+    path = Path(path)
+    cache_key = (str(path.resolve()), expected_sha256)
+    if cache_key in VERIFIED_SOURCE_FILES:
+        return
+    if not path.is_file():
+        raise RuntimeError(f"selection source file is missing: {path}")
+    actual = file_sha256(path)
+    if actual != expected_sha256:
+        raise RuntimeError(f"selection source SHA256 mismatch: {path}: {actual} != {expected_sha256}")
+    VERIFIED_SOURCE_FILES[cache_key] = True
+
+
+def atomic_write_dataframe_csv(path, frame):
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_name(path.name + f".tmp.{os.getpid()}")
+    frame.to_csv(tmp, index=False)
+    os.replace(tmp, path)
 
 
 def git_commit(path):
@@ -168,20 +193,45 @@ sys.path.insert(0, str(GRAPH_ROOT))
 sys.path.insert(0, str(MEDC_ROOT))
 from medmnist import INFO
 from graphcov.run.data import get_transform, get_train_transform, AugmentedDataset
-from graphcov.run.embeddings import load_or_compute_embeddings, load_or_compute_raw_dynamics
+from graphcov.run.embeddings import (
+    get_cache_path,
+    get_dynamics_cache_path,
+    load_or_compute_embeddings,
+    load_or_compute_raw_dynamics,
+)
 from graphcov.run.eva import get_optimal_windows, derive_eva_scores
 from graphcov.run.selection import select, get_available_methods
 from graphcov.run.embeddings import ResNet18WithFeatures
 from graphcov.run.evaluation import train_one_epoch, set_seed
-from medmnistc.dataset_manager import DatasetManager
 from medmnistc.dataset import CorruptedMedMNIST
 from medmnistc.corruptions.registry import CORRUPTIONS_DS, DATASET_RGB
 
 assert [m for m in METHODS if m not in get_available_methods()] == [], get_available_methods()
 assert DATASETS and all(name in INFO for name in DATASETS), DATASETS
 assert TRAINING_SEEDS, "TRAINING_SEEDS must not be empty"
+
+
+def assert_graphcov_source_unchanged():
+    import subprocess
+
+    try:
+        subprocess.run(
+            ["git", "-C", str(GRAPH_ROOT), "merge-base", "--is-ancestor", EXPECTED_GRAPHCOV_COMMIT, "HEAD"],
+            check=True, capture_output=True, text=True,
+        )
+        subprocess.run(
+            ["git", "-C", str(GRAPH_ROOT), "diff", "--quiet", EXPECTED_GRAPHCOV_COMMIT, "--", "graphcov"],
+            check=True, capture_output=True, text=True,
+        )
+    except Exception as exc:
+        raise RuntimeError(
+            f"graphcov/ must remain identical to official {EXPECTED_GRAPHCOV_COMMIT}"
+        ) from exc
+
+
+assert_graphcov_source_unchanged()
 print("Pinned GraphCov methods:", METHODS)
-print("GraphCov commit:", git_commit(GRAPH_ROOT))
+print("GraphCov official base commit:", EXPECTED_GRAPHCOV_COMMIT)
 print("MedMNIST-C commit:", git_commit(MEDC_ROOT))
 
 
@@ -241,10 +291,10 @@ def ensure_corruptions(name, clean_labels):
     dataset_dir = CORR_ROOT / name
     missing = [c for c in wanted if not (dataset_dir / f"{c}.npz").exists()]
     if missing:
-        print("Generating missing MedMNIST-C files through upstream API:", name, missing)
-        DatasetManager(
-            medmnist_path=str(DATA_ROOT), output_path=str(CORR_ROOT), random_seed=0,
-        ).create_dataset(name)
+        raise RuntimeError(
+            f"missing MedMNIST-C files for {name}: {missing}; run "
+            "reliability_medmnistc/scripts/generate_medmnistc.py before evaluation"
+        )
     records = []
     for corruption in wanted:
         records.append(validate_corruption_file(
@@ -323,6 +373,9 @@ def metric_row(y, logits, num_classes, prefix=""):
     for class_id in range(num_classes):
         mask = y == class_id
         recalls[class_id] = float(np.mean(pred[mask] == class_id)) if mask.any() else float("nan")
+    missing_classes = [class_id for class_id, value in recalls.items() if math.isnan(value)]
+    if missing_classes and not ALLOW_MISSING_CLASSES:
+        raise RuntimeError(f"evaluation split is missing required classes: {missing_classes}")
     observed = [value for value in recalls.values() if not math.isnan(value)]
     if not observed:
         raise RuntimeError("no observed classes")
@@ -364,12 +417,26 @@ def save_predictions(path, clean_id, y, logits, probs, severity):
 def get_selection_data(name, train_224, train_28, info):
     needs_embedding = any(m in {"facility", "fps", "herding", "graph_a2"} for m in METHODS)
     embeddings = None
+    sources = {}
     if needs_embedding:
-        embeddings = load_or_compute_embeddings(
+        embedding_data = load_or_compute_embeddings(
             name, "train", EMBEDDING_SOURCE, train_224, len(info["label"]),
             info["n_channels"], size=SIZE, seed=SELECTION_SEED,
             cache_dir=CACHE, verbose=True,
-        )["embeddings"]
+        )
+        embeddings = np.asarray(embedding_data["embeddings"])
+        embedding_cache = get_cache_path(
+            name, "train", EMBEDDING_SOURCE, SIZE, SELECTION_SEED,
+            cache_dir=CACHE,
+        )
+        sources["embedding"] = {
+            "source": EMBEDDING_SOURCE,
+            "path": str(embedding_cache),
+            "file_sha256": file_sha256(embedding_cache),
+            "array_sha256": array_sha256(embeddings),
+            "shape": list(embeddings.shape),
+            "dtype": str(embeddings.dtype),
+        }
     dynamics = None
     if any(m in {"el2n_top", "forgetting", "eva"} for m in METHODS):
         dynamics = load_or_compute_raw_dynamics(
@@ -377,7 +444,17 @@ def get_selection_data(name, train_224, train_28, info):
             size=28, seed=SELECTION_SEED, eva_epochs=DYNAMICS_EPOCHS,
             window_size=10, cache_dir=CACHE, verbose=True,
         )
-    return embeddings, dynamics
+        dynamics_cache = get_dynamics_cache_path(
+            name, "train", 28, SELECTION_SEED, DYNAMICS_EPOCHS, CACHE,
+        )
+        sources["dynamics"] = {
+            "path": str(dynamics_cache),
+            "file_sha256": file_sha256(dynamics_cache),
+            "all_l2_sha256": array_sha256(dynamics["all_l2_scores"]),
+            "forgetting_sha256": array_sha256(dynamics["forgetting_scores"]),
+            "all_l2_shape": list(np.asarray(dynamics["all_l2_scores"]).shape),
+        }
+    return embeddings, dynamics, sources
 
 
 def choose(name, labels, info, embeddings, dynamics, ratio):
@@ -421,30 +498,154 @@ def choose(name, labels, info, embeddings, dynamics, ratio):
     return selected, budget
 
 
-def save_selection_artifact(name, method, ratio, local_indices, source_train_indices, labels, budget, info):
+def save_selection_artifact(name, method, ratio, local_indices, source_train_indices, labels, budget, info, sources):
     ratio_label = f"{ratio:g}"
     directory = SELECTION_OUT / method / name / f"ratio_{ratio_label}" / f"selection_seed_{SELECTION_SEED}"
-    directory.mkdir(parents=True, exist_ok=True)
+    if directory.exists():
+        existing_local, existing_original, existing_budget, _ = load_selection_artifact(
+            name, method, ratio, source_train_indices, labels, info,
+        )
+        expected_original = np.asarray(source_train_indices[local_indices], dtype=np.int64)
+        if (
+            existing_budget != int(budget)
+            or not np.array_equal(existing_local, np.asarray(local_indices, dtype=np.int64))
+            or not np.array_equal(existing_original, expected_original)
+        ):
+            raise RuntimeError(f"refusing to overwrite a different selection artifact: {directory}")
+        print("reuse verified selection artifact", directory)
+        return existing_original
+    directory.parent.mkdir(parents=True, exist_ok=True)
+    staging = directory.with_name(directory.name + f".tmp.{os.getpid()}")
+    staging.mkdir(parents=False, exist_ok=False)
     original_indices = np.asarray(source_train_indices[local_indices], dtype=np.int64)
-    atomic_save_npy(directory / "selected_indices.npy", original_indices)
-    atomic_save_npy(directory / "selected_local_indices.npy", local_indices)
-    atomic_write_text(directory / "selection_seed.txt", f"{SELECTION_SEED}\n")
+    atomic_save_npy(staging / "selected_indices.npy", original_indices)
+    atomic_save_npy(staging / "selected_local_indices.npy", local_indices)
+    atomic_write_text(staging / "selection_seed.txt", f"{SELECTION_SEED}\n")
     counts = np.bincount(labels[local_indices], minlength=len(info["label"]))
-    atomic_write_json(directory / "class_counts.json", {str(i): int(v) for i, v in enumerate(counts)})
-    atomic_write_text(directory / "index_order_sha256.txt", array_sha256(original_indices) + "\n")
-    atomic_write_json(directory / "selection_config.json", {
+    atomic_write_json(staging / "class_counts.json", {str(i): int(v) for i, v in enumerate(counts)})
+    atomic_write_text(staging / "index_order_sha256.txt", array_sha256(original_indices) + "\n")
+    method_sources = {}
+    if method in {"facility", "fps", "herding", "graph_a2"}:
+        method_sources["embedding"] = sources["embedding"]
+    if method in {"el2n_top", "forgetting", "eva"}:
+        method_sources["dynamics"] = sources["dynamics"]
+    atomic_write_json(staging / "selection_config.json", {
         "dataset": name, "method": method, "ratio": ratio,
         "selection_seed": SELECTION_SEED, "budget_per_class": int(budget),
         "n_selected": int(len(local_indices)), "source_train_indices_sha256": array_sha256(source_train_indices),
         "selected_indices_sha256": array_sha256(original_indices),
-        "graphcov_commit": git_commit(GRAPH_ROOT), "embedding_source": EMBEDDING_SOURCE,
+        "graphcov_commit": EXPECTED_GRAPHCOV_COMMIT, "embedding_source": EMBEDDING_SOURCE,
         "image_size": SIZE, "dynamic_image_size": 28, "dynamics_epochs": DYNAMICS_EPOCHS,
+        "source_train_labels_sha256": array_sha256(labels),
+        "selection_sources": method_sources,
         "facility_global": FACILITY_GLOBAL,
         "graph_global": GRAPH_GLOBAL if method == "graph_a2" else None,
         "graph_k": GRAPH_K if method == "graph_a2" else None,
         "graph_hops": GRAPH_HOPS if method == "graph_a2" else None,
     })
+    os.replace(staging, directory)
     return original_indices
+
+
+def load_selection_artifact(name, method, ratio, source_train_indices, labels, info):
+    """Load one exact selected-index artifact without rerunning selection."""
+    ratio_label = f"{ratio:g}"
+    directory = SELECTION_OUT / method / name / f"ratio_{ratio_label}" / f"selection_seed_{SELECTION_SEED}"
+    required = [
+        "selected_indices.npy", "selected_local_indices.npy", "selection_seed.txt",
+        "class_counts.json", "index_order_sha256.txt", "selection_config.json",
+    ]
+    missing = [filename for filename in required if not (directory / filename).is_file()]
+    if missing:
+        raise RuntimeError(f"selection artifact missing {missing}: {directory}")
+
+    config = json.loads((directory / "selection_config.json").read_text(encoding="utf-8"))
+    expected_scalars = {
+        "dataset": name,
+        "method": method,
+        "selection_seed": SELECTION_SEED,
+        "graphcov_commit": EXPECTED_GRAPHCOV_COMMIT,
+        "image_size": SIZE,
+        "dynamic_image_size": 28,
+        "dynamics_epochs": DYNAMICS_EPOCHS,
+        "embedding_source": EMBEDDING_SOURCE,
+    }
+    for key, expected in expected_scalars.items():
+        if config.get(key) != expected:
+            raise RuntimeError(f"selection config {key} mismatch at {directory}: {config.get(key)!r} != {expected!r}")
+    if not math.isclose(float(config.get("ratio", float("nan"))), ratio, rel_tol=1e-9, abs_tol=1e-12):
+        raise RuntimeError(f"selection ratio mismatch at {directory}")
+    expected_source_keys = set()
+    if method in {"facility", "fps", "herding", "graph_a2"}:
+        expected_source_keys.add("embedding")
+    if method in {"el2n_top", "forgetting", "eva"}:
+        expected_source_keys.add("dynamics")
+    if set(config.get("selection_sources", {})) != expected_source_keys:
+        raise RuntimeError(f"selection source manifest mismatch at {directory}")
+    for source_name in expected_source_keys:
+        source = config["selection_sources"][source_name]
+        expected_hash = source.get("file_sha256")
+        if not isinstance(expected_hash, str) or len(expected_hash) != 64:
+            raise RuntimeError(f"invalid {source_name} source hash at {directory}")
+        verify_source_file(source.get("path", ""), expected_hash)
+    if "embedding" in expected_source_keys:
+        shape = config["selection_sources"]["embedding"].get("shape")
+        if not isinstance(shape, list) or not shape or int(shape[0]) != len(labels):
+            raise RuntimeError(f"embedding row count mismatch at {directory}")
+    if "dynamics" in expected_source_keys:
+        shape = config["selection_sources"]["dynamics"].get("all_l2_shape")
+        if shape != [DYNAMICS_EPOCHS, len(labels)]:
+            raise RuntimeError(f"dynamics shape mismatch at {directory}: {shape}")
+    if method == "facility" and bool(config.get("facility_global")) != FACILITY_GLOBAL:
+        raise RuntimeError(f"facility mode mismatch at {directory}")
+    if method == "graph_a2":
+        graph_expected = {
+            "graph_global": GRAPH_GLOBAL,
+            "graph_k": GRAPH_K,
+            "graph_hops": GRAPH_HOPS,
+        }
+        for key, expected in graph_expected.items():
+            if config.get(key) != expected:
+                raise RuntimeError(f"Graph-A2 {key} mismatch at {directory}")
+
+    original_raw = np.load(directory / "selected_indices.npy", allow_pickle=False)
+    local_raw = np.load(directory / "selected_local_indices.npy", allow_pickle=False)
+    if original_raw.ndim != 1 or local_raw.ndim != 1:
+        raise RuntimeError(f"selection indices must be one-dimensional: {directory}")
+    if not np.issubdtype(original_raw.dtype, np.integer) or not np.issubdtype(local_raw.dtype, np.integer):
+        raise RuntimeError(f"selection indices must use integer dtype: {directory}")
+    original = original_raw.astype(np.int64, copy=False)
+    local = local_raw.astype(np.int64, copy=False)
+    if len(original) != len(local) or len(np.unique(original)) != len(original) or len(np.unique(local)) != len(local):
+        raise RuntimeError(f"selection count/uniqueness mismatch: {directory}")
+    if local.size and (int(local.min()) < 0 or int(local.max()) >= len(source_train_indices)):
+        raise RuntimeError(f"local selection index out of range: {directory}")
+    if not np.array_equal(np.asarray(source_train_indices, dtype=np.int64)[local], original):
+        raise RuntimeError(f"local/original selection mapping mismatch: {directory}")
+    if config.get("source_train_indices_sha256") != array_sha256(source_train_indices):
+        raise RuntimeError(f"source train order hash mismatch: {directory}")
+    if config.get("source_train_labels_sha256") != array_sha256(labels):
+        raise RuntimeError(f"source train label hash mismatch: {directory}")
+    selected_hash = array_sha256(original)
+    if config.get("selected_indices_sha256") != selected_hash:
+        raise RuntimeError(f"selected-index config hash mismatch: {directory}")
+    if (directory / "index_order_sha256.txt").read_text(encoding="utf-8").strip() != selected_hash:
+        raise RuntimeError(f"selected-index sidecar hash mismatch: {directory}")
+    if int((directory / "selection_seed.txt").read_text(encoding="utf-8").strip()) != SELECTION_SEED:
+        raise RuntimeError(f"selection seed sidecar mismatch: {directory}")
+    if int(config.get("n_selected", -1)) != len(original):
+        raise RuntimeError(f"selection size mismatch: {directory}")
+
+    n_classes = len(info["label"])
+    budget = int(config.get("budget_per_class", -1))
+    actual_counts = np.bincount(np.asarray(labels, dtype=np.int64)[local], minlength=n_classes)
+    recorded_raw = json.loads((directory / "class_counts.json").read_text(encoding="utf-8"))
+    if set(recorded_raw) != {str(index) for index in range(n_classes)}:
+        raise RuntimeError(f"class-count keys mismatch: {directory}")
+    recorded_counts = np.asarray([int(recorded_raw[str(index)]) for index in range(n_classes)])
+    if budget < 1 or not np.all(actual_counts == budget) or not np.array_equal(actual_counts, recorded_counts):
+        raise RuntimeError(f"class quota mismatch at {directory}: {actual_counts.tolist()}")
+    return local, original, budget, config
 
 
 # ---------- resumable run state ----------
@@ -473,13 +674,14 @@ def save_run_rows(path, rows):
     atomic_write_text(path, "".join(json.dumps(row, ensure_ascii=True, default=json_default) + "\n" for row in ordered))
 
 
-def run_config(name, method, ratio_label, ratio_value, train_seed, n_selected, budget, corruptions):
+def run_config(name, method, ratio_label, ratio_value, train_seed, n_selected, budget, corruptions, selection_sha256):
     return {
         "schema_version": 2, "dataset": name, "method": method,
         "ratio": ratio_label if ratio_value is None else float(ratio_value),
         "selection_seed": SELECTION_SEED, "training_seed": int(train_seed),
         "augment": int(AUGMENT), "n_selected": int(n_selected),
         "budget_per_class": None if budget is None else int(budget),
+        "selection_sha256": selection_sha256,
         "corruptions": list(corruptions), "severity": [1, 2, 3, 4, 5],
         "image_size": SIZE, "epochs": EPOCHS, "dynamics_image_size": 28,
         "dynamics_epochs": DYNAMICS_EPOCHS, "batch_size": BATCH_SIZE,
@@ -487,9 +689,9 @@ def run_config(name, method, ratio_label, ratio_value, train_seed, n_selected, b
         "optimizer": {"name": "SGD", "lr": 0.1, "momentum": 0.9, "weight_decay": 0.0005},
         "scheduler": "CosineAnnealingLR per epoch", "checkpoint_rule": "final_epoch",
         "cache_namespace": str(CACHE),
-        "graphcov_commit": git_commit(GRAPH_ROOT), "medmnistc_commit": git_commit(MEDC_ROOT),
+        "graphcov_commit": EXPECTED_GRAPHCOV_COMMIT, "medmnistc_commit": git_commit(MEDC_ROOT),
         "python": sys.version, "torch": torch.__version__, "cuda": torch.version.cuda,
-        "hostname": socket.gethostname(), "platform": platform.platform(),
+        "allow_missing_classes": ALLOW_MISSING_CLASSES,
     }
 
 
@@ -502,7 +704,7 @@ def model_from_checkpoint(path, num_classes, in_channels, config_hash):
     return model
 
 
-def train_model(train_ds, selected, num_classes, in_channels, seed):
+def train_model(train_ds, selected, num_classes, in_channels, seed, history_path):
     set_seed(seed, deterministic=False)
     dataset = train_ds
     if AUGMENT:
@@ -515,12 +717,20 @@ def train_model(train_ds, selected, num_classes, in_channels, seed):
     optimizer = torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.9, weight_decay=0.0005)
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=EPOCHS)
     criterion = nn.CrossEntropyLoss()
+    history = []
     for epoch in range(EPOCHS):
-        train_one_epoch(model, loader, optimizer, criterion)
+        loss, accuracy = train_one_epoch(model, loader, optimizer, criterion)
         scheduler.step()
+        history.append({
+            "epoch": epoch + 1,
+            "train_loss": float(loss),
+            "train_accuracy": float(accuracy),
+            "lr": float(scheduler.get_last_lr()[0]),
+        })
+        atomic_write_json(history_path, history)
         if (epoch + 1) % max(1, EPOCHS // 10) == 0:
             print(f"epoch {epoch + 1}/{EPOCHS}")
-    return model
+    return model, history
 
 
 def predict(model, dataset):
@@ -534,45 +744,185 @@ def predict(model, dataset):
     return np.concatenate(labels), np.concatenate(logits)
 
 
-def is_complete(run_dir, expected_corruptions):
-    marker = run_dir / "run_complete.json"
-    if not marker.exists() or not (run_dir / "final.pt").exists():
-        return False
+def validate_prediction(path, clean_ids, severities, labels, num_classes):
+    with np.load(path, allow_pickle=False) as package:
+        required = {"clean_id", "severity", "y_true", "logits", "probs"}
+        if not required.issubset(package.files):
+            raise RuntimeError(f"prediction file missing keys at {path}: {package.files}")
+        stored_ids = np.asarray(package["clean_id"], dtype=np.int64)
+        stored_severities = np.asarray(package["severity"], dtype=np.int64)
+        stored_labels = np.asarray(package["y_true"], dtype=np.int64)
+        logits = np.asarray(package["logits"])
+        probs = np.asarray(package["probs"])
+    if not np.array_equal(stored_ids, np.asarray(clean_ids, dtype=np.int64)):
+        raise RuntimeError(f"clean IDs mismatch: {path}")
+    if not np.array_equal(stored_severities, np.asarray(severities, dtype=np.int64)):
+        raise RuntimeError(f"severity IDs mismatch: {path}")
+    if not np.array_equal(stored_labels, np.asarray(labels, dtype=np.int64)):
+        raise RuntimeError(f"labels mismatch: {path}")
+    expected_shape = (len(stored_labels), num_classes)
+    if logits.shape != expected_shape or probs.shape != expected_shape:
+        raise RuntimeError(f"prediction shape mismatch: {path}")
+    if not np.isfinite(logits).all() or not np.isfinite(probs).all():
+        raise RuntimeError(f"non-finite prediction values: {path}")
+    if not np.allclose(probs.sum(axis=1), 1.0, atol=1e-5):
+        raise RuntimeError(f"probabilities do not sum to one: {path}")
+
+
+def validate_metric_rows(rows, required, meta, num_classes):
+    if set(rows) != required:
+        raise RuntimeError(
+            f"metrics condition set mismatch: missing={sorted(required - set(rows))}, "
+            f"extra={sorted(set(rows) - required)}"
+        )
+    metric_names = ["acc", "ba", "worst_recall", "nll", "brier", "ece15", "aurc"]
+    for condition, row in rows.items():
+        for key in (
+            "dataset", "method", "ratio", "selection_seed", "training_seed", "augment",
+            "n_selected", "budget_per_class", "selection_sha256", "checkpoint_sha256",
+        ):
+            if row.get(key) != meta[key]:
+                raise RuntimeError(f"metric row {condition} has mismatched {key}")
+        if int(row.get("n_classes_observed", -1)) != num_classes and not ALLOW_MISSING_CLASSES:
+            raise RuntimeError(f"metric row {condition} does not contain all {num_classes} classes")
+        for key in metric_names:
+            value = float(row.get(key, float("nan")))
+            if not math.isfinite(value):
+                raise RuntimeError(f"metric row {condition} has invalid {key}")
+
+
+def validate_training_history(path, expected_epochs):
     try:
-        if json.loads(marker.read_text(encoding="utf-8")).get("status") != "complete":
-            return False
-    except json.JSONDecodeError:
-        return False
-    rows = load_run_rows(run_dir / "metrics.jsonl")
-    required = {("clean", 0)} | {(c, severity) for c in expected_corruptions for severity in range(1, 6)}
-    if not required.issubset(rows):
-        return False
-    if not (run_dir / "predictions_clean.npz").exists():
-        return False
-    return all((run_dir / f"predictions_{c}.npz").exists() for c in expected_corruptions)
+        history = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as exc:
+        raise RuntimeError(f"invalid training history: {path}") from exc
+    if not isinstance(history, list) or len(history) != expected_epochs:
+        raise RuntimeError(f"training history length mismatch: {path}")
+    for expected_epoch, row in enumerate(history, start=1):
+        if not isinstance(row, dict) or int(row.get("epoch", -1)) != expected_epoch:
+            raise RuntimeError(f"training history epoch mismatch at {path}: {expected_epoch}")
+        for key in ("train_loss", "train_accuracy", "lr"):
+            if not math.isfinite(float(row.get(key, float("nan")))):
+                raise RuntimeError(f"training history has invalid {key} at {path}: {expected_epoch}")
+    return history
+
+
+def validate_completion_marker(run_dir, completion):
+    if completion.get("status") != "complete":
+        raise RuntimeError(f"run completion status is not complete: {run_dir}")
+    required_paths = {
+        "config": run_dir / "run_config.json",
+        "checkpoint": run_dir / "final.pt",
+        "history": run_dir / "training_history.json",
+        "metrics": run_dir / "metrics.jsonl",
+    }
+    missing = [str(path) for path in required_paths.values() if not path.is_file()]
+    if missing:
+        raise RuntimeError(f"completed run is missing files: {missing}")
+    config = json.loads(required_paths["config"].read_text(encoding="utf-8"))
+    recorded_config_hash = config.pop("config_hash", None)
+    actual_config_hash = hashlib.sha256(
+        json.dumps(config, sort_keys=True, default=json_default).encode()
+    ).hexdigest()
+    if recorded_config_hash != actual_config_hash or completion.get("config_hash") != actual_config_hash:
+        raise RuntimeError(f"run config hash mismatch: {run_dir}")
+    selected_path = run_dir / "selected_indices.npy"
+    local_path = run_dir / "selected_local_indices.npy"
+    if not selected_path.is_file() or not local_path.is_file():
+        raise RuntimeError(f"completed run is missing selected indices: {run_dir}")
+    selected = np.load(selected_path, allow_pickle=False)
+    local = np.load(local_path, allow_pickle=False)
+    if (
+        selected.ndim != 1 or local.ndim != 1
+        or not np.issubdtype(selected.dtype, np.integer)
+        or not np.issubdtype(local.dtype, np.integer)
+        or len(selected) != int(config.get("n_selected", -1))
+        or len(local) != len(selected)
+        or len(np.unique(selected)) != len(selected)
+        or len(np.unique(local)) != len(local)
+    ):
+        raise RuntimeError(f"completed run has invalid selected indices: {run_dir}")
+    selection_hash = array_sha256(selected.astype(np.int64, copy=False))
+    if completion.get("selection_sha256") != selection_hash or config.get("selection_sha256") != selection_hash:
+        raise RuntimeError(f"completed run selection hash mismatch: {run_dir}")
+    if completion.get("selection_config_sha256") != config.get("selection_config_sha256"):
+        raise RuntimeError(f"completed run selection config hash mismatch: {run_dir}")
+    expected_epochs = int(config.get("epochs", -1))
+    if expected_epochs < 1:
+        raise RuntimeError(f"invalid epoch count in run config: {run_dir}")
+    validate_training_history(required_paths["history"], expected_epochs)
+    expected_hashes = {
+        "checkpoint_sha256": file_sha256(required_paths["checkpoint"]),
+        "training_history_sha256": file_sha256(required_paths["history"]),
+        "metrics_sha256": file_sha256(required_paths["metrics"]),
+    }
+    for key, actual in expected_hashes.items():
+        if completion.get(key) != actual:
+            raise RuntimeError(f"{key} mismatch: {run_dir}")
+    prediction_hashes = completion.get("prediction_sha256", {})
+    corruptions = config.get("corruptions")
+    if not isinstance(corruptions, list) or not all(isinstance(name, str) and name for name in corruptions):
+        raise RuntimeError(f"invalid corruption list in run config: {run_dir}")
+    expected_prediction_names = {"clean", *corruptions}
+    if set(prediction_hashes) != expected_prediction_names:
+        raise RuntimeError(f"prediction hash manifest condition mismatch: {run_dir}")
+    for name, expected in prediction_hashes.items():
+        path = run_dir / ("predictions_clean.npz" if name == "clean" else f"predictions_{name}.npz")
+        if not path.is_file() or file_sha256(path) != expected:
+            raise RuntimeError(f"prediction hash mismatch for {name}: {run_dir}")
+    num_classes = int(config.get("num_classes", -1))
+    if num_classes < 2:
+        raise RuntimeError(f"invalid class count in run config: {run_dir}")
+    rows = load_run_rows(required_paths["metrics"])
+    required_conditions = {("clean", 0)} | {
+        (corruption, severity) for corruption in corruptions for severity in range(1, 6)
+    }
+    meta = {
+        key: config[key]
+        for key in (
+            "dataset", "method", "ratio", "selection_seed", "training_seed", "augment",
+            "n_selected", "budget_per_class", "selection_sha256",
+        )
+    }
+    meta["checkpoint_sha256"] = completion.get("checkpoint_sha256")
+    validate_metric_rows(rows, required_conditions, meta, num_classes)
+    if int(completion.get("conditions", -1)) != len(required_conditions):
+        raise RuntimeError(f"completion condition count mismatch: {run_dir}")
+    return required_paths["metrics"]
 
 
 def run_one(name, method, ratio_label, ratio_value, train_seed, train_ds, test_ds, y_test, test_indices,
-            selected_local, selected_original, info, budget, corruptions):
+            selected_local, selected_original, info, budget, corruptions, selection_config):
     run_dir = run_directory(name, method, ratio_label, train_seed)
     run_dir.mkdir(parents=True, exist_ok=True)
     config = run_config(
         name, method, ratio_label, ratio_value, train_seed,
-        len(selected_local), budget, corruptions,
+        len(selected_local), budget, corruptions, array_sha256(selected_original),
     )
+    config["num_classes"] = len(info["label"])
+    selection_config_sha256 = hashlib.sha256(
+        json.dumps(selection_config, sort_keys=True, default=json_default).encode()
+    ).hexdigest()
+    config["selection_config_sha256"] = selection_config_sha256
     config_hash = hashlib.sha256(json.dumps(config, sort_keys=True, default=json_default).encode()).hexdigest()
     config_path = run_dir / "run_config.json"
     if config_path.exists():
         old_config = json.loads(config_path.read_text(encoding="utf-8"))
-        if old_config.get("config_hash") != config_hash:
+        old_recorded_hash = old_config.pop("config_hash", None)
+        old_actual_hash = hashlib.sha256(
+            json.dumps(old_config, sort_keys=True, default=json_default).encode()
+        ).hexdigest()
+        if old_recorded_hash != config_hash or old_actual_hash != config_hash:
             raise RuntimeError(f"existing run has a different configuration: {run_dir}")
     else:
         config["config_hash"] = config_hash
         atomic_write_json(config_path, config)
-    if is_complete(run_dir, corruptions):
-        print("skip complete", run_dir)
+    completion_path = run_dir / "run_complete.json"
+    if completion_path.is_file():
+        completion = json.loads(completion_path.read_text(encoding="utf-8"))
+        validate_completion_marker(run_dir, completion)
+        print("skip verified complete", run_dir)
         return
-
     atomic_save_npy(run_dir / "selected_indices.npy", selected_original)
     atomic_save_npy(run_dir / "selected_local_indices.npy", selected_local)
     atomic_write_text(run_dir / "selection_index_order_sha256.txt", array_sha256(selected_original) + "\n")
@@ -580,26 +930,30 @@ def run_one(name, method, ratio_label, ratio_value, train_seed, train_ds, test_d
 
     model = None
     checkpoint_path = run_dir / "final.pt"
+    history_path = run_dir / "training_history.json"
     if checkpoint_path.exists():
-        try:
-            model = model_from_checkpoint(checkpoint_path, len(info["label"]), info["n_channels"], config_hash)
-            print("resume from final checkpoint", checkpoint_path)
-        except Exception as error:
-            print("checkpoint cannot be resumed; retraining:", error)
+        if not history_path.is_file():
+            raise RuntimeError(f"checkpoint exists without training history: {checkpoint_path}")
+        validate_training_history(history_path, EPOCHS)
+        model = model_from_checkpoint(checkpoint_path, len(info["label"]), info["n_channels"], config_hash)
+        print("resume from final checkpoint", checkpoint_path)
     if model is None:
         if PHASE == "evaluate":
             raise FileNotFoundError(
                 f"evaluate phase requires an existing final.pt: {checkpoint_path}"
             )
         print("training", run_dir, "n=", len(selected_local), "budget_per_class=", budget)
-        model = train_model(train_ds, selected_local, len(info["label"]), info["n_channels"], train_seed)
+        model, _ = train_model(
+            train_ds, selected_local, len(info["label"]), info["n_channels"],
+            train_seed, history_path,
+        )
         checkpoint = {
             "state_dict": model.state_dict(), "config_hash": config_hash,
             "dataset": name, "method": method, "ratio": ratio_label,
             "selection_seed": SELECTION_SEED, "training_seed": train_seed,
             "augment": AUGMENT, "size": SIZE, "checkpoint_rule": "final_epoch",
         }
-        tmp_checkpoint = checkpoint_path.with_name(checkpoint_path.name + ".tmp")
+        tmp_checkpoint = checkpoint_path.with_name(checkpoint_path.name + f".tmp.{os.getpid()}")
         torch.save(checkpoint, tmp_checkpoint)
         os.replace(tmp_checkpoint, checkpoint_path)
 
@@ -619,14 +973,20 @@ def run_one(name, method, ratio_label, ratio_value, train_seed, train_ds, test_d
         "selection_seed": SELECTION_SEED, "training_seed": train_seed,
         "augment": int(AUGMENT), "n_selected": int(len(selected_local)),
         "budget_per_class": None if budget is None else int(budget),
+        "selection_sha256": array_sha256(selected_original),
         "checkpoint": str(checkpoint_path), "checkpoint_sha256": file_sha256(checkpoint_path),
     }
-    if ("clean", 0) not in rows or not (run_dir / "predictions_clean.npz").exists():
+    clean_prediction = run_dir / "predictions_clean.npz"
+    expected_clean_labels = y_test[test_indices]
+    clean_severity = np.zeros(len(test_indices), dtype=np.int64)
+    if clean_prediction.is_file():
+        validate_prediction(clean_prediction, test_indices, clean_severity, expected_clean_labels, len(info["label"]))
+    if ("clean", 0) not in rows or not clean_prediction.exists():
         y, logits = predict(model, test_ds)
         if not np.array_equal(y, y_test[test_indices]):
             raise RuntimeError(f"clean label order mismatch: {run_dir}")
         row, probs, _ = metric_row(y, logits, len(info["label"]))
-        save_predictions(run_dir / "predictions_clean.npz", test_indices, y, logits, probs, np.zeros(len(y), dtype=np.int64))
+        save_predictions(clean_prediction, test_indices, y, logits, probs, clean_severity)
         clean_row = dict(meta, corruption="clean", severity=0)
         clean_row.update(row)
         rows[("clean", 0)] = clean_row
@@ -635,7 +995,16 @@ def run_one(name, method, ratio_label, ratio_value, train_seed, train_ds, test_d
 
     for corruption in corruptions:
         needed = {(corruption, severity) for severity in range(1, 6)}
-        if needed.issubset(rows) and (run_dir / f"predictions_{corruption}.npz").exists():
+        prediction_path = run_dir / f"predictions_{corruption}.npz"
+        expected_corrupt_labels = np.tile(y_test[test_indices], 5)
+        expected_clean_ids = np.tile(test_indices, 5)
+        expected_severities = np.repeat(np.arange(1, 6, dtype=np.int64), len(test_indices))
+        if prediction_path.is_file():
+            validate_prediction(
+                prediction_path, expected_clean_ids, expected_severities,
+                expected_corrupt_labels, len(info["label"]),
+            )
+        if needed.issubset(rows) and prediction_path.exists():
             continue
         corruption_dataset = CorruptedMedMNIST(
             name, corruption, norm_mean=[0.5] * info["n_channels"],
@@ -647,7 +1016,7 @@ def run_one(name, method, ratio_label, ratio_value, train_seed, train_ds, test_d
         if not np.array_equal(cy, np.tile(y_test[test_indices], 5)):
             raise RuntimeError(f"corruption label order mismatch: {name}/{corruption}")
         cprobs = probs_from_logits(clogits)
-        save_predictions(run_dir / f"predictions_{corruption}.npz", clean_ids, cy, clogits, cprobs, severities)
+        save_predictions(prediction_path, clean_ids, cy, clogits, cprobs, severities)
         n_eval = len(test_indices)
         for severity in range(1, 6):
             start, end = (severity - 1) * n_eval, severity * n_eval
@@ -660,9 +1029,25 @@ def run_one(name, method, ratio_label, ratio_value, train_seed, train_ds, test_d
         save_run_rows(run_dir / "metrics.jsonl", rows)
         atomic_write_json(run_dir / "run_status.json", {"status": f"{corruption}_complete", "updated_at": time.time()})
         del corruption_dataset, view
+    required = {("clean", 0)} | {(corruption, severity) for corruption in corruptions for severity in range(1, 6)}
+    validate_metric_rows(rows, required, meta, len(info["label"]))
+    metrics_path = run_dir / "metrics.jsonl"
+    prediction_paths = {
+        "clean": clean_prediction,
+        **{corruption: run_dir / f"predictions_{corruption}.npz" for corruption in corruptions},
+    }
+    for corruption, path in prediction_paths.items():
+        if not path.is_file():
+            raise RuntimeError(f"missing prediction artifact: {corruption} {path}")
     atomic_write_json(run_dir / "run_complete.json", {
         "status": "complete", "completed_at": time.time(),
         "conditions": len(rows), "config_hash": config_hash,
+        "selection_sha256": array_sha256(selected_original),
+        "selection_config_sha256": selection_config_sha256,
+        "checkpoint_sha256": file_sha256(checkpoint_path),
+        "training_history_sha256": file_sha256(history_path),
+        "metrics_sha256": file_sha256(metrics_path),
+        "prediction_sha256": {key: file_sha256(path) for key, path in prediction_paths.items()},
     })
     atomic_write_json(run_dir / "run_status.json", {"status": "complete", "updated_at": time.time()})
     del model
@@ -672,14 +1057,18 @@ def run_one(name, method, ratio_label, ratio_value, train_seed, train_ds, test_d
 
 def consolidate():
     rows = {}
+    rejected = []
     for path in OUT.rglob("metrics.jsonl"):
         if path == OUT / "metrics.jsonl":
             continue
         marker = path.parent / "run_complete.json"
         try:
-            if json.loads(marker.read_text(encoding="utf-8")).get("status") != "complete":
+            completion = json.loads(marker.read_text(encoding="utf-8"))
+            if completion.get("status") != "complete":
                 continue
-        except (FileNotFoundError, json.JSONDecodeError):
+            validate_completion_marker(path.parent, completion)
+        except (FileNotFoundError, json.JSONDecodeError, RuntimeError, OSError) as exc:
+            rejected.append({"run_dir": str(path.parent), "error": str(exc)})
             continue
         for line in path.read_text(encoding="utf-8").splitlines():
             try:
@@ -695,11 +1084,12 @@ def consolidate():
     ordered = [rows[key] for key in sorted(rows)]
     atomic_write_text(OUT / "metrics.jsonl", "".join(json.dumps(row, ensure_ascii=True, default=json_default) + "\n" for row in ordered))
     frame = pd.DataFrame(ordered)
-    frame.to_csv(OUT / "metrics.csv", index=False)
+    atomic_write_dataframe_csv(OUT / "metrics.csv", frame)
     if not frame.empty:
-        frame[frame.corruption == "clean"].to_csv(OUT / "clean_metrics.csv", index=False)
-        frame[frame.corruption != "clean"].to_csv(OUT / "corruption_metrics_by_severity.csv", index=False)
-    print("consolidated rows:", len(frame), "output:", OUT)
+        atomic_write_dataframe_csv(OUT / "clean_metrics.csv", frame[frame.corruption == "clean"])
+        atomic_write_dataframe_csv(OUT / "corruption_metrics_by_severity.csv", frame[frame.corruption != "clean"])
+    atomic_write_json(OUT / "summary_rejections.json", rejected)
+    print("consolidated rows:", len(frame), "rejected:", len(rejected), "output:", OUT)
 
 
 # ---------- main execution ----------
@@ -711,12 +1101,8 @@ for dataset_name in DATASETS:
     print("==========", dataset_name, "==========")
     train_full, info = load_med(dataset_name, "train", SIZE)
     test_full, _ = load_med(dataset_name, "test", SIZE)
-    train_28_full, _ = load_med(dataset_name, "train", 28)
     y_train_full = flat_labels(train_full)
     y_test_full = flat_labels(test_full)
-    y_train_28 = flat_labels(train_28_full)
-    if not np.array_equal(y_train_full, y_train_28):
-        raise RuntimeError(f"224/28 train labels differ for {dataset_name}")
     train_source_indices = np.arange(len(train_full), dtype=np.int64)
     test_source_indices = np.arange(len(test_full), dtype=np.int64)
     if SMOKE_N > 0:
@@ -724,29 +1110,50 @@ for dataset_name in DATASETS:
         test_source_indices = test_source_indices[:min(SMOKE_N, len(test_source_indices))]
     train_ds = limit_dataset(train_full, train_source_indices)
     test_ds = limit_dataset(test_full, test_source_indices)
-    train_28_ds = limit_dataset(train_28_full, train_source_indices)
     y_train = y_train_full[train_source_indices]
-    y_test = y_test_full[test_source_indices]
-    corruptions = (
-        [] if PHASE in {"select", "train"}
-        else ensure_corruptions(dataset_name, y_test_full)
-    )
-    embeddings, dynamics = get_selection_data(dataset_name, train_ds, train_28_ds, info)
+    corruptions = parse_corruptions(dataset_name)
+    if PHASE in {"evaluate", "full"}:
+        ensure_corruptions(dataset_name, y_test_full)
+
+    selecting = PHASE in {"select", "full"}
+    embeddings = dynamics = None
+    selection_sources = None
+    if selecting:
+        train_28_full, _ = load_med(dataset_name, "train", 28)
+        y_train_28 = flat_labels(train_28_full)
+        if not np.array_equal(y_train_full, y_train_28):
+            raise RuntimeError(f"224/28 train labels differ for {dataset_name}")
+        train_28_ds = limit_dataset(train_28_full, train_source_indices)
+        embeddings, dynamics, selection_sources = get_selection_data(
+            dataset_name, train_ds, train_28_ds, info,
+        )
 
     for ratio in RATIOS:
-        chosen, budget = choose(dataset_name, y_train, info, embeddings, dynamics, ratio)
-        for method, local_indices in chosen.items():
-            original_indices = save_selection_artifact(
-                dataset_name, method, ratio, local_indices, train_source_indices,
-                y_train, budget, info,
-            )
+        chosen = None
+        if selecting:
+            chosen, budget = choose(dataset_name, y_train, info, embeddings, dynamics, ratio)
+        for method in METHODS:
+            if selecting:
+                local_indices = chosen[method]
+                original_indices = save_selection_artifact(
+                    dataset_name, method, ratio, local_indices, train_source_indices,
+                    y_train, budget, info, selection_sources,
+                )
+                selection_config = json.loads(
+                    (SELECTION_OUT / method / dataset_name / f"ratio_{ratio:g}" /
+                     f"selection_seed_{SELECTION_SEED}" / "selection_config.json").read_text(encoding="utf-8")
+                )
+            else:
+                local_indices, original_indices, budget, selection_config = load_selection_artifact(
+                    dataset_name, method, ratio, train_source_indices, y_train, info,
+                )
             if PHASE == "select":
                 continue
             for train_seed in TRAINING_SEEDS:
                 run_one(
                     dataset_name, method, f"{ratio:g}", ratio, train_seed, train_ds, test_ds,
                     y_test_full, test_source_indices, local_indices, original_indices,
-                    info, budget, corruptions,
+                    info, budget, corruptions, selection_config,
                 )
 
     if RUN_FULL_TRAIN:
@@ -756,7 +1163,11 @@ for dataset_name in DATASETS:
             run_one(
                 dataset_name, "full_train", "full", None, train_seed, train_ds, test_ds,
                 y_test_full, test_source_indices, full_local, full_original,
-                info, None, corruptions,
+                info, None, corruptions, {
+                    "kind": "full_train", "source_train_indices_sha256": array_sha256(train_source_indices),
+                    "source_train_labels_sha256": array_sha256(y_train),
+                },
             )
 
-consolidate()
+if AUTO_CONSOLIDATE:
+    consolidate()

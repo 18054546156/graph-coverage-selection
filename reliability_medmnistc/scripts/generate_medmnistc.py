@@ -7,11 +7,15 @@ medmnistc-api DatasetManager for the five datasets used by this experiment.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import os
 import platform
 import sys
 import time
 from pathlib import Path
+
+import numpy as np
 
 
 DATASETS = [
@@ -21,6 +25,45 @@ DATASETS = [
     "tissuemnist",
     "bloodmnist",
 ]
+
+
+def array_sha256(values) -> str:
+    return hashlib.sha256(np.ascontiguousarray(values).tobytes()).hexdigest()
+
+
+def atomic_write_json(path: Path, value) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + f".tmp.{os.getpid()}")
+    temporary.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def validate_dataset(directory: Path, expected: list[str], clean_labels: np.ndarray) -> list[dict]:
+    present = sorted(path.stem for path in directory.glob("*.npz")) if directory.is_dir() else []
+    if present != expected:
+        raise RuntimeError(f"Unexpected files in {directory}: expected={expected}, present={present}")
+    records = []
+    expected_labels = np.tile(clean_labels, 5)
+    for corruption in expected:
+        path = directory / f"{corruption}.npz"
+        with np.load(path, allow_pickle=False) as package:
+            if not {"test_images", "test_labels"}.issubset(package.files):
+                raise RuntimeError(f"Missing test arrays in {path}: {package.files}")
+            images = package["test_images"]
+            labels = np.asarray(package["test_labels"]).reshape(-1).astype(np.int64)
+            if len(images) != len(expected_labels) or not np.array_equal(labels, expected_labels):
+                raise RuntimeError(f"Label/severity alignment failure in {path}")
+            if images.dtype != np.uint8:
+                raise RuntimeError(f"Expected uint8 images in {path}, got {images.dtype}")
+            records.append({
+                "corruption": corruption,
+                "path": str(path),
+                "shape": list(images.shape),
+                "dtype": str(images.dtype),
+                "labels_sha256": array_sha256(labels),
+                "bytes": path.stat().st_size,
+            })
+    return records
 
 
 def main() -> int:
@@ -44,6 +87,7 @@ def main() -> int:
     )
     parser.add_argument("--datasets", nargs="+", default=DATASETS, choices=DATASETS)
     parser.add_argument("--random-seed", type=int, default=0)
+    parser.add_argument("--manifest", type=Path)
     args = parser.parse_args()
 
     args.source_root = args.source_root.resolve()
@@ -69,32 +113,44 @@ def main() -> int:
         if not clean_file.is_file():
             raise FileNotFoundError(f"Missing verified clean file: {clean_file}")
 
-    manager = DatasetManager(
-        medmnist_path=str(args.medmnist_root),
-        output_path=str(args.output_root),
-        random_seed=args.random_seed,
-    )
-
     started = time.time()
     records = []
     for dataset in args.datasets:
-        print(f"Generating {dataset} with upstream DatasetManager", flush=True)
-        manager.create_dataset(dataset)
+        with np.load(args.medmnist_root / f"{dataset}_224.npz", allow_pickle=False) as clean_package:
+            clean_labels = np.asarray(clean_package["test_labels"]).reshape(-1).astype(np.int64)
         dataset_dir = args.output_root / dataset
         expected = sorted(CORRUPTIONS_DS[dataset])
-        present = sorted(path.stem for path in dataset_dir.glob("*.npz"))
-        if present != expected:
-            raise RuntimeError(
-                f"Unexpected generated files for {dataset}: "
-                f"expected={expected}, present={present}"
+        try:
+            corruption_records = validate_dataset(dataset_dir, expected, clean_labels)
+            print(f"Verified existing atomic dataset: {dataset_dir}", flush=True)
+        except (RuntimeError, OSError, ValueError, KeyError):
+            staging_root = args.output_root / f".staging_{dataset}_{os.getpid()}"
+            staging_root.mkdir(parents=True, exist_ok=False)
+            print(f"Generating {dataset} through upstream DatasetManager into {staging_root}", flush=True)
+            manager = DatasetManager(
+                medmnist_path=str(args.medmnist_root),
+                output_path=str(staging_root),
+                random_seed=args.random_seed,
             )
+            manager.create_dataset(dataset)
+            staged_dataset = staging_root / dataset
+            validate_dataset(staged_dataset, expected, clean_labels)
+            if dataset_dir.exists():
+                quarantine = args.output_root / f"{dataset}.incomplete.{int(time.time())}"
+                os.replace(dataset_dir, quarantine)
+                print(f"Moved incomplete output to {quarantine}", flush=True)
+            os.replace(staged_dataset, dataset_dir)
+            staging_root.rmdir()
+            corruption_records = validate_dataset(dataset_dir, expected, clean_labels)
         records.append(
             {
                 "dataset": dataset,
                 "clean_file": str(args.medmnist_root / f"{dataset}_224.npz"),
                 "output_dir": str(dataset_dir),
                 "corruptions": expected,
+                "files": corruption_records,
                 "severity_count": 5,
+                "clean_test_labels_sha256": array_sha256(clean_labels),
             }
         )
 
@@ -111,9 +167,8 @@ def main() -> int:
         "platform": platform.platform(),
         "elapsed_seconds": time.time() - started,
     }
-    manifest_path = package_root / "protocol" / "medmnistc_generation_manifest.json"
-    manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    manifest_path = (args.manifest or (args.output_root / "generation_manifest.json")).resolve()
+    atomic_write_json(manifest_path, manifest)
     print(json.dumps(manifest, indent=2), flush=True)
     print(f"Manifest: {manifest_path}", flush=True)
     return 0

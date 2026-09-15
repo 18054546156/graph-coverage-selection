@@ -16,7 +16,7 @@ methods:
   - graph_a2
 ratios: [0.02, 0.05]
 selection_seed: 42
-training_seeds: [42, 43, 44, 45, 46]
+training_seeds: [42]
 epochs: 1000
 dynamics_epochs: 200
 image_size: 224
