@@ -18,7 +18,7 @@ implementations are not modified.
 ## Run order
 
 ```bash
-python reliability_medmnistc/scripts/prepare_medmnist_224.py --root data/medmnist
+python reliability_medmnistc/scripts/prepare_medmnist_224.py --root data/medmnist --sizes 28 224
 python reliability_medmnistc/scripts/generate_medmnistc.py \
   --medmnist-root data/medmnist \
   --output-root data/medmnistc \

@@ -1,4 +1,4 @@
-"""Download and verify official MedMNIST 224-pixel archives.
+"""Download and verify official MedMNIST 28- and 224-pixel archives.
 
 This script only downloads clean MedMNIST files. It does not select data,
 train a model, or create MedMNIST-C files.
@@ -64,13 +64,25 @@ def download(url: str, target: Path, retries: int, timeout: int) -> None:
     os.replace(part, target)
 
 
-def verify_medmnist(root: Path, dataset: str) -> dict:
+def archive_fields(info: dict, size: int) -> tuple[str, str]:
+    if size == 28:
+        return info["url"], info["MD5"]
+    if size == 224:
+        return info["url_224"], info["MD5_224"]
+    raise ValueError(f"unsupported MedMNIST size: {size}")
+
+
+def archive_filename(dataset: str, size: int) -> str:
+    return f"{dataset}.npz" if size == 28 else f"{dataset}_{size}.npz"
+
+
+def verify_medmnist(root: Path, dataset: str, size: int) -> dict:
     from medmnist import INFO
 
     info = INFO[dataset]
-    filename = f"{dataset}_224.npz"
+    filename = archive_filename(dataset, size)
     target = root / filename
-    expected = info["MD5_224"]
+    _, expected = archive_fields(info, size)
     actual = md5(target)
     if actual != expected:
         raise RuntimeError(
@@ -78,16 +90,17 @@ def verify_medmnist(root: Path, dataset: str) -> dict:
         )
 
     dataset_class = getattr(__import__("medmnist", fromlist=[info["python_class"]]), info["python_class"])
-    train = dataset_class(split="train", size=224, root=str(root), download=False)
-    test = dataset_class(split="test", size=224, root=str(root), download=False)
+    train = dataset_class(split="train", size=size, root=str(root), download=False)
+    test = dataset_class(split="test", size=size, root=str(root), download=False)
     train_shape = list(train.imgs.shape)
     test_shape = list(test.imgs.shape)
-    if train_shape[1:3] != [224, 224] or test_shape[1:3] != [224, 224]:
+    if train_shape[1:3] != [size, size] or test_shape[1:3] != [size, size]:
         raise RuntimeError(
             f"unexpected image shape for {dataset}: train={train_shape}, test={test_shape}"
         )
     return {
         "dataset": dataset,
+        "size": size,
         "filename": filename,
         "path": str(target),
         "md5": actual,
@@ -108,8 +121,12 @@ def main() -> int:
         help="clean MedMNIST output directory",
     )
     parser.add_argument("--datasets", nargs="+", default=DATASETS, choices=DATASETS)
+    parser.add_argument("--sizes", nargs="+", type=int, default=[28, 224], choices=[28, 224])
     parser.add_argument("--retries", type=int, default=10)
     parser.add_argument("--timeout", type=int, default=60)
+    parser.add_argument("--verify-only", action="store_true")
+    parser.add_argument("--no-manifest", action="store_true")
+    parser.add_argument("--manifest", type=Path)
     args = parser.parse_args()
 
     try:
@@ -121,30 +138,37 @@ def main() -> int:
     records = []
     for dataset in args.datasets:
         info = INFO[dataset]
-        target = args.root / f"{dataset}_224.npz"
-        expected = info["MD5_224"]
-        if target.exists():
-            actual = md5(target)
-            if actual != expected:
-                raise RuntimeError(
-                    f"existing file has wrong MD5: {target}; expected {expected}, got {actual}"
-                )
-            print(f"Already verified: {target}")
-        else:
-            download(info["url_224"], target, args.retries, args.timeout)
-        records.append(verify_medmnist(args.root, dataset))
+        for size in args.sizes:
+            url, expected = archive_fields(info, size)
+            target = args.root / archive_filename(dataset, size)
+            if target.exists():
+                actual = md5(target)
+                if actual != expected:
+                    raise RuntimeError(
+                        f"existing file has wrong MD5: {target}; expected {expected}, got {actual}"
+                    )
+                print(f"Already verified: {target}")
+            elif args.verify_only:
+                raise FileNotFoundError(f"required official MedMNIST archive is missing: {target}")
+            else:
+                download(url, target, args.retries, args.timeout)
+            records.append(verify_medmnist(args.root, dataset, size))
 
     manifest = {
-        "kind": "official_medmnist_224_download",
+        "kind": "official_medmnist_clean_download",
         "created_unix": time.time(),
         "root": str(args.root.resolve()),
         "datasets": records,
     }
-    manifest_path = package_root / "protocol" / "medmnist_download_manifest.json"
-    manifest_path.parent.mkdir(parents=True, exist_ok=True)
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+    manifest_path = (args.manifest or (args.root / "download_manifest.json")).resolve()
+    if not args.no_manifest:
+        manifest_path.parent.mkdir(parents=True, exist_ok=True)
+        temporary = manifest_path.with_name(manifest_path.name + f".tmp.{os.getpid()}")
+        temporary.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        os.replace(temporary, manifest_path)
     print(json.dumps(manifest, indent=2))
-    print(f"Manifest: {manifest_path}")
+    if not args.no_manifest:
+        print(f"Manifest: {manifest_path}")
     return 0
 
 

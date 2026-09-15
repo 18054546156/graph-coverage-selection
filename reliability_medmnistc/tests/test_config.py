@@ -3,6 +3,8 @@ import unittest
 
 import yaml
 
+from reliability_medmnistc.scripts.prepare_medmnist_224 import archive_filename
+
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -42,6 +44,10 @@ class ConfigContractTests(unittest.TestCase):
             * len(config["training_seeds"]),
             80,
         )
+
+    def test_clean_archive_names_cover_dynamics_and_downstream_sizes(self):
+        self.assertEqual(archive_filename("pathmnist", 28), "pathmnist.npz")
+        self.assertEqual(archive_filename("pathmnist", 224), "pathmnist_224.npz")
 
     def test_slurm_scripts_resolve_the_submission_directory(self):
         for path in (ROOT / "slurm").glob("*.slurm"):
