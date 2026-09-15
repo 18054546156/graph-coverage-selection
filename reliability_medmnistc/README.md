@@ -25,6 +25,8 @@ python reliability_medmnistc/scripts/generate_medmnistc.py \
   --source-root third_party/medmnistc
 python reliability_medmnistc/scripts/select.py \
   --config reliability_medmnistc/configs/full_5datasets_8methods.yaml
+python reliability_medmnistc/scripts/validate_selections.py \
+  --config reliability_medmnistc/configs/full_5datasets_8methods.yaml
 python reliability_medmnistc/scripts/train.py \
   --config reliability_medmnistc/configs/full_5datasets_8methods.yaml
 python reliability_medmnistc/scripts/evaluate.py \

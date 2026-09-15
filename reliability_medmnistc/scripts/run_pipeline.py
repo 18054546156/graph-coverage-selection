@@ -10,7 +10,7 @@ from pathlib import Path
 import yaml
 
 
-PHASES = {"select", "train", "evaluate", "full", "summarize"}
+PHASES = {"select", "validate", "train", "evaluate", "full", "summarize"}
 
 
 def _as_bool(value: object) -> str:

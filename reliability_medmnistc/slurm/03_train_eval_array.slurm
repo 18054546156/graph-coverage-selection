@@ -33,6 +33,8 @@ export GRAPH_CACHE="${GRAPH_CACHE:-$REPO_ROOT/cache}"
 export DATASETS="${DATASET:-${DATASETS:-organsmnist,organamnist,pathmnist,tissuemnist,bloodmnist}}"
 export RUN_FULL_TRAIN=0
 export AUTO_CONSOLIDATE=0
+"$PYTHON" reliability_medmnistc/scripts/validate_selections.py \
+  --config reliability_medmnistc/configs/full_5datasets_8methods.yaml
 "$PYTHON" reliability_medmnistc/scripts/train.py \
   --config reliability_medmnistc/configs/full_5datasets_8methods.yaml
 "$PYTHON" reliability_medmnistc/scripts/evaluate.py \

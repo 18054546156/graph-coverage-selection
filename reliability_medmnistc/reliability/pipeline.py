@@ -58,8 +58,8 @@ EXPECTED_GRAPHCOV_COMMIT = os.environ.get(
     "EXPECTED_GRAPHCOV_COMMIT", "8cf757adc4c333dc1427d511f0de2f246d15ebac"
 )
 PHASE = os.environ.get("PHASE", "full").strip().lower()
-if PHASE not in {"select", "train", "evaluate", "full", "summarize"}:
-    raise ValueError("PHASE must be select, train, evaluate, full, or summarize")
+if PHASE not in {"select", "validate", "train", "evaluate", "full", "summarize"}:
+    raise ValueError("PHASE must be select, validate, train, evaluate, full, or summarize")
 FACILITY_GLOBAL = os.environ.get("FACILITY_GLOBAL_SELECTION", "0") == "1"
 GRAPH_GLOBAL = os.environ.get("GRAPH_GLOBAL_SELECTION", "1") == "1"
 GRAPH_K = int(os.environ.get("GRAPH_K_NEIGHBORS", "50"))
@@ -1147,7 +1147,7 @@ for dataset_name in DATASETS:
                 local_indices, original_indices, budget, selection_config = load_selection_artifact(
                     dataset_name, method, ratio, train_source_indices, y_train, info,
                 )
-            if PHASE == "select":
+            if PHASE in {"select", "validate"}:
                 continue
             for train_seed in TRAINING_SEEDS:
                 run_one(
@@ -1169,5 +1169,7 @@ for dataset_name in DATASETS:
                 },
             )
 
-if AUTO_CONSOLIDATE:
+if PHASE == "validate":
+    print("all requested selection artifacts validated")
+elif AUTO_CONSOLIDATE:
     consolidate()

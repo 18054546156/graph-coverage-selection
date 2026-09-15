@@ -179,6 +179,7 @@ class PhaseIsolationTests(unittest.TestCase):
         self.assertIn('selecting = PHASE in {"select", "full"}', source)
         self.assertIn("if selecting:\n        train_28_full", source.replace("\r\n", "\n"))
         self.assertIn("else:\n                local_indices, original_indices", source.replace("\r\n", "\n"))
+        self.assertIn('if PHASE in {"select", "validate"}:', source)
 
 
 if __name__ == "__main__":
