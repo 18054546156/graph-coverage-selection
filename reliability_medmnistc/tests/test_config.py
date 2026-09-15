@@ -47,6 +47,7 @@ class ConfigContractTests(unittest.TestCase):
         for path in (ROOT / "slurm").glob("*.slurm"):
             source = path.read_text(encoding="utf-8")
             self.assertIn("SLURM_SUBMIT_DIR", source, path.name)
+            self.assertIn("configure_imagemagick", source, path.name)
 
     def test_command_wrappers_do_not_shadow_standard_library_select(self):
         for filename in ("select.py", "train.py", "evaluate.py", "summarize.py", "run_pipeline_full.py"):

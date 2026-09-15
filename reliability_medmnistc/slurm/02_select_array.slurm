@@ -18,6 +18,8 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}}"
 PYTHON="${PYTHON:-python}"
 cd "$REPO_ROOT"
+source "$REPO_ROOT/reliability_medmnistc/slurm/common_env.sh"
+configure_imagemagick
 DATASET_NAMES=(organsmnist organamnist pathmnist tissuemnist bloodmnist)
 if [ "${SLURM_ARRAY_TASK_ID:-}" != "" ]; then
   export DATASET="${DATASET_NAMES[$SLURM_ARRAY_TASK_ID]}"

@@ -18,6 +18,8 @@ PYTHON="${PYTHON:-python}"
 MEDMNIST_ROOT="${MEDMNIST_ROOT:-$REPO_ROOT/data/medmnist}"
 MEDMNISTC_ROOT="${MEDMNISTC_ROOT:-$REPO_ROOT/data/medmnistc}"
 cd "$REPO_ROOT"
+source "$REPO_ROOT/reliability_medmnistc/slurm/common_env.sh"
+configure_imagemagick
 exec "$PYTHON" reliability_medmnistc/scripts/generate_medmnistc.py \
   --medmnist-root "$MEDMNIST_ROOT" \
   --output-root "$MEDMNISTC_ROOT" \

@@ -17,6 +17,8 @@ set -euo pipefail
 REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}}"
 PYTHON="${PYTHON:-python}"
 cd "$REPO_ROOT"
+source "$REPO_ROOT/reliability_medmnistc/slurm/common_env.sh"
+configure_imagemagick
 git merge-base --is-ancestor 8cf757adc4c333dc1427d511f0de2f246d15ebac HEAD
 git diff --quiet 8cf757adc4c333dc1427d511f0de2f246d15ebac -- graphcov
 test "$(git -C third_party/medmnistc rev-parse HEAD)" = "8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7"

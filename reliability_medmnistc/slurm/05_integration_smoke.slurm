@@ -18,6 +18,8 @@ REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")
 PYTHON="${PYTHON:-python}"
 SMOKE_ROOT="${SMOKE_ROOT:-/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/smoke_outputs/clean_branch_p0p1_v2}"
 cd "$REPO_ROOT"
+source "$REPO_ROOT/reliability_medmnistc/slurm/common_env.sh"
+configure_imagemagick
 
 export MEDMNIST_ROOT="${MEDMNIST_ROOT:-/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/data/medmnist}"
 export MEDMNISTC_ROOT="${MEDMNISTC_ROOT:-/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc}"
