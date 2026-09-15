@@ -65,6 +65,10 @@ class ConfigContractTests(unittest.TestCase):
             self.assertIn("SLURM_SUBMIT_DIR", source, path.name)
             self.assertIn("configure_imagemagick", source, path.name)
 
+    def test_training_tasks_exclusively_own_the_gpu_node(self):
+        source = (ROOT / "slurm" / "03_train_eval_array.slurm").read_text(encoding="utf-8")
+        self.assertIn("#SBATCH --exclusive", source)
+
     def test_command_wrappers_do_not_shadow_standard_library_select(self):
         direct_entries = (
             "prepare_medmnist_224.py", "generate_medmnistc.py", "run_pipeline.py",
