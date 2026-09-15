@@ -14,6 +14,9 @@ implementations are not modified.
 - The final epoch checkpoint is evaluated on clean and corrupted test data.
 - Graph-A2 uses a global graph, 50 neighbors, and 2 hops.
 - Facility uses per-class selection (`global_selection: false`).
+- Facility keeps the official greedy objective. It runs on GPU for ordinary
+  class sizes and switches to CPU at the configured fixed class-size threshold
+  to prevent dense-matrix CUDA OOM on TissueMNIST.
 
 ## Run order
 

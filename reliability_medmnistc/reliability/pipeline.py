@@ -61,6 +61,12 @@ PHASE = os.environ.get("PHASE", "full").strip().lower()
 if PHASE not in {"select", "validate", "train", "evaluate", "full", "summarize"}:
     raise ValueError("PHASE must be select, validate, train, evaluate, full, or summarize")
 FACILITY_GLOBAL = os.environ.get("FACILITY_GLOBAL_SELECTION", "0") == "1"
+FACILITY_EXECUTION_DEVICE = os.environ.get("FACILITY_EXECUTION_DEVICE", "auto").strip().lower()
+if FACILITY_EXECUTION_DEVICE not in {"auto", "cpu", "cuda"}:
+    raise ValueError("FACILITY_EXECUTION_DEVICE must be auto, cpu, or cuda")
+FACILITY_CPU_MIN_CLASS_SIZE = int(os.environ.get("FACILITY_CPU_MIN_CLASS_SIZE", "40000"))
+if FACILITY_CPU_MIN_CLASS_SIZE < 1:
+    raise ValueError("FACILITY_CPU_MIN_CLASS_SIZE must be positive")
 GRAPH_GLOBAL = os.environ.get("GRAPH_GLOBAL_SELECTION", "1") == "1"
 GRAPH_K = int(os.environ.get("GRAPH_K_NEIGHBORS", "50"))
 GRAPH_HOPS = int(os.environ.get("GRAPH_K_HOPS", "2"))
@@ -200,7 +206,8 @@ from graphcov.run.embeddings import (
     load_or_compute_raw_dynamics,
 )
 from graphcov.run.eva import get_optimal_windows, derive_eva_scores
-from graphcov.run.selection import select, get_available_methods
+from graphcov.run import selection as graphcov_selection
+from graphcov.run.selection import get_available_methods
 from graphcov.run.embeddings import ResNet18WithFeatures
 from graphcov.run.evaluation import train_one_epoch, set_seed
 from medmnistc.dataset import CorruptedMedMNIST
@@ -414,6 +421,19 @@ def save_predictions(path, clean_id, y, logits, probs, severity):
 
 
 # ---------- selection ----------
+def resolve_facility_device(labels):
+    """Choose a deterministic execution device without changing Facility's objective."""
+    if FACILITY_EXECUTION_DEVICE != "auto":
+        resolved = FACILITY_EXECUTION_DEVICE
+    else:
+        _, counts = np.unique(np.asarray(labels).reshape(-1), return_counts=True)
+        largest_class = int(counts.max()) if counts.size else 0
+        resolved = "cpu" if largest_class >= FACILITY_CPU_MIN_CLASS_SIZE else "cuda"
+    if resolved == "cuda" and not torch.cuda.is_available():
+        raise RuntimeError("Facility requires CUDA under the configured device policy")
+    return resolved
+
+
 def get_selection_data(name, train_224, train_28, info):
     needs_embedding = any(m in {"facility", "fps", "herding", "graph_a2"} for m in METHODS)
     embeddings = None
@@ -486,7 +506,20 @@ def choose(name, labels, info, embeddings, dynamics, ratio):
                 k_neighbors=GRAPH_K,
                 k_hops=GRAPH_HOPS,
             )
-        local_indices = np.asarray(select(**args), dtype=np.int64)
+        previous_device = None
+        if method == "facility":
+            resolved_device = resolve_facility_device(labels)
+            previous_device = graphcov_selection.device
+            graphcov_selection.device = torch.device(resolved_device)
+            print(
+                f"  [Facility] execution_device={resolved_device}, "
+                f"cpu_min_class_size={FACILITY_CPU_MIN_CLASS_SIZE}"
+            )
+        try:
+            local_indices = np.asarray(graphcov_selection.select(**args), dtype=np.int64)
+        finally:
+            if previous_device is not None:
+                graphcov_selection.device = previous_device
         if len(np.unique(local_indices)) != len(local_indices):
             raise RuntimeError(f"duplicate selected index: {method}")
         if np.any(local_indices < 0) or np.any(local_indices >= len(labels)):
@@ -539,6 +572,8 @@ def save_selection_artifact(name, method, ratio, local_indices, source_train_ind
         "source_train_labels_sha256": array_sha256(labels),
         "selection_sources": method_sources,
         "facility_global": FACILITY_GLOBAL,
+        "facility_execution_device": resolve_facility_device(labels) if method == "facility" else None,
+        "facility_cpu_min_class_size": FACILITY_CPU_MIN_CLASS_SIZE if method == "facility" else None,
         "graph_global": GRAPH_GLOBAL if method == "graph_a2" else None,
         "graph_k": GRAPH_K if method == "graph_a2" else None,
         "graph_hops": GRAPH_HOPS if method == "graph_a2" else None,
@@ -598,6 +633,12 @@ def load_selection_artifact(name, method, ratio, source_train_indices, labels, i
             raise RuntimeError(f"dynamics shape mismatch at {directory}: {shape}")
     if method == "facility" and bool(config.get("facility_global")) != FACILITY_GLOBAL:
         raise RuntimeError(f"facility mode mismatch at {directory}")
+    if method == "facility" and config.get("facility_execution_device") is not None:
+        expected_device = resolve_facility_device(labels)
+        if config.get("facility_execution_device") != expected_device:
+            raise RuntimeError(f"facility execution device mismatch at {directory}")
+        if int(config.get("facility_cpu_min_class_size", -1)) != FACILITY_CPU_MIN_CLASS_SIZE:
+            raise RuntimeError(f"facility CPU threshold mismatch at {directory}")
     if method == "graph_a2":
         graph_expected = {
             "graph_global": GRAPH_GLOBAL,

@@ -5,6 +5,7 @@ import math
 import tempfile
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 
 import numpy as np
 
@@ -41,6 +42,20 @@ class MetricContractTests(unittest.TestCase):
 
 
 class SelectionContractTests(unittest.TestCase):
+    def test_facility_device_policy_uses_cpu_for_large_classes(self):
+        functions = load_functions(
+            ["resolve_facility_device"],
+            {
+                "FACILITY_EXECUTION_DEVICE": "auto",
+                "FACILITY_CPU_MIN_CLASS_SIZE": 4,
+                "torch": SimpleNamespace(
+                    cuda=SimpleNamespace(is_available=lambda: True),
+                ),
+            },
+        )
+        self.assertEqual(functions["resolve_facility_device"](np.array([0, 0, 1])), "cuda")
+        self.assertEqual(functions["resolve_facility_device"](np.array([0, 0, 0, 0, 1])), "cpu")
+
     def test_selection_loader_validates_hash_mapping_and_quota(self):
         with tempfile.TemporaryDirectory() as temporary:
             selection_root = Path(temporary)

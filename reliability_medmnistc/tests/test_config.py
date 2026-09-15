@@ -31,6 +31,16 @@ class ConfigContractTests(unittest.TestCase):
             "kernel": "A_sym_plus_A_sym_squared",
         })
 
+    def test_facility_has_deterministic_memory_fallback(self):
+        config = yaml.safe_load(
+            (ROOT / "configs" / "full_5datasets_8methods.yaml").read_text(encoding="utf-8")
+        )
+        self.assertEqual(config["method_config"]["facility"], {
+            "global_selection": False,
+            "execution_device": "auto",
+            "cpu_min_class_size": 40000,
+        })
+
     def test_formal_config_is_single_seed_80_run_protocol(self):
         config = yaml.safe_load(
             (ROOT / "configs" / "full_5datasets_8methods.yaml").read_text(encoding="utf-8")

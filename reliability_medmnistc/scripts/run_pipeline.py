@@ -65,6 +65,8 @@ def main(default_phase: str | None = None) -> int:
     graph_config = method_config.get("graph_a2", {})
     env.update({
         "FACILITY_GLOBAL_SELECTION": _as_bool(facility_config.get("global_selection", False)),
+        "FACILITY_EXECUTION_DEVICE": str(facility_config.get("execution_device", "auto")),
+        "FACILITY_CPU_MIN_CLASS_SIZE": str(facility_config.get("cpu_min_class_size", 40000)),
         "GRAPH_GLOBAL_SELECTION": _as_bool(graph_config.get("global_selection", True)),
         "GRAPH_K_NEIGHBORS": str(graph_config.get("k_neighbors", 50)),
         "GRAPH_K_HOPS": str(graph_config.get("k_hops", 2)),

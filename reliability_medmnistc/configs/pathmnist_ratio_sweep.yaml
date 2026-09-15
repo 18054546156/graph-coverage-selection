@@ -17,6 +17,8 @@ corruption_hash: false
 method_config:
   facility:
     global_selection: false
+    execution_device: auto
+    cpu_min_class_size: 40000
   graph_a2:
     global_selection: true
     k_neighbors: 50
