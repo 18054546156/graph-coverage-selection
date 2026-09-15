@@ -14,7 +14,7 @@
 #SBATCH --error=logs/medmnistc_preflight_%j.err
 
 set -euo pipefail
-REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}}"
 PYTHON="${PYTHON:-python}"
 cd "$REPO_ROOT"
 git merge-base --is-ancestor 8cf757adc4c333dc1427d511f0de2f246d15ebac HEAD

@@ -14,7 +14,7 @@
 #SBATCH --error=logs/integration_smoke_%j.err
 
 set -euo pipefail
-REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}}"
 PYTHON="${PYTHON:-python}"
 SMOKE_ROOT="${SMOKE_ROOT:-/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/smoke_outputs/clean_branch_p0p1_v2}"
 cd "$REPO_ROOT"

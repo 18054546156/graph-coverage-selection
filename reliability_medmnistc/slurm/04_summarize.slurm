@@ -13,7 +13,7 @@
 #SBATCH --error=logs/summary_%j.err
 
 set -euo pipefail
-REPO_ROOT="${REPO_ROOT:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}"
+REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)}}"
 PYTHON="${PYTHON:-python}"
 cd "$REPO_ROOT"
 export RELIABILITY_OUT="${RELIABILITY_OUT:-$REPO_ROOT/runs/train_eval}"

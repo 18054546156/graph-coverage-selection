@@ -43,6 +43,11 @@ class ConfigContractTests(unittest.TestCase):
             80,
         )
 
+    def test_slurm_scripts_resolve_the_submission_directory(self):
+        for path in (ROOT / "slurm").glob("*.slurm"):
+            source = path.read_text(encoding="utf-8")
+            self.assertIn("SLURM_SUBMIT_DIR", source, path.name)
+
 
 if __name__ == "__main__":
     unittest.main()
