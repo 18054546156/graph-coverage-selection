@@ -125,7 +125,7 @@ Python：
 
 ### 尚未完成
 
-- `80/80` selection 的严格验证尚未成功；
+- `80/80` selection 的严格验证已由 `31857` 成功完成（`ExitCode=0`）；
 - 训练测试尚未完成；
 - 当前已有部分 `final.pt` 和 `training_history.json`，但不是最终结果；
 - `metrics.jsonl`、prediction 文件和 `run_complete.json` 尚未全部生成；
@@ -149,7 +149,7 @@ selection_validate_31843.err
 
 ```text
 31857       GPU + ImageMagick 初始化的 selection 验证
-31858_[0-3]  afterok:31857，OrganSMNIST/OrganAMNIST 2%/5% train/eval
+31858_[0-3]  afterok:31857，OrganSMNIST/OrganAMNIST 2%/5% train/eval，当前 RUNNING
 ```
 
 `31858` 每个任务申请：
@@ -209,8 +209,8 @@ Step 1 表征漂移/coverage 诊断和 Step 2 selection/training variance 诊断
 ```text
 代码：完成并上传
 数据和 corruption：准备完成
-selection：80/80 文件已生成，严格验证待修复作业 31857
-train/test：进行中
+selection：80/80 文件已生成，且已通过 31857 严格验证
+train/test：31830_4 与 31858_[0-3] 进行中
 正式指标：尚未完成
 汇总：尚未开始
 ```
