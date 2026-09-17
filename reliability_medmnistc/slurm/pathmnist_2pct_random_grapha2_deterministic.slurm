@@ -11,7 +11,8 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --gres=gpu:1
 #SBATCH --mem=48G
-#SBATCH --time=7-00:00:00
+# gpu-a100 currently enforces a shorter partition walltime than the project QoS.
+#SBATCH --time=24:00:00
 #SBATCH --array=0-9%5
 #SBATCH --output=logs/path_r02_det_%A_%a.out
 #SBATCH --error=logs/path_r02_det_%A_%a.err
@@ -49,6 +50,8 @@ export RELIABILITY_OUT="$OUT_ROOT"
 export SELECTION_OUT="$FORMAL_ROOT/selections"
 export MEDMNIST_ROOT="$DATA_ROOT"
 export MEDMNISTC_ROOT="$CORR_ROOT"
+export GRAPH_ROOT="${GRAPH_ROOT:-$REPO_ROOT}"
+export MEDC_ROOT="${MEDC_ROOT:-$REPO_ROOT/third_party/medmnistc}"
 export GRAPH_CACHE="$OUT_ROOT/cache"
 
 echo "method=$METHOD ratio=0.02 selection_seed=42 training_seed=$TRAINING_SEED deterministic=1"
