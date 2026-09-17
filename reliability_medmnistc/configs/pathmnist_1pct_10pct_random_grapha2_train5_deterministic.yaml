@@ -1,0 +1,28 @@
+name: pathmnist_1pct_10pct_random_grapha2_train5_deterministic
+datasets: [pathmnist]
+methods: [random, graph_a2]
+ratios: [0.01, 0.1]
+selection_seed: 42
+training_seeds: [42, 43, 44, 45, 46]
+epochs: 1000
+dynamics_epochs: 200
+image_size: 224
+dynamics_image_size: 28
+batch_size: 256
+num_workers: 4
+embedding_source: uni
+augment: false
+download_medmnist: false
+corruption_hash: false
+deterministic: true
+method_config:
+  facility:
+    global_selection: false
+    execution_device: auto
+    cpu_min_class_size: 40000
+  graph_a2:
+    global_selection: true
+    k_neighbors: 50
+    k_hops: 2
+    kernel: A_sym_plus_A_sym_squared
+checkpoint_rule: final_epoch
