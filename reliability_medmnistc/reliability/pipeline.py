@@ -54,6 +54,7 @@ RUN_FULL_TRAIN = os.environ.get("RUN_FULL_TRAIN", "1") == "1"
 CORR_HASH = os.environ.get("CORR_HASH", "0") == "1"
 AUTO_CONSOLIDATE = os.environ.get("AUTO_CONSOLIDATE", "1") == "1"
 ALLOW_MISSING_CLASSES = os.environ.get("ALLOW_MISSING_CLASSES", "0") == "1"
+DETERMINISTIC = os.environ.get("DETERMINISTIC", "0") == "1"
 EXPECTED_GRAPHCOV_COMMIT = os.environ.get(
     "EXPECTED_GRAPHCOV_COMMIT", "8cf757adc4c333dc1427d511f0de2f246d15ebac"
 )
@@ -212,6 +213,12 @@ from graphcov.run.embeddings import ResNet18WithFeatures
 from graphcov.run.evaluation import train_one_epoch, set_seed
 from medmnistc.dataset import CorruptedMedMNIST
 from medmnistc.corruptions.registry import CORRUPTIONS_DS, DATASET_RGB
+
+if DETERMINISTIC:
+    # The runner exports CUBLAS_WORKSPACE_CONFIG before importing torch CUDA code.
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.use_deterministic_algorithms(True)
 
 assert [m for m in METHODS if m not in get_available_methods()] == [], get_available_methods()
 assert DATASETS and all(name in INFO for name in DATASETS), DATASETS
@@ -733,6 +740,11 @@ def run_config(name, method, ratio_label, ratio_value, train_seed, n_selected, b
         "graphcov_commit": EXPECTED_GRAPHCOV_COMMIT, "medmnistc_commit": git_commit(MEDC_ROOT),
         "python": sys.version, "torch": torch.__version__, "cuda": torch.version.cuda,
         "allow_missing_classes": ALLOW_MISSING_CLASSES,
+        "deterministic": DETERMINISTIC,
+        "deterministic_algorithms": DETERMINISTIC,
+        "cudnn_deterministic": DETERMINISTIC,
+        "cudnn_benchmark": False if DETERMINISTIC else True,
+        "cublas_workspace_config": os.environ.get("CUBLAS_WORKSPACE_CONFIG"),
     }
 
 
@@ -746,7 +758,7 @@ def model_from_checkpoint(path, num_classes, in_channels, config_hash):
 
 
 def train_model(train_ds, selected, num_classes, in_channels, seed, history_path):
-    set_seed(seed, deterministic=False)
+    set_seed(seed, deterministic=DETERMINISTIC)
     dataset = train_ds
     if AUGMENT:
         dataset = AugmentedDataset(dataset, get_train_transform(in_channels, SIZE))

@@ -59,7 +59,12 @@ def main(default_phase: str | None = None) -> int:
         "CORR_HASH": _as_bool(config["corruption_hash"]),
         "RUN_FULL_TRAIN": "0",
         "PHASE": args.phase,
+        "DETERMINISTIC": _as_bool(config.get("deterministic", False)),
     }
+    if config.get("deterministic", False):
+        # Must be set before the first CUDA context is created.
+        env.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
+        env.setdefault("PYTHONHASHSEED", "0")
     method_config = config.get("method_config", {})
     facility_config = method_config.get("facility", {})
     graph_config = method_config.get("graph_a2", {})

@@ -17,7 +17,7 @@
 
 set -euo pipefail
 
-REPO_ROOT="${REPO_ROOT:?set REPO_ROOT}"
+REPO_ROOT="${REPO_ROOT:-${SLURM_SUBMIT_DIR:?set REPO_ROOT or submit from the repository}}"
 FORMAL_ROOT="${FORMAL_ROOT:?set FORMAL_ROOT}"
 VARIANCE_ROOT="${VARIANCE_ROOT:?set VARIANCE_ROOT}"
 OUT_ROOT="${OUT_ROOT:?set OUT_ROOT}"
