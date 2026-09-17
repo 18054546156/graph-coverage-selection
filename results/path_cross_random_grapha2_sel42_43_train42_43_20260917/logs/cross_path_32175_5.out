@@ -1,0 +1,23 @@
+task=13 method=graph_a2 ratio=0.02 selection_seed=43 training_seed=43
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/graph-coverage-selection-medmnistc-reliability-clean-d74', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/cross_path_random_grapha2_sel42_43_train42_43_20260917/runs', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/variance_path_organs_sel42_43_44_train42_46_20260916/selections', 'device': 'cuda', 'datasets': ['pathmnist'], 'methods': ['graph_a2'], 'ratios': [0.02], 'selection_seed': 43, 'training_seeds': [43], 'epochs': 1000, 'augment': False, 'smoke_n': 0}
+Pinned GraphCov methods: ['graph_a2']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+========== pathmnist ==========
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/cross_path_random_grapha2_sel42_43_train42_43_20260917/runs/pathmnist/graph_a2/ratio_0.02/selection_seed_43/train_seed_43/aug_0 n= 1791 budget_per_class= 199
+epoch 100/1000
+epoch 200/1000
+epoch 300/1000
+epoch 400/1000
+epoch 500/1000
+epoch 600/1000
+epoch 700/1000
+epoch 800/1000
+epoch 900/1000
+epoch 1000/1000
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/graph-coverage-selection-medmnistc-reliability-clean-d74', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/cross_path_random_grapha2_sel42_43_train42_43_20260917/runs', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/variance_path_organs_sel42_43_44_train42_46_20260916/selections', 'device': 'cuda', 'datasets': ['pathmnist'], 'methods': ['graph_a2'], 'ratios': [0.02], 'selection_seed': 43, 'training_seeds': [43], 'epochs': 1000, 'augment': False, 'smoke_n': 0}
+Pinned GraphCov methods: ['graph_a2']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+========== pathmnist ==========
+resume from final checkpoint /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/cross_path_random_grapha2_sel42_43_train42_43_20260917/runs/pathmnist/graph_a2/ratio_0.02/selection_seed_43/train_seed_43/aug_0/final.pt

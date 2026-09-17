@@ -1,0 +1,29 @@
+{
+  "dataset": "pathmnist",
+  "methods": [
+    "random",
+    "graph_a2"
+  ],
+  "ratios": [
+    0.02,
+    0.05
+  ],
+  "selection_seeds": [
+    42,
+    43
+  ],
+  "training_seeds": [
+    42,
+    43
+  ],
+  "cells": 16,
+  "complete_cells": 16,
+  "graphcov_commit": "d74e2d6fb6b348ad0cbb410b4931d90540afd754",
+  "medmnistc_commit": "8acfd2710c6e0e8b2745be8b1fa1c17b94f8a7",
+  "slurm_jobs": [
+    "32169",
+    "32175",
+    "32235"
+  ],
+  "source_root": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/formal_runs/cross_path_random_grapha2_sel42_43_train42_43_20260917"
+}
