@@ -17,7 +17,10 @@ class ConfigContractTests(unittest.TestCase):
             self.assertEqual(config["image_size"], 224)
             self.assertEqual(config["dynamics_epochs"], 200)
             self.assertEqual(config["checkpoint_rule"], "final_epoch")
-            self.assertTrue(0.01 in config["ratios"] or 0.02 in config["ratios"])
+            self.assertTrue(
+                set(config["ratios"]).issubset({0.01, 0.02, 0.05, 0.10})
+                and config["ratios"]
+            )
 
     def test_graph_a2_parameters_are_explicit(self):
         config = yaml.safe_load(
