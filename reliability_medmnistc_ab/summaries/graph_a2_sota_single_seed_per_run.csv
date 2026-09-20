@@ -1,0 +1,8 @@
+"arm","dataset","training_seed","metric","graph_a2_value","winner","runner_up","runner_up_value"
+"clean_selection_clean_train","bloodmnist","42","clean_ba","0.8430514924619736","graph_a2","fps","0.8250160833930593"
+"clean_selection_clean_train","organamnist","42","clean_ba","0.8763980227487985","graph_a2","herding","0.8736533600274513"
+"selection_corrupted_clean_train_pixelate_s3","pathmnist","42","mean_corruption_ba","0.5308539844449657","graph_a2","random","0.5209933096746105"
+"selection_corrupted_clean_train_pixelate_s3","tissuemnist","42","clean_ba","0.44143357994880555","graph_a2","facility","0.44109270283861246"
+"selection_corrupted_corrupted_train_pixelate_s3","bloodmnist","42","mean_corruption_ba","0.6030737561429695","graph_a2","facility","0.59563363045004"
+"selection_corrupted_corrupted_train_pixelate_s3","pathmnist","42","clean_ba","0.7892398424969279","graph_a2","herding","0.7420559639511594"
+"selection_corrupted_corrupted_train_pixelate_s3","pathmnist","42","mean_corruption_ba","0.5262222968166731","graph_a2","facility","0.5189090114503035"

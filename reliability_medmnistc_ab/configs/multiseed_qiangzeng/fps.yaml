@@ -1,0 +1,18 @@
+name: qz_multiseed_fps_20260920
+datasets: [organsmnist, organamnist, pathmnist, tissuemnist, bloodmnist]
+methods: [fps]
+ratios: [0.02]
+selection_seed: 42
+training_seeds: [42, 43, 44, 45, 46]
+epochs: 1000
+dynamics_epochs: 200
+image_size: 224
+dynamics_image_size: 28
+batch_size: 256
+num_workers: 4
+embedding_source: uni
+augment: false
+download_medmnist: false
+corruption_hash: false
+method_config: {}
+checkpoint_rule: final_epoch
