@@ -1,0 +1,43 @@
+{
+  "kind": "training_side_representation_drift_diagnostic",
+  "created_unix": 1789465092.3498673,
+  "official_test_used": false,
+  "medmnistc_test_used": false,
+  "view_source": "medmnistc-api registry applied to clean train images",
+  "config": {
+    "graphcov_root": ".",
+    "data_root": "data\\medmnist",
+    "selection_root": "artifacts\\selections",
+    "cache_root": "D:\\graph_select\\cache\\embeddings",
+    "output_root": "results\\representation_drift\\_dry_run2",
+    "datasets": [
+      "pathmnist"
+    ],
+    "methods": [
+      "graph_a2"
+    ],
+    "ratios": [
+      0.05
+    ],
+    "selection_seed": 42,
+    "pilot_n": 1000,
+    "views": "all",
+    "severities": "1,2,3,4,5",
+    "batch_size": 128,
+    "workers": 4,
+    "knn_k": 50,
+    "seed": 0,
+    "save_knn": false,
+    "dry_run": true,
+    "severities_zero_based": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "results": [],
+  "missing_selections": [],
+  "difficulty_sources": {}
+}

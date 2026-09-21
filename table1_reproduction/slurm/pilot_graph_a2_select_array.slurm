@@ -16,7 +16,7 @@
 set -euo pipefail
 
 PROJECT=${GRAPHCOV_PROJECT_ROOT:-/project/prj-sis01/xuxiaoyu/graph_bench}
-PYTHON=${GRAPHCOV_PYTHON:-${PROJECT}/envs/graphcov-py311/bin/python}
+PYTHON=${GRAPHCOV_PYTHON:-/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/bin/python}
 CONFIG=${PROJECT}/table1_reproduction/configs/job1_table1.json
 DATASETS=(organsmnist organamnist pathmnist tissuemnist bloodmnist)
 DATASET=${DATASETS[${SLURM_ARRAY_TASK_ID}]}

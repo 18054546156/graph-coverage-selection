@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MedMNIST-C 指标怎么读</title>
+  <style>
+    :root{
+      --ink:#1f2d35;--muted:#667680;--line:#d9e3e7;--paper:#fff;--bg:#f3f6f6;
+      --navy:#213c49;--teal:#087c70;--teal-bg:#e3f3ef;--blue:#2e63a8;--blue-bg:#eaf1fb;
+      --amber:#9a6209;--amber-bg:#fff4dc;--red:#a83b38;--red-bg:#fdeceb;--purple:#6d4c91;--purple-bg:#f2ecf8;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.65}
+    .page{max-width:1180px;margin:0 auto;padding:24px 22px 70px}
+    .topbar{display:flex;justify-content:space-between;gap:20px;align-items:center;border-bottom:1px solid var(--line);padding:8px 0 18px}
+    .brand{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--teal);font-weight:800}
+    .topbar a{color:var(--blue);text-decoration:none;font-size:13px}.topbar a:hover{text-decoration:underline}
+    h1{font-size:34px;line-height:1.18;letter-spacing:0;margin:28px 0 10px;color:var(--navy)}
+    .lede{max-width:820px;color:var(--muted);font-size:16px;margin:0}
+    .hero-note{margin-top:22px;background:var(--navy);color:#fff;padding:18px 20px;border-radius:8px;font-size:15px}
+    .hero-note strong{color:#a9e5da}
+    .nav{position:sticky;top:0;z-index:10;background:rgba(243,246,246,.96);border-bottom:1px solid var(--line);margin:24px -22px 0;padding:10px 22px;overflow:auto;white-space:nowrap}
+    .nav a{display:inline-block;color:var(--navy);text-decoration:none;font-size:13px;font-weight:700;margin-right:18px}.nav a:hover{color:var(--teal)}
+    .section{margin-top:34px;scroll-margin-top:64px}
+    .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:12px}
+    h2{font-size:24px;line-height:1.25;margin:0;color:var(--navy)}
+    h3{font-size:16px;line-height:1.35;margin:0 0 8px;color:var(--navy)}
+    p{margin:7px 0}.muted{color:var(--muted);font-size:13px}
+    .section-tag{font-size:12px;font-weight:800;color:var(--teal);background:var(--teal-bg);padding:5px 9px;border-radius:4px;white-space:nowrap}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .card{background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:16px 17px}
+    .card p{font-size:14px}.metric-card{border-top:4px solid var(--teal)}
+    .metric-card:nth-child(2){border-top-color:var(--blue)}.metric-card:nth-child(3){border-top-color:var(--amber)}.metric-card:nth-child(4){border-top-color:var(--purple)}
+    .metric-name{font-weight:800;color:var(--navy);font-size:17px}.direction{font-size:12px;font-weight:800;color:var(--teal)}
+    .formula{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:#eef2f4;border-left:3px solid var(--blue);padding:9px 11px;margin:10px 0;font-size:13px;overflow:auto;white-space:pre-wrap}
+    .example{background:var(--blue-bg);border:1px solid #ccdbef;border-radius:7px;padding:16px 17px}
+    .example.amber{background:var(--amber-bg);border-color:#edd9a8}.example.red{background:var(--red-bg);border-color:#f0c3c0}.example.purple{background:var(--purple-bg);border-color:#dfd0ec}
+    .example-label{font-size:12px;letter-spacing:.05em;text-transform:uppercase;font-weight:800;color:var(--blue)}
+    .example.amber .example-label{color:var(--amber)}.example.red .example-label{color:var(--red)}.example.purple .example-label{color:var(--purple)}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}.three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+    .flow{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-top:15px}
+    .flow div{background:var(--paper);border:1px solid var(--line);border-top:3px solid var(--teal);padding:12px;border-radius:6px;min-height:108px}.flow div:nth-child(2){border-top-color:var(--blue)}.flow div:nth-child(3){border-top-color:var(--amber)}.flow div:nth-child(4){border-top-color:var(--purple)}.flow div:nth-child(5){border-top-color:var(--red)}
+    .flow b{display:block;font-size:13px;color:var(--navy);margin-bottom:4px}.flow span{font-size:12px;color:var(--muted)}
+    table{width:100%;border-collapse:collapse;font-size:13px;background:var(--paper)}th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:var(--navy);color:#fff;font-size:12px}tbody tr:nth-child(even){background:#f8fafb}.num{text-align:right;white-space:nowrap}.good{color:var(--teal);font-weight:800}.bad{color:var(--red);font-weight:800}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:7px}
+    .callout{border-left:4px solid var(--amber);background:var(--amber-bg);padding:14px 16px;color:#60480c;border-radius:0 6px 6px 0}.callout strong{color:#493603}
+    .ok{border-left-color:var(--teal);background:var(--teal-bg);color:#0b514a}.warn{border-left-color:var(--red);background:var(--red-bg);color:#702823}
+    .small-list{margin:8px 0 0;padding-left:20px;font-size:14px}.small-list li{margin:4px 0}
+    .code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;background:#edf1f3;padding:2px 5px;border-radius:3px}
+    .score-line{display:flex;align-items:center;gap:9px;margin:8px 0}.bar{height:10px;background:#dce6e8;border-radius:2px;flex:1;overflow:hidden}.bar i{display:block;height:100%;background:var(--teal)}.bar.red i{background:var(--red)}
+    .footer{margin-top:40px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted);font-size:12px}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flow{grid-template-columns:repeat(3,minmax(0,1fr))}.three{grid-template-columns:1fr}.topbar{align-items:flex-start;flex-direction:column}}
+    @media(max-width:620px){.page{padding:18px 13px 50px}h1{font-size:28px}.two,.grid{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.nav{margin-left:-13px;margin-right:-13px;padding-left:13px;padding-right:13px}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <header>
+    <div class="topbar"><div class="brand">MedMNIST-C / Metric guide</div><a href="experiment_report.html">返回实验报告</a></div>
+    <h1>这些分数到底说明什么？</h1>
+    <p class="lede">这是一份给非专业读者的指标说明。每个指标都按“它在问什么、怎么算、例子是多少、应该怎么判断”解释。示例数字都是虚构教学数据，不是实验实测结果。</p>
+    <div class="hero-note"><strong>先记住比较顺序：</strong>先看 clean BA 的绝对值，再看 corruption BA；然后看 BA drop、最差类别和置信度指标。不要只看一个平均数，也不要只看下降幅度。</div>
+  </header>
+
+  <nav class="nav" aria-label="页面导航">
+    <a href="#how">先看顺序</a><a href="#classification">分类</a><a href="#robustness">鲁棒性</a><a href="#calibration">概率质量</a><a href="#selective">选择性预测</a><a href="#selection">选集稳定性</a><a href="#audit">训练审计</a><a href="#reporting">最终怎么汇报</a>
+  </nav>
+
+  <section id="how" class="section">
+    <div class="section-head"><div><h2>一张图看懂读分数顺序</h2><p class="muted">把模型想成一个给医学图片分类的学生。</p></div><span class="section-tag">阅读路线</span></div>
+    <div class="flow">
+      <div><b>1. clean BA</b><span>没有干扰时，各类别平均答对多少？</span></div>
+      <div><b>2. worst recall</b><span>最差的那个类别有没有被平均数遮住？</span></div>
+      <div><b>3. corruption BA</b><span>图片变模糊、加噪声后还剩多少能力？</span></div>
+      <div><b>4. calibration</b><span>模型说“我很确定”时，真的靠谱吗？</span></div>
+      <div><b>5. variance</b><span>换 seed 后，结论还稳定吗？</span></div>
+    </div>
+  </section>
+
+  <section id="classification" class="section">
+    <div class="section-head"><div><h2>一、分类性能</h2><p class="muted">回答模型“答对了多少”，是主结果。</p></div><span class="section-tag">越高越好</span></div>
+    <div class="grid">
+      <article class="card metric-card"><div class="metric-name">ACC</div><div class="direction">普通准确率</div><p>所有图片中答对的比例。</p><div class="formula">ACC = 答对的图片数 / 全部图片数</div></article>
+      <article class="card metric-card"><div class="metric-name">Recall_c</div><div class="direction">类别 c 的召回率</div><p>真实属于类别 c 的图片，有多少被认出来。</p><div class="formula">Recall_c = 类别 c 答对数 / 类别 c 总数</div></article>
+      <article class="card metric-card"><div class="metric-name">BA</div><div class="direction">Balanced Accuracy</div><p>先算每个类别的 Recall，再等权平均。</p><div class="formula">BA = (Recall_1 + ... + Recall_C) / C</div></article>
+      <article class="card metric-card"><div class="metric-name">Worst recall</div><div class="direction">最差类别召回率</div><p>所有类别中最低的那个 Recall。</p><div class="formula">Worst recall = min(Recall_1, ..., Recall_C)</div></article>
+    </div>
+    <div class="two" style="margin-top:14px">
+      <div class="example">
+        <div class="example-label">虚构例子：为什么 ACC 会骗人</div>
+        <p>测试集有 90 张甲类、10 张乙类。模型把 100 张全部猜成甲类。</p>
+        <div class="formula">ACC = 90 / 100 = 90%<br>Recall_甲 = 90 / 90 = 100%<br>Recall_乙 = 0 / 10 = 0%<br>BA = (100% + 0%) / 2 = 50%</div>
+        <p><strong>读法：</strong>ACC 看起来很高，但模型完全不会识别乙类。BA 把两个类别等权后揭示了这个问题。</p>
+      </div>
+      <div class="card">
+        <h3>一个简单的检查方法</h3>
+        <div class="score-line"><b style="width:105px">ACC 90%</b><div class="bar"><i style="width:90%"></i></div></div>
+        <div class="score-line"><b style="width:105px">BA 50%</b><div class="bar red"><i style="width:50%"></i></div></div>
+        <div class="score-line"><b style="width:105px">Worst 0%</b><div class="bar red"><i style="width:0%"></i></div></div>
+        <p class="muted">如果 ACC 和 BA 差很多，优先查看每类 Recall，而不是继续看 ACC。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="robustness" class="section">
+    <div class="section-head"><div><h2>二、干扰鲁棒性</h2><p class="muted">回答图片被污染后，模型还剩多少识别能力。</p></div><span class="section-tag">绝对值优先</span></div>
+    <div class="grid">
+      <article class="card metric-card"><div class="metric-name">Corruption BA</div><p>在某一种 corruption、某个 severity 下重新计算 BA。</p><div class="formula">Corruption BA = 干扰测试集上的各类 Recall 平均</div></article>
+      <article class="card metric-card"><div class="metric-name">BA drop</div><p>clean BA 减去 corruption BA，单位通常是百分点 pp。</p><div class="formula">BA drop = clean BA - corruption BA</div></article>
+      <article class="card metric-card"><div class="metric-name">Worst recall drop</div><p>看最差类别在干扰下又掉了多少。</p><div class="formula">drop = clean worst recall - corrupt worst recall</div></article>
+      <article class="card metric-card"><div class="metric-name">Per severity</div><p>分别看 severity 1 到 5，不能只看一个总平均。</p><div class="formula">每种 corruption × 每个 severity 单独计算</div></article>
+    </div>
+    <div class="example amber" style="margin-top:14px">
+      <div class="example-label">虚构例子：下降小不等于模型强</div>
+      <div class="table-wrap"><table><thead><tr><th>模型</th><th>Clean BA</th><th>Corruption BA</th><th>BA drop</th><th>正确解读</th></tr></thead><tbody>
+        <tr><td>模型 A</td><td class="num">90%</td><td class="num">70%</td><td class="num">20pp</td><td>绝对能力较强，但干扰后损失较大</td></tr>
+        <tr><td>模型 B</td><td class="num">65%</td><td class="num">60%</td><td class="num good">5pp</td><td>下降较小，但绝对能力仍明显较弱</td></tr>
+      </tbody></table></div>
+      <p><strong>结论：</strong>不能只按 BA drop 排名，必须同时看 clean BA 和 corruption BA。</p>
+    </div>
+  </section>
+
+  <section id="calibration" class="section">
+    <div class="section-head"><div><h2>三、概率质量：模型说“我确定”可信吗？</h2><p class="muted">分类答对不等于概率可信。这里的指标通常越低越好。</p></div><span class="section-tag">越低越好</span></div>
+    <div class="three">
+      <article class="card metric-card"><div class="metric-name">NLL</div><p>真实类别拿到的概率越高，NLL 越低。模型“很自信但答错”会被重罚。</p><div class="formula">NLL = - 平均 log(p_true)</div></article>
+      <article class="card metric-card"><div class="metric-name">Brier</div><p>整个概率向量与正确 one-hot 向量的平方距离。</p><div class="formula">Brier = 平均 Σ_c (p_c - onehot_c)²</div></article>
+      <article class="card metric-card"><div class="metric-name">ECE15</div><p>把 confidence 分成 15 个等宽区间，比较每个区间的平均 confidence 和真实准确率。</p><div class="formula">ECE = Σ_b (N_b/N) × |accuracy_b - confidence_b|</div></article>
+    </div>
+    <div class="two" style="margin-top:14px">
+      <div class="example">
+        <div class="example-label">NLL 和 Brier 单张图片例子</div>
+        <p>真实类别是甲，模型输出：</p><div class="formula">p = [甲: 0.80, 乙: 0.15, 丙: 0.05]</div>
+        <div class="formula">NLL = -ln(0.80) ≈ 0.223<br>Brier = (0.80-1)² + 0.15² + 0.05² = 0.065</div>
+        <p>真实类别概率从 0.80 降到 0.01 时，NLL 会大幅变差。</p>
+      </div>
+      <div class="example purple">
+        <div class="example-label">ECE15 例子</div>
+        <p>假设只有两个 confidence bin：</p>
+        <div class="formula">Bin 1：5 张，confidence=0.90，实际准确率=1.00<br>Bin 2：5 张，confidence=0.60，实际准确率=0.40</div>
+        <div class="formula">ECE = (5/10)|1.00-0.90| + (5/10)|0.40-0.60| = 0.15</div>
+        <p>模型整体平均误差为 15 个百分点。当前项目是 15-bin top-label ECE，不能和不同 bin 规则的 ECE 直接混比。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="selective" class="section">
+    <div class="section-head"><div><h2>四、选择性预测：不确定时能不能拒答？</h2><p class="muted">模型不是必须回答所有图片，可以只接受最有把握的一部分。</p></div><span class="section-tag">越低越好</span></div>
+    <div class="grid">
+      <article class="card metric-card"><div class="metric-name">Risk@80</div><p>按 confidence 排序，只接受最有把握的 80% 后，这些已接受预测中的错误率。</p><div class="formula">Risk@80 = accepted 部分的错误数 / accepted 数</div></article>
+      <article class="card metric-card"><div class="metric-name">AURC</div><p>逐渐放宽接受范围，画 coverage-risk 曲线，再计算曲线下面积。</p><div class="formula">AURC = 平均_k [前 k 个样本的累计错误率]</div></article>
+      <article class="card metric-card"><div class="metric-name">High-conf errors</div><p>confidence 达到阈值却预测错误的数量。是危险的“自信错误”。</p><div class="formula">count(confidence ≥ 0.8 且预测错误)</div></article>
+      <article class="card metric-card"><div class="metric-name">Coverage</div><p>系统实际接受了多少预测。Risk 低但 coverage 极低，实用价值可能有限。</p><div class="formula">Coverage = accepted 数 / 全部样本数</div></article>
+    </div>
+    <div class="example" style="margin-top:14px">
+      <div class="example-label">Risk@80 和 AURC 例子</div>
+      <p>测试集有 10 张图，按 confidence 从高到低排列。接受前 8 张，其中 2 张答错：</p>
+      <div class="formula">Risk@80 = 2 / 8 = 25%</div>
+      <p>如果模型能把错误都排到列表后面，那么 AURC 会低；如果高置信度位置就出现很多错误，AURC 会高。</p>
+      <div class="callout ok"><strong>注意：</strong>Risk@80 的 80 指接受比例，不是“confidence 大于 80%”。</div>
+    </div>
+  </section>
+
+  <section id="selection" class="section">
+    <div class="section-head"><div><h2>五、选集稳定性和可复现性</h2><p class="muted">这些指标不直接评价模型，而是检查“每次到底选了什么”。</p></div><span class="section-tag">不是越高越好</span></div>
+    <div class="two">
+      <div class="card">
+        <h3>Jaccard：两次选集重合多少？</h3>
+        <div class="formula">J(A,B) = |A∩B| / |A∪B|</div>
+        <p>例子：A 选了 5 张，B 选了 4 张，共有 3 张重合。</p>
+        <div class="formula">J = 3 / (5 + 4 - 3) = 3/6 = 0.50</div>
+        <p><strong>1.0</strong> 表示完全相同，接近 <strong>0</strong> 表示几乎没有重合。</p>
+      </div>
+      <div class="card">
+        <h3>SHA256、类别计数和选样数量</h3>
+        <ul class="small-list">
+          <li><span class="code">selection_size</span>：有没有真的选够 2% 或 5%。</li>
+          <li><span class="code">class_counts</span>：类别配额是否正确。</li>
+          <li><span class="code">index_order_sha256</span>：选中的 ID 及顺序是否完全一致。</li>
+          <li><span class="code">checkpoint_sha256</span>：保存的模型文件是否被替换。</li>
+        </ul>
+        <div class="callout" style="margin-top:12px"><strong>当前诊断的例子：</strong>Random 的不同 selection seed 选集几乎完全不同；Graph-A2 的 Jaccard=1，说明当前实现下 selection seed 没有改变 Graph-A2 选集。</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="audit" class="section">
+    <div class="section-head"><div><h2>六、训练过程审计指标</h2><p class="muted">用来判断“结果不同是方法不同，还是训练根本没对齐”。</p></div><span class="section-tag">解释差异</span></div>
+    <div class="table-wrap"><table><thead><tr><th>指标</th><th>它检查什么</th><th>看到异常时先查什么</th></tr></thead><tbody>
+      <tr><td><strong>train_loss</strong></td><td>模型是否在学习训练集</td><td>输入、标签、学习率、loss 实现</td></tr>
+      <tr><td><strong>train_accuracy</strong></td><td>训练集上的拟合程度</td><td>过拟合、类别不平衡、选集质量</td></tr>
+      <tr><td><strong>learning rate</strong></td><td>scheduler 是否按预定方式变化</td><td>step 时机、总 epoch、iteration/epoch 混淆</td></tr>
+      <tr><td><strong>optimizer updates</strong></td><td>实际参数更新次数是否一致</td><td>batch 数、drop_last、数据量、训练轮数</td></tr>
+      <tr><td><strong>initial weight hash</strong></td><td>两个入口是否从同一个初始模型开始</td><td>seed 设置顺序、预训练权重、初始化调用</td></tr>
+      <tr><td><strong>prediction hash</strong></td><td>最终预测是否确实来自该 checkpoint</td><td>checkpoint 加载、test transform、标签顺序</td></tr>
+    </tbody></table></div>
+    <div class="callout warn" style="margin-top:14px"><strong>重要：</strong>只有 <span class="code">final.pt</span>，没有完整的 <span class="code">metrics.jsonl</span>、预测文件和完成标记，不能计算有效的 BA 方差，也不能作为一次完成的实验。</div>
+  </section>
+
+  <section id="reporting" class="section">
+    <div class="section-head"><div><h2>七、最终结果应该怎么汇报？</h2><p class="muted">一张主表回答性能，附表解释原因。</p></div><span class="section-tag">推荐格式</span></div>
+    <div class="two">
+      <div class="card">
+        <h3>每个数据集、每个方法至少报告</h3>
+        <ol class="small-list">
+          <li>clean BA：主指标</li>
+          <li>ACC 和每类 Recall</li>
+          <li>Worst-class recall</li>
+          <li>corruption BA 和 BA drop</li>
+          <li>NLL、Brier、ECE15</li>
+          <li>Risk@80、AURC</li>
+          <li>多个 seed 的 mean、sample SD、95% CI</li>
+        </ol>
+      </div>
+      <div class="card">
+        <h3>Graph-A2 与 Random 应该如何比较</h3>
+        <div class="formula">ΔBA(seed) = BA_Graph-A2(seed) - BA_Random(seed)</div>
+        <p>不要只找 Graph-A2 赢的 seed。应在相同数据集、相同 training seed 下做配对差值，再报告：</p>
+        <ul class="small-list">
+          <li>平均 ΔBA</li><li>ΔBA 的标准差</li><li>95% 置信区间</li><li>Graph-A2 胜出的 seed 数量</li>
+        </ul>
+      </div>
+    </div>
+    <div class="callout ok" style="margin-top:14px"><strong>一句话总结：</strong>BA 说明“各类平均答对多少”，worst recall 说明“最差类有没有被掩盖”，corruption BA 说明“受干扰后还剩多少能力”，ECE/NLL/Brier 说明“置信度是否可信”，Risk/AURC 说明“能不能把危险预测筛出来”，Jaccard 和 hash 说明“选集是否真的可复现”。</div>
+  </section>
+
+  <footer class="footer">本页示例数字均为教学示例。当前项目的正式比较仍以固定 commit、固定数据缓存、明确的 selection/training seed 和完整产物校验为准。</footer>
+</main>
+</body>
+</html>

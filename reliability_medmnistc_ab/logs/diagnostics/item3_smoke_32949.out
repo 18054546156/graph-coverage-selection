@@ -1,0 +1,29 @@
+cell method=random dataset=pathmnist selection_seed=42 training_seed=42 array_index=0
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/graph-coverage-selection-medmnistc-reliability-clean-d74', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/phase1_verify_20260921_xiaoyuxu2/factorial36/random/pathmnist/sel_seed_42/train_seed_42', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/phase1_verify_20260921_xiaoyuxu2/factorial36/random/pathmnist/sel_seed_42/train_seed_42/selections', 'device': 'cuda', 'datasets': ['pathmnist'], 'methods': ['random'], 'ratios': [0.02], 'selection_seed': 42, 'training_seeds': [42], 'epochs': 10, 'augment': False, 'smoke_n': 0, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['random']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+========== pathmnist ==========
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/graph-coverage-selection-medmnistc-reliability-clean-d74', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/phase1_verify_20260921_xiaoyuxu2/factorial36/random/pathmnist/sel_seed_42/train_seed_42', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/phase1_verify_20260921_xiaoyuxu2/factorial36/random/pathmnist/sel_seed_42/train_seed_42/selections', 'device': 'cuda', 'datasets': ['pathmnist'], 'methods': ['random'], 'ratios': [0.02], 'selection_seed': 42, 'training_seeds': [42], 'epochs': 10, 'augment': False, 'smoke_n': 0, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['random']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+========== pathmnist ==========
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/phase1_verify_20260921_xiaoyuxu2/factorial36/random/pathmnist/sel_seed_42/train_seed_42/pathmnist/random/ratio_0.02/selection_seed_42/train_seed_42/aug_0 n= 1791 budget_per_class= 199
+epoch 1/10
+epoch 2/10
+epoch 3/10
+epoch 4/10
+epoch 5/10
+epoch 6/10
+epoch 7/10
+epoch 8/10
+epoch 9/10
+epoch 10/10
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/graph-coverage-selection-medmnistc-reliability-clean-d74', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/phase1_verify_20260921_xiaoyuxu2/factorial36/random/pathmnist/sel_seed_42/train_seed_42', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/phase1_verify_20260921_xiaoyuxu2/factorial36/random/pathmnist/sel_seed_42/train_seed_42/selections', 'device': 'cuda', 'datasets': ['pathmnist'], 'methods': ['random'], 'ratios': [0.02], 'selection_seed': 42, 'training_seeds': [42], 'epochs': 10, 'augment': False, 'smoke_n': 0, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['random']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+========== pathmnist ==========
+resume from final checkpoint /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/formal_runs/phase1_verify_20260921_xiaoyuxu2/factorial36/random/pathmnist/sel_seed_42/train_seed_42/pathmnist/random/ratio_0.02/selection_seed_42/train_seed_42/aug_0/final.pt
+cell complete method=random dataset=pathmnist selection_seed=42 training_seed=42

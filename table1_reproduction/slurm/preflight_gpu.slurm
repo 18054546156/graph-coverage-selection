@@ -15,7 +15,7 @@
 set -euo pipefail
 
 PROJECT=${GRAPHCOV_PROJECT_ROOT:-/project/prj-sis01/xuxiaoyu/graph_bench}
-PYTHON=${GRAPHCOV_PYTHON:-${PROJECT}/envs/graphcov-py311/bin/python}
+PYTHON=${GRAPHCOV_PYTHON:-/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/bin/python}
 TMP_ROOT=${TMPDIR:-/tmp}/graphcov_preflight_${SLURM_JOB_ID}
 
 export PYTHONNOUSERSITE=1

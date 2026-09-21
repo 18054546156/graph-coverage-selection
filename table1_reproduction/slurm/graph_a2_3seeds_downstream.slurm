@@ -16,7 +16,7 @@
 set -euo pipefail
 
 PROJECT=${GRAPHCOV_PROJECT_ROOT:-/project/prj-sis01/xuxiaoyu/graph_bench}
-PYTHON=${GRAPHCOV_PYTHON:-${PROJECT}/envs/graphcov-py311/bin/python}
+PYTHON=${GRAPHCOV_PYTHON:-/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/bin/python}
 CONFIG=${PROJECT}/table1_reproduction/configs/job2_graph_a2_3seeds.json
 NUM_SHARDS=5
 

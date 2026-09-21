@@ -1,0 +1,105 @@
+{
+  "kind": "synthetic_api_smoke_only",
+  "corruptions": {
+    "pixelate": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "jpeg_compression": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "defocus_blur": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "motion_blur": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "brightness_up": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "brightness_down": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "contrast_up": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "contrast_down": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "saturate": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "stain_deposit": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    },
+    "bubble": {
+      "length": 10,
+      "sample_shape": [
+        3,
+        224,
+        224
+      ],
+      "labels": 10
+    }
+  },
+  "source_commit": "8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7"
+}

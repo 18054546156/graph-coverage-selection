@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MedMNIST-C 选样实验报告</title>
+  <style>
+    :root{--ink:#1d2a35;--sub:#65727d;--line:#dce4e8;--paper:#fff;--bg:#f3f6f7;--navy:#203844;--teal:#087f73;--teal-light:#e4f3f0;--amber:#a86c09;--amber-light:#fff3d9;--red:#b33e38;--red-light:#fdeceb;--blue:#2b63ad}
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;line-height:1.55}
+    .page{max-width:1320px;margin:0 auto;padding:28px 24px 64px}
+    .masthead{border-bottom:1px solid var(--line);padding:10px 0 24px;display:flex;justify-content:space-between;gap:24px;align-items:flex-end}
+    .eyebrow{font-size:12px;letter-spacing:.11em;text-transform:uppercase;color:var(--teal);font-weight:800}
+    h1{font-size:30px;line-height:1.2;margin:7px 0 8px;letter-spacing:0}
+    .lede{color:var(--sub);max-width:760px;margin:0;font-size:15px}
+    .snapshot{font-size:12px;color:var(--sub);text-align:right;white-space:nowrap}
+    .section{margin-top:28px}
+    .section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:12px}
+    h2{font-size:20px;margin:0;line-height:1.25}
+    h3{font-size:15px;margin:20px 0 8px}
+    .muted{color:var(--sub);font-size:13px;margin:5px 0}
+    .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+    .stat{background:var(--paper);border:1px solid var(--line);padding:16px 17px;border-radius:7px}
+    .stat .label{font-size:12px;color:var(--sub);font-weight:700}
+    .stat .value{font-size:26px;font-weight:800;margin-top:5px;color:var(--navy)}
+    .stat .detail{font-size:12px;color:var(--sub);margin-top:3px}
+    .band{background:var(--paper);border:1px solid var(--line);padding:18px 20px;border-radius:7px}
+    .callout{padding:14px 16px;border-left:4px solid var(--amber);background:var(--amber-light);color:#60480c;font-size:14px}
+    .callout strong{color:#493603}
+    .callout.ok{border-color:var(--teal);background:var(--teal-light);color:#0a514b}
+    .flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+    .flow article{border-top:3px solid var(--teal);background:var(--paper);border:1px solid var(--line);padding:14px;border-radius:6px}
+    .flow article:nth-child(2){border-top-color:var(--amber)}
+    .flow article:nth-child(3){border-top-color:var(--blue)}
+    .flow b{display:block;margin-bottom:5px}
+    .flow span{font-size:13px;color:var(--sub)}
+    .controls{display:flex;flex-wrap:wrap;gap:10px;align-items:end;margin:14px 0}
+    label{font-size:12px;color:var(--sub);font-weight:700;display:flex;flex-direction:column;gap:4px}
+    select{font:inherit;font-size:13px;color:var(--ink);background:#fff;border:1px solid #bdcbd1;border-radius:5px;padding:8px 30px 8px 10px;min-width:180px}
+    .table-wrap{overflow:auto;background:var(--paper);border:1px solid var(--line);border-radius:7px}
+    table{border-collapse:collapse;width:100%;font-size:13px;min-width:920px}
+    th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:right;white-space:nowrap}
+    th:first-child,td:first-child{text-align:left;position:sticky;left:0;background:inherit}
+    thead th{background:var(--navy);color:#fff;font-size:12px;position:sticky;top:0;z-index:2}
+    tbody tr:nth-child(even){background:#f8fafb}
+    tbody tr:hover{background:var(--teal-light)}
+    .best{color:var(--teal);font-weight:800;background:#e8f7f3!important}
+    .method-name{font-weight:700;text-align:left!important}
+    .mono{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px}
+    .two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    .mini-table{min-width:0}
+    .mini-table table{min-width:0}
+    .mini-table th,.mini-table td{text-align:left}
+    .mini-table th:not(:first-child),.mini-table td:not(:first-child){text-align:right}
+    .status-row{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:8px 0;font-size:13px;gap:16px}
+    .status-row:last-child{border-bottom:0}
+    .status{font-weight:800}.running{color:var(--teal)}.pending{color:var(--amber)}.not-started{color:var(--red)}
+    details{background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:12px 15px}
+    summary{cursor:pointer;font-weight:700;font-size:14px}
+    code{font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:12px;background:#eef2f4;padding:2px 5px;border-radius:3px}
+    a{color:var(--blue);text-decoration:none}a:hover{text-decoration:underline}
+    .footer{margin-top:34px;border-top:1px solid var(--line);padding-top:16px;color:var(--sub);font-size:12px}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.flow{grid-template-columns:1fr}.two-col{grid-template-columns:1fr}.masthead{display:block}.snapshot{text-align:left;margin-top:12px}}
+    @media(max-width:520px){.page{padding:18px 13px 44px}h1{font-size:25px}.grid{grid-template-columns:1fr 1fr}.stat .value{font-size:22px}.controls label,.controls select{width:100%}}
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="masthead">
+    <div>
+      <div class="eyebrow">MedMNIST-C / selection audit</div>
+      <h1>2% 医学影像选样实验报告</h1>
+      <p class="lede">按数据集、实验流程和 training seed 展开比较八种选样方法。主结论使用 balanced accuracy；corruption 结果同时保留绝对 BA、BA drop、worst-class recall 和校准指标。</p>
+    </div>
+    <div class="snapshot">静态数据快照：2026-09-20<br>结果源：本仓库 summaries/</div>
+  </header>
+
+  <section class="section">
+    <div class="grid">
+      <div class="stat"><div class="label">单种子三臂</div><div class="value">120/120</div><div class="detail">5 数据集 × 8 方法 × 3 流程</div></div>
+      <div class="stat"><div class="label">多种子 benchmark</div><div class="value">100/600</div><div class="detail">selection 42；training 42–46</div></div>
+      <div class="stat"><div class="label">Graph-A2 主指标第一</div><div class="value">7</div><div class="detail">单种子，不能作为多种子 SOTA</div></div>
+      <div class="stat"><div class="label">细粒度第一</div><div class="value">170</div><div class="detail">clean/corruption × severity</div></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="callout"><strong>解释边界：</strong>120/120 是已完成的单种子三臂实验；600 是预设的多种子三臂矩阵，当前只完成快照中的 100 个单元。Graph-A2 的 7 个主指标第一名和 170 个细粒度第一名不能替代五个 training seeds 的均值、标准差和置信区间。</div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>实验设计</h2><p class="muted">所有当前单种子结果固定 ratio=2%、selection seed=42、training seed=42。</p></div></div>
+    <div class="flow">
+      <article><b>Clean → Clean</b><span>clean train 选样 → selected clean train 训练 → clean + 全部 MedMNIST-C 测试</span></article>
+      <article><b>Corrupted → Clean</b><span>pixelate severity 3 选样 → 同 ID 的 clean 图像训练 → clean + 全部 MedMNIST-C 测试</span></article>
+      <article><b>Corrupted → Corrupted</b><span>pixelate severity 3 选样 → selected pixelate severity 3 训练 → clean + 全部 MedMNIST-C 测试</span></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>逐数据集方法比较</h2><p class="muted">表格不跨数据集平均。绿色单元格为当前筛选条件下的最高值。</p></div></div>
+    <div class="controls">
+      <label>实验流程<select id="armSelect"></select></label>
+      <label>数据集<select id="datasetSelect"></select></label>
+      <label>指标<select id="metricSelect"><option value="clean_ba">Clean BA</option><option value="corruption_ba">Mean corruption BA</option><option value="clean_acc">Clean ACC</option><option value="ba_drop">BA drop</option><option value="clean_worst_recall">Clean worst recall</option><option value="corruption_worst_recall">Corruption worst recall</option><option value="clean_ece15">Clean ECE15</option><option value="clean_aurc">Clean AURC</option></select></label>
+    </div>
+    <div class="table-wrap"><table id="runTable"><thead></thead><tbody></tbody></table></div>
+    <p class="muted" id="tableNote"></p>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>单种子平均概览</h2><p class="muted">仅作为方向性总览；正式比较请使用上面的逐数据集表。</p></div></div>
+    <div class="two-col">
+      <div class="band mini-table"><h3>Clean selection → clean training</h3><table id="armSummaryClean"></table></div>
+      <div class="band mini-table"><h3>Corrupted selection → clean training</h3><table id="armSummaryMixed"></table></div>
+      <div class="band mini-table"><h3>Corrupted selection → corrupted training</h3><table id="armSummaryCorrupt"></table></div>
+      <div class="band"><h3>当前 HPC 快照</h3>
+        <div class="status-row"><span>原始三臂多种子 `32712`</span><span class="status running">100/600 快照</span></div>
+        <div class="status-row"><span>Random / EL2N / Forgetting / EVA</span><span class="status running">各 25 格</span></div>
+        <div class="status-row"><span>Facility</span><span class="status running">运行中</span></div>
+        <div class="status-row"><span>FPS / Herding / Graph-A2</span><span class="status pending">排队</span></div>
+        <div class="status-row"><span>ABC 改进实验 `32774`</span><span class="status running">16/150 快照</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>Graph-A2 第一名明细</h2><p class="muted">单种子 training seed 42；不代表多种子 SOTA。</p></div></div>
+    <div class="two-col">
+      <div class="band mini-table"><h3>主指标：7 个第一名</h3><table id="winsTable"></table></div>
+      <div class="band"><h3>细粒度结果</h3><p>Graph-A2 在逐 corruption × severity 比较中获得 170 个第一名，其中 clean 条件 4 个、corruption 条件 166 个。</p><p class="muted">完整逐条件数据见 <a href="reliability_medmnistc_ab/summaries/three_arm_single_seed_20260920_per_condition.csv">6840 行条件表</a>。</p></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>论文 Table 1 对照</h2><p class="muted">历史五种子复现与当前三臂审计分开保存，不混合口径。</p></div></div>
+    <div class="band"><p>当前严格代码配置记录为：UNI 224、global Graph-A2、k=50、hops=2、1000 epochs、ResNet-18 from scratch、SGD lr=0.1、batch=256、无增强、final epoch checkpoint。</p><p>论文对照表和早期复现结果保存在 Excel 的 <code>Paper_Comparison</code> 工作表中。</p><a href="outputs/medmnistc_final_handoff_20260920/MedMNISTC_experiment_snapshot.xlsx">打开最终 Excel 汇总</a></div>
+  </section>
+
+  <section class="section">
+    <div class="section-head"><div><h2>数据、代码和产物</h2><p class="muted">网页只展示汇总，不复制大型 checkpoint、prediction 或数据缓存。</p></div></div>
+    <details open><summary>数据和生成</summary><p><code>/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/data/medmnist/</code>：官方 MedMNIST 28/224 档案；<code>data/medmnistc/</code>：MedMNIST-C corruption 文件。下载和 MD5 验证由 <code>scripts/prepare_medmnist_224.py</code> 完成，corruption 由固定 API commit 生成。</p></details>
+    <details><summary>运行代码和配置</summary><p><code>reliability_medmnistc/reliability/pipeline.py</code> 负责加载数据、选样、训练、评估和哈希校验；方法配置在 <code>reliability_medmnistc_ab/configs/</code>；Slurm 入口在 <code>reliability_medmnistc_ab/slurm/</code>。</p></details>
+    <details><summary>结果文件</summary><p><a href="reliability_medmnistc_ab/summaries/three_arm_single_seed_20260920_per_run.csv">120 行逐运行表</a> · <a href="reliability_medmnistc_ab/summaries/three_arm_single_seed_20260920_per_condition.csv">6840 行逐条件表</a> · <a href="reliability_medmnistc_ab/summaries/graph_a2_sota_single_seed_per_run.csv">Graph-A2 主指标第一名</a> · <a href="reliability_medmnistc_ab/handoff.md">handoff.md</a></p></details>
+  </section>
+
+  <footer class="footer">数据文件路径按仓库相对路径读取。若直接双击 HTML 导致浏览器阻止 CSV 请求，请在仓库根目录运行 <code>python -m http.server 8000</code>，再打开 <code>http://localhost:8000/experiment_report.html</code>。</footer>
+</main>
+<script>
+const DATA='reliability_medmnistc_ab/summaries/three_arm_single_seed_20260920_per_run.csv';
+const WINS='reliability_medmnistc_ab/summaries/graph_a2_sota_single_seed_per_run.csv';
+const methods=['random','el2n_top','forgetting','eva','facility','fps','herding','graph_a2'];
+const labels={random:'Random',el2n_top:'EL2N',forgetting:'Forgetting',eva:'EVA',facility:'Facility',fps:'FPS',herding:'Herding',graph_a2:'Graph-A2'};
+const arms={clean_selection_clean_train:'Clean selection → clean training',selection_corrupted_clean_train_pixelate_s3:'Corrupted selection → clean training',selection_corrupted_corrupted_train_pixelate_s3:'Corrupted selection → corrupted training'};
+const datasets=['bloodmnist','organamnist','organsmnist','pathmnist','tissuemnist'];
+let rows=[],wins=[];
+function parseCSV(text){const out=[];let row=[],cell='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){cell+='"';i++}else quoted=!quoted}else if(c===','&&!quoted){row.push(cell);cell=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cell);if(row.some(v=>v!==''))out.push(row);row=[];cell=''}else cell+=c}if(cell!==''||row.length){row.push(cell);out.push(row)}const head=out.shift().map(x=>x.trim());return out.map(r=>Object.fromEntries(head.map((h,i)=>[h,r[i]??''])))}
+function num(x){const n=Number(x);return Number.isFinite(n)?n:null}
+function pct(x){return x==null?'—':(num(x)*100).toFixed(2)+'%'}
+function armLabel(a){return arms[a]||a}
+function fillSelect(id,items,pretty){const el=document.getElementById(id);el.innerHTML=items.map(x=>`<option value="${x}">${pretty(x)}</option>`).join('')}
+function renderRuns(){const arm=document.getElementById('armSelect').value,ds=document.getElementById('datasetSelect').value,metric=document.getElementById('metricSelect').value;const data=rows.filter(r=>r.arm===arm&&r.dataset===ds);const values=data.map(r=>num(r[metric])).filter(x=>x!=null);const high=!['ba_drop','clean_ece15','clean_aurc','corruption_ece15','corruption_aurc'].includes(metric);const best=high?Math.max(...values):Math.min(...values);const head=document.querySelector('#runTable thead');const body=document.querySelector('#runTable tbody');head.innerHTML='<tr><th>方法</th><th>Clean BA</th><th>Corruption BA</th><th>BA drop</th><th>Clean ACC</th><th>Worst recall</th><th>ECE15</th><th>Selection SHA256</th></tr>';body.innerHTML=data.sort((a,b)=>(num(b[metric])-num(a[metric]))*(high?1:-1)).map(r=>`<tr class="${num(r[metric])===best?'best':''}"><td class="method-name">${labels[r.method]}</td><td>${pct(r.clean_ba)}</td><td>${pct(r.corruption_ba)}</td><td>${pct(r.ba_drop)}</td><td>${pct(r.clean_acc)}</td><td>${pct(r.clean_worst_recall)}</td><td>${pct(r.clean_ece15)}</td><td class="mono">${r.selection_sha256.slice(0,16)}…</td></tr>`).join('');document.getElementById('tableNote').textContent=`${armLabel(arm)} / ${ds} / training seed ${data[0]?.training_seed||42}。当前按 ${document.getElementById('metricSelect').selectedOptions[0].textContent} 排序；绿色表示该指标第一名。`}
+function renderSummary(id,arm){const data=rows.filter(r=>r.arm===arm);const by={};for(const r of data){by[r.method]??=[];by[r.method].push(r)}const metrics=[['clean_ba','Clean BA'],['corruption_ba','Corr. BA'],['ba_drop','BA drop']];document.getElementById(id).innerHTML='<tr><th>方法</th>'+metrics.map(x=>`<th>${x[1]}</th>`).join('')+'</tr>'+methods.map(m=>{const rs=by[m]||[];const avg=k=>rs.length?rs.reduce((s,r)=>s+num(r[k]),0)/rs.length:null;return `<tr><td>${labels[m]}</td>${metrics.map(([k])=>`<td>${pct(avg(k))}</td>`).join('')}</tr>`}).join('')}
+function renderWins(){document.getElementById('winsTable').innerHTML='<tr><th>数据集</th><th>指标</th><th>Graph-A2</th><th>亚军</th></tr>'+wins.map(r=>`<tr><td>${r.dataset}</td><td>${r.metric}</td><td>${pct(r.graph_a2_value)}</td><td>${labels[r.runner_up]||r.runner_up} ${pct(r.runner_up_value)}</td></tr>`).join('')}
+async function init(){try{const [a,b]=await Promise.all([fetch(DATA),fetch(WINS)]);if(!a.ok||!b.ok)throw new Error('CSV fetch failed');rows=parseCSV(await a.text());wins=parseCSV(await b.text());fillSelect('armSelect',Object.keys(arms),armLabel);fillSelect('datasetSelect',datasets,x=>x);document.getElementById('armSelect').addEventListener('change',renderRuns);document.getElementById('datasetSelect').addEventListener('change',renderRuns);document.getElementById('metricSelect').addEventListener('change',renderRuns);renderRuns();renderSummary('armSummaryClean','clean_selection_clean_train');renderSummary('armSummaryMixed','selection_corrupted_clean_train_pixelate_s3');renderSummary('armSummaryCorrupt','selection_corrupted_corrupted_train_pixelate_s3');renderWins()}catch(e){document.querySelector('.page').insertAdjacentHTML('beforeend',`<div class="callout no">无法读取 CSV：${e.message}。请通过本地 HTTP server 打开此页面。</div>`)}}
+init();
+</script>
+</body>
+</html>

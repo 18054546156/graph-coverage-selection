@@ -2,7 +2,7 @@
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
-PYTHON_BIN="${GRAPHCOV_PYTHON:-/root/miniconda3/envs/graphcov_pathmnist/bin/python}"
+PYTHON_BIN="${GRAPHCOV_PYTHON:-/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/bin/python}"
 CONFIG="${1:-table1_reproduction/configs/job1_table1.json}"
 NAME="$(basename "${CONFIG}" .json)"
 LOG_DIR="${PROJECT_ROOT}/table1_reproduction/logs"

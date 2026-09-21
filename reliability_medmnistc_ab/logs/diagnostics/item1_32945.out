@@ -1,0 +1,11 @@
+eval_dataset=bloodmnist
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/graph-coverage-selection-medmnistc-reliability-clean-d74', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/abc_select/results_test_corruption/_scratch/bloodmnist', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/abc_select/results_test_corruption/_scratch/bloodmnist/selections', 'device': 'cuda', 'datasets': ['bloodmnist'], 'methods': ['graph_a2'], 'ratios': [0.02], 'selection_seed': 42, 'training_seeds': [42, 43, 44, 45, 46], 'epochs': 1000, 'augment': False, 'smoke_n': 0, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['graph_a2']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+done arm=baseline_graph_a2 seed=42 clean_test_ba=0.7894
+done arm=baseline_graph_a2 seed=43 clean_test_ba=0.8421
+done arm=baseline_graph_a2 seed=44 clean_test_ba=0.8285
+done arm=baseline_graph_a2 seed=45 clean_test_ba=0.8592
+done arm=baseline_graph_a2 seed=46 clean_test_ba=0.7920
+done arm=A_metric_eta025 seed=42 clean_test_ba=0.8535
