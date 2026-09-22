@@ -1,0 +1,89 @@
+{
+  "schema": "graphcov-table1/path5-fixed-selection-paired-v1",
+  "frozen_at": "2026-09-09",
+  "question": "Does Random still outrank Graph-A2 on PathMNIST 5% when each method uses one frozen subset and only the downstream training seed changes?",
+  "source_repository": "https://github.com/zahiriddin-rustamov/graph-coverage-selection",
+  "vendor_source_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+  "dataset": {
+    "name": "pathmnist",
+    "ratio": 0.05,
+    "n_train": 89996,
+    "n_classes": 9,
+    "budget_per_class": 499,
+    "n_selected": 4491,
+    "hpc_npz": "~/.medmnist/pathmnist_224.npz"
+  },
+  "arms": {
+    "random_seed42": {
+      "label": "Random (selection seed 42 frozen)",
+      "source_paths": [
+        "source_inputs/random_seed42_selected_indices.npy"
+      ],
+      "origin_hpc_path": "/project/PROJECT_ROOT/USER/_archive_fork_20260830/graph_bench/table1_reproduction/outputs/job1_selection/pathmnist/r0p05/random/seed42/selected_indices.npy",
+      "expected_source_file_sha256": "e0e1d71d770001f471f7f18ccc76fd84799a38fcc1f67049914b19697466a268",
+      "selection_seed": 42,
+      "expected_source_order_index_sha256": "c2e2b8eabedceaea05db9f9e39b758a3674d07d45bfe845b7349ba6648adad4b",
+      "expected_canonical_index_sha256": "5bbe9f8ec87c05be598dd627f0d5e653d7247f78434ef35d11d76fd7a97448cf"
+    },
+    "graph_a2": {
+      "label": "Graph-A2 (UNI, global, k=50, H=2)",
+      "source_paths": [
+        "source_inputs/graph_a2_selected_indices.npy"
+      ],
+      "origin_hpc_path": "/project/PROJECT_ROOT/USER/table1_ours_k50_reproduction/selection/pathmnist/r0p05/selected_indices.npy",
+      "expected_source_file_sha256": "d92a94292c9fff769bc2efd7c2db2fc4f3c8f57bcd24beeb023cb7960c9b9f39",
+      "selection_seed": 42,
+      "expected_source_order_index_sha256": "1b7c792a032dc65e33aa8f22f62eb606b447b0069074e63676be6b9b902b2145",
+      "expected_canonical_index_sha256": "be168e37b12146efc1ad5d3f980ce301e288ba8fd3c89f62c581e39488daa5e2",
+      "selection": {
+        "embedding": "UNI 224",
+        "graph_scope": "global",
+        "k_neighbors": 50,
+        "k_hops": 2,
+        "kernel": "A_sym + A_sym^2",
+        "quota": "equal per class"
+      }
+    }
+  },
+  "canonical_index_order": "strictly increasing training-set index for both arms and every training seed",
+  "training_seeds": [42, 43, 44, 45, 46],
+  "arm_order": ["random_seed42", "graph_a2"],
+  "training": {
+    "implementation": "vendored graphcov.run.evaluation.evaluate_selection",
+    "model": "ResNet-18 from scratch",
+    "image_size": 224,
+    "epochs": 1000,
+    "batch_size": 256,
+    "optimizer": "SGD",
+    "learning_rate": 0.1,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0005,
+    "scheduler": "CosineAnnealingLR(T_max=1000)",
+    "augmentation": false,
+    "normalization": "ToTensor then channelwise mean=0.5,std=0.5",
+    "num_workers": 4,
+    "deterministic": false,
+    "test_every_n_epochs": 10,
+    "endpoint": "final epoch official-test balanced accuracy",
+    "note": "Periodic test evaluation is retained solely to match the completed public-vendor Table 1 run; best-test fields are audit-only and never used for the decision."
+  },
+  "paper_path5_pct": {
+    "random": [84.0, 2.4],
+    "graph_a2": [85.9, 1.7]
+  },
+  "decision": {
+    "paired_delta": "100 * (Graph-A2 final BA - Random final BA) for each training seed",
+    "paper_ranking_reproduced": "mean paired delta > 0",
+    "paper_ranking_not_reproduced": "mean paired delta <= 0",
+    "interpretation_if_reproduced": "Supports, but does not by itself prove, that changing the Random selection seed was a major contributor to the earlier reversal.",
+    "interpretation_if_not_reproduced": "The paper ranking is not reproduced under fixed seed-42 subsets; varying Random selection seeds is not a sufficient explanation for the earlier reversal."
+  },
+  "frozen_rules": [
+    "Both selected-index arrays are canonicalized once and reused byte-for-byte for seeds 42-46.",
+    "Only the downstream training seed changes across paired trials.",
+    "Each Slurm array task trains both arms sequentially on the same allocated RTX 4090.",
+    "No validation or test result may alter indices, hyperparameters, ordering, seeds, endpoint, or decision rule.",
+    "The primary report uses final balanced accuracy and paired per-seed differences only."
+  ]
+}

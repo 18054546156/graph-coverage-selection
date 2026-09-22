@@ -1,0 +1,16 @@
+{
+  "schema": "graphcov-v11/job2-config-v1",
+  "purpose": "Seed-42 validation screen at 5%; no test access",
+  "selection_root": "{project_root}/v11/outputs/job1_table1_calibration_k50baseline",
+  "output_root": "{project_root}/v11/outputs/job2_table1_validation_k50baseline_valckpt",
+  "validation_split": "val",
+  "evaluation_split": "val",
+  "training": {"size": 224, "epochs": 1000, "batch_size": 256, "learning_rate": 0.1, "momentum": 0.9, "nesterov": false, "weight_decay": 0.0005, "augmentation": false, "evaluate_every": 10, "num_workers": 4, "deterministic": false},
+  "jobs": [
+    {"dataset": "organsmnist", "ratios": [0.05], "variants": ["a0_original", "a3_more_hops", "a4_larger_k", "a5_full_ppr", "a6_full_ppr_cap1"], "seeds": [42]},
+    {"dataset": "organamnist", "ratios": [0.05], "variants": ["a0_original", "a3_more_hops", "a4_larger_k", "a5_full_ppr", "a6_full_ppr_cap1"], "seeds": [42]},
+    {"dataset": "pathmnist", "ratios": [0.05], "variants": ["a0_original", "a3_more_hops", "a4_larger_k", "a5_full_ppr", "a6_full_ppr_cap1"], "seeds": [42]},
+    {"dataset": "tissuemnist", "ratios": [0.05], "variants": ["a0_original", "a3_more_hops", "a4_larger_k", "a5_full_ppr", "a6_full_ppr_cap1"], "seeds": [42]},
+    {"dataset": "bloodmnist", "ratios": [0.05], "variants": ["a0_original", "a3_more_hops", "a4_larger_k", "a5_full_ppr", "a6_full_ppr_cap1"], "seeds": [42]}
+  ]
+}

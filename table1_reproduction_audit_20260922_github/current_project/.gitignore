@@ -1,0 +1,15 @@
+__pycache__/
+*.pyc
+graphcov/cache/
+graphcov/results/
+/cache/
+/envs/
+
+# ARIS local skill links and runtime state
+.claude/
+.aris/
+
+# Feishu worker local runtime and credentials
+feishu_worker/.venv/
+feishu_worker/state/
+feishu_worker/__pycache__/

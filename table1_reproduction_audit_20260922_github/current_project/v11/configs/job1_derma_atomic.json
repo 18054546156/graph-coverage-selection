@@ -1,0 +1,108 @@
+{
+  "schema": "graphcov-v11/job1-config-v1",
+  "purpose": "DermaMNIST 5% atomic selector ablation; train split only",
+  "datasets_file": "datasets_server_3090.json",
+  "output_root": "{project_root}/v11/outputs/job1_derma_atomic",
+  "cache_root": "{project_root}/v11/cache",
+  "knn": {"backend": "faiss", "gpu": 0},
+  "margin": {"backend": "faiss", "gpu": 0, "batch_size": 512},
+  "jobs": [
+    {
+      "dataset": "dermamnist",
+      "ratios": [0.05],
+      "reference_variant": "a0_original",
+      "frozen_reference_indices": {
+        "r0p05": {
+          "path": "{project_root}/v7/selected_indices/original_graph_a2.npy",
+          "required": true
+        }
+      },
+      "variants": [
+        {
+          "id": "a0_original",
+          "description": "Official global Graph-A2 baseline",
+          "k": 10,
+          "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "none", "symmetrize_after": false},
+          "constraint": {"mode": "none"}
+        },
+        {
+          "id": "a1_final_top70",
+          "description": "A0 plus final row top-70 truncation",
+          "k": 10,
+          "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "final", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "none"}
+        },
+        {
+          "id": "a2_perhop_top70",
+          "description": "A1 with truncation moved inside every hop",
+          "k": 10,
+          "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "none"}
+        },
+        {
+          "id": "a3_symmetrized",
+          "description": "A2 plus post-truncation max symmetrization",
+          "k": 10,
+          "kernel": {"hops": 2, "weight_mode": "uniform", "truncation": "per_hop", "max_degree": 70, "symmetrize_after": true},
+          "constraint": {"mode": "none"}
+        },
+        {
+          "id": "a4_decay_h2",
+          "description": "A2 plus geometric hop decay 0.85",
+          "k": 10,
+          "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "none"}
+        },
+        {
+          "id": "a5_k50_h2",
+          "description": "A4 with k changed from 10 to 50",
+          "k": 50,
+          "kernel": {"hops": 2, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "none"}
+        },
+        {
+          "id": "a6_k10_h6",
+          "description": "A4 with propagation changed from 2 to 6 hops",
+          "k": 10,
+          "kernel": {"hops": 6, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "none"}
+        },
+        {
+          "id": "a7_ppr_uncapped",
+          "description": "Combined k=50, H=6 bounded PPR surrogate without margin cap",
+          "k": 50,
+          "kernel": {"hops": 6, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "none"}
+        },
+        {
+          "id": "a8_ppr_hardcap_1x",
+          "description": "A7 with in-greedy per-class unsafe cap equal to A0",
+          "k": 50,
+          "kernel": {"hops": 6, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.0}
+        },
+        {
+          "id": "a9_ppr_posthoc_1x",
+          "description": "A7 with the minimum number of post-hoc swaps needed to meet A0 caps",
+          "k": 50,
+          "kernel": {"hops": 6, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "posthoc_repair", "source_variant": "a0_original", "base_variant": "a7_ppr_uncapped", "multiplier": 1.0}
+        },
+        {
+          "id": "a10_ppr_hardcap_075x",
+          "description": "A7 with a stricter 0.75x A0 unsafe cap",
+          "k": 50,
+          "kernel": {"hops": 6, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 0.75}
+        },
+        {
+          "id": "a11_ppr_hardcap_125x",
+          "description": "A7 with a relaxed 1.25x A0 unsafe cap",
+          "k": 50,
+          "kernel": {"hops": 6, "weight_mode": "geometric", "hop_decay": 0.85, "truncation": "per_hop", "max_degree": 70, "symmetrize_after": false},
+          "constraint": {"mode": "hard_cap", "source_variant": "a0_original", "multiplier": 1.25}
+        }
+      ]
+    }
+  ]
+}

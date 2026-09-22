@@ -1,0 +1,92 @@
+{
+  "schema": "graphcov-table1/official-vendor-v1",
+  "source_repository": "https://github.com/zahiriddin-rustamov/graph-coverage-selection",
+  "source_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+  "hash_normalization": "lf",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "d3e7128caa12020bf71629a75ffe0f3d52527eb726e35833ca62912dc83aeac9"
+    },
+    {
+      "path": "graphcov/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "graphcov/run/__init__.py",
+      "sha256": "f55107b57cb622b3943eaabf73d7f909c4374eef73cd69f34a6b6410c91abccd"
+    },
+    {
+      "path": "graphcov/run/__main__.py",
+      "sha256": "74d2bbf762947854d3dd28c68eadb4feb801869458dd7ce22f7d72ddd0486497"
+    },
+    {
+      "path": "graphcov/run/compare_global.py",
+      "sha256": "e9ed3d438fe97c1809e672a3b648fe589f6eb17204d5be8df6035c3b97cebc78"
+    },
+    {
+      "path": "graphcov/run/compare_k.py",
+      "sha256": "9c38db042c3788f8a0d876f714448d0e1a5cb1c78e77e9a5f4e363bdfea819ff"
+    },
+    {
+      "path": "graphcov/run/compare_selections.py",
+      "sha256": "5168295e98c297b3fc3be14bb3e629f9cd5bd14a4df7ac0aad87d103ea384a4e"
+    },
+    {
+      "path": "graphcov/run/compare_sizes.py",
+      "sha256": "4d5eb93817ebdb962db865d8dca9a323edc41f5d5b793a119da84b7a3beb3fa5"
+    },
+    {
+      "path": "graphcov/run/data.py",
+      "sha256": "e21e3304af78886ff281889ef005721c208bc7f6d29dd67a3fce677f313d3321"
+    },
+    {
+      "path": "graphcov/run/embeddings.py",
+      "sha256": "3f3570c40256eacb63cb2dfefe4886893f9f6f802bbbfe1774de1460586d08f0"
+    },
+    {
+      "path": "graphcov/run/eva.py",
+      "sha256": "1c5be7c5933193851ed68778a54da55144c64edacc847968d972e0fc95cf4d6b"
+    },
+    {
+      "path": "graphcov/run/evaluation.py",
+      "sha256": "e0580ff4fc480cadd1e7fe1bf0bdad51e77402030269c8b6db0a74c42daf81fd"
+    },
+    {
+      "path": "graphcov/run/experiment.py",
+      "sha256": "bc38828b49da69099700e4e7ebacbce14a594cfc2c8fb13aea09606c1be587ac"
+    },
+    {
+      "path": "graphcov/run/graph.py",
+      "sha256": "0155217544435010757b37bc245723a969b4974438228e18fa573696b9f4dcd8"
+    },
+    {
+      "path": "graphcov/run/importance.py",
+      "sha256": "fca9c9d6fc6deb8352257e159db9442f8c37e4ab845a8b16f73d33c7d945b741"
+    },
+    {
+      "path": "graphcov/run/results.py",
+      "sha256": "5acea15f4923269e0bb311d5bfddca13458faea228f60281b7027bb17fb2bcb1"
+    },
+    {
+      "path": "graphcov/run/selection.py",
+      "sha256": "3ea75c14e7d41f41b77f5459f6185c6257e608948143e260faeb884cab3657d0"
+    },
+    {
+      "path": "graphcov/run/timing_comparison.py",
+      "sha256": "d38b41447da521de9e44032fd95bcb142b5ab17f5157f5bafcd4b89367a7029d"
+    },
+    {
+      "path": "graphcov/run/validate_kernel.py",
+      "sha256": "1a59579690e1443c6b7852de86dc81a9cb0e94e899200fd952710338a97843b2"
+    },
+    {
+      "path": "graphcov/run/visualize_datasets.py",
+      "sha256": "5a1567171f234a80fc744e7887a2c434580a2286f5792e17545d9f05a8ca4695"
+    },
+    {
+      "path": "graphcov/run/visualize_selection.py",
+      "sha256": "f5f41d1a5e0335aa2ac12e344480bc5d2fd97f23fa5aeb900f9f4a0083399288"
+    }
+  ]
+}

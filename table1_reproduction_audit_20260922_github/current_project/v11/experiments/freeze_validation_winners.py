@@ -1,0 +1,238 @@
+#!/usr/bin/env python3
+"""Freeze one validation-selected variant per dataset and write the test config.
+
+The calibration ratio is deliberately shared across budgets. This avoids tuning
+one method independently on every dataset-ratio test condition.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+
+import numpy as np
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--validation-root", type=Path, required=True)
+    parser.add_argument("--validation-config", type=Path, required=True)
+    parser.add_argument("--selection-root", type=Path, required=True)
+    parser.add_argument("--output-config", type=Path, required=True)
+    parser.add_argument("--test-output-root", type=Path, required=True)
+    parser.add_argument("--reference-variant", default="a0_original")
+    parser.add_argument("--calibration-ratio", type=float, default=0.05)
+    parser.add_argument("--confirmation-ratios", type=float, nargs="+", default=[0.02, 0.05])
+    parser.add_argument("--confirmation-seeds", type=int, nargs="+", default=[42, 43, 44, 45, 46])
+    parser.add_argument("--required-calibration-seeds", type=int, default=3)
+    parser.add_argument("--minimum-ba-gain", type=float, default=0.0)
+    parser.add_argument("--worst-recall-tolerance", type=float, default=0.02)
+    return parser.parse_args()
+
+
+def load_rows(root: Path) -> list[dict]:
+    rows = []
+    for path in sorted(root.rglob("*_result.json")):
+        row = json.loads(path.read_text(encoding="utf-8"))
+        if (
+            row.get("evaluation_split") != "val"
+            or row.get("test_read", False)
+            or row.get("test_evaluations") != 0
+            or row.get("evaluation_protocol") != "validation_checkpoint_v1"
+        ):
+            raise ValueError(f"calibration input is not validation-only: {path}")
+        row["result_path"] = str(path)
+        rows.append(row)
+    if not rows:
+        raise FileNotFoundError(f"no validation result JSON below {root}")
+    return rows
+
+
+def summarize(rows: list[dict], ratio: float) -> dict[tuple[str, str], dict]:
+    grouped: dict[tuple[str, str], list[dict]] = {}
+    for row in rows:
+        if not np.isclose(float(row["ratio"]), ratio):
+            continue
+        key = (str(row["dataset"]), str(row["variant"]))
+        grouped.setdefault(key, []).append(row)
+    output = {}
+    for key, values in grouped.items():
+        values = sorted(values, key=lambda item: int(item["training_seed"]))
+        seeds = [int(item["training_seed"]) for item in values]
+        if len(seeds) != len(set(seeds)):
+            raise ValueError(f"duplicate seed in calibration results: {key}")
+        output[key] = {
+            "n_seeds": len(values),
+            "seeds": seeds,
+            "best_balanced_accuracy_mean": float(
+                np.mean([item["best_balanced_accuracy"] for item in values])
+            ),
+            "best_balanced_accuracy_std": float(
+                np.std(
+                    [item["best_balanced_accuracy"] for item in values], ddof=1
+                )
+            ) if len(values) > 1 else 0.0,
+            "final_balanced_accuracy_mean": float(
+                np.mean([item["balanced_accuracy"] for item in values])
+            ),
+            "final_balanced_accuracy_std": float(
+                np.std([item["balanced_accuracy"] for item in values], ddof=1)
+            ) if len(values) > 1 else 0.0,
+            # Strict v11 persists the validation-selected checkpoint, so these
+            # class metrics are measured at that checkpoint.
+            "worst_class_recall_mean": float(
+                np.mean([item["worst_class_recall"] for item in values])
+            ),
+            "class_cvar20_mean": float(
+                np.mean([item["class_cvar20"] for item in values])
+            ),
+        }
+    return output
+
+
+def expected_calibration_keys(config: dict, ratio: float) -> set[tuple[str, float, str, int]]:
+    expected = set()
+    for job in config.get("jobs", []):
+        job_ratios = [float(value) for value in job.get("ratios", [])]
+        if not any(np.isclose(value, ratio) for value in job_ratios):
+            continue
+        for variant in job.get("variants", []):
+            for seed in job.get("seeds", []):
+                expected.add((str(job["dataset"]), float(ratio), str(variant), int(seed)))
+    if not expected:
+        raise ValueError(f"validation config has no jobs at calibration ratio {ratio}")
+    return expected
+
+
+def validate_calibration_rows(
+    rows: list[dict], expected: set[tuple[str, float, str, int]]
+) -> None:
+    observed = []
+    for row in rows:
+        key = (
+            str(row["dataset"]),
+            float(row["ratio"]),
+            str(row["variant"]),
+            int(row["training_seed"]),
+        )
+        observed.append(key)
+    duplicates = sorted({key for key in observed if observed.count(key) > 1})
+    if duplicates:
+        raise ValueError(f"duplicate validation results: {duplicates}")
+    observed_set = set(observed)
+    unexpected = sorted(observed_set - expected)
+    missing = sorted(expected - observed_set)
+    if unexpected:
+        raise ValueError(f"validation results are outside the frozen config: {unexpected}")
+    if missing:
+        raise ValueError(f"validation results are incomplete: {missing}")
+
+
+def main() -> int:
+    args = parse_args()
+    source_config = json.loads(args.validation_config.read_text(encoding="utf-8"))
+    if source_config.get("schema") != "graphcov-v11/job2-config-v1":
+        raise ValueError("unexpected validation config schema")
+    rows = load_rows(args.validation_root)
+    expected = expected_calibration_keys(source_config, args.calibration_ratio)
+    expected_seed_count = len({key[3] for key in expected})
+    if expected_seed_count != args.required_calibration_seeds:
+        raise ValueError(
+            f"validation config has {expected_seed_count} seeds; "
+            f"expected {args.required_calibration_seeds}"
+        )
+    validate_calibration_rows(rows, expected)
+    stats = summarize(rows, args.calibration_ratio)
+    datasets = sorted({key[0] for key in expected})
+    decisions = {}
+    jobs = []
+    for dataset in datasets:
+        reference_key = (dataset, args.reference_variant)
+        if reference_key not in stats:
+            raise KeyError(f"missing reference results for {dataset}")
+        reference = stats[reference_key]
+        candidates = []
+        for (candidate_dataset, variant), values in stats.items():
+            if candidate_dataset != dataset:
+                continue
+            if values["n_seeds"] < args.required_calibration_seeds:
+                raise ValueError(
+                    f"{dataset}/{variant} has {values['n_seeds']} seeds; "
+                    f"need {args.required_calibration_seeds}"
+                )
+            safe = (
+                values["worst_class_recall_mean"]
+                >= reference["worst_class_recall_mean"]
+                - args.worst_recall_tolerance
+            )
+            gain = (
+                values["best_balanced_accuracy_mean"]
+                - reference["best_balanced_accuracy_mean"]
+            )
+            candidates.append((safe and gain >= args.minimum_ba_gain, gain, variant, values))
+        eligible = [item for item in candidates if item[0]]
+        winner = max(eligible, key=lambda item: (item[1], item[2])) if eligible else None
+        winner_id = winner[2] if winner is not None else args.reference_variant
+        variants = [args.reference_variant]
+        if winner_id != args.reference_variant:
+            variants.append(winner_id)
+        decisions[dataset] = {
+            "reference": args.reference_variant,
+            "winner": winner_id,
+            "winner_best_balanced_accuracy_gain": (
+                float(winner[1]) if winner is not None else 0.0
+            ),
+            "reference_metrics": reference,
+            "all_candidates": {variant: values for _, _, variant, values in candidates},
+        }
+        jobs.append(
+            {
+                "dataset": dataset,
+                "ratios": list(args.confirmation_ratios),
+                "variants": variants,
+                "seeds": list(args.confirmation_seeds),
+            }
+        )
+
+    output = {
+        "schema": "graphcov-v11/job2-config-v1",
+        "purpose": "Frozen test confirmation generated from validation-only calibration",
+        "selection_root": str(args.selection_root.resolve()),
+        "output_root": str(args.test_output_root.resolve()),
+        "validation_split": "val",
+        "evaluation_split": "test",
+        "training": source_config["training"],
+        "jobs": jobs,
+    }
+    args.output_config.parent.mkdir(parents=True, exist_ok=True)
+    args.output_config.write_text(json.dumps(output, indent=2), encoding="utf-8")
+    decision_path = args.output_config.with_suffix(".freeze_manifest.json")
+    decision_path.write_text(
+        json.dumps(
+            {
+                "schema": "graphcov-v11/frozen-winners-v1",
+                "calibration_ratio": args.calibration_ratio,
+                "selection_metric": "best_balanced_accuracy",
+                "safety_metric": "worst_class_recall_at_validation_selected_checkpoint",
+                "checkpoint_note": (
+                    "The strict v11 runtime persists best_val_checkpoint.pt. "
+                    "The safety metric is measured at that validation-selected "
+                    "checkpoint and calibration never reads test."
+                ),
+                "required_calibration_seeds": args.required_calibration_seeds,
+                "minimum_ba_gain": args.minimum_ba_gain,
+                "worst_recall_tolerance": args.worst_recall_tolerance,
+                "decisions": decisions,
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
+    print(args.output_config)
+    print(decision_path)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

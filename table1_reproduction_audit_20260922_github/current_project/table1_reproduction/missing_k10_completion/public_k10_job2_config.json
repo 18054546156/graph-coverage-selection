@@ -1,0 +1,30 @@
+{
+  "schema": "graphcov-table1/job2-config-v1",
+  "purpose": "Frozen public Table 1 completion for missing k=10 runs",
+  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection",
+  "output_root": "{project_root}/table1_reproduction/outputs/job2_table1",
+  "evaluation_split": "test",
+  "datasets": ["organsmnist", "organamnist", "pathmnist", "tissuemnist", "bloodmnist"],
+  "ratios": [0.02, 0.05],
+  "methods": ["random", "el2n", "forgetting", "eva", "facility", "fps", "herding", "graph_a2"],
+  "training_seeds": [42, 43, 44, 45, 46],
+  "fixed_selection_seed": 42,
+  "selection_seed_policy": {
+    "random": "training_seed",
+    "fps": "training_seed",
+    "default": "fixed"
+  },
+  "training": {
+    "size": 224,
+    "epochs": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.1,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0005,
+    "augmentation": false,
+    "evaluate_every": 10,
+    "num_workers": 4,
+    "deterministic": false
+  }
+}

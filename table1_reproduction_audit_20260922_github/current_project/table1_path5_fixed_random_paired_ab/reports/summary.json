@@ -1,0 +1,84 @@
+{
+  "aggregate": {
+    "graph_a2_mean_ba_pct": 85.80739649455573,
+    "graph_a2_sample_std_ba_pct": 1.5881381376541759,
+    "graph_a2_wins": 1,
+    "mean_paired_delta_graph_a2_minus_random_pp": -1.8983606881007091,
+    "paired_delta_95pct_t_interval_pp": [
+      -3.928770081387839,
+      0.13204870518642053
+    ],
+    "random_seed42_mean_ba_pct": 87.70575718265644,
+    "random_seed42_sample_std_ba_pct": 0.8361977295540616,
+    "random_wins": 4,
+    "sample_std_paired_delta_pp": 1.63523255584795,
+    "ties": 0
+  },
+  "complete": true,
+  "decision": {
+    "interpretation": "The paper ranking is not reproduced under fixed seed-42 subsets; varying Random selection seeds is not a sufficient explanation for the earlier reversal.",
+    "label": "paper ranking not reproduced",
+    "paper_ranking_reproduced": false
+  },
+  "endpoint": "final epoch official-test balanced accuracy",
+  "n_pairs": 5,
+  "note": "The 95% interval is descriptive for five paired seeds; the frozen ranking decision uses only the sign of the mean paired delta.",
+  "paper_path5_pct": {
+    "graph_a2": [
+      85.9,
+      1.7
+    ],
+    "random": [
+      84.0,
+      2.4
+    ]
+  },
+  "rows": [
+    {
+      "graph_a2_ba_pct": 85.43558026147467,
+      "graph_a2_index_sha256": "be168e37b12146efc1ad5d3f980ce301e288ba8fd3c89f62c581e39488daa5e2",
+      "graph_a2_minus_random_pp": -2.098682367487882,
+      "random_index_sha256": "5bbe9f8ec87c05be598dd627f0d5e653d7247f78434ef35d11d76fd7a97448cf",
+      "random_seed42_ba_pct": 87.53426262896255,
+      "seed": 42,
+      "winner": "random_seed42"
+    },
+    {
+      "graph_a2_ba_pct": 86.01823517683334,
+      "graph_a2_index_sha256": "be168e37b12146efc1ad5d3f980ce301e288ba8fd3c89f62c581e39488daa5e2",
+      "graph_a2_minus_random_pp": -3.118669166429058,
+      "random_index_sha256": "5bbe9f8ec87c05be598dd627f0d5e653d7247f78434ef35d11d76fd7a97448cf",
+      "random_seed42_ba_pct": 89.1369043432624,
+      "seed": 43,
+      "winner": "random_seed42"
+    },
+    {
+      "graph_a2_ba_pct": 83.8194948211732,
+      "graph_a2_index_sha256": "be168e37b12146efc1ad5d3f980ce301e288ba8fd3c89f62c581e39488daa5e2",
+      "graph_a2_minus_random_pp": -3.4780530419040616,
+      "random_index_sha256": "5bbe9f8ec87c05be598dd627f0d5e653d7247f78434ef35d11d76fd7a97448cf",
+      "random_seed42_ba_pct": 87.29754786307726,
+      "seed": 44,
+      "winner": "random_seed42"
+    },
+    {
+      "graph_a2_ba_pct": 85.53175524002381,
+      "graph_a2_index_sha256": "be168e37b12146efc1ad5d3f980ce301e288ba8fd3c89f62c581e39488daa5e2",
+      "graph_a2_minus_random_pp": -1.439896358054142,
+      "random_index_sha256": "5bbe9f8ec87c05be598dd627f0d5e653d7247f78434ef35d11d76fd7a97448cf",
+      "random_seed42_ba_pct": 86.97165159807795,
+      "seed": 45,
+      "winner": "random_seed42"
+    },
+    {
+      "graph_a2_ba_pct": 88.23191697327364,
+      "graph_a2_index_sha256": "be168e37b12146efc1ad5d3f980ce301e288ba8fd3c89f62c581e39488daa5e2",
+      "graph_a2_minus_random_pp": 0.6434974933715978,
+      "random_index_sha256": "5bbe9f8ec87c05be598dd627f0d5e653d7247f78434ef35d11d76fd7a97448cf",
+      "random_seed42_ba_pct": 87.58841947990204,
+      "seed": 46,
+      "winner": "graph_a2"
+    }
+  ],
+  "schema": "graphcov-table1/path5-fixed-selection-summary-v1"
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "graphcov-table1/job2-config-v1",
+  "purpose": "Strict single-seed pilot for PathMNIST and BloodMNIST",
+  "selection_root": "{project_root}/table1_reproduction/outputs/job1_selection_k50_global",
+  "output_root": "{project_root}/table1_reproduction/outputs/job2_path_blood_single_seed_valckpt",
+  "validation_split": "val",
+  "evaluation_split": "test",
+  "datasets": ["pathmnist", "bloodmnist"],
+  "ratios": [0.02, 0.05],
+  "methods": [
+    "random",
+    "el2n",
+    "forgetting",
+    "eva",
+    "facility",
+    "fps",
+    "herding",
+    "graph_a2"
+  ],
+  "training_seeds": [42],
+  "fixed_selection_seed": 42,
+  "selection_seed_policy": {
+    "random": "training_seed",
+    "fps": "training_seed",
+    "default": "fixed"
+  },
+  "training": {
+    "size": 224,
+    "epochs": 1000,
+    "batch_size": 256,
+    "learning_rate": 0.1,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0005,
+    "augmentation": false,
+    "evaluate_every": 10,
+    "num_workers": 4,
+    "deterministic": false
+  },
+  "assumptions": [
+    "This pilot consumes only the already generated k=50 global selection indices for PathMNIST and BloodMNIST.",
+    "The single downstream training seed is 42; Random and FPS therefore consume their seed42 subsets.",
+    "Training reads validation only, saves best_val_checkpoint.pt, then evaluates test exactly once.",
+    "This pilot output is separate from both old test-best results and the full 400-run Table 1 output."
+  ]
+}

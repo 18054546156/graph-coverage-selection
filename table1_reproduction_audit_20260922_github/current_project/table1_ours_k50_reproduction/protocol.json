@@ -1,0 +1,49 @@
+{
+  "schema": "graphcov-table1-ours-k50-v1",
+  "paper": "One-Shot Data Selection for Medical Image Classification via Graph Coverage",
+  "source_repository": "https://github.com/zahiriddin-rustamov/graph-coverage-selection",
+  "vendor_source_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+  "datasets": ["organsmnist", "organamnist", "pathmnist", "tissuemnist", "bloodmnist"],
+  "ratios": [0.02, 0.05],
+  "training_seeds": [42, 43, 44, 45, 46],
+  "selection_seed": 42,
+  "selection": {
+    "embedding_source": "uni",
+    "embedding_size": 224,
+    "graph_scope": "global",
+    "k_neighbors": 50,
+    "k_hops": 2,
+    "kernel": "A_sym + A_sym^2",
+    "quota": "equal per class",
+    "sparse_cpu": true
+  },
+  "training": {
+    "model": "ResNet-18 from scratch",
+    "size": 224,
+    "epochs": 1000,
+    "batch_size": 256,
+    "optimizer": "SGD",
+    "lr": 0.1,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0005,
+    "scheduler": "CosineAnnealingLR",
+    "augmentation": false,
+    "evaluate_every": 10,
+    "endpoint": "final epoch balanced_accuracy",
+    "test_evaluations": "every 10 epochs plus final, matching vendor runner"
+  },
+  "paper_ours_pct": {
+    "organsmnist": {"0.02": [63.7, 0.7], "0.05": [68.4, 1.0]},
+    "organamnist": {"0.02": [86.5, 0.9], "0.05": [91.9, 0.3]},
+    "pathmnist": {"0.02": [80.9, 0.9], "0.05": [85.9, 1.7]},
+    "tissuemnist": {"0.02": [42.6, 0.6], "0.05": [49.5, 1.3]},
+    "bloodmnist": {"0.02": [84.5, 1.7], "0.05": [93.4, 0.7]}
+  },
+  "rules": [
+    "Selection reads training data and cached UNI embeddings only.",
+    "The selected subset is frozen before downstream training.",
+    "The main endpoint is the vendor runner final balanced_accuracy field, not best_test.",
+    "This package is the missing Ours column; it does not modify the seven-method reproduction."
+  ]
+}

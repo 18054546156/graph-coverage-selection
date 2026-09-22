@@ -1,0 +1,37 @@
+{
+  "schema": "graphcov-table1/job1-config-v1",
+  "purpose": "Extra repository diagnostics; these are not Table 1 columns",
+  "output_root": "{project_root}/table1_reproduction/outputs/job1_extra_diagnostics",
+  "embedding_cache_root": "{project_root}/cache/embeddings",
+  "dynamics_cache_root": "{project_root}/cache/embeddings",
+  "dataset_registry": "{config_dir}/datasets_server_3090.json",
+  "datasets": ["dermamnist"],
+  "ratios": [0.02, 0.05],
+  "training_seeds": [42],
+  "fixed_selection_seed": 42,
+  "selection": {
+    "embedding_source": "uni",
+    "k_neighbors": 10,
+    "k_hops": 2,
+    "global_selection": true,
+    "sparse_cpu": true
+  },
+  "methods": {
+    "heat_kernel": {
+      "official_method": "heat_kernel",
+      "selection_seed_policy": "fixed",
+      "global_selection": true,
+      "description": "Repository heat-kernel diagnostic"
+    },
+    "graph_coverage": {
+      "official_method": "graph_coverage",
+      "selection_seed_policy": "fixed",
+      "global_selection": true,
+      "description": "Repository graph-coverage diagnostic"
+    }
+  },
+  "assumptions": [
+    "Heat Kernel and Graph Coverage are extra diagnostics and are deliberately excluded from the Table 1 summary.",
+    "Heat Kernel may be computationally infeasible on large datasets because the repository implementation uses dense eigendecomposition; start with DermaMNIST."
+  ]
+}

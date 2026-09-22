@@ -1,0 +1,85 @@
+{
+  "schema": "graphcov-table1/job1-config-v1",
+  "purpose": "Official Table 1 selection stage; no validation or test data is read",
+  "output_root": "{project_root}/table1_reproduction/outputs/job1_selection",
+  "embedding_cache_root": "{project_root}/cache/embeddings",
+  "dynamics_cache_root": "{project_root}/cache/embeddings",
+  "dataset_registry": "{config_dir}/datasets_server_3090.json",
+  "datasets": [
+    "organsmnist",
+    "organamnist",
+    "pathmnist",
+    "tissuemnist",
+    "bloodmnist"
+  ],
+  "ratios": [0.02, 0.05],
+  "training_seeds": [42, 43, 44, 45, 46],
+  "fixed_selection_seed": 42,
+  "dynamics": {
+    "size": 28,
+    "epochs": 200,
+    "window_size": 10,
+    "seed": 42
+  },
+  "selection": {
+    "embedding_source": "uni",
+    "k_neighbors": 10,
+    "k_hops": 2,
+    "global_selection": false,
+    "sparse_cpu": true,
+    "facility_block_size": 2048
+  },
+  "methods": {
+    "random": {
+      "official_method": "random",
+      "selection_seed_policy": "training_seed",
+      "description": "Balanced random sampling"
+    },
+    "el2n": {
+      "official_method": "el2n_top",
+      "selection_seed_policy": "fixed",
+      "description": "Top EL2N score from early training dynamics"
+    },
+    "forgetting": {
+      "official_method": "forgetting",
+      "selection_seed_policy": "fixed",
+      "description": "Highest correct-to-incorrect transition count"
+    },
+    "eva": {
+      "official_method": "eva",
+      "selection_seed_policy": "fixed",
+      "description": "Highest EVA dual-window variability"
+    },
+    "facility": {
+      "official_method": "facility",
+      "selection_seed_policy": "fixed",
+      "global_selection": false,
+      "description": "Per-class full cosine facility location with balanced quotas"
+    },
+    "fps": {
+      "official_method": "fps",
+      "selection_seed_policy": "training_seed",
+      "description": "Per-class farthest point sampling"
+    },
+    "herding": {
+      "official_method": "herding",
+      "selection_seed_policy": "fixed",
+      "description": "Per-class mean matching"
+    },
+    "graph_a2": {
+      "official_method": "graph_a2",
+      "selection_seed_policy": "fixed",
+      "global_selection": true,
+      "k_neighbors": 10,
+      "k_hops": 2,
+      "description": "Original global Graph-A2: K = A_hat + A_hat^2"
+    }
+  },
+  "assumptions": [
+    "The paper confirms UNI 224 embeddings and balanced per-class budgets but does not spell out every repository default.",
+    "This reproduction uses global Graph-A2 with k=10 and H=2; the public runner's Facility method remains per-class to keep its full pairwise matrix tractable.",
+    "Training-dynamics scoring follows the repository implementation: 28x28, 200 epochs, window size 10.",
+    "The paper says trials vary training seeds; this runner also varies selection seeds for Random and FPS, matching the official runner behavior.",
+    "Effective budget is floor(floor(n_train * ratio) / n_classes) per class, as in the official runner."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "schema": "graphcov-table1/path5-random-selection-seed-sweep-v1",
+  "frozen_at": "2026-09-09",
+  "question": "How much does the Random selection seed change the downstream PathMNIST 5% result when the downstream training seed is fixed?",
+  "source_repository": "https://github.com/zahiriddin-rustamov/graph-coverage-selection",
+  "vendor_source_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+  "dataset": {
+    "name": "pathmnist",
+    "ratio": 0.05,
+    "n_train": 89996,
+    "n_classes": 9,
+    "budget_per_class": 499,
+    "n_selected": 4491,
+    "hpc_npz": "~/.medmnist/pathmnist_224.npz"
+  },
+  "selection": {
+    "method": "random",
+    "selection_seeds": [42, 43, 44, 45, 46],
+    "selection_rule": "public graphcov.run.selection.select('random'), equal quota per class, np.random.seed(selection_seed)",
+    "canonical_order": "strictly increasing training-set index",
+    "selection_uses": "training labels only",
+    "test_read": false
+  },
+  "training": {
+    "training_seed": 42,
+    "implementation": "vendored graphcov.run.evaluation.evaluate_selection",
+    "model": "ResNet-18 from scratch",
+    "image_size": 224,
+    "epochs": 1000,
+    "batch_size": 256,
+    "optimizer": "SGD",
+    "learning_rate": 0.1,
+    "momentum": 0.9,
+    "nesterov": false,
+    "weight_decay": 0.0005,
+    "scheduler": "CosineAnnealingLR(T_max=1000)",
+    "augmentation": false,
+    "normalization": "ToTensor then channelwise mean=0.5,std=0.5",
+    "num_workers": 4,
+    "deterministic": false,
+    "test_every_n_epochs": 10,
+    "endpoint": "final epoch official-test balanced accuracy",
+    "best_metric_policy": "audit only; never used for the primary aggregate"
+  },
+  "graph_a2_reference": {
+    "selection_seed": 42,
+    "training_seed": 42,
+    "canonical_index_sha256": "be168e37b12146efc1ad5d3f980ce301e288ba8fd3c89f62c581e39488daa5e2",
+    "final_ba_pct": 85.43558026147467,
+    "source_experiment": "table1_path5_fixed_random_paired_ab/results/seed42/graph_a2/metrics.json"
+  },
+  "frozen_rules": [
+    "Only Random selection_seed changes across the five arms.",
+    "The downstream training seed is fixed at 42 for every arm.",
+    "Selection uses only training labels; no validation or test value may affect indices.",
+    "The primary report uses final official-test balanced accuracy; best-test is audit-only.",
+    "No seed, index, hyperparameter, endpoint, or decision rule may be changed after observing results."
+  ]
+}
