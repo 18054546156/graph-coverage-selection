@@ -1,0 +1,60 @@
+httpx.HTTPStatusError: Client error '401 Unauthorized' for url 'https://huggingface.co/MahmoodLab/UNI/resolve/main/model.safetensors'
+For more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/401
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/reliability_medmnistc/scripts/run_pipeline.py", line 91, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/reliability_medmnistc/scripts/run_pipeline.py", line 86, in main
+    runpy.run_path(str(pipeline), run_name="__main__")
+  File "<frozen runpy>", line 291, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/reliability_medmnistc/reliability/pipeline.py", line 1310, in <module>
+    embeddings, dynamics, selection_sources = get_selection_data(
+                                              ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/reliability_medmnistc/reliability/pipeline.py", line 533, in get_selection_data
+    embedding_data = load_or_compute_embeddings(
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/graphcov/run/embeddings.py", line 713, in load_or_compute_embeddings
+    data = extract_embeddings(
+           ^^^^^^^^^^^^^^^^^^^
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/graphcov/run/embeddings.py", line 604, in extract_embeddings
+    model = get_uni_model()
+            ^^^^^^^^^^^^^^^
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/graphcov/run/embeddings.py", line 124, in get_uni_model
+    model = timm.create_model(
+            ^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_factory.py", line 138, in create_model
+    model = create_fn(
+            ^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/vision_transformer.py", line 3242, in vit_large_patch16_224
+    model = _create_vision_transformer('vit_large_patch16_224', pretrained=pretrained, **dict(model_args, **kwargs))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/vision_transformer.py", line 3093, in _create_vision_transformer
+    return build_model_with_cfg(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_builder.py", line 457, in build_model_with_cfg
+    load_pretrained(
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_builder.py", line 226, in load_pretrained
+    state_dict = load_state_dict_from_hf(pretrained_loc, weights_only=True, cache_dir=cache_dir)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_hub.py", line 227, in load_state_dict_from_hf
+    cached_safe_file = hf_hub_download(
+                       ^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1019, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1166, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1905, in _raise_on_head_call_error
+    raise head_call_error
+huggingface_hub.errors.GatedRepoError: 401 Client Error. (Request ID: Root=1-6ab1866d-7452006546155df37412bc6a;7d520466-e63b-46d7-9e11-c90d1c547703)
+
+Cannot access gated repo for url https://huggingface.co/MahmoodLab/UNI/resolve/main/model.safetensors.
+Access to model MahmoodLab/UNI is restricted. You must have access to it and be authenticated to access it. Please log in.

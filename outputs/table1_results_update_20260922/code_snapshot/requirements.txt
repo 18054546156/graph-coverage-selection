@@ -1,0 +1,11 @@
+torch
+torchvision
+medmnist==3.0.1
+numpy
+pandas
+scikit-learn
+scipy
+tqdm
+faiss-gpu
+PyYAML>=6.0
+Pillow
