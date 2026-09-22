@@ -24,7 +24,7 @@ No corruption or validation-selected checkpoint enters this Table 1 result set.
 - `submit_formal_queue.sh`: queue worker used to submit dataset/seed cells.
 - `configs/`: source defaults; the authoritative 40 executed configurations are in the sibling `../configs/` directory.
 - `manifests/`: upstream commit, protocol metadata, and runtime package versions.
-- `PROVENANCE.md` and `UPSTREAM_COMPARISON.md`: source origins, hashes, and instructions for comparing with the author's code.
+- `PROVENANCE.md`, `UPSTREAM_COMPARISON.md`, and `RUNTIME_ENVIRONMENT.md`: source origins/hashes, comparison instructions, software versions, resource allocations, and GPU measurement limits.
 
 ## Reproduce or inspect
 

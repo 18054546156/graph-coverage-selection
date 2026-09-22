@@ -1,6 +1,6 @@
 # Table 1 clean-only benchmark handoff
 
-Updated: 2026-09-22 18:28 HKT, Asia/Shanghai
+Updated: 2026-09-22 18:29 HKT, Asia/Shanghai
 
 ## Scope
 
@@ -29,6 +29,8 @@ The workbook is refreshed from the complete 320/320 Table 1 benchmark. All five 
 - `verification_summary.txt`: marker counts, hash checks, formula checks, and paper comparison for the workbook snapshot.
 
 To diff against the author's exact source version, start with `code_snapshot/UPSTREAM_COMPARISON.md`. The experiment branch is based on upstream GraphCov commit `8cf757adc4c333dc1427d511f0de2f246d15ebac`; the upstream `graphcov/` tree is unchanged, while the clean-only experiment wrapper and its execution artifacts are added separately.
+
+Python/PyTorch/CUDA versions, source hashes, requested GPU/CPU/RAM per job, current scheduler snapshot, and the limits of historical GPU utilization accounting are recorded in `code_snapshot/RUNTIME_ENVIRONMENT.md`.
 
 The exact submitted launcher and queue worker are preserved in `code_snapshot/`; the clean-only pipeline and helper scripts are preserved under `code_snapshot/reliability_medmnistc/`. The root-level `table1_clean_only_20260922/` directory contains earlier local planning artifacts and is not a substitute for the executed source snapshot.
 
