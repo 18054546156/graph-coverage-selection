@@ -1,6 +1,6 @@
 # Table 1 clean-only benchmark handoff
 
-Updated: 2026-09-22 18:20 HKT, Asia/Shanghai
+Updated: 2026-09-22 18:28 HKT, Asia/Shanghai
 
 ## Scope
 
@@ -23,10 +23,12 @@ The workbook is refreshed from the complete 320/320 Table 1 benchmark. All five 
 ## Files in this package
 
 - `Table1_clean_only_results_20260922.xlsx`: summary, per-run Table 1 metrics, and paper Table 1 comparison. It contains only the 320 clean-only benchmark cells.
-- `configs/`: 40 actual Slurm-run `config.yaml` snapshots, organized by dataset and seed.
-- `logs/`: 160 formal `.out`/`.err` Slurm logs, including the completed job `33378` log.
-- `code_snapshot/`: run code and launch/config source copied from the HPC execution tree; `PROVENANCE.md` records source locations and checksums.
+- `configs/`: all 40 actual Slurm-run `config.yaml` snapshots, organized by dataset and seed.
+- `logs/`: all 160 captured formal `.out`/`.err` Slurm logs, including the completed job `33378` log.
+- `code_snapshot/`: executed pipeline, phase scripts, Slurm launchers, queue worker, runtime manifest, and upstream comparison guide copied from the HPC execution tree; `PROVENANCE.md` records source paths and checksums.
 - `verification_summary.txt`: marker counts, hash checks, formula checks, and paper comparison for the workbook snapshot.
+
+To diff against the author's exact source version, start with `code_snapshot/UPSTREAM_COMPARISON.md`. The experiment branch is based on upstream GraphCov commit `8cf757adc4c333dc1427d511f0de2f246d15ebac`; the upstream `graphcov/` tree is unchanged, while the clean-only experiment wrapper and its execution artifacts are added separately.
 
 The exact submitted launcher and queue worker are preserved in `code_snapshot/`; the clean-only pipeline and helper scripts are preserved under `code_snapshot/reliability_medmnistc/`. The root-level `table1_clean_only_20260922/` directory contains earlier local planning artifacts and is not a substitute for the executed source snapshot.
 
