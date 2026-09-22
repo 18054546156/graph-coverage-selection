@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>D8：按类别保留特征分布</title>
+  <style>
+    :root {
+      --ink: #202b32;
+      --muted: #52636c;
+      --line: #d9e2e1;
+      --paper: #ffffff;
+      --wash: #f3f7f5;
+      --teal: #147c73;
+      --teal-dark: #0c5b56;
+      --coral: #cf6049;
+      --gold: #b77b19;
+      --blue: #356aa0;
+      --mono: "Cascadia Code", Consolas, monospace;
+      --sans: "Microsoft YaHei UI", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); line-height: 1.65; }
+    a { color: var(--teal-dark); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+    a:hover { color: var(--coral); }
+    .wrap { max-width: 1050px; width: calc(100% - 40px); margin: 0 auto; }
+    .topline { border-bottom: 1px solid var(--line); }
+    .topline-inner { min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { color: var(--teal-dark); font-size: 14px; font-weight: 700; }
+    .nav { display: flex; flex-wrap: wrap; gap: 18px; font-size: 13px; }
+    .nav a { color: var(--muted); text-decoration: none; }
+    main { padding-bottom: 58px; }
+    .intro { padding: 42px 0 34px; border-bottom: 1px solid var(--line); }
+    .eyebrow { margin: 0 0 8px; color: var(--teal); font-size: 12px; font-weight: 700; }
+    h1 { max-width: 800px; margin: 0; font-size: 38px; line-height: 1.22; letter-spacing: 0; }
+    .lede { max-width: 830px; margin: 15px 0 0; color: #34454e; font-size: 17px; }
+    .status-line { display: flex; flex-wrap: wrap; gap: 10px 24px; margin-top: 18px; color: var(--muted); font-size: 13px; }
+    .status-line strong { color: var(--coral); }
+    section { padding: 35px 0; border-bottom: 1px solid var(--line); }
+    h2 { margin: 0 0 8px; font-size: 23px; line-height: 1.3; letter-spacing: 0; }
+    h3 { margin: 0 0 7px; font-size: 16px; letter-spacing: 0; }
+    p { margin: 8px 0; }
+    .section-lede { max-width: 790px; margin: 0 0 21px; color: var(--muted); }
+    .contrast { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+    .contrast article { padding-top: 13px; border-top: 3px solid var(--blue); }
+    .contrast article:last-child { border-color: var(--teal); }
+    .contrast p { margin-bottom: 0; color: #394b54; }
+    .flow { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 24px; }
+    .flow-step { position: relative; padding: 14px 12px 12px 0; border-top: 2px solid var(--teal); }
+    .flow-step:not(:last-child)::after { content: "→"; position: absolute; top: 7px; right: 0; color: var(--coral); font-size: 20px; }
+    .step-no { color: var(--teal); font: 700 12px var(--mono); }
+    .flow-step h3 { margin-top: 7px; font-size: 14px; }
+    .flow-step p { color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .equation { overflow-wrap: anywhere; margin: 15px 0; padding: 16px 18px; border-left: 3px solid var(--gold); background: var(--wash); font: 14px/1.8 var(--mono); white-space: pre-wrap; }
+    .equation-caption { margin-top: -8px; color: var(--muted); font-size: 12px; }
+    .example-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(235px, .8fr); align-items: start; gap: 28px; }
+    .plot-shell { min-width: 0; }
+    .plot-title { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; margin-bottom: 8px; }
+    .plot-title h3 { margin: 0; }
+    .plot-title span, .plot-note { color: var(--muted); font-size: 12px; }
+    .plot { display: block; width: 100%; height: auto; background: #f8faf9; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .plot text { font-family: var(--sans); }
+    .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 10px; color: var(--muted); font-size: 12px; }
+    .key { display: inline-flex; align-items: center; gap: 7px; }
+    .dot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--teal); }
+    .dot.coral { background: var(--coral); }
+    .ring { width: 13px; height: 13px; border: 2px solid var(--ink); border-radius: 50%; }
+    .step-controls { display: flex; gap: 6px; margin: 14px 0 10px; }
+    .step-controls button { min-height: 38px; padding: 7px 12px; border: 1px solid var(--line); border-radius: 3px; color: var(--ink); background: var(--paper); font: inherit; font-size: 13px; cursor: pointer; }
+    .step-controls button[aria-pressed="true"] { border-color: var(--teal); color: var(--teal-dark); box-shadow: inset 0 -2px var(--teal); }
+    .step-controls button:focus-visible { outline: 3px solid #e9bc60; outline-offset: 2px; }
+    .example-copy { padding-top: 4px; }
+    .example-copy h3 { color: var(--teal-dark); }
+    .example-copy p { color: #3b4b53; }
+    .toy-label { display: inline-block; margin-top: 10px; padding: 4px 8px; border-left: 2px solid var(--gold); color: #65490f; background: #fff9e9; font-size: 12px; }
+    .data-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .data-block { padding-top: 12px; border-top: 2px solid var(--blue); }
+    .data-block:last-child { border-color: var(--teal); }
+    .data-block h3 { margin-bottom: 10px; }
+    .code { overflow-wrap: anywhere; padding: 13px 15px; background: #f3f7f5; color: #263b40; font: 12px/1.75 var(--mono); white-space: pre-wrap; }
+    .steps-list { margin: 18px 0 0; padding-left: 23px; }
+    .steps-list li { padding: 4px 0 4px 4px; }
+    .related-table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 13px; }
+    .related-table th { padding: 9px 10px; color: var(--muted); text-align: left; font-size: 11px; font-weight: 700; border-bottom: 2px solid var(--line); }
+    .related-table td { padding: 13px 10px; vertical-align: top; border-bottom: 1px solid var(--line); }
+    .related-table td:first-child { width: 23%; font-weight: 700; }
+    .related-table td:nth-child(2) { width: 39%; }
+    .related-table td:last-child { color: #485961; }
+    .tag { color: var(--teal-dark); font-weight: 700; }
+    .boundary { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+    .boundary article { padding-top: 12px; border-top: 2px solid var(--coral); }
+    .boundary article:last-child { border-color: var(--gold); }
+    .boundary ul { margin: 8px 0 0; padding-left: 19px; color: #3f5058; }
+    .boundary li { margin: 5px 0; }
+    .status-band { padding: 16px 18px; border-left: 3px solid var(--coral); background: var(--wash); }
+    .status-band strong { color: var(--coral); }
+    footer { padding: 23px 0 35px; color: var(--muted); font-size: 12px; }
+    @media (max-width: 760px) {
+      .topline-inner { align-items: flex-start; flex-direction: column; padding: 12px 0; gap: 8px; }
+      .nav { gap: 12px; }
+      .intro { padding-top: 30px; }
+      .lede { font-size: 16px; }
+      h1 { font-size: 30px; }
+      .flow { grid-template-columns: 1fr; gap: 4px; }
+      .flow-step { display: grid; grid-template-columns: 36px 1fr; column-gap: 8px; padding: 9px 0; }
+      .flow-step:not(:last-child)::after { content: "↓"; top: auto; bottom: -12px; right: 6px; z-index: 1; font-size: 15px; }
+      .step-no { grid-row: span 2; }
+      .flow-step h3 { margin: 0; }
+      .flow-step p { grid-column: 2; margin: 2px 20px 0 0; }
+      .example-layout, .data-grid, .contrast, .boundary { grid-template-columns: 1fr; }
+      .related-table, .related-table tbody, .related-table tr, .related-table td { display: block; width: 100%; }
+      .related-table thead { display: none; }
+      .related-table tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+      .related-table td { padding: 4px 0; border: 0; }
+      .related-table td:first-child, .related-table td:nth-child(2) { width: 100%; }
+      .related-table td:first-child { font-size: 14px; }
+    }
+    @media (max-width: 390px) {
+      .wrap { width: calc(100% - 28px); }
+      h1 { font-size: 25px; }
+      .step-controls { gap: 4px; }
+      .step-controls button { flex: 1; padding: 6px 5px; font-size: 12px; }
+      .plot-title { align-items: flex-start; flex-direction: column; gap: 2px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topline">
+    <div class="wrap topline-inner">
+      <div class="brand">研究方法说明 · D8</div>
+      <nav class="nav" aria-label="页面章节">
+        <a href="#idea">核心想法</a>
+        <a href="#example">玩具例子</a>
+        <a href="#io">输入输出</a>
+        <a href="#related">相关工作</a>
+        <a href="#status">当前状态</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="intro" id="idea">
+      <div class="wrap">
+        <p class="eyebrow">CLASS-CONDITIONAL OPTIMAL TRANSPORT</p>
+        <h1>D8：按类别保留特征分布</h1>
+        <p class="lede">给每个类别固定一个小预算，D8 尝试挑出一组训练图像，让这组图像的特征分布尽量像该类别的完整训练数据。它不是挑“最难”的图，也不是只挑离中心最近的图。</p>
+        <div class="status-line">
+          <span><strong>研究假设</strong>：分布保持可能改善小预算训练</span>
+          <span><strong>证据状态</strong>：尚未通过 MedMNIST 正式实验验证</span>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap">
+        <h2>它在优化什么</h2>
+        <p class="section-lede">“代表性”可以有不同定义。Graph-A2 关注一个样本能覆盖多少邻居；D8 关注有限选集是否保留每一类内部的整体特征分布。</p>
+        <div class="contrast">
+          <article>
+            <h3>Graph-A2：覆盖邻域</h3>
+            <p>用冻结特征建 kNN 图，再用一跳与两跳图核做贪心覆盖。选出的点希望能代表图上的许多邻居。</p>
+          </article>
+          <article>
+            <h3>D8：匹配类内分布</h3>
+            <p>对每个类别分别比较“全体训练特征”和“选中训练特征”的概率分布，尽量减少两者之间的运输距离。</p>
+          </article>
+        </div>
+        <div class="equation">P_c = (1/n_c) Σ_{i∈V_c} δ_{z_i}
+Q_{S,c} = (1/q_c) Σ_{j∈S_c} δ_{z_j}
+目标：min_S (1/C) Σ_c W₁(P_c, Q_{S,c})</div>
+        <p class="equation-caption">通俗读法：每张图像先变成特征空间里的一个点；每类的原始点云是 P，选出来的小点云是 Q，D8 想让两团点云尽量接近。</p>
+        <div class="flow" aria-label="D8 五步计算流程">
+          <div class="flow-step"><span class="step-no">01</span><h3>读源训练数据</h3><p>图像、标签、冻结 UNI 特征；选样不读 test 图像或标签。</p></div>
+          <div class="flow-step"><span class="step-no">02</span><h3>按类别分组</h3><p>每类使用相同的预算规则，类别之间分别计算。</p></div>
+          <div class="flow-step"><span class="step-no">03</span><h3>Sinkhorn 配对</h3><p>软性分配每个完整数据点的质量到当前代表点。</p></div>
+          <div class="flow-step"><span class="step-no">04</span><h3>移动代表位置</h3><p>按配对权重更新到几何中位数附近。</p></div>
+          <div class="flow-step"><span class="step-no">05</span><h3>投影成真实图像</h3><p>选出互不重复的训练样本行号，供下游训练。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="example">
+      <div class="wrap">
+        <h2>用一个小例子看选样</h2>
+        <p class="section-lede">假设只有两类图像，每类在特征空间里各有两个常见外观模式，但每类只能选两张。观察初始化选集如何被分布匹配机制调整。</p>
+        <div class="example-layout">
+          <div class="plot-shell">
+            <div class="plot-title">
+              <h3>示意特征空间</h3>
+              <span>点 = 一张图像的特征；颜色 = 类别；圆环 = 被选中</span>
+            </div>
+            <svg id="toy-plot" class="plot" viewBox="0 0 620 350" role="img" aria-labelledby="plot-svg-title plot-svg-desc">
+              <title id="plot-svg-title">D8 玩具数据的二维特征示意</title>
+              <desc id="plot-svg-desc">两种颜色代表两个类别，每个类别各有左右两个子群。按钮可以查看原始训练集、随机初始化和分布匹配后的示意选集。</desc>
+              <line x1="42" y1="320" x2="600" y2="320" stroke="#aab8b7" stroke-width="1"/>
+              <line x1="42" y1="24" x2="42" y2="320" stroke="#aab8b7" stroke-width="1"/>
+              <text x="325" y="343" text-anchor="middle" fill="#52636c" font-size="12">特征维度示意（非真实坐标轴）</text>
+              <text x="15" y="172" transform="rotate(-90 15 172)" text-anchor="middle" fill="#52636c" font-size="12">另一特征维度</text>
+              <text x="75" y="42" fill="#147c73" font-size="12">类别 0 的模式 A</text>
+              <text x="405" y="42" fill="#147c73" font-size="12">类别 0 的模式 B</text>
+              <text x="75" y="215" fill="#cf6049" font-size="12">类别 1 的模式 A</text>
+              <text x="405" y="215" fill="#cf6049" font-size="12">类别 1 的模式 B</text>
+              <g id="toy-points"></g>
+            </svg>
+            <div class="legend" aria-hidden="true">
+              <span class="key"><i class="dot"></i>类别 0</span>
+              <span class="key"><i class="dot coral"></i>类别 1</span>
+              <span class="key"><i class="ring"></i>选中的原始训练样本</span>
+            </div>
+            <div class="step-controls" role="group" aria-label="玩具例子阶段">
+              <button type="button" data-stage="data" aria-pressed="true">全部样本</button>
+              <button type="button" data-stage="init" aria-pressed="false">随机初始化</button>
+              <button type="button" data-stage="result" aria-pressed="false">更新后示意</button>
+            </div>
+            <p class="plot-note">该二维图仅解释思路；真实 UNI 特征通常是高维向量，示意选集不是 D8 程序在 MedMNIST 上的输出。</p>
+          </div>
+          <aside class="example-copy" aria-live="polite" id="stage-copy">
+            <h3>输入：完整训练点云</h3>
+            <p>每个点来自源训练集的一张图像。相同类别里可能有不同的外观子群。目标是在每类预算固定时，挑少量点代表整类。</p>
+            <p>本例有 24 个合成点，2 个类别，每类预算 2 张。实际实验使用 MedMNIST 源训练图像和冻结 UNI 特征。</p>
+            <span class="toy-label">示意数据，不是实验结果</span>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <section id="io">
+      <div class="wrap">
+        <h2>代码实际读什么、写什么</h2>
+        <p class="section-lede">核心函数只需要特征、训练标签、每类预算和随机种子。它返回原数据行号，后续训练程序用这些行号取回对应图像。</p>
+        <div class="data-grid">
+          <div class="data-block">
+            <h3>输入</h3>
+            <div class="code">embeddings: X ∈ R^(N×D)
+  N = 源训练样本数
+  D = 特征维度（UNI 特征）
+labels: y ∈ {类别编号}^N
+budget_per_class: 每类选多少张
+seed: 初始化随机种子
+epsilon: Sinkhorn 熵正则强度</div>
+            <p>CLI 读取 `.npz` 中的 `embeddings` 和 `labels`。选择器先对特征做 L2 归一化，然后仅按源训练标签分组。</p>
+          </div>
+          <div class="data-block">
+            <h3>输出</h3>
+            <div class="code">selected_indices.npz
+  selected_indices = 原训练集行号
+
+selected_indices.json
+  方法、seed、预算、epsilon
+  每类样本数与最终传输成本
+  Sinkhorn 边缘误差、迭代次数</div>
+            <p>正式训练时用行号在原始 clean 训练集取样。图像不被合成或修改，选中的都是现有训练图像。</p>
+          </div>
+        </div>
+        <ol class="steps-list">
+          <li><strong>构造距离。</strong>对某一类，计算所有类内特征到当前选中点的欧氏距离，形成 `n_c × q_c` 矩阵。</li>
+          <li><strong>软分配质量。</strong>Sinkhorn 让每个全量样本带 `1/n_c` 的质量、每个选中代表带 `1/q_c` 的质量；距离近的配对通常成本更低。</li>
+          <li><strong>更新代表点。</strong>根据每个代表收到的运输质量，计算加权几何中位数；再投影回互不重复的真实图像索引。</li>
+          <li><strong>重复并记录。</strong>最多外层 8 轮；每轮 Sinkhorn 最多 60 次迭代。停止后写出原始索引和诊断信息。</li>
+        </ol>
+        <div class="equation">当前默认值：epsilon = 0.05；Sinkhorn 迭代上限 = 60；外层更新上限 = 8
+单个类别的稠密距离矩阵约需 8 × n_c × q_c 字节（float64），另有运输计划和临时数组。</div>
+        <p class="equation-caption">所以 TissueMNIST 等大类需要先实测峰值 RAM 和耗时；小型合成测试不能代替资源评估。</p>
+      </div>
+    </section>
+
+    <section id="related">
+      <div class="wrap">
+        <h2>Related work：D8 与已有方法的关系</h2>
+        <p class="section-lede">D8 不是凭空出现的“OT 方法”。下面几篇工作分别覆盖当前图覆盖基线、OT 分布匹配、代表性子样本、均值匹配和梯度 coreset。</p>
+        <table class="related-table">
+          <thead><tr><th>论文 / 方法</th><th>核心做法</th><th>与 D8 的关系</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><a href="https://arxiv.org/abs/2606.22002">Graph-A2 / GraphCov</a><br>Rustamov et al., 2026</td>
+              <td>冻结 UNI 特征上建全局 kNN 图，用 A_sym + A_sym² 图核做类别预算约束的贪心 facility-location。</td>
+              <td><span class="tag">直接比较基线。</span>它最大化图邻域覆盖；D8 最小化类内经验分布的 OT 距离。</td>
+            </tr>
+            <tr>
+              <td><a href="https://ojs.aaai.org/index.php/AAAI/article/view/28771">FDMat</a><br>Xiao et al., AAAI 2024</td>
+              <td>在特征空间使用 Sinkhorn/OT；以类别中心近似完整分布并按运输分数排序选核心集，也评测 PathMNIST。</td>
+              <td><span class="tag">最直接的先行威胁。</span>D8 的候选差异是把完整类内经验分布与最终等权选中样本直接匹配；差异是否足够新颖仍未确定。</td>
+            </tr>
+            <tr>
+              <td><a href="https://doi.org/10.1080/10618600.2022.2084404">OT 代表性子样本</a><br>Zhang et al., 2023</td>
+              <td>用最优传输选择能代表总体分布的子样本，论文应用包含核密度估计。</td>
+              <td><span class="tag">目标层面的近邻工作。</span>“用 OT 选代表性子集”本身不能作为 D8 的新颖性主张；需比较质量约束、算法和监督学习场景。</td>
+            </tr>
+            <tr>
+              <td><a href="https://doi.org/10.1145/1553374.1553517">Herding</a><br>Welling, 2009</td>
+              <td>逐步选点，使子集特征或核均值接近全量数据的均值。</td>
+              <td>是重要分布代表性基线，但均值匹配不等同于完整 Wasserstein 分布匹配。</td>
+            </tr>
+            <tr>
+              <td><a href="https://arxiv.org/abs/1906.01827">CRAIG</a><br>Mirzasoleiman et al., ICML 2020</td>
+              <td>在梯度空间做加权子模覆盖，近似全量训练梯度以构造训练 coreset。</td>
+              <td>同样有 facility-location 结构，但表示空间和目标不同：CRAIG 匹配梯度，D8 匹配冻结图像特征的类条件分布。</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="plot-note">参考文献：<a href="https://github.com/zahiriddin-rustamov/graph-coverage-selection">GraphCov 作者代码</a>；<a href="https://github.com/successhaha/FDMat">FDMat 作者代码</a>。Zhang et al. 的出版社 PDF 在本机访问时受限，完整方法审计尚待补齐。GraphCov 的发表状态也应以正式出版记录核验。</p>
+      </div>
+    </section>
+
+    <section id="status">
+      <div class="wrap">
+        <h2>怎么判断 D8 是否值得继续</h2>
+        <div class="boundary">
+          <article>
+            <h3>实验应当证明</h3>
+            <ul>
+              <li>与相同 dataset、相同 seed 的 Graph-A2 成对比较，报告每数据集 BA 差值和区间。</li>
+              <li>同时检查每类 recall、最差类别 recall、选样成本和峰值内存。</li>
+              <li>固定 5 个数据集、2% 预算、8 个配对种子；之后才另做 MedMNIST-C 鲁棒性评测。</li>
+            </ul>
+          </article>
+          <article>
+            <h3>不能据此声称</h3>
+            <ul>
+              <li>原型使用的是启发式，不保证离散 OT 目标全局最优。</li>
+              <li>目前没有真实 UNI embedding 结果、正式 clean BA 结果或 MedMNIST-C 结果。</li>
+              <li>D8 的新颖性未确认；若 FDMat、Herding 或简单分层随机达到相近结果，就不能声称机制带来独特增益。</li>
+            </ul>
+          </article>
+        </div>
+        <p class="status-band"><strong>当前状态：</strong>独立选样原型和 6 项单元测试已完成；尚未接入独立训练快照、尚未测真实数据的 RAM/耗时、尚未提交 HPC。实验计划要求现有 clean-only benchmark 冻结后再启动 D8。</p>
+        <p class="plot-note">对应代码：<a href="d8_ot.py">选样核心 d8_ot.py</a> · <a href="d8_registry.py">方法注册 adapter</a> · <a href="select_d8.py">命令行输入输出</a> · <a href="METHOD_AND_MIGRATION.md">方法与迁移说明</a> · <a href="EXPERIMENT_PLAN.md">实验计划</a> · <a href="tests/test_d8_ot.py">单元测试</a></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">本页依据 `d8_class_conditional_ot_20260922/` 中的原型代码、迁移说明和实验计划整理。公式为方法解释；玩具图不是模型结果。</div>
+  </footer>
+
+  <script>
+    (() => {
+      const pointsRoot = document.getElementById("toy-points");
+      const controls = [...document.querySelectorAll("[data-stage]")];
+      const copy = document.getElementById("stage-copy");
+      const points = [];
+      const leftXs = [92, 118, 145, 171, 197, 223];
+      const rightXs = [395, 420, 447, 473, 500, 527];
+      const ysTop = [72, 96, 124, 151, 177, 104];
+      const ysBottom = [236, 260, 288, 312, 248, 280];
+      for (let i = 0; i < 24; i++) {
+        const cls = i < 12 ? 0 : 1;
+        const inClass = i % 12;
+        const mode = inClass < 6 ? 0 : 1;
+        const pos = inClass % 6;
+        points.push({
+          id: i,
+          cls,
+          x: (mode === 0 ? leftXs : rightXs)[pos],
+          y: (cls === 0 ? ysTop : ysBottom)[pos] + ((pos % 2) ? 4 : -3),
+        });
+      }
+      const stages = {
+        data: {
+          selected: [],
+          title: "输入：完整训练点云",
+          text: "每个点来自源训练集的一张图像。相同类别里可能有不同的外观子群。目标是在每类预算固定时，挑少量点代表整类。",
+          detail: "本例有 24 个合成点、2 个类别，每类预算 2 张。实际实验使用 MedMNIST 源训练图像和冻结 UNI 特征。",
+        },
+        init: {
+          selected: [1, 3, 13, 15],
+          title: "第 1 步：随机初始化",
+          text: "程序先按 seed 在每类随机挑 2 个不同样本。本例故意展示一个不理想的初始化：两个类别的代表都落在各自左侧模式，右侧模式暂时没有代表。",
+          detail: "随机初始化只是优化起点，不是最终选集。实际 seed 不同，起点也会不同。",
+        },
+        result: {
+          selected: [2, 8, 14, 20],
+          title: "更新后：示意结果",
+          text: "分布匹配重新调整代表点的位置，再投影回真实训练样本。本例最终每类各选 1 个点来自左侧模式、1 个来自右侧模式。",
+          detail: "这是平衡玩具点云的讲解示意。真实 D8 用 Sinkhorn 软运输质量和几何中位数更新，结果不保证恰好每个子群选一个。",
+        },
+      };
+
+      function draw(stage) {
+        const selected = new Set(stages[stage].selected);
+        pointsRoot.replaceChildren();
+        for (const point of points) {
+          const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+          const title = document.createElementNS("http://www.w3.org/2000/svg", "title");
+          title.textContent = `合成训练样本 ${point.id}，类别 ${point.cls}${selected.has(point.id) ? "，被示意选中" : ""}`;
+          g.appendChild(title);
+          if (selected.has(point.id)) {
+            const halo = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            halo.setAttribute("cx", point.x);
+            halo.setAttribute("cy", point.y);
+            halo.setAttribute("r", "10");
+            halo.setAttribute("fill", "none");
+            halo.setAttribute("stroke", "#202b32");
+            halo.setAttribute("stroke-width", "2.5");
+            g.appendChild(halo);
+          }
+          const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+          dot.setAttribute("cx", point.x);
+          dot.setAttribute("cy", point.y);
+          dot.setAttribute("r", selected.has(point.id) ? "5.5" : "4.5");
+          dot.setAttribute("fill", point.cls === 0 ? "#147c73" : "#cf6049");
+          g.appendChild(dot);
+          pointsRoot.appendChild(g);
+        }
+        const state = stages[stage];
+        copy.innerHTML = `<h3>${state.title}</h3><p>${state.text}</p><p>${state.detail}</p><span class="toy-label">示意数据，不是实验结果</span>`;
+        controls.forEach(button => button.setAttribute("aria-pressed", String(button.dataset.stage === stage)));
+      }
+
+      controls.forEach(button => button.addEventListener("click", () => draw(button.dataset.stage)));
+      draw("data");
+    })();
+  </script>
+</body>
+</html>

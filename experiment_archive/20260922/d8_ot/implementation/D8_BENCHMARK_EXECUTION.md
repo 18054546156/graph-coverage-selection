@@ -1,0 +1,11 @@
+# D8 clean downstream benchmark execution
+
+This execution compares D8 against the matching Graph-A2 cells from the clean-only Table 1 benchmark. It uses the same five datasets, eight paired seeds (`0,1,2,3,4,5,6,2026`), 2% class quota rule, clean train/test splits, UNI source-train embeddings, deterministic 1000-epoch ResNet-18 training, and final-epoch checkpoint rule. No corruption data is used.
+
+The candidate matrix contains 40 training cells. A 10-element Slurm array runs at most five workers concurrently. Each worker requests one A100, 8 CPUs, and 48 GiB RAM, then processes four dataset/seed cells sequentially. Peak requested allocation is five GPUs, 40 CPUs, and 240 GiB RAM, within the `danranwang` `qos-high-gpu` limits (12 GPUs, 128 CPUs, 256 GiB RAM, 5 running jobs, 15 submitted jobs). The cluster scheduler may still queue jobs based on global availability.
+
+Each cell writes an independent `config.yaml`, selection artifact, model checkpoint, predictions, metrics, and completion marker under `training/<dataset>/seed_<seed>/`. Worker stdout/stderr and JSONL progress traces are stored under `logs/`. A cell is complete only when the pipeline's validated `run_complete.json` exists.
+
+The isolated source snapshot adds the D8 registry adapter and explicitly marks D8 as an embedding-dependent method in the copied pipeline. The original Table 1 source, output tree, and embedding cache are not modified. The five existing UNI cache files are copied into the D8 cache after hash comparison.
+
+The current Graph-A2 comparator audit found 34/40 complete cells while the remaining six Table 1 tasks were running. D8 integration smoke job `33466` completed successfully. At the 13:47 HKT check, formal array `33468` had five workers running (one GPU each) and five array elements pending on the concurrency throttle. Five of 40 D8 cells were complete (OrganSMNIST seeds 0-4); all workers had moved on to OrganAMNIST seeds 2-6, at approximately epochs 202-280/1000. No formal worker stderr files were nonempty. A final paired comparison must wait for all matching Graph-A2 cells and verify provenance. Report per-dataset paired `D8 - Graph-A2` balanced-accuracy differences, all seed rows, confidence intervals, class recalls, worst-class recall, and failures. No interim lead is a SOTA claim.

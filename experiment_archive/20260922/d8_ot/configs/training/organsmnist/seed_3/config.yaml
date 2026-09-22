@@ -1,0 +1,21 @@
+name: d8_ot_organsmnist_seed_3_formal
+datasets: [organsmnist]
+methods: [d8_ot]
+ratios: [0.02]
+selection_seed: 3
+training_seeds: [3]
+epochs: 1000
+dynamics_epochs: 200
+image_size: 224
+batch_size: 256
+num_workers: 4
+embedding_source: uni
+augment: false
+download_medmnist: false
+corruption_hash: false
+method_config:
+  d8_ot:
+    epsilon: 0.05
+    outer_iterations: 8
+    sinkhorn_iterations: 60
+checkpoint_rule: final_epoch

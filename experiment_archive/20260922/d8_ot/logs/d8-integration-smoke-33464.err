@@ -1,0 +1,31 @@
+Traceback (most recent call last):
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot/reliability_medmnistc/reliability/pipeline.py", line 271, in assert_graphcov_source_unchanged
+    subprocess.run(
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['git', '-C', '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot', 'diff', '--quiet', '8cf757adc4c333dc1427d511f0de2f246d15ebac', '--', 'graphcov']' returned non-zero exit status 1.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot/reliability_medmnistc/scripts/run_pipeline.py", line 91, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot/reliability_medmnistc/scripts/run_pipeline.py", line 86, in main
+    runpy.run_path(str(pipeline), run_name="__main__")
+  File "<frozen runpy>", line 291, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot/reliability_medmnistc/reliability/pipeline.py", line 281, in <module>
+    assert_graphcov_source_unchanged()
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot/reliability_medmnistc/reliability/pipeline.py", line 276, in assert_graphcov_source_unchanged
+    raise RuntimeError(
+RuntimeError: graphcov/ must remain identical to official 8cf757adc4c333dc1427d511f0de2f246d15ebac
+Traceback (most recent call last):
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/d8_benchmark_worker.py", line 159, in <module>
+    main()
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/d8_benchmark_worker.py", line 133, in main
+    subprocess.run(
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311/bin/python', '/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot/reliability_medmnistc/scripts/run_pipeline.py', '--config', '/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/integration_smoke/organsmnist/seed_0/config.yaml', '--phase', 'full']' returned non-zero exit status 1.

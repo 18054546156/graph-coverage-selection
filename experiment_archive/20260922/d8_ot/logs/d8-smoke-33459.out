@@ -1,0 +1,8 @@
+numpy 1.26.4 scipy 1.17.1
+{
+  "status": "complete",
+  "selected_count": 275,
+  "selected_indices_sha256": "ffe69fbc909ff3c55157c005df19309e93813d48da42c6c9d80b2528a824d97d",
+  "elapsed_seconds": 3.146,
+  "max_rss_kib": 324368
+}

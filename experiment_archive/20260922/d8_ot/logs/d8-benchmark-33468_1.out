@@ -1,0 +1,72 @@
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/organsmnist/seed_1/results', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/organsmnist/seed_1/selections', 'device': 'cuda', 'datasets': ['organsmnist'], 'methods': ['d8_ot'], 'ratios': [0.02], 'selection_seed': 1, 'training_seeds': [1], 'epochs': 1000, 'augment': False, 'smoke_n': 0, 'deterministic': True, 'clean_only': True, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['d8_ot']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: unknown
+========== organsmnist ==========
+  [Embeddings] Loaded uni from cache: n=13932, dim=1024
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/organsmnist/seed_1/results/organsmnist/d8_ot/ratio_0.02/selection_seed_1/train_seed_1/aug_0 n= 275 budget_per_class= 25
+epoch 100/1000
+epoch 200/1000
+epoch 300/1000
+epoch 400/1000
+epoch 500/1000
+epoch 600/1000
+epoch 700/1000
+epoch 800/1000
+epoch 900/1000
+epoch 1000/1000
+consolidated rows: 1 rejected: 0 output: /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/organsmnist/seed_1/results
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/organamnist/seed_3/results', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/organamnist/seed_3/selections', 'device': 'cuda', 'datasets': ['organamnist'], 'methods': ['d8_ot'], 'ratios': [0.02], 'selection_seed': 3, 'training_seeds': [3], 'epochs': 1000, 'augment': False, 'smoke_n': 0, 'deterministic': True, 'clean_only': True, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['d8_ot']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: unknown
+========== organamnist ==========
+  [Embeddings] Loaded uni from cache: n=34561, dim=1024
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/organamnist/seed_3/results/organamnist/d8_ot/ratio_0.02/selection_seed_3/train_seed_3/aug_0 n= 682 budget_per_class= 62
+epoch 100/1000
+epoch 200/1000
+epoch 300/1000
+epoch 400/1000
+epoch 500/1000
+epoch 600/1000
+epoch 700/1000
+epoch 800/1000
+epoch 900/1000
+epoch 1000/1000
+consolidated rows: 1 rejected: 0 output: /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/organamnist/seed_3/results
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/pathmnist/seed_5/results', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/pathmnist/seed_5/selections', 'device': 'cuda', 'datasets': ['pathmnist'], 'methods': ['d8_ot'], 'ratios': [0.02], 'selection_seed': 5, 'training_seeds': [5], 'epochs': 1000, 'augment': False, 'smoke_n': 0, 'deterministic': True, 'clean_only': True, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['d8_ot']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: unknown
+========== pathmnist ==========
+  [Embeddings] Loaded uni from cache: n=89996, dim=1024
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/pathmnist/seed_5/results/pathmnist/d8_ot/ratio_0.02/selection_seed_5/train_seed_5/aug_0 n= 1791 budget_per_class= 199
+epoch 100/1000
+epoch 200/1000
+epoch 300/1000
+epoch 400/1000
+epoch 500/1000
+epoch 600/1000
+epoch 700/1000
+epoch 800/1000
+epoch 900/1000
+epoch 1000/1000
+consolidated rows: 1 rejected: 0 output: /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/pathmnist/seed_5/results
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/tissuemnist/seed_2026/results', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/tissuemnist/seed_2026/selections', 'device': 'cuda', 'datasets': ['tissuemnist'], 'methods': ['d8_ot'], 'ratios': [0.02], 'selection_seed': 2026, 'training_seeds': [2026], 'epochs': 1000, 'augment': False, 'smoke_n': 0, 'deterministic': True, 'clean_only': True, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['d8_ot']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: unknown
+========== tissuemnist ==========
+  [Embeddings] Loaded uni from cache: n=165466, dim=1024
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/tissuemnist/seed_2026/results/tissuemnist/d8_ot/ratio_0.02/selection_seed_2026/train_seed_2026/aug_0 n= 3304 budget_per_class= 413
+epoch 100/1000
+epoch 200/1000
+epoch 300/1000
+epoch 400/1000
+epoch 500/1000
+epoch 600/1000
+epoch 700/1000
+epoch 800/1000
+epoch 900/1000
+epoch 1000/1000
+consolidated rows: 1 rejected: 0 output: /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training/tissuemnist/seed_2026/results

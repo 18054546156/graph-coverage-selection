@@ -1,0 +1,7 @@
+{
+  "graphcov_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+  "medmnistc_commit": "8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7",
+  "checkpoint_rule": "final_epoch",
+  "clean_split": "test",
+  "corrupted_test_only": true
+}

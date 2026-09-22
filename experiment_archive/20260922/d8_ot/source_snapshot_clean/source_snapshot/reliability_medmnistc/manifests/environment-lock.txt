@@ -1,0 +1,10 @@
+python==3.11.9
+torch==2.5.1
+torchvision==0.20.1
+cuda_build==12.1
+medmnist==3.0.1
+numpy==1.26.4
+scikit-image==0.23.2
+opencv-python==4.10.0
+Wand==0.7.2
+ImageMagick==7.1.2-31-Q16-HDRI

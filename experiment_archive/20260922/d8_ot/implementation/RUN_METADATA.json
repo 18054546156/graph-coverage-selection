@@ -1,0 +1,122 @@
+{
+  "project": "D8 equal-mass class-conditional entropic OT selection",
+  "status": "running",
+  "updated_at_local": "2026-09-22T13:47:00+08:00",
+  "account": "danranwang",
+  "slurm_array_job_id": "33468",
+  "smoke_jobs": {
+    "selection_only": {
+      "job_id": "33459",
+      "status": "COMPLETED",
+      "elapsed_seconds": 3.146,
+      "selected_count": 275,
+      "selected_indices_sha256": "ffe69fbc909ff3c55157c005df19309e93813d48da42c6c9d80b2528a824d97d",
+      "max_rss_kib": 324368
+    },
+    "pipeline_integration": {
+      "job_id": "33466",
+      "status": "COMPLETED",
+      "dataset": "organsmnist",
+      "selection_seed": 0,
+      "training_seed": 0,
+      "epochs": 1,
+      "elapsed": "00:00:24",
+      "validated_artifacts": [
+        "final.pt",
+        "predictions_clean.npz",
+        "metrics.jsonl",
+        "run_complete.json"
+      ]
+    },
+    "failed_preflight_attempts": {
+      "33462": "launcher omitted PYTHON required by common_env.sh",
+      "33463": "launcher omitted REPO_ROOT required by common_env.sh",
+      "33464": "integrity guard correctly rejected the D8 registry insertion",
+      "33465": "integrity guard expected a two-line-only diff; CRLF-to-LF transfer changed diff counts"
+    }
+  },
+  "benchmark": {
+    "datasets": ["organsmnist", "organamnist", "pathmnist", "tissuemnist", "bloodmnist"],
+    "methods": ["d8_ot"],
+    "seeds": [0, 1, 2, 3, 4, 5, 6, 2026],
+    "selection_seed_equals_training_seed": true,
+    "ratio": 0.02,
+    "epochs": 1000,
+    "checkpoint_rule": "final_epoch",
+    "selection": {
+      "epsilon": 0.05,
+      "outer_iterations": 8,
+      "sinkhorn_iterations": 60,
+      "budget_rule": "benchmark int(N * ratio) // number_of_classes"
+    },
+    "evaluation": "clean test only; no corruption data",
+    "training": "deterministic clean-train ResNet-18 pipeline"
+  },
+  "slurm_allocation": {
+    "array_elements": 10,
+    "concurrency_throttle": 5,
+    "gpus_per_worker": 1,
+    "cpus_per_worker": 8,
+    "memory_per_worker": "48G",
+    "peak_requested": {
+      "gpus": 5,
+      "cpus": 40,
+      "memory": "240G"
+    }
+  },
+  "paths": {
+    "hpc_root": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922",
+    "source_snapshot": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/source_snapshot",
+    "training_outputs": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/training",
+    "logs_and_worker_traces": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/logs",
+    "isolated_embedding_cache": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/d8_class_conditional_ot_20260922/cache/embeddings_img224_smokefull",
+    "paired_graph_a2_root": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/formal"
+  },
+  "provenance": {
+    "official_graphcov_base_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+    "d8_selector_sha256": "c4d6c46a06ca6c7b317674821dfba53dbdd0a918dbc8b75fa973037ae2454b49",
+    "d8_adapter_sha256": "9cd29046a31266bfc484fe3754cf65d95b06f124548c7c5b9a6bd2ce8d9aa9c1",
+    "pipeline_sha256": "87f1383905b553bc6e2e1365b44d9faf10b548e70e03585b15b364e1ae0d478",
+    "registry_sha256": "99cf916ef377fcdb372c2185e9d4c6fca98ea9d2ff17b732001c465115813c63",
+    "worker_sha256": "789cda0d7a31b8b6106bc607c693a5bc8a1e835c529b71516a1f75bd2e5aa067",
+    "embedding_cache_sha256": {
+      "bloodmnist": "be6d9d4fd1cb04d05488280fd05c1598f56088dedd5c3bc669948555f8a61353",
+      "organamnist": "12c0ab17ea2436f28d03e85277bdfe7f7bd71613820ee8a413cd2e20a105cd9f",
+      "organsmnist": "80be467fd7d532545bbae8bb577a39e5aed04bbd21a63831a503bec825f08972",
+      "pathmnist": "d5f2bf8f2a22fa544adc492c1c357393caec04864d9d1b598867b8d6b040b268",
+      "tissuemnist": "d2b51ba2cf4ebf4243428a4cdd3ab73400752b089f77cbc1b41d7da83d3ffb84"
+    }
+  },
+  "comparison_gate": {
+    "graph_a2_complete_cells_at_launch": "34/40",
+    "requirement": "wait for matching Graph-A2 dataset/seed cells and validate their run_complete.json before paired analysis",
+    "primary_metric": "clean balanced accuracy",
+    "report": "per-dataset paired D8 minus Graph-A2 across all eight seeds; no cherry-picking"
+  },
+  "initial_progress_snapshot": {
+    "observed_at_local": "2026-09-22T13:43:00+08:00",
+    "array_workers_running": [0, 1, 2, 3, 4],
+    "array_workers_pending": [5, 6, 7, 8, 9],
+    "training_cells_started": 5,
+    "formal_cells_complete": 0,
+    "first_batch_epochs_observed": "approximately 530-580/1000"
+  },
+  "latest_progress_snapshot": {
+    "observed_at_local": "2026-09-22T13:47:00+08:00",
+    "array_job_id": "33468",
+    "running_workers": [0, 1, 2, 3, 4],
+    "pending_workers": [5, 6, 7, 8, 9],
+    "allocated_gpus": 5,
+    "completed_cells": 5,
+    "completed_by_dataset": {
+      "organsmnist": 5,
+      "organamnist": 0,
+      "pathmnist": 0,
+      "tissuemnist": 0,
+      "bloodmnist": 0
+    },
+    "current_cells": "OrganAMNIST seeds 2-6, approximately epochs 202-280 of 1000",
+    "stderr_nonempty_formal_workers": 0,
+    "graph_a2_complete_cells_observed": 34
+  }
+}

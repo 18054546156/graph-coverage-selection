@@ -1,0 +1,3 @@
+# D8 Prototype Specification
+
+**Target:** A standalone, reproducible selector prototype for equal-mass class-conditional feature-distribution matching. **Inputs:** source-training embeddings, labels, equal per-class selection budget, selection seed. **Outputs:** selected original row indices and solver diagnostics; no test data is read. **Success command:** `python -m unittest discover -s d8_class_conditional_ot_20260922/tests -v`. **Base commit:** `93e2f625b778652c04d00fff0f65b7d2cacf7a40`. **Scope cuts:** no changes to the active clean benchmark, no downstream training integration, no HPC synchronization/submission, and no claim of beating Graph-A2. The solver is a heuristic for the proposed entropic-W1 objective, not an exact discrete optimizer.

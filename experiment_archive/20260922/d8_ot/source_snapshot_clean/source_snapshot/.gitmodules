@@ -1,0 +1,4 @@
+[submodule "third_party/medmnistc"]
+	path = third_party/medmnistc
+	url = https://github.com/francescodisalvo05/medmnistc-api.git
+	ignore = untracked
