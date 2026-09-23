@@ -241,23 +241,22 @@ Testing (2) is cheap and has not been done: re-train ~40 selections from one
 
 ## Runtime dependency note
 
-On the cluster this directory also contains byte-identical copies of
-`functional_screen.py`, `run_linear_probe.py`, and `train_weighted.py` from
-`../uni_task_geometry_selection_20260923/`, because the driver imports them as
-top-level modules. They are **not** duplicated in git — copy them in before running:
-
-```bash
-cp ../uni_task_geometry_selection_20260923/{functional_screen,run_linear_probe,train_weighted}.py .
-```
+The current branch includes the byte-identical copies of
+`functional_screen.py`, `run_linear_probe.py`, and `train_weighted.py` that the
+driver imports as top-level modules. The scripts are therefore self-contained
+within this experiment directory, but they still depend on the external
+`graph_select` checkout for the MedMNIST transforms and ResNet-18 definition.
 
 `--graphcov-root` must point at a `graph_select` checkout (for
 `graphcov.run.data.get_transform`); the driver sets `sys.modules["faiss"] = None`
 first so `graphcov.run.graph`'s FAISS-GPU probe falls back to its CPU path instead of
 crashing on this cluster's CUDA driver mismatch.
 
-## Status 2026-09-23 20:10
+## Historical status 2026-09-23 20:10 (superseded)
 
-**In flight, ~6% complete. Nothing here is a conclusion.**
+This section records an earlier single-offset snapshot. It is retained for
+provenance only and is superseded by the current three-offset status in
+`README_ZH.md` and `REAL_TRAINING_FUNCTIONAL_SCREEN_ZH.tex`.
 
 597 rows measured. The first wave of shards was launched with hand-picked index
 ranges that covered only a middle slice of block 1 (`[242,346)` on blood,

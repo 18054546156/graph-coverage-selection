@@ -1,0 +1,510 @@
+\documentclass[UTF8,a4paper,12pt]{ctexart}
+
+\usepackage[a4paper,margin=2.3cm]{geometry}
+\usepackage{amsmath,amssymb,booktabs,longtable,array}
+\usepackage{xcolor,hyperref,listings,enumitem,graphicx}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue,citecolor=blue}
+\lstset{
+  basicstyle=\ttfamily\small,
+  columns=fullflexible,
+  keepspaces=true,
+  breaklines=true,
+  frame=single,
+  rulecolor=\color{gray!35},
+  backgroundcolor=\color{gray!5},
+  showstringspaces=false,
+  language=Python
+}
+\setlist{itemsep=2pt,topsep=3pt}
+
+\title{真实训练 Functional Screen：\newline
+选择集合特征、代码流程与数学原理\newline
+\large 面向非机器学习读者的中文说明}
+\author{FRACTAL-Select / Graph Coverage Selection 实验线}
+\date{2026年9月23日版本}
+
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\ba}{\mathrm{BA}}
+\newcommand{\R}{\mathbb{R}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\section{先看结论：现在到底在测什么}
+
+这项实验不是直接宣布一个新选图算法已经成功，而是在回答一个更基础、也更关键的问题：
+
+\begin{quote}
+如果从每个类别的大图像池中只挑出很少的一部分图像，那么这些图像的哪些性质，可能与最终模型的分类准确率有关？
+\end{quote}
+
+当前实验把每个选择集合送入一个真实的 ResNet-18，从零开始训练 200 个 epoch，最后在官方测试集上计算 balanced accuracy。与此同时，代码从冻结的 UNI embedding 和已有的训练动态缓存中，给这个选择集合量出 26 个特征。
+
+因此，一条结果记录的含义是：
+
+\[
+\boxed{
+\text{一个选择集合}
+\;\longrightarrow\;
+\text{26 个特征}
+\;\longrightarrow\;
+\text{真实 ResNet-18 训练}
+\;\longrightarrow\;
+\text{真实测试集指标}
+}
+\]
+
+这里的“特征”是对选择集合的描述；\code{ba\_real} 是这个集合真正训练模型后得到的结果。实验要判断的是：在预算相同的情况下，某个特征变化时，\code{ba\_real} 是否也有稳定变化。
+
+\section{三个容易混淆的层次}
+
+\subsection{第一层：选择哪些图像}
+
+每个类别预算为 25 张图像。例如，一个有 8 个类别的数据集，最终选择集合有
+\(8\times25=200\) 张图像；9 个类别则有 225 张。代码不是把所有图像都训练，而是从每个类别的候选池中选这 25 张。
+
+当前每个 block 生成 300 个选择集合：
+
+\[
+60\text{ 个随机集合}
++15\text{ 个方法锚点}\times(1+5\text{ 个扰动等级}\times3\text{ 个扰动种子})
+=300.
+\]
+
+15 个锚点为：
+
+\begin{itemize}
+  \item 几何锚点：\code{herding}、\code{kcenter}、\code{kmedoids}、\code{dense}、\code{sparse}、\code{hard}、\code{easy}、\code{impure}；
+  \item 训练动态锚点：\code{forget\_high}、\code{forget\_low}、\code{el2n\_high}、\code{aum\_low}、\code{aum\_high}、\code{ccs}、\code{moderate}。
+\end{itemize}
+
+代码位置是 \path{functional_screen.py} 的 \code{build_library()}。例如，\code{herding} 先挑选尽量接近类别平均 embedding 的点；\code{kcenter} 先选中心，再反复选择离当前集合最远的点；\code{forget\_high} 则挑训练动态中被遗忘次数较多的点。
+
+\subsection{第二层：给选择集合量“尺子”}
+
+同一个选择集合同时用两类尺子测量：
+
+\begin{enumerate}
+  \item UNI embedding 尺子：描述覆盖、分布、边界、密度和多样性，共 15 个；
+  \item 训练动态尺子：描述图像在一次全训练集训练中表现出的难度和学习轨迹，共 11 个。
+\end{enumerate}
+
+这些尺子不会改变选择集合，也不会直接训练最终模型；它们只是给每个集合产生一行数值。
+
+\subsection{第三层：真实下游效果}
+
+\code{train\_weighted.py} 中的 \code{train\_one\_cell()} 接收图像索引，重新初始化一个 ResNet-18，使用等权训练 200 个 epoch，然后只在官方测试集上评估一次。当前所有样本权重都是 1，因此本实验比较的是“选了哪些图”，不是“同一组图如何加权”。
+
+\section{完整流程：从数据到一行 JSONL}
+
+主驱动是 \path{real_training_functional_screen.py}。它的流程可以读成下面的伪代码：
+
+\begin{lstlisting}
+for dataset in five_datasets:
+    x = load_UNI_embedding(dataset)       # every training image -> vector
+    y = load_train_labels(dataset)
+    z = l2_normalize(x)
+
+    for block in [0, 1]:
+        pool, audit = split_train_images(y, seed=block_seed)
+        pre = pool_precompute(z[pool], y[pool])
+        library = build_library(z[pool], y[pool], pre,
+                                budget=25, n_random=60,
+                                n_perturb_seeds=3,
+                                dynamics=dynamics_cache)
+
+        for name, family, m, selected in library:
+            F = functionals(z[pool], y[pool], selected, pre)
+            F.update(dyn_functionals(dynamics, selected, y[pool]))
+
+            result = train_one_cell(
+                selected_indices=pool[selected],
+                train_seed=seed_for_dataset_and_block,
+                epochs=200, batch_size=128)
+
+            write_jsonl({**F, **result, "ba_real": result["balanced_accuracy"]})
+\end{lstlisting}
+
+\subsection{为什么要有两个 block}
+
+每个 block 都从训练集重新划分候选池和 audit 区域：80\% 作为选择池，20\% 作为审计区。真实训练端点不使用 audit 区，而是用选择出来的原始图像训练；官方 test split 只在最终测试时使用。
+
+两个 block 的目的不是增加 epoch，而是检查一个发现能不能换一批候选池仍然出现。如果特征只在 block 0 有效、block 1 消失，就不能把它当作稳定规律。
+
+\subsection{为什么要扰动锚点}
+
+如果只比较 Random 和 Herding，所有差异都混在“方法身份”里。例如 Herding 可能同时拥有更小的平均距离、更高的纯度和更高的准确率，这不能说明究竟是哪一个特征起作用。
+
+所以代码对每个锚点做同类替换：\code{m=1,2,5,10,25} 表示每个类别替换多少个点，并且每个 \(m\) 使用 3 个扰动种子。这样可以在同一个方法家族内部连续改变特征，再观察真实 BA 是否随之改变。
+
+\section{第一类尺子：UNI embedding 几何特征}
+
+设第 \(i\) 张图像的 UNI 向量为 \(x_i\in\R^d\)。代码先做 L2 归一化：
+
+\[
+z_i=\frac{x_i}{\lVert x_i\rVert_2}.
+\]
+
+因此后续距离主要反映 embedding 方向和相对位置，而不被向量长度主导。对某个类别 \(c\)，候选池为 \(P_c\)，被选集合为 \(S_c\)。
+
+\subsection{覆盖：\code{dist\_mean}、\code{dist\_p90}、\code{dist\_max}}
+
+对池中每一个点，找离它最近的代表点：
+
+\[
+d_i=\min_{s\in S_c}\lVert z_i-z_s\rVert_2,
+\qquad i\in P_c.
+\]
+
+然后：
+
+\begin{align*}
+\text{dist\_mean}&=\frac{1}{|P_c|}\sum_{i\in P_c}d_i,\\
+\text{dist\_p90}&=\text{第 90 百分位的 }d_i,\\
+\text{dist\_max}&=\max_{i\in P_c}d_i.
+\end{align*}
+
+外行例子：一个城市有很多居民点，选择的图像是“服务站”。\code{dist\_mean} 问平均居民离最近服务站多远；\code{dist\_p90} 问最远的 10\% 居民大概多远；\code{dist\_max} 只看最孤立的居民。数值越小通常代表覆盖更紧密，但“覆盖更紧密”并不自动等于真实训练准确率更高。
+
+代码在 \code{functionals()} 中用 \code{torch.cdist(P,S)}，再对每一行取最小值。
+
+\subsection{分布中心：\code{moment1}、\code{moment2}}
+
+\code{moment1} 比较选择集合中心和整个类别池中心：
+
+\[
+\text{moment1}_c=
+\left\lVert\frac{1}{|S_c|}\sum_{s\in S_c}z_s-
+\frac{1}{|P_c|}\sum_{i\in P_c}z_i\right\rVert_2.
+\]
+
+它回答“挑出来的图的平均位置是否代表整个类别”。例如全班学生的平均身高是 170cm，如果选出的 25 人平均身高是 190cm，\code{moment1} 会偏大。
+
+\code{moment2} 比较选择集合和池子的总方差：
+
+\[
+\text{moment2}_c=
+\frac{|\operatorname{tr}(\Sigma_{S_c})-operatorname{tr}(\Sigma_{P_c})|}
+{\operatorname{tr}(\Sigma_{P_c})+\epsilon}.
+\]
+
+\code{moment1} 只看“中心”，\code{moment2} 看“散布范围”。一个集合可能中心正确，但所有点都挤在中心附近；这时 moment1 小而 moment2 仍可能大。
+
+\subsection{分布距离：\code{mmd2}}
+
+MMD 用 RBF 核比较两个分布：
+
+\[
+\operatorname{MMD}^2(S_c,P_c)=
+\mathbb{E}k(S,S)-2\mathbb{E}k(S,P)+\mathbb{E}k(P,P),
+\]
+
+其中
+\[
+k(a,b)=\exp\left(-\frac{\lVert a-b\rVert_2^2}{2\sigma_c^2}\right).
+\]
+
+\(\sigma_c\) 由类别池中距离的中位数确定。直观上，MMD 不只问平均值是否相同，而是问“把选择集合看成一个小分布，它像不像整个类别分布”。
+
+\subsection{覆盖质量是否集中：\code{mass\_gini}}
+
+把池中每个点分配给最近的代表点，统计每个代表点负责了多少池中样本，得到计数 \(v_1,\ldots,v_k\)。代码计算 Gini 不均等度：
+
+\[
+G(v)=\frac{2\sum_{i=1}^{k}i v_{(i)}}{k\sum_i v_i}-\frac{k+1}{k},
+\]
+
+其中 \(v_{(i)}\) 已从小到大排序。\code{mass\_gini} 高，表示少数代表点负责了大量区域、其他代表点几乎没有责任；低则表示 Voronoi 区域比较均匀。它描述的是“代表点的覆盖负担是否失衡”，不是训练权重本身。
+
+\subsection{代表点彼此多样：\code{spread}、\code{centrality}、\code{logdet}}
+
+\code{spread} 是选择点之间平均两两距离：
+
+\[
+\text{spread}_c=\frac{1}{k(k-1)}
+\sum_{i\ne j,\;s_i,s_j\in S_c}\lVert z_{s_i}-z_{s_j}\rVert_2.
+\]
+
+\code{centrality} 是选择点到类别中心的平均距离：
+
+\[
+\text{centrality}_c=\frac{1}{k}\sum_{s\in S_c}\lVert z_s-\mu_{P_c}\rVert_2.
+\]
+
+\code{spread} 大表示代表点彼此铺开；\code{centrality} 大表示它们整体偏离类别中心。两者不是同一个概念：点可以彼此分散但仍围绕类别中心，也可以整体偏到边缘。
+
+\code{logdet} 使用 RBF 相似度矩阵 \(G\)：
+
+\[
+G_{ij}=k(z_{s_i},z_{s_j}),\qquad
+\text{logdet}=\log\det(G+10^{-4}I).
+\]
+
+它类似 DPP 多样性分数：若点都很相似，矩阵接近低秩，行列式较小；若点覆盖不同方向，行列式通常更大。代码加小的 jitter 是为了数值稳定，不是人为奖励某个方法。
+
+\subsection{局部邻域和类别边界：\code{purity}、\code{margin}、\code{density}}
+
+代码在 \code{pool\_precompute()} 中先为池中每个点计算 20 近邻。
+
+\paragraph{purity.}
+\[
+\text{purity}(i)=\frac{\#\{j\in\operatorname{KNN}_{20}(i):y_j=y_i\}}{20}.
+\]
+选择集合的 \code{purity} 是所选点 purity 的平均值。它高表示点处在同类图像聚集的“干净”区域；低表示点靠近混杂区域。
+
+\paragraph{margin.}
+\[
+\text{margin}(i)=d(i,\text{最近异类点})-d(i,\text{最近同类点}).
+\]
+正值表示最近的同类点更近，负值表示该点可能落在类别边界或异常区域。\code{margin} 是平均 margin，\code{sel\_margin\_min} 是选择集合中最小 margin。
+
+\paragraph{density.}
+\[
+\text{density}(i)=\frac{1}{\text{20 个近邻距离的平均值}+\epsilon}.
+\]
+高 density 是局部拥挤区域，低 density 是稀疏区域。\code{dense} 和 \code{sparse} 锚点正是按照这个量的高低选点。
+
+\subsection{跨类别间隔：\code{xclass\_sep}}
+
+对类别 \(c\) 的每个被选点，找它到其他类别所选点的最近距离，再取平均：
+
+\[
+\text{xclass\_sep}_c=
+\frac{1}{|S_c|}\sum_{s\in S_c}
+\min_{t\in S_{\ne c}}\lVert z_s-z_t\rVert_2.
+\]
+
+它描述所选代表点与其他类别代表点之间的间隔。值大不一定代表模型一定更好，因为真实图像分类还涉及增强、优化和类别内部变化；它只是一个可检验的候选性质。
+
+\section{第二类尺子：训练动态特征}
+
+训练动态来自独立的全训练集 200 epoch 缓存，文件名形式为
+\path{<dataset>_train_dynamics_28_e200_s42.npz}。它不读取官方 test 标签。对选择集合中的点，代码从缓存取出对应数值，然后按类别等权平均。
+
+\subsection{Forgetting：\code{forget\_mean}、\code{forget\_sd}、\code{forget\_frac\_zero}}
+
+如果某个样本在一个 epoch 被正确分类、下一个 epoch 又变错，称为一次 forgetting。设第 \(i\) 个样本次数为 \(f_i\)，则：
+
+\[
+\text{forget\_mean}=\frac{1}{|S|}\sum_{i\in S}f_i,
+\quad
+\text{forget\_sd}=\operatorname{SD}(f_i),
+\quad
+\text{forget\_frac\_zero}=\frac{\#\{i:f_i=0\}}{|S|}.
+\]
+
+它们回答“集合里是稳定容易学的图，还是经常在学习过程中反复出错的图”。高 forgetting 不自动等于更有价值，也可能表示噪声或标签困难，所以必须和真实 BA 对照。
+
+\subsection{AUM：\code{aum\_mean}、\code{aum\_sd}}
+
+AUM 可理解为训练过程中“正确类别分数相对其他类别分数的平均优势”。代码记录选择集合内 AUM 的均值和标准差。低 AUM 通常更接近困难、边界或可能有问题的样本；高 AUM 更接近稳定容易的样本。
+
+\subsection{EL2N：\code{el2n\_early\_mean}、\code{el2n\_final\_mean}}
+
+若模型输出概率向量为 \(p_i\)，真实标签的 one-hot 向量为 \(e_{y_i}\)，则 EL2N 类似：
+
+\[
+\operatorname{EL2N}(i)=\lVert p_i-e_{y_i}\rVert_2.
+\]
+
+代码分别记录早期 epoch 的平均值和最终 epoch 的平均值。早期值通常更能区分样本难度；训练后期模型已经拟合很多样本，最终值可能整体接近零。
+
+\subsection{难度分布：\code{difficulty\_ks}、\code{difficulty\_w1}}
+
+这两个量比较“选择集合的难度分布”和“整个类别池的难度分布”。
+
+\begin{itemize}
+  \item KS 距离是两个经验累积分布函数的最大垂直差；
+  \item W1 距离是两个分布的平均分位数差。
+\end{itemize}
+
+值越小，表示选择集合的难度形状更像整个池子。代码还记录选择集合中落在池子最难 10\% 和最容易 10\% 的比例：\code{frac\_hardest\_decile} 与 \code{frac\_easiest\_decile}。
+
+\section{一个实际数值例子}
+
+下面是一条真实 JSONL 记录的简化示例。它来自 pathmnist 的一个选择集合；数值用于说明如何阅读一行记录，不应单独用来比较方法：
+
+\begin{lstlisting}
+name       = moderate_m10_s1
+family     = moderate
+dataset    = pathmnist
+block      = 0
+n_train    = 225
+F_dist_mean = 0.8079
+F_spread    = 1.0749
+F_logdet    = -26.7343
+F_purity   = 0.9956
+F_margin   = 0.4364
+F_forget_mean = 15.8311
+F_difficulty_ks = 0.1715
+ba_real    = 0.6584
+accuracy   = 0.6841
+worst_class_recall = 0.2637
+
+endpoint = resnet18_official_test_equal_weight_final_epoch
+train_seconds = 71.86
+epochs = 200
+batch_size = 128
+weight_mean = 1.0
+\end{lstlisting}
+
+如何解释：这个集合的平均覆盖距离是 0.8079，所选点的局部纯度很高，真实模型的 balanced accuracy 是 65.84\%。但不能说“纯度 0.9956 导致 BA 65.84\%”，因为这只是一个点。只有把同一个 dataset、block、方法族和扰动等级中的很多记录放在一起，才可以研究特征变化与 BA 变化是否同步。
+
+\section{真实训练端点到底怎么算}
+
+\subsection{模型训练}
+
+\code{train\_weighted.py} 的当前配置为：
+
+\begin{center}
+\begin{tabular}{ll}
+\toprule
+项目 & 当前值 \\
+\midrule
+模型 & 从零初始化的 ResNet-18 \\
+图像大小 & 224\(\times\)224 \\
+训练 epoch & 200 \\
+batch size & 128 \\
+优化器 & SGD，momentum=0.9 \\
+学习率 & 0.1，CosineAnnealing 到 \(10^{-4}\) \\
+weight decay & \(5\times10^{-4}\) \\
+样本权重 & 全部为 1 \\
+最终模型 & 第 200 个 epoch 的模型，不按 test 结果挑 checkpoint \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+代码中的关键损失是：
+
+\[
+L=\frac{\sum_i w_i\,\ell(f_\theta(x_i),y_i)}{\sum_i w_i},
+\qquad w_i=1.
+\]
+
+由于权重全部相等，这就退化为普通交叉熵平均值。训练完成后，官方 test split 只评估一次，不参与模型选择。
+
+\subsection{Balanced accuracy}
+
+对每个类别 \(c\)，先计算 recall：
+
+\[
+\operatorname{recall}_c=
+\frac{\text{该类预测正确的数量}}{\text{该类测试图像总数}}.
+\]
+
+然后：
+
+\[
+\ba=\frac{1}{C}\sum_{c=1}^{C}\operatorname{recall}_c.
+\]
+
+例如三个类别 recall 分别为 0.90、0.60、0.30，则普通 accuracy 可能被大类主导，但 balanced accuracy 是
+\((0.90+0.60+0.30)/3=0.60\)。这正是医学数据中类别数量不平衡时更关心的指标。
+
+\subsection{其他输出指标}
+
+\begin{itemize}
+  \item \code{accuracy}：所有测试图像总体预测正确比例；
+  \item \code{per\_class\_recall}：每一类 recall；
+  \item \code{worst\_class\_recall}：最差类别 recall；
+  \item \code{nll}：真实类别概率的负对数似然，越小越好；
+  \item \code{brier}：预测概率向量与 one-hot 标签之间的平方误差，越小越好；
+  \item \code{ece15}：把置信度分成 15 个区间后，比较置信度和真实正确率，越小表示校准更好。
+\end{itemize}
+
+\section{最后怎样判断某个特征有用}
+
+\subsection{不能只看方法平均分}
+
+假设 Herding 的 BA 平均比 Random 高，同时 Herding 的 \code{dist\_mean} 更小。此时只能说 Herding 这个方法整体更好，不能说“距离更小导致 BA 更高”。方法身份同时改变了很多性质，这叫混杂。
+
+\subsection{组内中心化}
+
+分析脚本 \path{analyze_screen.py} 会在同一个
+\((\text{dataset},\text{block},\text{family},m)\) 组内减去均值：
+
+\[
+\tilde F_i=F_i-\overline F_g,
+\qquad
+\widetilde{BA}_i=BA_i-\overline{BA}_g.
+\]
+
+然后计算 Pearson 相关系数 \(r\) 和：
+
+\[
+t=\frac{r\sqrt{n-2}}{\sqrt{1-r^2}}.
+\]
+
+这相当于问：“在同一个方法家族内部，只替换少量同类图像之后，特征改变的方向是否和真实 BA 改变的方向一致？”
+
+\subsection{最终需要通过的检查}
+
+当前统计分析规划包括：
+
+\begin{enumerate}
+  \item Whole library：展示总体关系，但会被极差的选择集合主导，只作诊断；
+  \item Competitive regime：只看预先定义的合理方法族，避免把“不要选垃圾”误认为创新；
+  \item Within-family：在方法族和扰动等级内部分析，去除方法身份；
+  \item Cross-block replication：两个独立 block 的方向和显著性是否一致；
+  \item Baseline leaderboard：Random、Herding、k-center、k-medoids、Forget、EL2N、CCS、Moderate 等锚点的统一比较；
+  \item GPU covariate check：控制 GPU 型号和主机差异，避免硬件混杂；
+  \item Probe-vs-real：比较冻结 UNI 线性 probe 与真实 ResNet 排序是否一致。
+\end{enumerate}
+
+这里的“通过”仍然只是稳定关联，不是严格因果证明。真正设计新方法时，还要在未参与筛选的验证协议上重新比较。
+
+\section{当前实验状态快照}
+
+截至 2026 年 9 月 23 日实时检查：
+
+\begin{itemize}
+  \item 目标：\(5\times2\times300\times3=9000\) 条逻辑训练结果；
+  \item 三个账号合并去重后约 3453 条，约 38.4\%；
+  \item 27 张 GPU 正在运行，9 张 GPU 对应的 job 排队；
+  \item 单次真实训练中位约 50 秒，pathmnist 通常更慢；
+  \item 一个 xiaoyuxu2 子 worker 遇到 CUDA busy/unavailable，留下需要补跑的分片；
+  \item 当前还没有正式的最终 feature survivor 结论；
+  \item 早期 JSONL 中约 3140 行缺少 epoch、batch size 等协议字段，合并时必须单独审计，不能盲目和新记录混为一谈。
+\end{itemize}
+
+这些数字是运行快照，会随着作业继续推进而变化；它们不是科学结论。
+
+\section{代码地图}
+
+\begin{longtable}{p{0.34\textwidth}p{0.58\textwidth}}
+\toprule
+文件 & 作用 \\
+\midrule
+\endhead
+\path{functional_screen.py} & 生成选择库、pool 预计算、15 个几何特征、11 个动态特征。核心函数是 \code{pool\_precompute()}、\code{functionals()}、\code{dyn\_functionals()}、\code{build\_library()}。 \\
+\path{real_training_functional_screen.py} & 读取 UNI embedding 和标签，分 block，调用选择库，计算特征，再调用真实训练端点并写 JSONL。 \\
+\path{train_weighted.py} & 定义确定性、ResNet-18 训练、官方 test 评估和 BA/NLL/Brier/ECE 计算。 \\
+\path{run_linear_probe.py} & 提供标签对齐检查、归一化、分 block、Herding 等基础函数；不是当前最终端点。 \\
+\path{analyze_screen.py} & 读取结果，做 whole-library、competitive、within-family、replication 和 baseline 分析；运行真实端点时必须传 \code{--endpoint ba_real}。 \\
+\path{merge_real_screen.py} & 旧的单结果根合并工具；当前三账号、三 offset、300 集合配置需要先做多账号去重和协议审计。 \\
+\path{run_real_multigpu.slurm} & 一个 SLURM job 内启动多个独立单 GPU worker。 \\
+\path{submit_multigpu_screen.sh} & 组织不同数据集、block、offset 和 shard 的提交。 \\
+\path{README_ZH.md} & GitHub 中文入口、目录和运行注意事项。 \\
+\bottomrule
+\end{longtable}
+
+本地工作目录为：
+
+\path{C:/Users/Administrator/Documents/ChatGPT/New project/idea-stage/graph_a2_open_innovation_20260922/real_training_functional_screen_20260923/}
+
+HPC 每个账号的目录为：
+
+\begin{lstlisting}
+/home/xiaoyuxu2/real_training_functional_screen_20260923/
+/home/qiangzeng/real_training_functional_screen_20260923/
+/home/danranwang/real_training_functional_screen_20260923/
+\end{lstlisting}
+
+结果位于各自目录下的 \path{results/}，日志位于 \path{logs/}。这些运行产物没有上传 GitHub。
+
+\section{小结}
+
+这项实验的核心不是“哪个几何指标看起来最漂亮”，而是把一个选择集合拆成可测量的性质，再用真实下游训练检查这些性质是否有独立、可复现的关系。当前 26 个特征都是候选解释变量，没有一个因为 probe 结果好就自动获得结论。只有在真实 \code{ba\_real}、方法族内扰动、两个 block 和必要的协议检查都通过之后，才适合把某个方向写进新的图像选择方法。
+
+\end{document}
