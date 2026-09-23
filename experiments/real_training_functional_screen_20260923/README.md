@@ -150,6 +150,56 @@ Datasets are weighted by cost — pathmnist and tissuemnist train slower (~82s/r
 ~69s) and get 3 workers, the others 2 — and each job mixes fast with slow datasets so
 no single job becomes the straggler.
 
+### The screen runs under three accounts — merge before you launch
+
+`xiaoyuxu2`, `qiangzeng` and `danranwang` each hold their own `qos-high-gpu`
+quota (5 jobs / 12 GPUs), so the fleet is 36 GPUs. They do **not** share a
+filesystem for output: all three can *read* `/project/prj-sis01/xuxiaoyu` (env,
+embeddings, data, dynamics cache) but only `xiaoyuxu2` can write there, so each
+account writes results into its own home.
+
+That is the trap. `--skip-existing` pointed at one account's `results/` sees
+only that account's rows. Counted on 2026-09-23, the union was:
+
+| offset | done / 3000 |
+|---|---|
+| 100000 | **2226** |
+| 0 | 192 |
+| 200000 | 344 |
+
+— while `xiaoyuxu2` alone could see 772 at offset 100000. Twelve workers were
+re-measuring selections another account had already finished. Always rebuild
+`skipseed/done_keys.jsonl` from all three accounts and pass it to every worker:
+
+```bash
+--skip-existing "$PROJECT/results" "$PROJECT/skipseed"
+```
+
+Rows are safe to merge across accounts — verified, not assumed: 2228 distinct
+`(dataset, block, name)` keys with **zero** `selection_sha256` mismatches. And
+`train_seed = offset + 100000*di + 1000*block` is unique across all
+(offset, block) pairs *within* a dataset, so one account's rows can never cause a
+false skip of another offset's work. (It does collide *across* datasets, which is
+harmless only because `load_done_keys` filters on `dataset` first.)
+
+Workers sweep `OFFSETS="100000 0 200000"` in order rather than one account owning
+one seed, so the whole fleet finishes the analysis-critical offset first and a
+worker whose shard is already done moves on instead of idling. Shard counts are
+global and split between accounts — blood/organa/organs `count=6` (2 each),
+path/tissue `count=9` (3 each) — so the 36 workers are disjoint by construction.
+
+### Smoke rows must never sit inside `results/`
+
+Rows written before 2026-09-23 recorded **no training protocol** — no `epochs`,
+no `batch_size`, no `image_size`. `--skip-existing` matches on
+`(dataset, block, name, train_seed)` only, so a smoke-test row was
+indistinguishable from a real one and would silently suppress the real run for
+that selection. 30 such rows sat at bloodmnist block 0 / `train_seed=0` — offset
+0 — in `results/smoke2/` on two accounts, and offset 0 was being launched when
+this was caught. Smoke output is now quarantined outside `results/`, and every
+row records `epochs`, `batch_size`, `lr`, `weight_decay`, `image_size`,
+`augment`.
+
 ### GPU model is now a recorded covariate
 
 Neither partition has 12 free GPUs alone, so the screen runs across `gpu-a100` and
