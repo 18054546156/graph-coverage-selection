@@ -179,6 +179,18 @@ def run_dataset(args, dataset: str, device: torch.device) -> int:
                     # device.
                     "host": HOST,
                     "gpu_name": GPU_NAME,
+                    # Record the training protocol on every row. Rows written
+                    # before 2026-09-23 carry none of this, which made smoke-test
+                    # output (trained for a handful of epochs) indistinguishable
+                    # from real output -- and --skip-existing matches on
+                    # (dataset, block, name, train_seed) only, so a smoke row
+                    # would silently suppress the real run for that selection.
+                    "epochs": args.epochs,
+                    "batch_size": args.batch_size,
+                    "lr": args.lr,
+                    "weight_decay": args.weight_decay,
+                    "image_size": args.size,
+                    "augment": bool(args.augment),
                 }
                 out.write(json.dumps(row, sort_keys=True) + "\n")
                 out.flush()

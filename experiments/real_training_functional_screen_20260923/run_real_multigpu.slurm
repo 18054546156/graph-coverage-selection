@@ -32,12 +32,26 @@
 
 set -euo pipefail
 [ "$#" -gt 0 ] || { echo "usage: sbatch ... $0 <dataset,shard,count> ..." >&2; exit 2; }
-: "${TRAIN_SEED_OFFSET:=100000}"
+# Each worker sweeps every train-seed offset in order, on its own GPU. Listing
+# the analysis-critical offset first means the whole fleet -- across all three
+# accounts -- finishes that seed before starting the next, instead of each
+# account owning one seed and the fleet finishing all three at the same late
+# time. Combined with --skip-existing this is also what makes the run
+# self-balancing: a worker whose shard is mostly done simply moves on.
+: "${OFFSETS:=100000 0 200000}"
 : "${EPOCHS:=200}"
 : "${GLOBAL_START:=0}"
 : "${GLOBAL_END:=600}"
 
-PROJECT="$HOME/real_training_functional_screen_20260923"
+# Resolve from the submission directory, never from $HOME. The screen now runs
+# under three accounts (xiaoyuxu2 / qiangzeng / danranwang), and HOME is a
+# variable the ssh client forwards -- on this setup it arrives as the *client's*
+# Windows path. SLURM_SUBMIT_DIR is set by sbatch to the directory the job was
+# submitted from, which is the project directory by construction.
+PROJECT="${SLURM_SUBMIT_DIR:-$PWD}"
+[ -f "$PROJECT/real_training_functional_screen.py" ] || {
+  echo "PROJECT=$PROJECT has no driver; submit from the project directory" >&2
+  exit 2; }
 PYTHON=/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/bin/python3
 GRAPH=/project/prj-sis01/xuxiaoyu/graph_select
 EMBED=/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull
@@ -73,21 +87,35 @@ for item in "$@"; do
   sidx="${rest%%,*}"; scnt="${rest##*,}"
   [ "$ds,$sidx,$scnt" = "$item" ] || {
     echo "malformed work item: $item" >&2; exit 2; }
-  out="$PROJECT/results/seed_${TRAIN_SEED_OFFSET}/mg_${SLURM_JOB_ID}_g${gpu}_${ds}_s${sidx}of${scnt}"
-  mkdir -p "$out"
-  echo "  worker$gpu -> physical gpu ${DEVS[$gpu]} : $ds shard $sidx/$scnt"
+  echo "  worker$gpu -> physical gpu ${DEVS[$gpu]} : $ds shard $sidx/$scnt over offsets [$OFFSETS]"
+  export OFFSETS PROJECT PYTHON GRAPH EMBED DATA MEDMNIST DYN
+  export GLOBAL_START GLOBAL_END EPOCHS SLURM_JOB_ID
+  export GPU="$gpu" DS="$ds" SIDX="$sidx" SCNT="$scnt"
 
-  CUDA_VISIBLE_DEVICES="${DEVS[$gpu]}" "$PYTHON" "$PROJECT/real_training_functional_screen.py" \
-    --embedding-root "$EMBED" --data-root "$DATA" --medmnist-root "$MEDMNIST" \
-    --dynamics-root "$DYN" --graphcov-root "$GRAPH" --output "$out" \
-    --datasets "$ds" --blocks 2 --budget 25 \
-    --n-random 60 --n-perturb-seeds 3 --train-seed-offset "$TRAIN_SEED_OFFSET" \
-    --global-start "$GLOBAL_START" --global-end "$GLOBAL_END" \
-    --shard-index "$sidx" --shard-count "$scnt" \
-    --skip-existing "$PROJECT/results" \
-    --epochs "$EPOCHS" --batch-size 128 --lr 0.1 --weight-decay 5e-4 \
-    --size 224 --num-workers 4 --progress-every 5 \
-    > "$PROJECT/logs/w-${SLURM_JOB_ID}-g${gpu}-${ds}-s${sidx}.out" 2>&1 &
+  # One worker = one GPU sweeping the offsets sequentially.
+  # --skip-existing scans BOTH this account's results and skipseed/, the merged
+  # key list from all three accounts, so no worker repeats what another account
+  # already measured. Without it offset 100000 would be re-run from 74% done.
+  CUDA_VISIBLE_DEVICES="${DEVS[$gpu]}" bash -c '
+    set -uo pipefail
+    for off in $OFFSETS; do
+      out="$PROJECT/results/seed_${off}/mg_${SLURM_JOB_ID}_g${GPU}_${DS}_s${SIDX}of${SCNT}"
+      mkdir -p "$out"
+      echo "[$DS s$SIDX/$SCNT] === offset $off ==="
+      "$PYTHON" "$PROJECT/real_training_functional_screen.py" \
+        --embedding-root "$EMBED" --data-root "$DATA" --medmnist-root "$MEDMNIST" \
+        --dynamics-root "$DYN" --graphcov-root "$GRAPH" --output "$out" \
+        --datasets "$DS" --blocks 2 --budget 25 \
+        --n-random 60 --n-perturb-seeds 3 --train-seed-offset "$off" \
+        --global-start "$GLOBAL_START" --global-end "$GLOBAL_END" \
+        --shard-index "$SIDX" --shard-count "$SCNT" \
+        --skip-existing "$PROJECT/results" "$PROJECT/skipseed" \
+        --epochs "$EPOCHS" --batch-size 128 --lr 0.1 --weight-decay 5e-4 \
+        --size 224 --num-workers 4 --progress-every 5
+      rc=$?
+      [ "$rc" -eq 0 ] || echo "[$DS s$SIDX/$SCNT] offset $off exited rc=$rc" >&2
+    done
+  ' > "$PROJECT/logs/w-${SLURM_JOB_ID}-g${gpu}-${ds}-s${sidx}.out" 2>&1 &
 
   pids+=($!)
   names+=("$ds:$sidx/$scnt")
