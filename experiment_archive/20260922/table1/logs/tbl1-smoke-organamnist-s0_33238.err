@@ -1,0 +1,38 @@
+Traceback (most recent call last):
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311/lib/python3.11/site-packages/wand/api.py", line 154, in <module>
+    libraries = load_library()
+                ^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311/lib/python3.11/site-packages/wand/api.py", line 143, in load_library
+    raise IOError('cannot find library; tried paths: ' + repr(tried_paths))
+OSError: cannot find library; tried paths: []
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/reliability_medmnistc/scripts/run_pipeline.py", line 91, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/reliability_medmnistc/scripts/run_pipeline.py", line 86, in main
+    runpy.run_path(str(pipeline), run_name="__main__")
+  File "<frozen runpy>", line 291, in run_path
+  File "<frozen runpy>", line 98, in _run_module_code
+  File "<frozen runpy>", line 88, in _run_code
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/reliability_medmnistc/reliability/pipeline.py", line 249, in <module>
+    from medmnistc.corruptions.registry import CORRUPTIONS_DS, DATASET_RGB
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/third_party/medmnistc/medmnistc/corruptions/registry.py", line 3, in <module>
+    from .filter import MotionBlur, DefocusBlur, ZoomBlur, GaussianBlur
+  File "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/third_party/medmnistc/medmnistc/corruptions/filter.py", line 4, in <module>
+    from wand.image import Image as WandImage
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311/lib/python3.11/site-packages/wand/image.py", line 21, in <module>
+    from . import assertions
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311/lib/python3.11/site-packages/wand/assertions.py", line 150, in <module>
+    from .color import Color  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311/lib/python3.11/site-packages/wand/color.py", line 10, in <module>
+    from .api import library
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311/lib/python3.11/site-packages/wand/api.py", line 178, in <module>
+    raise ImportError('MagickWand shared library not found.\n'
+ImportError: MagickWand shared library not found.
+You probably had not installed ImageMagick library.
+Try to install:
+  https://docs.wand-py.org/en/latest/guide/install.html

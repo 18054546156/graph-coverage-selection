@@ -1,0 +1,37 @@
+{
+  "budget_per_class": 74,
+  "dataset": "bloodmnist",
+  "dynamic_image_size": 28,
+  "dynamics_epochs": 200,
+  "embedding_source": "uni",
+  "facility_cpu_min_class_size": null,
+  "facility_execution_device": null,
+  "facility_global": false,
+  "graph_global": null,
+  "graph_hops": null,
+  "graph_k": null,
+  "graphcov_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+  "image_size": 224,
+  "method": "forgetting",
+  "n_selected": 592,
+  "ratio": 0.05,
+  "selected_indices_sha256": "428b88e604d4889751f75e0e8614aaf4af8d78eaa7866f6d3e13fa90c07c3674",
+  "selection_seed": 2,
+  "selection_sources": {
+    "dynamics": {
+      "all_l2_sha256": "c5d0bdf82fa725880bd4b6fe65440e5bacf10bfe24de1f57155431bc0a1df4f3",
+      "all_l2_shape": [
+        200,
+        11959
+      ],
+      "file_sha256": "711e5aa0be2f7eeb26f208926730561159b9b8bd2d72c3a8adbcb923d9e68f32",
+      "forgetting_sha256": "93348e242ea40155746103c7e5c829a086272044a5476686fe0b3e168928719d",
+      "path": "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/img224_dyn200_sel2_smokefull/bloodmnist_train_dynamics_28_e200_s2.npz"
+    }
+  },
+  "selection_train_corruption": null,
+  "selection_train_severity": null,
+  "selection_train_source": "clean",
+  "source_train_indices_sha256": "5bd8658c6eabf773244242bb45c3de802a257cb99f98514ef238e0b376345bac",
+  "source_train_labels_sha256": "205dc1a7e5e28dbe5cbfe602aa4a28a72f16e8b44839a1a6702d50be3e5377b8"
+}

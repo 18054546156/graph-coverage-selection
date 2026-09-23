@@ -1,0 +1,37 @@
+{
+  "budget_per_class": 25,
+  "dataset": "organsmnist",
+  "dynamic_image_size": 28,
+  "dynamics_epochs": 200,
+  "embedding_source": "uni",
+  "facility_cpu_min_class_size": null,
+  "facility_execution_device": null,
+  "facility_global": false,
+  "graph_global": null,
+  "graph_hops": null,
+  "graph_k": null,
+  "graphcov_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+  "image_size": 224,
+  "method": "el2n_top",
+  "n_selected": 275,
+  "ratio": 0.02,
+  "selected_indices_sha256": "dcd53ced3fff846e70d1d5e9c45c8261e02335c5729cf6e8899637c58c6c1a87",
+  "selection_seed": 3,
+  "selection_sources": {
+    "dynamics": {
+      "all_l2_sha256": "6533d1a48832f57101878b39c0d4b1e2957311dd99d8ec11250c281daaa77936",
+      "all_l2_shape": [
+        200,
+        13932
+      ],
+      "file_sha256": "32249db5944b214261409ffc3a0e5c5500a5cbd138cf4fe510277c0e453666b7",
+      "forgetting_sha256": "6ffe216d3182e83daf4a4323e7b9218e981940a85acef08830b7ee6e1c2cc569",
+      "path": "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/img224_dyn200_sel3_smokefull/organsmnist_train_dynamics_28_e200_s3.npz"
+    }
+  },
+  "selection_train_corruption": null,
+  "selection_train_severity": null,
+  "selection_train_source": "clean",
+  "source_train_indices_sha256": "4604b51fda33fed0b31126655868ae26add287f2b7d6a93b5427f29b473c887d",
+  "source_train_labels_sha256": "3499a765238aa5e0bb5164d3a3493e75b011e3c73605780feb42410ce78149db"
+}

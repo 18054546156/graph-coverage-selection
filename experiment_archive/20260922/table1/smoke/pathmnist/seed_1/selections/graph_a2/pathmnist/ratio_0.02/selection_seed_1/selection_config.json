@@ -1,0 +1,38 @@
+{
+  "budget_per_class": 18,
+  "dataset": "pathmnist",
+  "dynamic_image_size": 28,
+  "dynamics_epochs": 20,
+  "embedding_source": "uni",
+  "facility_cpu_min_class_size": null,
+  "facility_execution_device": null,
+  "facility_global": false,
+  "graph_global": true,
+  "graph_hops": 2,
+  "graph_k": 50,
+  "graphcov_commit": "8cf757adc4c333dc1427d511f0de2f246d15ebac",
+  "image_size": 224,
+  "method": "graph_a2",
+  "n_selected": 162,
+  "ratio": 0.02,
+  "selected_indices_sha256": "02a5b335e0afd562aa094cda6097156dd6fe39cdc2809533cceb72ff66a7a97e",
+  "selection_seed": 1,
+  "selection_sources": {
+    "embedding": {
+      "array_sha256": "64d5a8e7fc9b4883dbbfe5a1477f7fd5ce474027c97c989e37067bbedfc6c33a",
+      "dtype": "float32",
+      "file_sha256": "4e7ec7c0c54ae735e7e2d646dc829c9626aa79dc02e85f98f16a06ad5a38b27f",
+      "path": "/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smoke8192/pathmnist_train_uni_224.npz",
+      "shape": [
+        8192,
+        1024
+      ],
+      "source": "uni"
+    }
+  },
+  "selection_train_corruption": null,
+  "selection_train_severity": null,
+  "selection_train_source": "clean",
+  "source_train_indices_sha256": "d7c2866f911c21d6ef9dd404b53dd7516860ff6b088a5135b3b71c81442c0c9e",
+  "source_train_labels_sha256": "ac57b7e9d2dc20048f297f2516ec560d4c0cdfbd4f8c43eaac97620c49e1d90d"
+}

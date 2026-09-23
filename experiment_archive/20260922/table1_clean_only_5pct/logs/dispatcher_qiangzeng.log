@@ -1,0 +1,24 @@
+5pct dispatcher started user=qiangzeng queue=/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_5pct_20260922/queues/active/queue_qiangzeng.tsv at=2026-09-22T21:45:39+08:00
+sbatch: error: Invalid --mem specification
+submission failed; returned task to queue: organsmnist 1 12G
+5pct dispatcher started user=qiangzeng queue=/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_5pct_20260922/queues/active/queue_qiangzeng.tsv at=2026-09-22T21:46:47+08:00
+submitted job=33576 dataset=organsmnist seed=1 mem=12G active_before=0 at=2026-09-22T21:46:47+08:00
+submitted job=33577 dataset=organamnist seed=1 mem=16G active_before=1 at=2026-09-22T21:46:47+08:00
+submitted job=33578 dataset=pathmnist seed=1 mem=32G active_before=2 at=2026-09-22T21:46:47+08:00
+submitted job=33579 dataset=tissuemnist seed=1 mem=48G active_before=3 at=2026-09-22T21:46:47+08:00
+submitted job=33580 dataset=bloodmnist seed=1 mem=12G active_before=4 at=2026-09-22T21:46:48+08:00
+submitted job=33581 dataset=organsmnist seed=3 mem=12G active_before=5 at=2026-09-22T21:46:48+08:00
+submitted job=33582 dataset=organamnist seed=3 mem=16G active_before=6 at=2026-09-22T21:46:48+08:00
+submitted job=33583 dataset=pathmnist seed=3 mem=32G active_before=7 at=2026-09-22T21:46:48+08:00
+submitted job=33584 dataset=tissuemnist seed=3 mem=48G active_before=8 at=2026-09-22T21:46:48+08:00
+submitted job=33585 dataset=bloodmnist seed=3 mem=12G active_before=9 at=2026-09-22T21:46:48+08:00
+submitted job=33586 dataset=organsmnist seed=5 mem=12G active_before=10 at=2026-09-22T21:46:48+08:00
+submitted job=33587 dataset=organamnist seed=5 mem=16G active_before=11 at=2026-09-22T21:46:48+08:00
+submitted job=33588 dataset=pathmnist seed=5 mem=32G active_before=12 at=2026-09-22T21:46:48+08:00
+submitted job=33589 dataset=tissuemnist seed=5 mem=48G active_before=13 at=2026-09-22T21:46:48+08:00
+submitted job=33590 dataset=bloodmnist seed=5 mem=12G active_before=14 at=2026-09-22T21:46:48+08:00
+submitted job=33601 dataset=organsmnist seed=2026 mem=12G active_before=14 at=2026-09-22T22:55:19+08:00
+submitted job=33608 dataset=organamnist seed=2026 mem=16G active_before=14 at=2026-09-22T23:29:19+08:00
+submitted job=33610 dataset=pathmnist seed=2026 mem=32G active_before=14 at=2026-09-22T23:53:19+08:00
+submitted job=33612 dataset=tissuemnist seed=2026 mem=48G active_before=14 at=2026-09-23T00:03:49+08:00
+submitted job=33623 dataset=bloodmnist seed=2026 mem=12G active_before=14 at=2026-09-23T01:36:21+08:00

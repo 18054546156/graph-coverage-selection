@@ -1,0 +1,14 @@
+{
+  "checkpoint_sha256": "f1023cd020adf3f799c432ef907b796ee34850b2ecb686d74713739bd0dec572",
+  "completed_at": 1790032244.5620306,
+  "conditions": 1,
+  "config_hash": "2bb1efce601c948ffd9d635dffa78ebca408a4666aebd79bd1faef0711db8f60",
+  "metrics_sha256": "9677ae6c41590590f8ce5edce54e0ccbd1a6d675dead09ebdbaf7a4363fb701d",
+  "prediction_sha256": {
+    "clean": "6af79bf1997c664f9e1392836aa53820e9c5c3c22febb289d1da5f00863086fe"
+  },
+  "selection_config_sha256": "982635d43e828175e0802dc02e7b1d1fbacef054f656eeb800acd0c735bf6b84",
+  "selection_sha256": "57d52292a5a72ca250294ea2dd70d576c2b6610e13285572ea2b01a2a364a9d8",
+  "status": "complete",
+  "training_history_sha256": "8d7afda9be6a05258c152c28fa0c5e87e7075b2c2742db5e4190b8056c0d0ea6"
+}

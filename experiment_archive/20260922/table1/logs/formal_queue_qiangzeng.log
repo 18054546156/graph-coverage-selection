@@ -1,0 +1,43 @@
+queue worker started user=qiangzeng queue=/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/formal_queue_qiangzeng.txt at=2026-09-22T03:32:38+08:00
+submitted job=33305 dataset=organsmnist seed=1 mem=12G active_before=0 at=2026-09-22T03:32:38+08:00
+submitted job=33306 dataset=organamnist seed=1 mem=16G active_before=1 at=2026-09-22T03:32:38+08:00
+submitted job=33307 dataset=pathmnist seed=1 mem=32G active_before=2 at=2026-09-22T03:32:38+08:00
+submitted job=33308 dataset=tissuemnist seed=1 mem=48G active_before=3 at=2026-09-22T03:32:38+08:00
+submitted job=33309 dataset=bloodmnist seed=1 mem=12G active_before=4 at=2026-09-22T03:32:38+08:00
+submitted job=33310 dataset=organsmnist seed=3 mem=12G active_before=5 at=2026-09-22T03:32:38+08:00
+submitted job=33311 dataset=organamnist seed=3 mem=16G active_before=6 at=2026-09-22T03:32:38+08:00
+submitted job=33312 dataset=pathmnist seed=3 mem=32G active_before=7 at=2026-09-22T03:32:38+08:00
+submitted job=33313 dataset=tissuemnist seed=3 mem=48G active_before=8 at=2026-09-22T03:32:38+08:00
+submitted job=33314 dataset=bloodmnist seed=3 mem=12G active_before=9 at=2026-09-22T03:32:38+08:00
+submitted job=33315 dataset=organsmnist seed=5 mem=12G active_before=10 at=2026-09-22T03:32:38+08:00
+submitted job=33316 dataset=organamnist seed=5 mem=16G active_before=11 at=2026-09-22T03:32:38+08:00
+submitted job=33317 dataset=pathmnist seed=5 mem=32G active_before=12 at=2026-09-22T03:32:38+08:00
+submitted job=33318 dataset=tissuemnist seed=5 mem=48G active_before=13 at=2026-09-22T03:32:38+08:00
+submitted job=33319 dataset=bloodmnist seed=5 mem=12G active_before=14 at=2026-09-22T03:32:38+08:00
+submitted job=33323 dataset=organsmnist seed=2026 mem=12G active_before=13 at=2026-09-22T03:33:08+08:00
+submitted job=33324 dataset=organamnist seed=2026 mem=16G active_before=14 at=2026-09-22T03:33:08+08:00
+submitted job=33327 dataset=pathmnist seed=2026 mem=32G active_before=11 at=2026-09-22T03:33:38+08:00
+submitted job=33328 dataset=tissuemnist seed=2026 mem=48G active_before=12 at=2026-09-22T03:33:38+08:00
+submitted job=33329 dataset=bloodmnist seed=2026 mem=12G active_before=13 at=2026-09-22T03:33:38+08:00
+queue worker started user=qiangzeng queue=/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/formal_queue_qiangzeng.txt at=2026-09-22T03:41:53+08:00
+submitted job=33346 dataset=organsmnist seed=1 mem=12G active_before=0 at=2026-09-22T03:41:53+08:00
+submitted job=33347 dataset=organamnist seed=1 mem=16G active_before=1 at=2026-09-22T03:41:53+08:00
+submitted job=33348 dataset=pathmnist seed=1 mem=32G active_before=2 at=2026-09-22T03:41:53+08:00
+submitted job=33349 dataset=tissuemnist seed=1 mem=48G active_before=3 at=2026-09-22T03:41:53+08:00
+submitted job=33350 dataset=bloodmnist seed=1 mem=12G active_before=4 at=2026-09-22T03:41:53+08:00
+submitted job=33351 dataset=organsmnist seed=3 mem=12G active_before=5 at=2026-09-22T03:41:53+08:00
+submitted job=33352 dataset=organamnist seed=3 mem=16G active_before=6 at=2026-09-22T03:41:53+08:00
+submitted job=33353 dataset=pathmnist seed=3 mem=32G active_before=7 at=2026-09-22T03:41:53+08:00
+submitted job=33354 dataset=tissuemnist seed=3 mem=48G active_before=8 at=2026-09-22T03:41:53+08:00
+submitted job=33355 dataset=bloodmnist seed=3 mem=12G active_before=9 at=2026-09-22T03:41:53+08:00
+submitted job=33356 dataset=organsmnist seed=5 mem=12G active_before=10 at=2026-09-22T03:41:53+08:00
+submitted job=33357 dataset=organamnist seed=5 mem=16G active_before=11 at=2026-09-22T03:41:53+08:00
+submitted job=33358 dataset=pathmnist seed=5 mem=32G active_before=12 at=2026-09-22T03:41:53+08:00
+submitted job=33359 dataset=tissuemnist seed=5 mem=48G active_before=13 at=2026-09-22T03:41:53+08:00
+submitted job=33360 dataset=bloodmnist seed=5 mem=12G active_before=14 at=2026-09-22T03:41:53+08:00
+submitted job=33367 dataset=organsmnist seed=2026 mem=12G active_before=14 at=2026-09-22T04:27:24+08:00
+submitted job=33371 dataset=organamnist seed=2026 mem=16G active_before=14 at=2026-09-22T04:50:54+08:00
+submitted job=33375 dataset=pathmnist seed=2026 mem=32G active_before=14 at=2026-09-22T05:02:54+08:00
+submitted job=33378 dataset=tissuemnist seed=2026 mem=48G active_before=14 at=2026-09-22T05:11:54+08:00
+submitted job=33389 dataset=bloodmnist seed=2026 mem=12G active_before=14 at=2026-09-22T06:08:25+08:00
+queue worker finished at=2026-09-22T17:53:40+08:00

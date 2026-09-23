@@ -1,0 +1,46 @@
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/selections', 'device': 'cuda', 'datasets': ['pathmnist'], 'methods': ['random', 'el2n_top', 'forgetting', 'eva', 'facility', 'fps', 'herding', 'graph_a2'], 'ratios': [0.02], 'selection_seed': 0, 'training_seeds': [0], 'epochs': 1, 'augment': False, 'smoke_n': 8192, 'deterministic': True, 'clean_only': True, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['random', 'el2n_top', 'forgetting', 'eva', 'facility', 'fps', 'herding', 'graph_a2']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+========== pathmnist ==========
+  Computing uni embeddings...
+  [Embeddings] uni: n=8192, dim=1024
+  Computing training dynamics (20-epoch training)...
+[Training Dynamics] Computing EVA, AUM, Forgetting over 20 epochs...
+[EVA] Early window: epochs 1-10
+[EVA] Late window: epochs 10-19
+    [EVA] Early variance: min=0.000000, max=0.296915, mean=0.111382
+    [EVA] Early percentiles [0,25,50,75,90,99,100]: ['0.000000', '0.072595', '0.115550', '0.149328', '0.179642', '0.242331', '0.296915']
+    [EVA] Late variance: min=0.000000, max=0.342262, mean=0.055319
+    [EVA] Late percentiles [0,25,50,75,90,99,100]: ['0.000000', '0.001038', '0.030757', '0.092151', '0.154398', '0.238444', '0.342262']
+
+[EVA] Score range: [0.000000, 0.502240]
+[EVA] Mean: 0.166701, Std: 0.071618
+[EVA] Percentiles [0,25,50,75,100]: ['0.0000', '0.1234', '0.1598', '0.2058', '0.5022']
+
+[AUM] Score range: [-0.859744, 1.000000]
+[AUM] Mean: 0.480679, Std: 0.333262
+[AUM] Percentiles [0,25,50,75,100]: ['-0.8597', '0.2729', '0.5424', '0.7388', '1.0000']
+[AUM] Samples with negative avg margin (often wrong): 817 (10.0%)
+
+[Forgetting] Score range: [0, 7]
+[Forgetting] Mean: 1.35, Std: 1.29
+[Forgetting] Never forgotten: 2664 (32.5%)
+[Forgetting] Forgotten 5+ times: 153 (1.9%)
+  [Facility] execution_device=cuda, cpu_min_class_size=40000
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results/pathmnist/random/ratio_0.02/selection_seed_0/train_seed_0/aug_0 n= 162 budget_per_class= 18
+epoch 1/1
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results/pathmnist/el2n_top/ratio_0.02/selection_seed_0/train_seed_0/aug_0 n= 162 budget_per_class= 18
+epoch 1/1
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results/pathmnist/forgetting/ratio_0.02/selection_seed_0/train_seed_0/aug_0 n= 162 budget_per_class= 18
+epoch 1/1
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results/pathmnist/eva/ratio_0.02/selection_seed_0/train_seed_0/aug_0 n= 162 budget_per_class= 18
+epoch 1/1
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results/pathmnist/facility/ratio_0.02/selection_seed_0/train_seed_0/aug_0 n= 162 budget_per_class= 18
+epoch 1/1
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results/pathmnist/fps/ratio_0.02/selection_seed_0/train_seed_0/aug_0 n= 162 budget_per_class= 18
+epoch 1/1
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results/pathmnist/herding/ratio_0.02/selection_seed_0/train_seed_0/aug_0 n= 162 budget_per_class= 18
+epoch 1/1
+training /mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/smoke/pathmnist/seed_0/results/pathmnist/graph_a2/ratio_0.02/selection_seed_0/train_seed_0/aug_0 n= 162 budget_per_class= 18
+epoch 1/1
