@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>这次到底算了什么：医学图像选样结果讲解</title>
+<style>
+:root{--ink:#172326;--muted:#53666a;--paper:#f7faf8;--panel:#fff;--line:#d8e4e0;--teal:#0b746e;--teal-soft:#dff2ee;--coral:#c75b44;--coral-soft:#fff1ec;--blue:#2e6384;--blue-soft:#eaf0f7;--gold:#80651b;--gold-soft:#f5e8b8;--shadow:0 8px 24px rgba(23,35,38,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1120px;margin:0 auto;padding:28px 22px 70px}header{padding:30px 0 24px;border-bottom:1px solid var(--line)}h1{font-size:clamp(30px,5vw,52px);line-height:1.12;letter-spacing:0;margin:0 0 12px;font-weight:600}h2{font-size:28px;line-height:1.25;margin:44px 0 14px;font-weight:600}h3{font-size:20px;line-height:1.35;margin:25px 0 8px;font-weight:600}p{max-width:900px;margin:8px 0;color:var(--muted)}.lead{font-size:19px;color:var(--ink);max-width:950px}.eyebrow{color:var(--coral);font-weight:600;letter-spacing:.06em}.callout{background:var(--coral-soft);border-left:4px solid var(--coral);padding:15px 18px;max-width:950px;margin:18px 0}.formula{font-family:Georgia,"Times New Roman",serif;background:var(--teal-soft);border-left:4px solid var(--teal);padding:13px 18px;margin:14px 0;max-width:950px;font-size:18px;overflow:auto}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}.panel{background:var(--panel);border:1px solid var(--line);padding:17px;box-shadow:var(--shadow)}.panel h3{margin-top:0}.panel.good{border-left:4px solid var(--teal)}.panel.warn{border-left:4px solid var(--coral)}.tag{display:inline-block;color:var(--teal);background:var(--teal-soft);padding:2px 9px;font-size:13px;margin-bottom:8px}.flow{background:var(--panel);border:1px solid var(--line);padding:12px;margin:20px 0;overflow:hidden}.flow svg{display:block;width:100%;height:auto}.flow text{font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}.table-wrap{overflow:auto;max-width:100%}table{border-collapse:collapse;width:100%;min-width:720px;background:var(--panel);margin:16px 0}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f0f7f5;color:var(--teal);font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}code{background:#eef3f1;color:#24535a;padding:2px 5px}.small{font-size:14px;color:var(--muted)}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}.tabs button{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:9px 13px;font:inherit;cursor:pointer}.tabs button[aria-selected="true"]{background:var(--teal);color:white;border-color:var(--teal)}.step{display:none}.step.active{display:block}.barrow{display:grid;grid-template-columns:125px 1fr 70px;align-items:center;gap:10px;margin:9px 0}.track{height:16px;background:#e7efed;overflow:hidden}.bar{height:100%;background:var(--teal)}.bar.coral{background:var(--coral)}.bar.blue{background:var(--blue)}.bar.gold{background:#b59235}.barrow .value{text-align:right;font-variant-numeric:tabular-nums}.legend{font-size:13px;color:var(--muted);margin:10px 0}.pill{display:inline-block;padding:2px 8px;margin-right:5px;background:var(--blue-soft);color:var(--blue);font-size:13px}.decision{display:grid;grid-template-columns:1fr 1fr;gap:14px}.decision div{padding:16px}.yes{background:var(--teal-soft)}.no{background:var(--coral-soft)}.footer{border-top:1px solid var(--line);margin-top:48px;padding-top:18px;color:var(--muted);font-size:13px}
+@media(max-width:700px){main{padding:20px 14px 50px}.grid,.decision{grid-template-columns:1fr}h2{font-size:24px}.lead{font-size:17px}.flow{padding:5px}.flow svg{min-width:850px;transform-origin:left top;transform:scale(.68);margin-bottom:-100px;margin-right:-280px}.barrow{grid-template-columns:95px 1fr 60px;font-size:14px}table{font-size:14px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="eyebrow">给小白看的结果说明</div>
+<h1>这次到底算了什么？</h1>
+<p class="lead">这轮不是只算一个“分数”。我们从五个角度检查：UNI 是否保留了分类信息、五个数据集的样本结构是否一样、选中的图覆盖得好不好、加权到底改变了什么，以及便宜的线性 probe 能不能代表真实训练。</p>
+</header>
+
+<div class="callout"><b>先给结论：</b>这次结果没有证明“流形方法失败”，但证明了几个更具体的事实：pathmnist 对 UNI 已经非常容易；bloodmnist 有很多近邻和较大的代表权重不均；organsmnist 的加权收益一部分来自类别数量不平衡；任务梯度几何目前没有通过主门槛；真正需要用 ResNet 训练确认的是“覆盖加权是否改善真实模型”。</div>
+
+<h2>一、整个计算流程像什么？</h2>
+<div class="flow" aria-label="本轮分析流程"><svg viewBox="0 0 1100 280" role="img"><title>五个角度的医学图像选样分析流程</title><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6" fill="none" stroke="#0b746e" stroke-width="1.5"/></marker></defs><rect x="25" y="35" width="180" height="72" fill="#eaf0f7" stroke="#2e6384"/><text x="115" y="65" text-anchor="middle" font-size="16">医学图像</text><text x="115" y="88" text-anchor="middle" font-size="12" fill="#53666a">训练图 + 类别标签</text><line x1="215" y1="71" x2="270" y2="71" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="280" y="35" width="180" height="72" fill="#dff2ee" stroke="#0b746e"/><text x="370" y="65" text-anchor="middle" font-size="16">UNI embedding</text><text x="370" y="88" text-anchor="middle" font-size="12" fill="#53666a">每张图一个 1024 维向量</text><line x1="470" y1="71" x2="525" y2="71" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="535" y="35" width="180" height="72" fill="#fff1ec" stroke="#c75b44"/><text x="625" y="65" text-anchor="middle" font-size="16">结构测量</text><text x="625" y="88" text-anchor="middle" font-size="12" fill="#53666a">距离、近重复、维数</text><line x1="725" y1="71" x2="780" y2="71" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="790" y="35" width="270" height="72" fill="#f5e8b8" stroke="#80651b"/><text x="925" y="65" text-anchor="middle" font-size="16">选样 + 权重</text><text x="925" y="88" text-anchor="middle" font-size="12" fill="#53666a">谁被代表？每张代表多重？</text><line x1="925" y1="125" x2="925" y2="175" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="695" y="190" width="365" height="72" fill="#dff2ee" stroke="#0b746e"/><text x="877" y="220" text-anchor="middle" font-size="16">BA / 加权增益 / 真实训练</text><text x="877" y="243" text-anchor="middle" font-size="12" fill="#53666a">判断哪条假设值得继续</text><line x1="680" y1="226" x2="625" y2="226" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="210" y="190" width="400" height="72" fill="#fff1ec" stroke="#c75b44"/><text x="410" y="220" text-anchor="middle" font-size="16">拆混淆项</text><text x="410" y="243" text-anchor="middle" font-size="12" fill="#53666a">within 覆盖修补 vs prior 类先验</text></svg></div>
+<p>简单说：先看“UNI 空间长什么样”，再看“选择器怎么选”，最后才问“训练出来的模型有没有变好”。</p>
+
+<h2>二、第一组：UNI 空间和分类难度</h2>
+<p>这一组指标不直接比较选样方法，而是在问：五个数据集本身是否处在同一个难度和几何环境里？</p>
+<div class="table-wrap"><table><thead><tr><th>数据集</th><th>Probe BA（全量池）</th><th>距离天花板余量</th><th>最近邻中位距离</th><th>中位本征维数</th></tr></thead><tbody>
+<tr><td>bloodmnist</td><td class="num">0.9531</td><td class="num">5.19 pp</td><td class="num">0.2900</td><td class="num">24.25</td></tr>
+<tr><td>organamnist</td><td class="num">0.8864</td><td class="num">11.64 pp</td><td class="num">0.4175</td><td class="num">8.22</td></tr>
+<tr><td>organsmnist</td><td class="num">0.7809</td><td class="num">13.22 pp</td><td class="num">0.4666</td><td class="num">9.30</td></tr>
+<tr><td>pathmnist</td><td class="num">0.9928</td><td class="num">0.61 pp</td><td class="num">0.6520</td><td class="num">17.15</td></tr>
+<tr><td>tissuemnist</td><td class="num">0.4812</td><td class="num">10.12 pp</td><td class="num">0.3578</td><td class="num">23.87</td></tr>
+</tbody></table></div>
+<h3>1. Probe BA：UNI 本身能分对多少？</h3>
+<p><b>BA 是 balanced accuracy，取各类别 recall 的平均值。</b> 例如 pathmnist 的全量 probe BA 是 0.9928，表示仅靠 UNI 向量训练的简单线性头，五个类别平均已经能达到约 99.28% 的分类水平。</p>
+<div class="barrow"><span>pathmnist</span><div class="track"><div class="bar" style="width:99.28%"></div></div><span class="value">99.28%</span></div><div class="barrow"><span>bloodmnist</span><div class="track"><div class="bar" style="width:95.31%"></div></div><span class="value">95.31%</span></div><div class="barrow"><span>organamnist</span><div class="track"><div class="track"><div class="bar blue" style="width:88.64%"></div></div></div><span class="value">88.64%</span></div><div class="barrow"><span>organsmnist</span><div class="track"><div class="bar blue" style="width:78.09%"></div></div><span class="value">78.09%</span></div><div class="barrow"><span>tissuemnist</span><div class="track"><div class="bar coral" style="width:48.12%"></div></div><span class="value">48.12%</span></div>
+<h3>2. 余量 headroom：还有多少提升空间？</h3>
+<p>余量不是“现在的错误率”，而是“预算 50 张的结果距离全量训练上限还有多少 BA”。pathmnist 只有 <b>0.61 个百分点</b>余量，所以任何方法最多也只能在这条线附近提升。用绝对值 +1 个百分点作为所有数据集统一门槛，会让 pathmnist 在原则上无法通过。</p>
+<div class="formula">headroom = BA<sub>full pool</sub> − BA<sub>budget 50</sub></div>
+<h3>3. 最近邻中位距离：图像在 UNI 空间里挤不挤？</h3>
+<p>每张图找离它最近的另一张图，再取所有最近邻距离的中位数。数值小表示点挤在一起，大表示点更分散。pathmnist 是 0.652，全场最大，说明它在 UNI 空间里并不近重复；bloodmnist 是 0.290，点更拥挤。</p>
+<h3>4. 本征维数：局部几何需要多少个方向？</h3>
+<p>它不是图像的像素维度，也不是“越高越好”。它是对局部邻居距离变化的概括：organ 家族约 8–9，blood/tissue 约 24，path 约 17。当前只是描述性先验，不能据此宣布高维区域一定多选。</p>
+
+<h2>三、第二组：重复、类别数量和代表权重</h2>
+<div class="tabs" role="tablist" aria-label="结构指标解释"><button aria-selected="true" data-target="dup">近重复</button><button aria-selected="false" data-target="imb">类别不平衡</button><button aria-selected="false" data-target="gini">Voronoi Gini</button></div>
+<div id="dup" class="step active"><h3>near_duplicate_rate：有多少图像离另一张很近？</h3><p>这里用阈值 <code>d &lt; 0.25</code>。bloodmnist 是 19.10%，organamnist 是 1.87%，organsmnist 是 0.33%，pathmnist 是 0%，tissuemnist 是 0.07%。</p><p>原本猜 pathmnist 因为同一切片的 tile 会有很多近重复，但实际没有。说明像素层面的相关性没有自动变成 UNI 表示空间里的近重复。</p></div>
+<div id="imb" class="step"><h3>pool imbalance ratio：最大类有多少倍样本？</h3><p>如果一个数据集某些类候选图更多，全局权重重标可能把“样本多”误当成“分类目标更重要”。organsmnist 的比值是 1.63，是五个数据集中唯一明显不平衡的一个。</p><p>而最终 organsmnist 的加权增益最大，所以必须把覆盖效果和类别先验效果拆开。</p></div>
+<div id="gini" class="step"><h3>Voronoi mass Gini：代表权重是否集中？</h3><p>每个选中代表负责一批未选图。负责得越多，它的 Voronoi mass 越大。Gini 越高，表示少数代表吸收了更多样本权重。bloodmnist 是 0.4632，全场最高。</p><p>这可以提示“一个代表点是否承接了过多样本”，但不能只凭 Gini 就断言训练一定变差。</p></div>
+
+<h2>四、第三组：加权到底改善了什么？</h2>
+<p>把每个未选样本分配给最近的同类代表。若代表 i 负责的原始样本总质量是 wᵢ，就用 wᵢ 作为训练时的 sample weight。之后把同一个选样集用“等权”和“Voronoi 权重”各训练一次。</p>
+<div class="formula">wᵢ = Σ<sub>j:π(j)=i</sub> p<sub>j</sub></div>
+<p>对每个方法，真正看的变化是：</p>
+<div class="formula">加权增益 = BA<sub>Voronoi weight</sub> − BA<sub>equal weight</sub></div>
+<div class="table-wrap"><table><thead><tr><th>选择臂</th><th>加权增益（百分点）</th><th>小白解释</th></tr></thead><tbody><tr><td>random</td><td class="num">+0.813</td><td>随机选样覆盖较差，加权能补回来约 0.8pp。</td></tr><tr><td>random + pilot</td><td class="num">+0.811</td><td>公共 pilot 下也有类似补偿。</td></tr><tr><td>Graph-A2</td><td class="num">+0.111</td><td>覆盖已经较好，额外加权帮助小。</td></tr><tr><td>geometry</td><td class="num">−0.029</td><td>几乎没有变化。</td></tr><tr><td>herding</td><td class="num">−0.511</td><td>加权后反而下降，需要单独调查。</td></tr></tbody></table></div>
+<p>这说明 <b>覆盖质量可能影响加权是否有帮助</b>，但不能说明某个选样方法最终 BA 一定最高。</p>
+
+<h2>五、把一个总效应拆成两个来源</h2>
+<p>加权变化可能来自两个完全不同的原因：</p>
+<ul><li><b>within：</b>同一类别内部，覆盖失真被修复了。</li><li><b>prior：</b>不同类别的总样本量不同，全局归一化改变了类别先验比例。</li></ul>
+<div class="formula">total = within + prior</div>
+<div class="table-wrap"><table><thead><tr><th>数据集 / 臂</th><th>within</th><th>prior</th><th>total</th><th>解释</th></tr></thead><tbody><tr><td>organsmnist / random</td><td class="num">+1.68pp</td><td class="num">+0.52pp</td><td class="num">+2.20pp</td><td>主体是覆盖修补，但有 0.52pp 来自类别先验。</td></tr><tr><td>bloodmnist / random</td><td class="num">+0.33pp</td><td class="num">−0.70pp</td><td class="num">−0.37pp</td><td>整体下降主要是类先验平移，不是近重复损害。</td></tr><tr><td>pathmnist / random</td><td class="num">+0.02pp</td><td class="num">0.00pp</td><td class="num">+0.02pp</td><td>几乎没有可见增益，同时它的 headroom 只有 0.61pp。</td></tr></tbody></table></div>
+<p>因此之前“blood 的加权伤害来自近重复”的猜测被数据推翻了：近重复率高是真的，但实际伤害主要来自类别先验变化。</p>
+
+<h2>六、任务几何和置换对照算了什么？</h2>
+<p>任务几何先用公共 pilot 训练线性分类头，再为每张图计算“它对分类头的梯度向量”。这个向量描述：这张图会怎样推动分类头改变。</p>
+<div class="flow" aria-label="任务几何对照"><svg viewBox="0 0 1000 170" role="img"><title>任务几何与置换控制</title><defs><marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6" fill="none" stroke="#2e6384" stroke-width="1.5"/></marker></defs><rect x="25" y="48" width="220" height="72" fill="#eaf0f7" stroke="#2e6384"/><text x="135" y="78" text-anchor="middle" font-size="17">UNI 向量 z</text><text x="135" y="102" text-anchor="middle" font-size="13" fill="#53666a">图像长什么样</text><line x1="260" y1="84" x2="325" y2="84" stroke="#2e6384" stroke-width="2" marker-end="url(#arrow2)"/><rect x="335" y="48" width="245" height="72" fill="#dff2ee" stroke="#0b746e"/><text x="457" y="78" text-anchor="middle" font-size="17">pilot 分类头</text><text x="457" y="102" text-anchor="middle" font-size="13" fill="#53666a">预测 pᵢ，再算梯度 gᵢ</text><line x1="595" y1="84" x2="660" y2="84" stroke="#2e6384" stroke-width="2" marker-end="url(#arrow2)"/><rect x="670" y="48" width="300" height="72" fill="#fff1ec" stroke="#c75b44"/><text x="820" y="78" text-anchor="middle" font-size="17">正确对应 vs 类内打乱</text><text x="820" y="102" text-anchor="middle" font-size="13" fill="#53666a">只检验任务关系是否真实有用</text></svg></div>
+<p>主比较结果平均只有 <b>+0.191 个百分点</b>，五个数据集没有一个达到预设的 +1pp 放行门槛，所以任务几何这条线是 <b>NO-GO</b>。这不是 UNI 失败，只是没有证明“pilot 梯度对应关系”带来足够增量。</p>
+<div class="callout"><b>为什么不能只比较 task geometry 和 pure geometry？</b> pure geometry 不使用标签，而 task geometry 使用标签；两者的信息量不同。正确对应 vs 类内打乱才是更干净的主比较。</div>
+
+<h2>七、预算阶梯：为什么后来选择每类 25 张？</h2>
+<p>先在多个预算下测加权与等权的交互效应。预算越大，等权选择本身已经覆盖得越好，重加权的额外空间通常越小。</p>
+<div class="table-wrap"><table><thead><tr><th>数据集</th><th>每类预算</th><th>交互效应（百分点）</th><th>标准误</th><th>如何读</th></tr></thead><tbody><tr><td>organsmnist</td><td class="num">25</td><td class="num">+2.92</td><td class="num">±0.13</td><td>强且稳定，4/4 block 同号。</td></tr><tr><td>tissuemnist</td><td class="num">25</td><td class="num">+1.60</td><td class="num">±0.40</td><td>有信号，4/4 block 同号。</td></tr><tr><td>bloodmnist</td><td class="num">25</td><td class="num">+1.05</td><td class="num">±0.44</td><td>较弱但 4/4 block 同号。</td></tr><tr><td>organsmnist</td><td class="num">10</td><td class="num">+0.73</td><td class="num">±0.76</td><td>点估计更大不等于证据更强。</td></tr></tbody></table></div>
+<p>选择 budget=25 不是因为看到了最大点估计就挑它，而是因为它是误差棒后唯一在三个独立来源上都稳定的工作点。organamnist 与 organsmnist 来自同一批 CT 来源，不能简单算两个完全独立的数据来源。</p>
+
+<h2>八、真实 ResNet 训练与 360 个 cell</h2>
+<p>冻结 UNI probe 只能做便宜筛查，不能代替真实模型训练。当前冻结的真实训练设计是：</p>
+<div class="grid"><section class="panel"><span class="tag">3 个数据集</span><h3>blood / organs / tissue</h3><p>pathmnist 余量只有 0.61pp，在绝对 +1pp 门槛下结构性不可能通过；organamnist 和 organsmnist 合并考虑来源独立性。</p></section><section class="panel"><span class="tag">2 个选择臂</span><h3>Random / Herding</h3><p>重点测试覆盖权重是否对不同选样结构产生不同作用。</p></section><section class="panel"><span class="tag">3 个权重</span><h3>equal / voronoi_within / permuted_within</h3><p>permuted_within 是负对照，检验权重是否因为真实空间对应关系才有效。</p></section></div>
+<p>组合为：</p>
+<div class="formula">3 数据集 × 2 选样臂 × 3 权重臂 × 10 复制 × 2 training seeds = 360 个 cell</div>
+<p>主估计量不是单看“加权比等权高多少”，而是差中之差：</p>
+<div class="formula">DiD = [Random<sub>weighted</sub> − Random<sub>equal</sub>] − [Herding<sub>weighted</sub> − Herding<sub>equal</sub>]</div>
+<p>这样可以抵消“加权本身改变了有效学习率或正则强度”的共同影响，只看加权和选样方法之间的交互。</p>
+
+<h2>九、已有真实训练冒烟结果应该怎样理解？</h2>
+<p>organ­s­mnist 的一个完整复制在每类 25 张时 BA 为 0.59–0.64，而随机水平约为 1/11=0.09，说明 ResNet 确实学得动。</p>
+<p>但这只是 <b>n=1</b> 的冒烟复制。这个复制的 DiD 是 −0.14pp，与 +2.92pp 和 0 都相容，不能用来推翻或证明整个 360-cell 实验。</p>
+<div class="callout"><b>诚实的读法：</b>它证明“训练管线能工作”，不证明“加权有效”或“加权无效”。最终判断要等完整配对重复。</div>
+
+<h2>十、从哪些角度在算？</h2>
+<div class="table-wrap"><table><thead><tr><th>角度</th><th>代表指标</th><th>它回答的问题</th><th>不能回答什么</th></tr></thead><tbody><tr><td>表示角度</td><td>Probe BA、full-pool BA、headroom</td><td>UNI 是否保留分类信息？还有多少提升空间？</td><td>不能证明选样训练一定更好。</td></tr><tr><td>空间结构角度</td><td>NN 距离、近重复率、本征维数</td><td>点是拥挤还是分散？局部复杂度如何？</td><td>不能直接决定应该多选还是少选。</td></tr><tr><td>覆盖角度</td><td>Voronoi mass、Gini、D(S)</td><td>选中代表覆盖了多少样本？权重是否集中？</td><td>覆盖最低不等于 BA 一定最高。</td></tr><tr><td>类别先验角度</td><td>pool imbalance、prior 分解</td><td>效果是否来自类数量比例改变？</td><td>不能把 prior 效应叫作几何修补。</td></tr><tr><td>训练角度</td><td>equal vs weighted、DiD、BA</td><td>几何权重是否真的影响模型学习？</td><td>probe 的小增益不能自动外推到 ResNet。</td></tr><tr><td>统计角度</td><td>SE、block 同号、独立来源数</td><td>结果是否稳定，是否可能只是噪声？</td><td>单个数据集或单个复制不能定论。</td></tr></tbody></table></div>
+
+<h2>十一、现在最合理的结论</h2>
+<div class="decision"><div class="yes"><strong>可以保留的方向</strong><br>UNI embedding 的局部结构值得研究；覆盖失真、代表权重和真实训练之间存在可检验关系；预算越小，权重修补空间可能越大。</div><div class="no"><strong>现在不能说的事情</strong><br>不能说高维区域一定更重要；不能说近重复必然导致加权伤害；不能把 probe 的 +0.85pp 直接当成真实 ResNet 结论。</div></div>
+<div class="footer"><b>当前实验状态：</b>线性 probe 和结构诊断已经完成；真实训练 runner 已通过冒烟检查，完整 360-cell 实验正在按冻结协议执行。最终论文级结论必须等待真实训练的配对结果。</div>
+</main>
+<script>
+document.querySelectorAll('.tabs button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected','false'));document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));btn.setAttribute('aria-selected','true');document.getElementById(btn.dataset.target).classList.add('active')}));
+</script>
+</body>
+</html>

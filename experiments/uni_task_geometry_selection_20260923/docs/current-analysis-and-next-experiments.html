@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>现在的分析在做什么：从覆盖几何到更好的图像选择器</title>
+<style>
+:root{--ink:#172326;--muted:#53666a;--paper:#f7faf8;--panel:#fff;--line:#d8e4e0;--teal:#0b746e;--teal-soft:#dff2ee;--coral:#c75b44;--coral-soft:#fff1ec;--blue:#2e6384;--blue-soft:#eaf0f7;--gold:#80651b;--gold-soft:#f5e8b8;--shadow:0 8px 24px rgba(23,35,38,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1160px;margin:0 auto;padding:28px 22px 72px}header{padding:30px 0 24px;border-bottom:1px solid var(--line)}h1{font-size:clamp(30px,5vw,50px);line-height:1.12;letter-spacing:0;margin:0 0 12px;font-weight:600}h2{font-size:28px;line-height:1.25;margin:44px 0 14px;font-weight:600}h3{font-size:20px;line-height:1.35;margin:24px 0 8px;font-weight:600}p{max-width:950px;margin:8px 0;color:var(--muted)}.lead{font-size:19px;color:var(--ink);max-width:1000px}.eyebrow{color:var(--coral);font-weight:600;letter-spacing:.06em}.callout{background:var(--coral-soft);border-left:4px solid var(--coral);padding:15px 18px;max-width:1000px;margin:18px 0}.good{background:var(--teal-soft);border-left-color:var(--teal)}.note{background:var(--blue-soft);border-left-color:var(--blue)}.status{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0}.panel{background:var(--panel);border:1px solid var(--line);padding:17px;box-shadow:var(--shadow)}.panel h3{margin-top:0}.panel.goodline{border-left:4px solid var(--teal)}.panel.warnline{border-left:4px solid var(--coral)}.panel.blueline{border-left:4px solid var(--blue)}.tag{display:inline-block;color:var(--teal);background:var(--teal-soft);padding:2px 9px;font-size:13px;margin-bottom:8px}.flow{background:var(--panel);border:1px solid var(--line);padding:12px;margin:20px 0;overflow:hidden}.flow svg{display:block;width:100%;height:auto;min-width:820px}.flow text{font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}.table-wrap{overflow:auto;max-width:100%}table{border-collapse:collapse;width:100%;min-width:720px;background:var(--panel);margin:16px 0}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f0f7f5;color:var(--teal);font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}code{background:#eef3f1;color:#24535a;padding:2px 5px}.small{font-size:14px;color:var(--muted)}.formula{font-family:Georgia,"Times New Roman",serif;background:var(--teal-soft);border-left:4px solid var(--teal);padding:13px 18px;margin:14px 0;max-width:1000px;font-size:18px;overflow:auto}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}.tabs button{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:9px 13px;font:inherit;cursor:pointer}.tabs button[aria-selected="true"]{background:var(--teal);color:white;border-color:var(--teal)}.step{display:none}.step.active{display:block}.barrow{display:grid;grid-template-columns:150px 1fr 86px;align-items:center;gap:10px;margin:9px 0}.track{height:16px;background:#e7efed;overflow:hidden}.bar{height:100%;background:var(--teal)}.bar.coral{background:var(--coral)}.bar.blue{background:var(--blue)}.bar.gold{background:#b59235}.barrow .value{text-align:right;font-variant-numeric:tabular-nums}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}.decision{display:grid;grid-template-columns:1fr 1fr;gap:14px}.decision div{padding:16px}.yes{background:var(--teal-soft)}.no{background:var(--coral-soft)}.footer{border-top:1px solid var(--line);margin-top:48px;padding-top:18px;color:var(--muted);font-size:13px}.mini{font-size:14px;color:var(--muted);margin-top:2px}.pill{display:inline-block;padding:2px 8px;margin-right:5px;background:var(--blue-soft);color:var(--blue);font-size:13px}
+@media(max-width:720px){main{padding:20px 14px 50px}.status,.grid,.decision{grid-template-columns:1fr}h2{font-size:24px}.lead{font-size:17px}.flow{padding:5px}.barrow{grid-template-columns:105px 1fr 68px;font-size:14px}table{font-size:14px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="eyebrow">给外行人的研究进度说明</div>
+<h1>现在不是继续盲调参数，而是在寻找真正有效的选图信号</h1>
+<p class="lead">前一阶段反复测试了覆盖、图结构和任务梯度。最新分析发现：一个方法在整体上更好，不等于它使用的几何分数真的造成了提升。现在的实验正在把“选样方法”和“选样分数”拆开，先找出固定预算下真正能预测模型表现的特征，再用这些特征构造新的选择器。</p>
+</header>
+
+<div class="callout"><b>先说最重要的判断：</b>目前还不能诚实地保证某个新方法一定超过五个数据集上的所有基线。能做的是把实验设计成“有机会超过、而且能证明为什么超过”：固定每类预算，生成大量受控的候选选择，测试每个特征是否在方法内部仍然有效，最后只把跨数据集复现的特征放进新选择器。</div>
+
+<section class="status">
+<div class="panel goodline"><span class="tag">已完成</span><h3>五个 224px UNI probe</h3><p>五个数据集、UNI 1024 维 embedding、每类最多 1,000 个候选、每类选 50 张。task geometry 主门结果为 NO-GO，平均增量约 +0.19pp。</p></div>
+<div class="panel blueline"><span class="tag">正在进行</span><h3>真实 ResNet 训练</h3><p><code>33697</code> 已完成 180 个 cell；<code>33702</code> 正在继续剩余训练。完整计划是 360 个 cell，当前结果不能作为最终 gate。</p></div>
+<div class="panel warnline"><span class="tag">尚未得到结果</span><h3>泛函筛选作业 33707</h3><p>它在读取 embedding 前因 shell 变量名冲突失败，结果目录为空。因此“15 个新特征谁最好”目前仍是待验证假设，不是已经跑出的结论。</p></div>
+</section>
+
+<h2>一、为什么要重新分析？</h2>
+<p>之前看到过一种表面现象：herding 的覆盖距离更小，BA 也更高，于是很容易得出“覆盖距离导致 BA 提升”。但这里有一个混淆：herding 可能在许多方面同时更好，覆盖距离只是跟着它一起变化。</p>
+<div class="flow" aria-label="从旧分析到新分析的逻辑流程"><svg viewBox="0 0 1100 300" role="img"><title>从整体比较到固定预算的特征筛选</title><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6" fill="none" stroke="#0b746e" stroke-width="1.5"/></marker></defs><rect x="25" y="35" width="220" height="76" fill="#eaf0f7" stroke="#2e6384"/><text x="135" y="66" text-anchor="middle" font-size="17">旧问题</text><text x="135" y="91" text-anchor="middle" font-size="13" fill="#53666a">哪个方法整体 BA 更高？</text><line x1="255" y1="73" x2="320" y2="73" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="330" y="35" width="250" height="76" fill="#fff1ec" stroke="#c75b44"/><text x="455" y="66" text-anchor="middle" font-size="17">混淆</text><text x="455" y="91" text-anchor="middle" font-size="13" fill="#53666a">方法、覆盖、难度一起变</text><line x1="590" y1="73" x2="655" y2="73" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="665" y="35" width="400" height="76" fill="#f5e8b8" stroke="#80651b"/><text x="865" y="66" text-anchor="middle" font-size="17">新问题</text><text x="865" y="91" text-anchor="middle" font-size="13" fill="#53666a">在同一方法族内，哪个特征仍预测 BA？</text><line x1="865" y1="130" x2="865" y2="190" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="665" y="205" width="400" height="68" fill="#dff2ee" stroke="#0b746e"/><text x="865" y="234" text-anchor="middle" font-size="17">只用活下来的特征造新选择器</text><text x="865" y="257" text-anchor="middle" font-size="13" fill="#53666a">再用真实 ResNet 和 source-validation 验证</text></svg></div>
+
+<h2>二、当前已有结果说明了什么？</h2>
+<div class="tabs" role="tablist" aria-label="当前证据层级"><button type="button" aria-selected="true" data-target="evidence">已证实</button><button type="button" aria-selected="false" data-target="hypothesis">正在检验</button><button type="button" aria-selected="false" data-target="limits">不能推出</button></div>
+<div id="evidence" class="step active"><div class="grid"><section class="panel"><h3>任务梯度没有通过</h3><p>五个数据集的 task geometry 相对类内置换对照平均只有 <b>+0.191pp</b>，没有达到预设的 +1pp 门槛。这里失败的是“这个任务梯度对应关系带来足够增量”，不是所有 UNI 几何。</p></section><section class="panel"><h3>数据集难度差异很大</h3><p>pathmnist 的 50 张/类 probe headroom 只有 0.61pp，organsmnist 是 13.22pp。统一要求每个数据集都提升 1pp 并不公平，后续要同时报告绝对增益和相对 headroom 增益。</p></section><section class="panel"><h3>预算 25 是训练工作点</h3><p>预算阶梯只比较 random 和 herding，并用它来选择真实训练 operating point。它不是五个数据集上新方法已经胜出的证据。</p></section></div><div class="callout note"><b>当前回溯检验的核心数字：</b>在同一数据集、同一 cap、同一预算、同一方法臂内部，用 covering distortion 预测 probe BA 时，记录的相关约为 <b>r = +0.014，t = 0.21</b>；把不同审计集的难度改成 gap 后仍接近零。此前看到的 <b>107/120 同号</b>主要可能是 herding 整体更好造成的共同变化，而不是覆盖距离本身造成 BA 提升。这个结论仍应由修复后的完整泛函筛选独立复现。</div></div>
+<div id="hypothesis" class="step"><div class="callout note"><b>固定预算内的关键假设：</b>覆盖距离在不同预算之间会和 BA 一起变化，但这可能只是“预算越多，两者都改善”。要判断覆盖是否真的有用，必须在同一个数据集、同一个预算、同一个方法族内制造连续变化。</div><p>因此新筛选器会从一个选择集合中替换同类图像：替换 1、2、5、10、25 张。这样预算不变，类别配额不变，只改变选择集合的特征。当前 HPC 上的 <code>functional_screen.py</code> 正是为这个问题设计的，但完整作业 <code>33707</code> 还没有产出数据。</p></div>
+<div id="limits" class="step"><p>不能从目前结果推出“流形方法整体失败”“高维区域不重要”或“herding 永远最好”。也不能把线性 probe 的 BA 直接当成 ResNet 的训练表现。真正的选择器结论必须来自固定预算、独立重复和真实训练。</p></div>
+
+<h2>三、新实验具体在测什么？</h2>
+<p>新实验不是只试一个新名字，而是先把“一个选中的集合”从多个角度描述。所有候选方法都保持每类预算 25 张，避免预算大小成为混淆因素。</p>
+<div class="table-wrap"><table><thead><tr><th>特征家族</th><th>代表量</th><th>小白解释</th><th>可能告诉我们什么</th></tr></thead><tbody>
+<tr><td>覆盖失真</td><td><code>dist_mean</code>、<code>dist_p90</code>、<code>dist_max</code></td><td>未选图离最近代表有多远，平均、90% 分位和最坏情况分别是多少。</td><td>集合是否能覆盖大多数样本，还是留下长尾空洞。</td></tr>
+<tr><td>分布保持</td><td><code>moment1</code>、<code>moment2</code>、<code>mmd2</code></td><td>选中图的中心、离散程度和整体分布是否像候选池。</td><td>是否保留了类别内部的主要模式，而不是只挑边界或只挑中心。</td></tr>
+<tr><td>代表集中度</td><td><code>mass_gini</code>、<code>centrality</code>、<code>spread</code>、<code>logdet</code></td><td>少数代表是否承担了太多样本，以及所选点是否过于挤在一起。</td><td>是否存在“看起来覆盖好，实际权重极端集中”的集合。</td></tr>
+<tr><td>难例和边界</td><td><code>purity</code>、<code>margin</code>、<code>sel_margin_min</code>、<code>xclass_sep</code></td><td>选中的图是容易样本、类别边界样本，还是可能混淆的样本。</td><td>医学图像任务中，模型真正需要的可能是可区分类别的边界，而不只是空间覆盖。</td></tr>
+<tr><td>局部密度</td><td><code>density</code></td><td>一张图周围有多少相似图。</td><td>区分稀有模式和大量重复模式，避免把离群点误当成有价值多样性。</td></tr>
+</tbody></table></div>
+
+<h2>四、我建议的新方法：RAMP-Select</h2>
+<p>建议把下一代方法命名为 <b>RAMP-Select</b>：<b>Risk-Aware Margin-and-Prototype Selection</b>，中文可称“风险感知的边界—原型联合选样”。它不是把“高维”直接转换成“多选”，而是同时保护三类东西：</p>
+<div class="grid"><section class="panel goodline"><span class="tag">原型</span><h3>代表主要模式</h3><p>用 k-medoids 或 facility coverage 保留类别内部的主要形态，降低重复。</p></section><section class="panel warnline"><span class="tag">边界</span><h3>保留难区分样本</h3><p>优先加入低 margin、高不确定性但不是明显错误的样本，防止只选中心图。</p></section><section class="panel blueline"><span class="tag">稀有模式</span><h3>保护小区域</h3><p>按局部密度、类别内部簇大小和 source-validation 需求设置最低保护量，避免大簇吞掉小簇。</p></section></div>
+<div class="formula">Score(i | S) = λ<sub>proto</sub>·prototype_gain(i|S) + λ<sub>boundary</sub>·boundary_value(i) + λ<sub>rare</sub>·rare_mode_value(i) − λ<sub>redundancy</sub>·similarity(i,S)</div>
+<p>每个类别内部做贪心选择，直到达到固定预算。这里的权重 <code>λ</code> 不能看 test 调；先在 calibration split 上用交叉拟合选择，再锁定到 source-validation。若泛函筛选发现某一项无效，就把对应系数设为 0，而不是强行保留“流形”术语。</p>
+
+<h3>为什么它可能超过单一覆盖方法？</h3>
+<p>单纯 herding 倾向于保持整体均值；k-center 倾向于照顾最远点；facility coverage 倾向于减少平均距离；hard-example 选择又可能只挑噪声或异常。RAMP-Select 的目标是把它们的互补部分放在同一个固定预算目标中，同时用密度和边界可信度抑制两个风险：</p>
+<div class="decision"><div class="yes"><strong>要保留的东西</strong><br>主要模式、类别边界、稀有但可重复的子区域、训练时的代表质量。</div><div class="no"><strong>要防止的东西</strong><br>近重复堆积、孤立噪声、全选中心样本、把类别数量先验误当成几何收益。</div></div>
+
+<h2>五、建议的实验顺序</h2>
+<div class="table-wrap"><table><thead><tr><th>阶段</th><th>做什么</th><th>输入范围</th><th>通过条件</th></tr></thead><tbody>
+<tr><td>0. 完成当前实验</td><td>完成 360 个真实 ResNet cell，先不根据部分结果改协议。</td><td>blood、organs、tissue；完整 train split；25/类。</td><td>得到预注册 DiD、permuted control 和测试集指标。</td></tr>
+<tr><td>1. 泛函筛选</td><td>修复并重跑 controlled perturbation screen；同一预算内替换同类点。</td><td>五个 224px UNI 数据集；至少两个独立 block；15 个候选泛函。</td><td>特征在 dataset/block/family 内保持方向，并通过多重比较校正。</td></tr>
+<tr><td>2. 候选方法比较</td><td>比较 RAMP-Select、herding、k-center、k-medoids、Graph-A2、facility、hard-only、random。</td><td>五个数据集；每类 25 和 50 两个预算；相同 selection pool。</td><td>source-validation 上平均超过最强基线，且不能只靠一个数据集。</td></tr>
+<tr><td>3. 真实训练确认</td><td>冻结方法和超参数后训练 ResNet，不再根据 test 调参。</td><td>五个数据集，配对 replicate，统一优化器和 epoch。</td><td>报告 BA、NLL、Brier、ECE、worst-class recall 和每类 recall。</td></tr>
+<tr><td>4. 机制审计</td><td>检查提升来自边界、稀有模式、分布保持还是权重修补。</td><td>独立 audit 和 source-validation。</td><td>置换边界分数、打乱 density、等权/Voronoi weight 对照仍能解释增益。</td></tr>
+</tbody></table></div>
+
+<h2>六、怎样避免新方法又变成“调到显著”？</h2>
+<ol>
+<li>先固定候选特征集合和数据拆分：selection pool 用来选，calibration 用来拟合权重，source-validation 用来比较，official test 最后只用一次。</li>
+<li>不要按 test BA 选择竞争区。可以预先定义“结构上相近的方法族和小扰动”，结果定义的“离最优 2pp 内”只能作为描述性分析。</li>
+<li>把五个数据集作为主要重复单位，同时报告单数据集结果；不能把所有图像或所有 block 当成独立生物学重复。</li>
+<li>设置 oracle upper bound：先问“预算分配理论上有多少空间”，再问 RAMP-Select 能否接近这个上限。</li>
+<li>如果 RAMP-Select 不能超过最强基线，就保留负结果。真正的创新可以是证明“哪些几何量在医学图像选样中没有增量”，而不是事后改门槛。</li>
+</ol>
+
+<h2>七、目前最诚实的结论</h2>
+<div class="callout good"><b>当前证据支持：</b>UNI 表示空间包含有用信息；不同数据集的 headroom、密度和局部结构明显不同；单一覆盖距离不足以承担“预测下游精度”的任务；下一步应从“覆盖优先”转向“原型 + 边界 + 稀有模式”的受控特征筛选。</div>
+<div class="callout"><b>当前还没有证明：</b>RAMP-Select 已经超过所有方法；15 个泛函中谁最好；真实 ResNet 的加权 interaction 最终是否成立。因为新筛选作业目前没有输出，真实训练也仍在运行。</div>
+
+<div class="footer">依据 HPC 项目目录 <code>/home/xiaoyuxu2/uni_task_geometry_selection_20260923/</code> 中的 <code>protocol.json</code>、<code>protocol_training.json</code>、<code>run_linear_probe.py</code>、<code>ladder_locate_operating_point.py</code>、<code>functional_screen.py</code> 及当前结果目录整理。HTML 中把已完成结果、当前运行状态和下一步假设分开标注。</div>
+</main>
+<script>
+document.querySelectorAll('.tabs button').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected','false'));
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  btn.setAttribute('aria-selected','true');
+  document.getElementById(btn.dataset.target).classList.add('active');
+}));
+</script>
+</body>
+</html>

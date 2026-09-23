@@ -1,0 +1,541 @@
+{
+  "rows": [
+    {
+      "dataset": "bloodmnist",
+      "replicate": 0,
+      "arm": "herding",
+      "probe_ba": 0.8958641627974495,
+      "train_ba": 0.7906258181130246,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 0,
+      "arm": "random",
+      "probe_ba": 0.8781568664088345,
+      "train_ba": 0.8163106735769985,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 1,
+      "arm": "herding",
+      "probe_ba": 0.8900057920355882,
+      "train_ba": 0.8351671458030322,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 1,
+      "arm": "random",
+      "probe_ba": 0.8830031995195414,
+      "train_ba": 0.8277450012190772,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 2,
+      "arm": "herding",
+      "probe_ba": 0.8919812008979143,
+      "train_ba": 0.8082038552383768,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 2,
+      "arm": "random",
+      "probe_ba": 0.8831329121543499,
+      "train_ba": 0.7814086027955336,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 3,
+      "arm": "herding",
+      "probe_ba": 0.8919482591251859,
+      "train_ba": 0.8299517743957531,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 3,
+      "arm": "random",
+      "probe_ba": 0.8850183413110688,
+      "train_ba": 0.7948667402806846,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 4,
+      "arm": "herding",
+      "probe_ba": 0.8943225715761114,
+      "train_ba": 0.8285730895753489,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 4,
+      "arm": "random",
+      "probe_ba": 0.8813919948405223,
+      "train_ba": 0.7897333988301564,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 5,
+      "arm": "herding",
+      "probe_ba": 0.8925024677161012,
+      "train_ba": 0.8486793609364747,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 5,
+      "arm": "random",
+      "probe_ba": 0.8828232253010089,
+      "train_ba": 0.77942306929236,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 6,
+      "arm": "herding",
+      "probe_ba": 0.8874853149736363,
+      "train_ba": 0.8424267365932917,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 6,
+      "arm": "random",
+      "probe_ba": 0.8811133688792827,
+      "train_ba": 0.8137950443289087,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 7,
+      "arm": "herding",
+      "probe_ba": 0.8992448653712539,
+      "train_ba": 0.7986841372771589,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 7,
+      "arm": "random",
+      "probe_ba": 0.8843399561173055,
+      "train_ba": 0.8197361560291592,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 8,
+      "arm": "herding",
+      "probe_ba": 0.8857273486338686,
+      "train_ba": 0.8060650299060247,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 8,
+      "arm": "random",
+      "probe_ba": 0.8907659537437977,
+      "train_ba": 0.8196711664195753,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 9,
+      "arm": "herding",
+      "probe_ba": 0.8865137473709978,
+      "train_ba": 0.8060146337445544,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "bloodmnist",
+      "replicate": 9,
+      "arm": "random",
+      "probe_ba": 0.8738574776778016,
+      "train_ba": 0.826739517568914,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 0,
+      "arm": "herding",
+      "probe_ba": 0.6344356575727365,
+      "train_ba": 0.6423783967530415,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 0,
+      "arm": "random",
+      "probe_ba": 0.5892549900048331,
+      "train_ba": 0.5981641688483463,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 1,
+      "arm": "herding",
+      "probe_ba": 0.6581617239808034,
+      "train_ba": 0.6425634855318771,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 1,
+      "arm": "random",
+      "probe_ba": 0.578628344428079,
+      "train_ba": 0.563647347324963,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 2,
+      "arm": "herding",
+      "probe_ba": 0.6441604267815886,
+      "train_ba": 0.6212237160312547,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 2,
+      "arm": "random",
+      "probe_ba": 0.5353631407270133,
+      "train_ba": 0.5714243025001515,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 3,
+      "arm": "herding",
+      "probe_ba": 0.6541667853398913,
+      "train_ba": 0.6334526109876384,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 3,
+      "arm": "random",
+      "probe_ba": 0.5862226329218267,
+      "train_ba": 0.5850675088591686,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 4,
+      "arm": "herding",
+      "probe_ba": 0.649444842325408,
+      "train_ba": 0.6089935836098637,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 4,
+      "arm": "random",
+      "probe_ba": 0.5911042327977419,
+      "train_ba": 0.5814817159211445,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 5,
+      "arm": "herding",
+      "probe_ba": 0.6495438370351958,
+      "train_ba": 0.6167464804473721,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 5,
+      "arm": "random",
+      "probe_ba": 0.5844010979623,
+      "train_ba": 0.589646072256863,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 6,
+      "arm": "herding",
+      "probe_ba": 0.642408548294424,
+      "train_ba": 0.6180862560040208,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 6,
+      "arm": "random",
+      "probe_ba": 0.5677625088368973,
+      "train_ba": 0.6048926940598656,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 7,
+      "arm": "herding",
+      "probe_ba": 0.6261693322365639,
+      "train_ba": 0.5918834848450947,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 7,
+      "arm": "random",
+      "probe_ba": 0.5511615627047192,
+      "train_ba": 0.5764951239230001,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 8,
+      "arm": "herding",
+      "probe_ba": 0.6685438222161912,
+      "train_ba": 0.6080488487141458,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 8,
+      "arm": "random",
+      "probe_ba": 0.5864843127687634,
+      "train_ba": 0.5884679085298796,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 9,
+      "arm": "herding",
+      "probe_ba": 0.6341388581506053,
+      "train_ba": 0.6177698568569041,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "organsmnist",
+      "replicate": 9,
+      "arm": "random",
+      "probe_ba": 0.5859889021375104,
+      "train_ba": 0.5917540229594134,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 0,
+      "arm": "herding",
+      "probe_ba": 0.3579890934222222,
+      "train_ba": 0.29510767880437966,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 0,
+      "arm": "random",
+      "probe_ba": 0.3209321911325626,
+      "train_ba": 0.26502636180054856,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 1,
+      "arm": "herding",
+      "probe_ba": 0.36733294139757344,
+      "train_ba": 0.28175731493864337,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 1,
+      "arm": "random",
+      "probe_ba": 0.3286551020359426,
+      "train_ba": 0.2907701350088788,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 2,
+      "arm": "herding",
+      "probe_ba": 0.36725241191144053,
+      "train_ba": 0.28924294749547164,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 2,
+      "arm": "random",
+      "probe_ba": 0.32930636503242516,
+      "train_ba": 0.286088210500591,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 3,
+      "arm": "herding",
+      "probe_ba": 0.37105395808878433,
+      "train_ba": 0.2894341066322625,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 3,
+      "arm": "random",
+      "probe_ba": 0.3253728932603517,
+      "train_ba": 0.25764669502430587,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 4,
+      "arm": "herding",
+      "probe_ba": 0.3696293381803234,
+      "train_ba": 0.3135362687955349,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 4,
+      "arm": "random",
+      "probe_ba": 0.3445313787587413,
+      "train_ba": 0.2853130330769456,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 5,
+      "arm": "herding",
+      "probe_ba": 0.37029167613371006,
+      "train_ba": 0.27615020567306003,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 5,
+      "arm": "random",
+      "probe_ba": 0.3348767205991263,
+      "train_ba": 0.29312180901926055,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 6,
+      "arm": "herding",
+      "probe_ba": 0.3671312304800529,
+      "train_ba": 0.31519314791916025,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 6,
+      "arm": "random",
+      "probe_ba": 0.33472044390178535,
+      "train_ba": 0.28685917915975945,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 7,
+      "arm": "herding",
+      "probe_ba": 0.36005512212874013,
+      "train_ba": 0.2930030260123426,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 7,
+      "arm": "random",
+      "probe_ba": 0.32903175200913437,
+      "train_ba": 0.28830852889563074,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 8,
+      "arm": "herding",
+      "probe_ba": 0.3727817767292987,
+      "train_ba": 0.29846763116576924,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 8,
+      "arm": "random",
+      "probe_ba": 0.33183607270045856,
+      "train_ba": 0.2796620821710813,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 9,
+      "arm": "herding",
+      "probe_ba": 0.3703382672477855,
+      "train_ba": 0.29623071765165865,
+      "n_train_seeds": 2
+    },
+    {
+      "dataset": "tissuemnist",
+      "replicate": 9,
+      "arm": "random",
+      "probe_ba": 0.35334020998585636,
+      "train_ba": 0.30721958298520263,
+      "n_train_seeds": 2
+    }
+  ],
+  "summary": {
+    "bloodmnist": {
+      "n": 20,
+      "spearman": 0.2120300751879699,
+      "pearson": 0.10564229391283735,
+      "t": 0.45072446000952593
+    },
+    "organsmnist": {
+      "n": 20,
+      "spearman": 0.7984962406015037,
+      "pearson": 0.7990830321761304,
+      "t": 5.6388981447877
+    },
+    "tissuemnist": {
+      "n": 20,
+      "spearman": 0.4812030075187969,
+      "pearson": 0.5419410744653983,
+      "t": 2.735859288592832
+    },
+    "bloodmnist/random": {
+      "n": 10,
+      "spearman": -0.06666666666666665,
+      "pearson": -0.1597513139664897,
+      "t": -0.4577233573996605
+    },
+    "bloodmnist/herding": {
+      "n": 10,
+      "spearman": -0.2606060606060606,
+      "pearson": -0.2654727343426572,
+      "t": -0.7788154522265147
+    },
+    "organsmnist/random": {
+      "n": 10,
+      "spearman": 0.32121212121212117,
+      "pearson": 0.38983107806814177,
+      "t": 1.197334237443762
+    },
+    "organsmnist/herding": {
+      "n": 10,
+      "spearman": 0.17575757575757575,
+      "pearson": 0.21941867727008676,
+      "t": 0.6361112656341471
+    },
+    "tissuemnist/random": {
+      "n": 10,
+      "spearman": 0.5636363636363636,
+      "pearson": 0.7444769233767896,
+      "t": 3.1539046217392492
+    },
+    "tissuemnist/herding": {
+      "n": 10,
+      "spearman": -0.01818181818181818,
+      "pearson": -0.0024585395076407476,
+      "t": -0.006953820846597759
+    }
+  },
+  "mean_within_cell_spearman": 0.11919191919191918
+}

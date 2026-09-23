@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>加强版方案：医学图像局部几何选样</title>
+<style>
+:root{--ink:#172326;--muted:#53666a;--paper:#f7faf8;--panel:#fff;--line:#d8e4e0;--teal:#0b746e;--teal-soft:#dff2ee;--coral:#c75b44;--coral-soft:#fff1ec;--blue:#2e6384;--blue-soft:#eaf0f7;--green:#3b7454;--yellow:#f5e8b8;--shadow:0 8px 24px rgba(23,35,38,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.7 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1100px;margin:0 auto;padding:28px 22px 70px}header{border-bottom:1px solid var(--line);padding:30px 0 24px}h1{font-size:clamp(30px,5vw,52px);line-height:1.12;letter-spacing:0;margin:0 0 12px;font-weight:600}h2{font-size:28px;line-height:1.25;margin:44px 0 14px;font-weight:600}h3{font-size:20px;margin:25px 0 8px;font-weight:600}p{max-width:880px;margin:8px 0;color:var(--muted)}.lead{font-size:19px;color:var(--ink);max-width:930px}.eyebrow{color:var(--coral);font-weight:600;letter-spacing:.06em}.callout{border-left:4px solid var(--coral);background:var(--coral-soft);padding:14px 17px;max-width:920px;margin:18px 0}.formula{font-family:Georgia,"Times New Roman",serif;background:var(--teal-soft);border-left:4px solid var(--teal);padding:14px 18px;margin:14px 0;max-width:920px;font-size:18px;overflow:auto}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}.panel{background:var(--panel);border:1px solid var(--line);padding:18px;box-shadow:var(--shadow)}.panel h3{margin-top:0}.panel.warn{border-left:4px solid var(--coral)}.panel.good{border-left:4px solid var(--green)}.tag{display:inline-block;padding:2px 9px;font-size:13px;color:var(--teal);background:var(--teal-soft);margin-bottom:8px}.flow{background:var(--panel);border:1px solid var(--line);padding:12px;margin:20px 0;overflow:hidden}.flow svg{display:block;width:100%;height:auto}.flow text{font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}.timeline{display:grid;grid-template-columns:70px 1fr;gap:0 16px;max-width:930px}.timeline .num{color:var(--teal);font-size:23px;font-weight:600;padding-top:14px;border-right:2px solid var(--line)}.timeline .item{padding:12px 0 18px;border-bottom:1px solid var(--line)}.timeline .item:last-child{border-bottom:0}.timeline strong{font-size:18px}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.tabs button{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:9px 13px;font:inherit;cursor:pointer}.tabs button[aria-selected="true"]{background:var(--teal);color:white;border-color:var(--teal)}.step{display:none}.step.active{display:block}.table-wrap{overflow:auto;max-width:100%}table{border-collapse:collapse;width:100%;min-width:700px;background:var(--panel);margin:16px 0}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f0f7f5;color:var(--teal);font-weight:600}code{background:#eef3f1;padding:2px 5px;color:#24535a}pre{background:#172326;color:#ecf6f2;padding:16px;overflow:auto;font-size:13px;line-height:1.55}.decision{display:grid;grid-template-columns:1fr 1fr;gap:14px}.decision .yes{background:var(--teal-soft);padding:16px}.decision .no{background:var(--coral-soft);padding:16px}.footer{margin-top:50px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+@media(max-width:700px){main{padding:20px 14px 48px}.grid,.decision{grid-template-columns:1fr}h2{font-size:24px}.lead{font-size:17px}.flow{padding:5px}.flow svg{min-width:780px;transform-origin:left top;margin-bottom:-80px;margin-right:-280px;transform:scale(.7)}.timeline{grid-template-columns:48px 1fr}table{font-size:14px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="eyebrow">给外行人的研究路线图 · 方案二</div>
+<h1>我的加强版方案：先把工程和因果对照做干净</h1>
+<p class="lead">我接受 Cloud Agent 的大方向，但我会再加一层“实验卫生”：先防止内存爆炸和标签错位，再把任务几何、训练权重、直接失真、维度分配和 oracle 上界分开。这样最后得到的结论才知道是在说方法，还是在说代码错误。</p>
+</header>
+
+<div class="callout"><b>一句话区别：</b> Cloud Agent 给出了正确的研究顺序；我的版本把每一层变成可以审计的质量门，并加入一个更强的直接基线、一个上界 oracle，以及理论与等权训练之间的桥接实验。</div>
+
+<h2>两套方案共同相信什么？</h2>
+<div class="grid"><section class="panel good"><span class="tag">相同 1</span><h3>先用真实 UNI embedding</h3><p>不再用原始像素的 FD 作为主要证据。要在真实模型 embedding 上研究医学图像的局部结构。</p></section><section class="panel good"><span class="tag">相同 2</span><h3>固定每类预算</h3><p>第一、二轮每类固定 50 张，只比较选择谁，避免把“选样效果”和“多给预算”混在一起。</p></section><section class="panel good"><span class="tag">相同 3</span><h3>维度不是起点</h3><p>先测试局部代表性和任务几何，再把局部维度作为第三轮的增量假设。</p></section></div>
+
+<h2>我的完整流程</h2>
+<div class="flow" aria-label="加强版端到端流程"><svg viewBox="0 0 1100 330" role="img"><title>加强版六阶段实验流程</title><defs><marker id="a" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6" fill="none" stroke="#0b746e" stroke-width="1.5"/></marker></defs><rect x="25" y="30" width="155" height="75" fill="#fff1ec" stroke="#c75b44"/><text x="102" y="60" text-anchor="middle" font-size="16">0. 数据完整性</text><text x="102" y="84" text-anchor="middle" font-size="12" fill="#53666a">标签顺序、hash、split</text><line x1="190" y1="67" x2="245" y2="67" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="255" y="30" width="155" height="75" fill="#eaf0f7" stroke="#2e6384"/><text x="332" y="60" text-anchor="middle" font-size="16">1. 内存安全</text><text x="332" y="84" text-anchor="middle" font-size="12" fill="#53666a">二维距离，不造 3D 张量</text><line x1="420" y1="67" x2="475" y2="67" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="485" y="30" width="155" height="75" fill="#dff2ee" stroke="#0b746e"/><text x="562" y="60" text-anchor="middle" font-size="16">2. 固定预算</text><text x="562" y="84" text-anchor="middle" font-size="12" fill="#53666a">Random / Herding / A2 / UNI</text><line x1="650" y1="67" x2="705" y2="67" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="715" y="30" width="155" height="75" fill="#dff2ee" stroke="#0b746e"/><text x="792" y="60" text-anchor="middle" font-size="16">3. 任务增量</text><text x="792" y="84" text-anchor="middle" font-size="12" fill="#53666a">正确梯度 vs 打乱梯度</text><line x1="880" y1="67" x2="935" y2="67" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="945" y="30" width="130" height="75" fill="#fff1df" stroke="#c75b44"/><text x="1010" y="60" text-anchor="middle" font-size="16">4. 配额</text><text x="1010" y="84" text-anchor="middle" font-size="12" fill="#53666a">mass / direct / dim</text><line x1="1010" y1="120" x2="1010" y2="180" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="780" y="195" width="295" height="75" fill="#f5e8b8" stroke="#8b7130"/><text x="927" y="225" text-anchor="middle" font-size="16">5. 真实 source-validation</text><text x="927" y="249" text-anchor="middle" font-size="12" fill="#53666a">BA、NLL、Brier、ECE、recall、成本</text><line x1="765" y1="232" x2="710" y2="232" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="405" y="195" width="295" height="75" fill="#eaf0f7" stroke="#2e6384"/><text x="552" y="225" text-anchor="middle" font-size="16">6. 配对统计与停止规则</text><text x="552" y="249" text-anchor="middle" font-size="12" fill="#53666a">pilot 方差决定是否扩展重复</text><line x1="390" y1="232" x2="335" y2="232" stroke="#0b746e" stroke-width="2" marker-end="url(#a)"/><rect x="25" y="195" width="295" height="75" fill="#fff1ec" stroke="#c75b44"/><text x="172" y="225" text-anchor="middle" font-size="16">7. 只在证据足够时看 test</text><text x="172" y="249" text-anchor="middle" font-size="12" fill="#53666a">test 是最后一次确认，不是调参集</text></svg></div>
+
+<h2>第 0 阶段：先证明数据没有错</h2>
+<div class="timeline"><div class="num">0</div><div class="item"><strong>标签对齐检查</strong><p>UNI embedding 文件可能只有 <code>embeddings</code>，标签来自另一个 npz。仅检查长度不够，因为顺序错位仍然会通过。加强版会用固定抽样、类质心分类和 hash/索引记录做 sanity check；明显低于随机水平就停止。</p></div><div class="num">✓</div><div class="item"><strong>split 边界</strong><p>训练候选池内部再分 selection 与 train-only audit。正式效果必须使用 source-validation；官方 test 不参与调参、选阈值或决定是否继续。</p></div></div>
+
+<h2>第 1 阶段：修好“能不能跑”的工程问题</h2>
+<p>原来的 facility location 写法会先生成 <code>(800, 800, 1024)</code> 的差分张量，约 2.6 GB，还要和 tissue 的全量 embedding 同时存在 4 GB 内存里。加强版改用矩阵恒等式：</p>
+<div class="formula">‖a−b‖² = ‖a‖² + ‖b‖² − 2a·b</div>
+<p>这样主要距离矩阵只有 <code>(800,800)</code>，约几 MB。Graph-A2 也要保持稀疏 CPU 路径。工程上不先修复内存，就不能把失败解释成医学图像几何无效。</p>
+
+<h2>第 2 阶段：固定预算的两轮实验</h2>
+<div class="tabs"><button aria-selected="true" data-target="round1">Round 1：纯几何</button><button aria-selected="false" data-target="round2">Round 2：任务几何</button><button aria-selected="false" data-target="training">真实训练</button></div>
+<div id="round1" class="step active"><h3>Round 1：每类 50 张</h3><p>比较 Random、Herding、Graph-A2(k=10, hops=2)、直接 UNI facility coverage。6 个 block 先做 pilot。先用冻结 UNI 线性头快速筛查，再进入真实分类器训练。</p></div>
+<div id="round2" class="step"><h3>Round 2：共享公共 pilot</h3><p>每类 10 张公共 pilot，最终仍是每类 50 张。比较 Random + pilot、几何 + pilot、任务几何 + pilot、打乱任务特征 + pilot。主对照是任务几何 vs 类内置换控制，因为两者都使用标签和任务特征，只有正确对应关系不同。</p><div class="formula">d<sub>τ</sub>² = (1−τ)‖Δz‖² / s<sub>z</sub>² + τ‖Δg‖² / s<sub>g</sub>²</div><p>若代码令 UNI 已归一化并固定 <code>s<sub>z</sub> = 1</code>，协议必须明确写出来；梯度尺度用随机配对而不是按样本原顺序的相邻配对估计。</p></div>
+<div id="training" class="step"><h3>真实训练不是装饰</h3><p>冻结 UNI 线性头只能证明表示空间里有信号，不能证明选出的图像能改善最终模型。真实分类器阶段必须固定初始化、训练轮数、优化器、数据增强、loader seed，并使用 source-validation 评估。</p></div>
+
+<h2>第 3 阶段：把理论和训练权重接起来</h2>
+<p>局部覆盖理论常见的风险界需要代表点承接其所代表样本的质量权重：</p>
+<div class="formula">wᵢ = Σ<sub>j:π<sub>S</sub>(j)=i</sub> p<sub>j</sub> &nbsp;；&nbsp; |R<sub>D</sub>(θ) − R<sub>S,w</sub>(θ)| ≤ L D(S)</div>
+<p>如果所有训练样本仍然等权，那么这个界只是动机，不是被实验直接检验的对象。因此加强版加入一个低成本加权臂：等权结果仍保留，另外报告按最近代表分配的 <code>sample_weight</code> 结果。这样可以回答“覆盖好”与“覆盖加权训练好”是不是同一件事。</p>
+
+<h2>第 4 阶段：三个分配器加一个 oracle</h2>
+<div class="table-wrap"><table><thead><tr><th>分配器</th><th>怎样做</th><th>它回答什么</th></tr></thead><tbody><tr><td>Mass fallback</td><td>按区域样本量和预注册 floor 分配</td><td>不使用复杂几何时的基线</td></tr><tr><td>Dimension law</td><td>拟合有限尺度 covering slope，再用目标函数推 quota</td><td>维度是否能成为区域预算信号</td></tr><tr><td>Direct marginal</td><td>直接估计 Δ<sub>r</sub>(k)=D<sub>r</sub>(k−1)−D<sub>r</sub>(k)</td><td>真实失真曲线是否比维度更准</td></tr><tr><td>Calibration oracle</td><td>在 calibration/audit 上直接选择最优配额</td><td>整个分配问题理论上还有多少可提升空间</td></tr></tbody></table></div>
+<p>Direct marginal 必须和 dimension 使用同一套区域、同一总预算、同一 selection/source-validation 分割。若 direct 已经达到 oracle，dimension 不应再被包装成必要组件。</p>
+
+<h2>最重要的统计规则</h2>
+<div class="grid"><section class="panel"><h3>6 个 block 是 pilot</h3><p>它们用于估计配对差的方差，不是自动证明样本量够。相同 seed 重跑只能检查可复现性；不同 seed 的 paired difference 才决定正式重复数。</p></section><section class="panel"><h3>主比较必须预注册</h3><p>Round 2 的主比较是 task geometry − permuted control；Round 3 的主比较是 direct marginal − dimension。不能看到结果后换成最有利的差值。</p></section><section class="panel"><h3>tau 不能事后调</h3><p><code>τ=0.5</code> 先冻结；若要比较 τ=0.25/0.75，必须是预注册敏感性分析，不能根据 audit 结果挑最显著的一个。</p></section></div>
+
+<h2>两套方案的直接对照</h2>
+<div class="table-wrap"><table><thead><tr><th>问题</th><th>Cloud Agent 方案</th><th>我的加强版</th></tr></thead><tbody><tr><td>研究顺序</td><td>可替代性 → 固定预算选样 → 维度配额</td><td>相同，但每层前面增加质量门和停止规则</td></tr><tr><td>几何距离</td><td>UNI 距离 + pilot 梯度混合</td><td>相同，并明确 s<sub>z</sub>、s<sub>g</sub> 的估计方式和随机配对</td></tr><tr><td>标签风险</td><td>从 embedding 文件和数据文件读取标签</td><td>增加标签顺序 sanity check；长度相同不再视为充分</td></tr><tr><td>内存风险</td><td>提出 facility coverage，但原实现可能造 3D 张量</td><td>强制使用二维矩阵距离/稀疏图，先通过内存预算检查</td></tr><tr><td>训练权重</td><td>默认等权</td><td>保留等权，同时加入代表权重臂，使理论界有对应实验</td></tr><tr><td>强机制对照</td><td>有类内打乱梯度控制</td><td>把 task vs permuted 明确设为 Round 2 头条比较</td></tr><tr><td>第三轮</td><td>mass、dimension、direct marginal</td><td>再加 calibration oracle，区分“分配没余量”和“方法没找到余量”</td></tr><tr><td>结论门槛</td><td>看 BA、NLL、覆盖和维度稳定性</td><td>加成本、标签审计、配对方差、source-validation 隔离和 test 最后一次确认</td></tr></tbody></table></div>
+
+<h2>外行版决策树</h2>
+<div class="decision"><div class="yes"><strong>如果 task geometry &gt; permuted control</strong>说明“正确的任务信息对应关系”可能有价值，进入真实分类器训练。</div><div class="no"><strong>如果二者没有差异</strong>不要把任务梯度包装成成功；保留纯 UNI 几何或停止任务几何路线。</div><div class="yes"><strong>如果 direct marginal &gt; dimension</strong>优先采用直接失真分配；维度只能作为压缩近似或解释变量。</div><div class="no"><strong>如果 dimension &gt; direct</strong>必须检查成本、泄漏、曲线拟合窗口和 oracle 余量，不能只看一个平均 BA。</div></div>
+
+<h2>伪代码：加强版实际怎么走</h2>
+<pre><code>for dataset in five_datasets:
+    Z, y = load_and_verify_uni_embeddings_and_labels()
+    candidate = cap_each_class(Z, y, 1000)
+
+    for block in independent_seeds:
+        select_pool, audit_pool = split_train_only(candidate, block)
+        assert label_alignment_sanity_check(Z, y)
+
+        round1 = fixed_class_budget_methods(
+            random, herding, graph_a2(k=10), facility,
+            budget_per_class=50
+        )
+
+        pilot = balanced_random(select_pool, per_class=10)
+        head = fit_linear_head(Z[pilot], y[pilot])
+        G = projected_gradient_features(head, Z, y)
+        G_perm = permute_within_class(G, y, seed=block.control_seed)
+        round2 = fixed_class_budget_methods(
+            random_plus_pilot, geometry_plus_pilot,
+            combine(Z, G), combine(Z, G_perm),
+            budget_per_class=50, forced=pilot
+        )
+
+        evaluate_linear_probe_on_train_audit(round1, round2)
+
+    if pilot_signal_is_reproducible():
+        run_same_protocol_on_source_validation_with_real_classifier()
+
+    if fixed_budget_signal_is_reproducible():
+        define_frozen_regions()
+        compare(mass, dimension, direct_marginal, calibration_oracle)
+        evaluate_all_on_source_validation()
+</code></pre>
+
+<div class="footer"><b>当前状态：</b>这份加强版是研究和工程决策方案。之前的正式作业在发现 4 GB 内存风险后应暂停并修复后再跑；不能把部分运行日志当作最终结果。最终 test 只在 protocol 冻结、source-validation 完成后使用一次。</div>
+</main>
+<script>
+document.querySelectorAll('.tabs button').forEach(btn=>btn.addEventListener('click',()=>{document.querySelectorAll('.tabs button').forEach(b=>{b.setAttribute('aria-selected','false')});document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));btn.setAttribute('aria-selected','true');document.getElementById(btn.dataset.target).classList.add('active')}));
+</script>
+</body>
+</html>

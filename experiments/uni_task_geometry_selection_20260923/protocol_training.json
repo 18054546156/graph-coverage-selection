@@ -1,0 +1,88 @@
+{
+  "name": "weighting_interaction_real_training_20260923",
+  "frozen_before_any_training_result_was_read": true,
+  "supersedes": "the task-geometry branch, closed NO_GO by gate_decision.py on results/run_33659",
+
+  "claim": "The correct training weight for a coreset depends on what the selection optimised: mass weighting supplies density information a structure-free selection (random) lacks, and destroys the unweighted first-moment invariant a moment-matching selection (herding) built.",
+
+  "primary": {
+    "estimand": "difference-in-differences",
+    "formula": "DiD = [BA(random,voronoi_within) - BA(random,equal)] - [BA(herding,voronoi_within) - BA(herding,equal)]",
+    "why_DiD_and_not_a_main_effect": "DiD cancels any global consequence of reweighting -- effective regularisation, effective learning rate, class-prior shift -- and isolates the interaction, which is the claim. Neither main effect alone can distinguish 'weighting helps' from 'weighting changes training'.",
+    "endpoint": "balanced_accuracy on the OFFICIAL TEST split",
+    "model": "final epoch, no checkpoint selection, test split touched exactly once per run",
+    "pairing": "within (dataset, replicate, train_seed); the weighting contrast shares subset, initialisation and data order"
+  },
+
+  "operating_point": {
+    "budget_per_class": 25,
+    "selection_pool": "80% stratified subsample of the FULL train split, no per-class cap",
+    "chosen_from": "results/ladder.json, probe only, before any GPU run",
+    "why_25": "the probe DiD decreases monotonically in budget on 5 of 6 dataset x cap combinations. At budget 25 with the full pool all three datasets are 4/4 blocks positive and above 2 se (organs +2.92+-0.13, tissue +1.60+-0.40, blood +1.05+-0.44). Budget 10 has larger point estimates but organsmnist is not significant there (+0.53+-0.41), so selecting it would be picking a peak out of noise.",
+    "frozen": true,
+    "may_be_retuned_on_training_results": false
+  },
+
+  "factorial": {
+    "datasets": ["bloodmnist", "organsmnist", "tissuemnist"],
+    "dataset_exclusions": {
+      "pathmnist": "headroom is 0.61pp; it cannot express a 1pp effect even in principle. Excluded on a covariate measured before any outcome.",
+      "organamnist": "same 201 LiTS CT volumes as organsmnist, differing only in slice plane. Including both would double-count one replication unit."
+    },
+    "arms": ["random", "herding"],
+    "weightings": ["equal", "voronoi_within", "permuted_within"],
+    "replicates": 10,
+    "train_seeds": 2,
+    "total_runs": 360
+  },
+
+  "controls": {
+    "permuted_within": "the same Voronoi weight multiset randomly reassigned among the selected points of the same class. Separates 'weights carry assignment information' from 'unequal weights change training at all'. This is the control that made the task-geometry NO_GO interpretable.",
+    "bloodmnist_weak_prediction": "at the capped pool bloodmnist was a predicted near-null (+0.38). At the full pool the probe says +1.05, so it is NOT a clean null here -- recorded so the weakened control is not silently forgotten.",
+    "selection_replicates": "herding is deterministic given a pool, so with a single pool it would contribute one subset while random contributes a new one per seed. Each replicate draws its own 80% pool and runs BOTH arms on it, so both carry selection variance and the asymmetry noted in NONDETERMINISTIC_METHODS is avoided."
+  },
+
+  "decision_rule": {
+    "implemented_by": "gate_training.py",
+    "written_before_results": true,
+    "unit_of_replication": "dataset (3 independent biological sources)",
+    "per_dataset_statistic": "mean DiD over the 20 (replicate, train_seed) units, with se from those units",
+    "CONFIRMED": "pooled mean DiD >= +1.0pp AND at least 2 of 3 datasets individually >= +1.0pp AND the permuted_within control does not reproduce the effect (|DiD_permuted| < 0.5 * DiD_voronoi pooled)",
+    "REFUTED": "pooled mean DiD < +0.5pp OR at least 2 of 3 datasets negative OR the permuted control reproduces the effect",
+    "INCONCLUSIVE": "otherwise -- extend replicates 10 -> 20 and re-apply once; a second INCONCLUSIVE resolves to REFUTED",
+    "threshold_justification": "probe DiD at this operating point is 1.05-2.92pp; the project's measured real-training paired std is 2-3pp, giving MDE ~1.25pp at n=20 paired units. A 1.0pp bar is at the edge of what this design can see and is stated as such."
+  },
+
+  "secondary_non_gating": [
+    "per-arm main effects (random alone, herding alone)",
+    "worst_class_recall",
+    "ece15 -- meaningful here, unlike on the linear probe where L2 shrinkage on unit-norm features pinned it near 0.49 for every arm",
+    "first-moment error of the real selections, for the mechanism",
+    "DiD as a percentage of headroom, for cross-dataset comparison"
+  ],
+  "multiplicity": "one primary endpoint, one primary estimand, one operating point. Secondary endpoints are descriptive and may not be promoted to the headline after the fact.",
+
+  "protocol_changes_from_the_probe_phase": [
+    "official test split is opened -- a one-way door, taken once, with this analysis fixed in advance",
+    "full train split, no per-class cap",
+    "final-epoch model; graphcov's shared path can reload a 'best' checkpoint chosen on a loader that falls back to the TEST loader, which is test-based model selection",
+    "full determinism: torch.use_deterministic_algorithms, seeded DataLoader generator and worker_init_fn, CUBLAS_WORKSPACE_CONFIG before torch import -- all four missing from graphcov.run.evaluation.set_seed"
+  ],
+
+  "training": {
+    "runner": "train_weighted.py (standalone; patching graphcov would risk in-flight Table-1 jobs 33574/33611/33614)",
+    "model": "ResNet18WithFeatures, not pretrained",
+    "epochs": 200,
+    "optimizer": "SGD momentum 0.9, weight_decay 5e-4, cosine annealing to 1e-4",
+    "lr": 0.1,
+    "batch_size": 128,
+    "size": 224,
+    "augment": false,
+    "loss": "CrossEntropyLoss(reduction='none'), weighted mean per batch: sum(w*l)/sum(w)",
+    "weight_normalisation": "mean 1 over the subset, so the effective learning rate matches the equal-weight arm"
+  },
+
+  "official_validation_accessed": false,
+  "official_test_accessed": true,
+  "official_test_access_note": "opened deliberately at this phase; see protocol_changes_from_the_probe_phase"
+}

@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voronoi 加权为什么关闭：真实训练结果审计</title>
+<style>
+:root{--ink:#172326;--muted:#53666a;--paper:#f7faf8;--panel:#fff;--line:#d8e4e0;--teal:#0b746e;--teal-soft:#dff2ee;--coral:#c75b44;--coral-soft:#fff1ec;--blue:#2e6384;--blue-soft:#eaf0f7;--gold:#80651b;--gold-soft:#f5e8b8;--shadow:0 8px 24px rgba(23,35,38,.08)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}main{max-width:1160px;margin:0 auto;padding:28px 22px 72px}header{padding:30px 0 24px;border-bottom:1px solid var(--line)}h1{font-size:clamp(30px,5vw,50px);line-height:1.12;letter-spacing:0;margin:0 0 12px;font-weight:600}h2{font-size:28px;line-height:1.25;margin:44px 0 14px;font-weight:600}h3{font-size:20px;line-height:1.35;margin:24px 0 8px;font-weight:600}p{max-width:970px;margin:8px 0;color:var(--muted)}.lead{font-size:19px;color:var(--ink);max-width:1020px}.eyebrow{color:var(--coral);font-weight:600;letter-spacing:.06em}.callout{background:var(--coral-soft);border-left:4px solid var(--coral);padding:15px 18px;max-width:1020px;margin:18px 0}.callout.good{background:var(--teal-soft);border-left-color:var(--teal)}.callout.note{background:var(--blue-soft);border-left-color:var(--blue)}.status{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0}.panel{background:var(--panel);border:1px solid var(--line);padding:17px;box-shadow:var(--shadow)}.panel h3{margin-top:0}.goodline{border-left:4px solid var(--teal)}.warnline{border-left:4px solid var(--coral)}.blueline{border-left:4px solid var(--blue)}.tag{display:inline-block;color:var(--teal);background:var(--teal-soft);padding:2px 9px;font-size:13px;margin-bottom:8px}.formula{font-family:Georgia,"Times New Roman",serif;background:var(--teal-soft);border-left:4px solid var(--teal);padding:13px 18px;margin:14px 0;max-width:1020px;font-size:18px;overflow:auto}.table-wrap{overflow:auto;max-width:100%}table{border-collapse:collapse;width:100%;min-width:720px;background:var(--panel);margin:16px 0}th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}th{background:#f0f7f5;color:var(--teal);font-weight:600}.num{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}code{background:#eef3f1;color:#24535a;padding:2px 5px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}.decision{display:grid;grid-template-columns:1fr 1fr;gap:14px}.decision div{padding:16px}.yes{background:var(--teal-soft)}.no{background:var(--coral-soft)}.flow{background:var(--panel);border:1px solid var(--line);padding:12px;margin:20px 0;overflow:hidden}.flow svg{display:block;width:100%;height:auto;min-width:830px}.flow text{font-family:system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}.barrow{display:grid;grid-template-columns:150px 1fr 90px;align-items:center;gap:10px;margin:9px 0}.track{height:16px;background:#e7efed;overflow:hidden}.bar{height:100%;background:var(--teal)}.bar.coral{background:var(--coral)}.bar.blue{background:var(--blue)}.bar.gold{background:#b59235}.barrow .value{text-align:right;font-variant-numeric:tabular-nums}.tabs{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0}.tabs button{border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:9px 13px;font:inherit;cursor:pointer}.tabs button[aria-selected="true"]{background:var(--teal);color:white;border-color:var(--teal)}.step{display:none}.step.active{display:block}.footer{border-top:1px solid var(--line);margin-top:48px;padding-top:18px;color:var(--muted);font-size:13px}
+@media(max-width:720px){main{padding:20px 14px 50px}.status,.grid,.decision{grid-template-columns:1fr}h2{font-size:24px}.lead{font-size:17px}.flow{padding:5px}.barrow{grid-template-columns:105px 1fr 70px;font-size:14px}table{font-size:14px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="eyebrow">代码和 HPC 输出核实后的说明</div>
+<h1>Voronoi 加权为什么关闭？</h1>
+<p class="lead">这次不是“探针结果不好看，所以关闭方法”。相反，探针上的信号非常稳定；真正的问题是：这个信号没有在同一批图像上转化为从头训练 ResNet 的精度提升。下面把代码怎样算、输出怎样算、已经证明什么，以及还没有证明什么分开讲清楚。</p>
+</header>
+
+<div class="callout good"><b>一句话结论：</b>在当前协议下，UNI embedding 计算出的类内 Voronoi 代表权重没有改善真实 ResNet 的 balanced accuracy。预注册 gate 的输出是 <b>REFUTED</b>，所以“Voronoi weighting × random/herding”的分支应关闭；不能继续用 probe 的离线增益为它辩护。</div>
+
+<section class="status">
+<div class="panel goodline"><span class="tag">已核实</span><h3>训练输出完整</h3><p>HPC 上 8 个 shard，每个 45 行，共 <b>360/360</b> 个训练 cell。覆盖 bloodmnist、organsmnist、tissuemnist。</p></div>
+<div class="panel warnline"><span class="tag">最终裁决</span><h3>REFUTED</h3><p><code>results/gate_training.json</code>：真实训练 pooled DiD 为 −0.064pp，permuted control 为 +0.057pp。</p></div>
+<div class="panel blueline"><span class="tag">正在修正仪器</span><h3>探针排序检查</h3><p>合并 random 与 herding 会看起来很相关；在同一方法内部平均 Spearman 只有 0.119，说明 probe 不能直接当真实训练排序器。</p></div>
+</section>
+
+<h2>一、实验到底比较了什么？</h2>
+<div class="flow" aria-label="Voronoi 加权实验流程"><svg viewBox="0 0 1100 300" role="img"><title>选择、加权和真实训练的实验流程</title><defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L9,3 L0,6" fill="none" stroke="#0b746e" stroke-width="1.5"/></marker></defs><rect x="25" y="35" width="220" height="76" fill="#eaf0f7" stroke="#2e6384"/><text x="135" y="66" text-anchor="middle" font-size="17">完整训练集</text><text x="135" y="91" text-anchor="middle" font-size="13" fill="#53666a">按类别抽 80% selection pool</text><line x1="255" y1="73" x2="320" y2="73" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="330" y="35" width="230" height="76" fill="#dff2ee" stroke="#0b746e"/><text x="445" y="66" text-anchor="middle" font-size="17">UNI 1024 维空间</text><text x="445" y="91" text-anchor="middle" font-size="13" fill="#53666a">每类选 25 张代表</text><line x1="570" y1="73" x2="635" y2="73" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="645" y="35" width="200" height="76" fill="#f5e8b8" stroke="#80651b"/><text x="745" y="66" text-anchor="middle" font-size="17">三种训练权重</text><text x="745" y="91" text-anchor="middle" font-size="13" fill="#53666a">equal / Voronoi / permuted</text><line x1="855" y1="73" x2="920" y2="73" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="930" y="35" width="140" height="76" fill="#fff1ec" stroke="#c75b44"/><text x="1000" y="66" text-anchor="middle" font-size="17">ResNet18</text><text x="1000" y="91" text-anchor="middle" font-size="13" fill="#53666a">200 epochs</text><line x1="1000" y1="130" x2="1000" y2="195" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="650" y="210" width="420" height="60" fill="#dff2ee" stroke="#0b746e"/><text x="860" y="247" text-anchor="middle" font-size="17">official test：balanced accuracy</text><line x1="620" y1="240" x2="555" y2="240" stroke="#0b746e" stroke-width="2" marker-end="url(#arrow)"/><rect x="130" y="210" width="400" height="60" fill="#fff1ec" stroke="#c75b44"/><text x="330" y="247" text-anchor="middle" font-size="17">配对 DiD：加权是否依赖选样方法？</text></svg></div>
+<p>注意：几何是在 UNI embedding 中计算，真实模型是在原始 224px 图像上从头训练 ResNet18。正是这个“表示空间不同、最终模型不同”的落差，需要用真实训练来检验。</p>
+
+<h2>二、代码如何计算最终 gate？</h2>
+<p>文件 <code>gate_training.py</code> 明确规定：</p>
+<div class="formula">DiD = [BA(random, Voronoi) − BA(random, equal)] − [BA(herding, Voronoi) − BA(herding, equal)]</div>
+<p>通俗地说：</p>
+<div class="table-wrap"><table><thead><tr><th>步骤</th><th>含义</th></tr></thead><tbody>
+<tr><td>第一组差值</td><td>Random 选出的同一批图，加 Voronoi 权重后比等权高多少。</td></tr>
+<tr><td>第二组差值</td><td>Herding 选出的同一批图，加 Voronoi 权重后比等权高多少。</td></tr>
+<tr><td>两组相减</td><td>扣除“加权本身改变训练行为”的共同影响，只看加权是否特别适合 random 而不适合 herding。</td></tr>
+<tr><td>每个数据集</td><td>10 个 selection replicate × 2 个 train seed = 20 个配对单位。</td></tr>
+<tr><td>最终 pooled</td><td>代码先算三个数据集各自的 mean，再对三个 mean 取平均，不是把所有图像混成一个独立样本。</td></tr>
+</tbody></table></div>
+
+<h2>三、探针结果为什么看起来很强？</h2>
+<p>预算阶梯在 full train pool、每类 25 张时，先用线性 probe 预测了 Voronoi weighting 的交互效应：</p>
+<div class="table-wrap"><table><thead><tr><th>数据集</th><th>Random 加权增益</th><th>Herding 加权增益</th><th>Probe DiD</th><th>block 方向</th></tr></thead><tbody>
+<tr><td>bloodmnist</td><td class="num">+1.034pp</td><td class="num">−0.016pp</td><td class="num">+1.05pp</td><td>4/4 正</td></tr>
+<tr><td>organsmnist</td><td class="num">+2.038pp</td><td class="num">−0.886pp</td><td class="num">+2.92pp</td><td>4/4 正</td></tr>
+<tr><td>tissuemnist</td><td class="num">+1.289pp</td><td class="num">−0.316pp</td><td class="num">+1.60pp</td><td>4/4 正</td></tr>
+</tbody></table></div>
+<p>“4/4 同号且超过 2SE”表示：在四个独立的 train-only block 中，probe 每次都给出同方向，而且相对 block 波动看起来足够大。这证明了 <b>probe 的离线统计信号稳定</b>，但还没有证明它能预测真实 ResNet。</p>
+
+<h2>四、真实训练输出是什么？</h2>
+<p>以下数字直接来自 <code>results/gate_training.json</code>，每个数据集都有 20 个配对单位：</p>
+<div class="table-wrap"><table><thead><tr><th>数据集</th><th>真实训练 DiD</th><th>标准误</th><th>正向单位</th><th>解释</th></tr></thead><tbody>
+<tr><td>bloodmnist</td><td class="num">−0.090pp</td><td class="num">1.082pp</td><td class="num">8/20</td><td>略为负，且不稳定。</td></tr>
+<tr><td>organsmnist</td><td class="num">+0.382pp</td><td class="num">0.700pp</td><td class="num">11/20</td><td>点估计为正，但远低于 +1pp。</td></tr>
+<tr><td>tissuemnist</td><td class="num">−0.484pp</td><td class="num">0.330pp</td><td class="num">9/20</td><td>稳定地不支持预期的正向 interaction。</td></tr>
+<tr><td><b>三个数据集平均</b></td><td class="num"><b>−0.064pp</b></td><td>按数据集 mean 汇总</td><td>0/3 达到 +1pp</td><td><b>REFUTED</b></td></tr>
+</tbody></table></div>
+<div class="barrow"><span>bloodmnist</span><div class="track"><div class="bar coral" style="width:51%"></div></div><span class="value">−0.09pp</span></div><div class="barrow"><span>organsmnist</span><div class="track"><div class="bar gold" style="width:60%"></div></div><span class="value">+0.38pp</span></div><div class="barrow"><span>tissuemnist</span><div class="track"><div class="bar coral" style="width:48%"></div></div><span class="value">−0.48pp</span></div>
+<p>对应的置换权重 control 的 pooled DiD 是 <b>+0.057pp</b>，接近零。它说明真正的 Voronoi 对应关系没有带来稳定的额外收益；不是“任意不等权训练都一定有帮助”。</p>
+
+<h2>五、真实模型的主要 BA 也支持关闭吗？</h2>
+<p>支持。下面是 20 个真实训练单位的平均 balanced accuracy，作为描述性检查；正式裁决仍以 DiD 为主。</p>
+<div class="table-wrap"><table><thead><tr><th>数据集 / 方法</th><th>等权</th><th>Voronoi within</th><th>置换 within</th><th>最直观的读法</th></tr></thead><tbody>
+<tr><td>blood / random</td><td class="num">80.69%</td><td class="num">79.72%</td><td class="num">79.81%</td><td>Voronoi 下降。</td></tr>
+<tr><td>blood / herding</td><td class="num">81.94%</td><td class="num">81.06%</td><td class="num">80.35%</td><td>等权最高。</td></tr>
+<tr><td>organs / random</td><td class="num">58.51%</td><td class="num">57.62%</td><td class="num">56.39%</td><td>Voronoi 下降，置换更低。</td></tr>
+<tr><td>organs / herding</td><td class="num">62.01%</td><td class="num">60.74%</td><td class="num">60.25%</td><td>等权明显最高。</td></tr>
+<tr><td>tissue / random</td><td class="num">28.40%</td><td class="num">28.27%</td><td class="num">27.98%</td><td>三者接近，Voronoi 没有增益。</td></tr>
+<tr><td>tissue / herding</td><td class="num">29.48%</td><td class="num">29.83%</td><td class="num">29.24%</td><td>只有这一格略有正向 BA。</td></tr>
+</tbody></table></div>
+
+<h2>六、这是不是说明探针完全没用？</h2>
+<p>不能这样说。HPC 上的 <code>probe_vs_training.py</code> 做了更关键的检查：固定数据集，比较同一批 10 个 random 选择和 10 个 herding 选择，探针 BA 是否能排出真实训练 BA 的相对顺序。</p>
+<div class="table-wrap"><table><thead><tr><th>分组</th><th>n</th><th>Spearman</th><th>解释</th></tr></thead><tbody>
+<tr><td>blood / random</td><td class="num">10</td><td class="num">−0.067</td><td>探针排序与训练排序相反但接近零。</td></tr>
+<tr><td>blood / herding</td><td class="num">10</td><td class="num">−0.261</td><td>没有可靠排序能力。</td></tr>
+<tr><td>organs / random</td><td class="num">10</td><td class="num">+0.321</td><td>弱正相关，样本太少。</td></tr>
+<tr><td>organs / herding</td><td class="num">10</td><td class="num">+0.176</td><td>弱正相关，不能作为可靠筛选器。</td></tr>
+<tr><td>tissue / random</td><td class="num">10</td><td class="num">+0.564</td><td>看起来较强，但只有 10 个选择。</td></tr>
+<tr><td>tissue / herding</td><td class="num">10</td><td class="num">−0.018</td><td>没有排序能力。</td></tr>
+<tr><td><b>六个方法内部格子的平均</b></td><td class="num">6</td><td class="num"><b>+0.119</b></td><td><b>不能把 probe 当作真实训练排序器。</b></td></tr>
+</tbody></table></div>
+<div class="callout note"><b>为什么把两种方法合并会误导？</b>因为 herding 在 probe 和真实训练上整体都不同于 random。把两臂合并，相关性主要反映“herding 与 random 的方法族差异”；真正需要的问题是：在同一个方法族内部，probe 更高的那个选择是否真的训练更好。当前数据对此没有足够证据。</div>
+
+<h2>七、这次真正证明了什么？</h2>
+<div class="decision"><div class="yes"><strong>已经证明或强烈支持</strong><br><br>1. Voronoi within weighting 的预注册 interaction 没有在真实 ResNet 上复现。<br><br>2. UNI probe 上很稳定的离线增益，不等于真实像素模型的精度增益。<br><br>3. 选样方法之间的整体差异，不能代替同一方法内部的排序验证。<br><br>4. 当前 Voronoi 加权分支应关闭，而不是继续调权重。</div><div class="no"><strong>还没有证明</strong><br><br>1. Herding 在所有医学图像数据集上永远最好。<br><br>2. UNI embedding 对选样完全没有价值。<br><br>3. 所有覆盖、边界或动态特征都无效。<br><br>4. 新的 RAMP 或动态选择方法一定能超过基线。<br><br>5. “真实训练噪声与选择信号同量级”的信度分解已经被当前 JSON 完整保存；当前可直接核实的是 6 个组内相关系数。</div></div>
+
+<h2>八、下一步应该怎样优化，而不是继续重复失败？</h2>
+<div class="grid"><section class="panel"><span class="tag">第一步</span><h3>先修正测量尺度</h3><p>完整运行无 cap 的五数据集先验，重新计算 pathmnist 的 headroom、全池最近邻和局部标签混合度。旧的“path headroom 0.61pp”来自 capped pool，不能继续作为排除依据。</p></section><section class="panel"><span class="tag">第二步</span><h3>把动态基线加入筛选</h3><p>当前代码已经接入 forgetting、AUM、EL2N、CCS、Moderate 以及 11 个动态泛函。五个 dynamics cache 都存在，但完整 screen 还没有有效输出。</p></section><section class="panel"><span class="tag">第三步</span><h3>最终端点改用真实训练</h3><p>probe 只能作为便宜的候选筛选器；最终方法选择必须用真实模型、固定训练协议、source-validation 和足够的 train seeds。不能再用 probe gate 直接放行 GPU 结论。</p></section></div>
+<div class="formula">新方法候选评价顺序：全尺度先验 → 动态与几何特征筛选 → 同方法内部排序 → 真实训练 → 五数据集确认</div>
+<p>只有当一个特征在同一数据集、同一预算、同一方法族内部仍能预测真实训练表现，并且跨独立 block 重复，它才有资格进入新的图像选择器。这样得到的创新方法可以是“动态难度 + 类内原型 + 稀有模式保护”的组合，但不能先写方法再用 probe 证明它。</p>
+
+<h2>九、当前 HPC 文件核对清单</h2>
+<div class="table-wrap"><table><thead><tr><th>文件</th><th>核对结果</th></tr></thead><tbody>
+<tr><td><code>gate_training.py</code></td><td>处理 treatment=voronoi_within、control=equal、permuted control，并按数据集 mean 汇总 DiD。</td></tr>
+<tr><td><code>results/gate_training.json</code></td><td>360 个训练 cell 已完成；REFUTED；pooled DiD −0.06395pp；permuted +0.05719pp。</td></tr>
+<tr><td><code>probe_vs_training.py</code></td><td>已修正为使用 <code>R.DATASETS.index(dataset)</code>，与训练 cell 的 seed schedule 对齐。</td></tr>
+<tr><td><code>results/probe_vs_training.json</code></td><td>60 个不同选择；合并方法时相关较高，但六个方法内部格子的平均 Spearman=0.119。</td></tr>
+<tr><td><code>functional_screen.py</code></td><td>已加入动态泛函和 published dynamics anchors。</td></tr>
+<tr><td><code>results/screen_33707/</code></td><td>0 行；旧作业因变量名冲突失败，不能当作泛函筛选结果。</td></tr>
+<tr><td><code>results/screen_smoke.jsonl</code></td><td>只有单数据集、单 block 的小型 smoke，不能作为跨数据集结论。</td></tr>
+</tbody></table></div>
+
+<div class="footer">本页依据 HPC 项目目录 <code>/home/xiaoyuxu2/uni_task_geometry_selection_20260923/</code> 的实际脚本和 JSON 输出整理。最终判断优先使用代码实现的 gate 和已落盘结果，不把计划、smoke test 或日志中的单次观察当成正式证据。</div>
+</main>
+<script>
+document.querySelectorAll('.tabs button').forEach(btn=>btn.addEventListener('click',()=>{
+  document.querySelectorAll('.tabs button').forEach(b=>b.setAttribute('aria-selected','false'));
+  document.querySelectorAll('.step').forEach(s=>s.classList.remove('active'));
+  btn.setAttribute('aria-selected','true');
+  document.getElementById(btn.dataset.target).classList.add('active');
+}));
+</script>
+</body>
+</html>

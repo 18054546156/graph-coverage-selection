@@ -1,0 +1,13 @@
+__pycache__/
+*.pyc
+results/training_*/
+results/*_fullscale.json
+results/screen_*/
+results/*.log
+cells/
+logs/
+cache/
+*.npz
+*.npy
+*.pt
+*.pth

@@ -1,0 +1,105 @@
+{
+  "name": "uni_task_geometry_selection_20260923",
+  "datasets": ["bloodmnist", "organamnist", "organsmnist", "pathmnist", "tissuemnist"],
+  "size": 224,
+  "max_per_class": 1000,
+  "blocks": 6,
+  "budget_per_class": 50,
+  "audit_fraction": 0.2,
+  "graph_k_neighbors": 10,
+  "graph_k_hops": 2,
+  "task_geometry_tau": 0.5,
+  "gradient_projection_dim": 64,
+  "pilot_per_class": 10,
+  "linear_probe": {
+    "solver": "lbfgs",
+    "C": 1.0,
+    "max_iter": 1000,
+    "multiclass_behavior": "lbfgs_default_multinomial"
+  },
+  "round1_methods": ["random", "herding", "graph_a2", "geometry"],
+  "round2_methods": ["random_plus_pilot", "geometry_plus_pilot", "task_geometry_plus_pilot", "permuted_task_geometry_plus_pilot"],
+
+  "training_weighting": {
+    "decision_id": "E",
+    "levels": ["equal", "voronoi"],
+    "crossed_with": "every round1 and round2 arm",
+    "voronoi_definition": "w_i = |{j in selection pool : pi(j) = i}|, pi = nearest same-class representative in L2-normalised UNI space, rescaled to mean 1",
+    "rescaling_reason": "sklearn does not renormalise the L2 penalty by sum(sample_weight); raw counts would confound weighting with effective C",
+    "within_class_assignment_reason": "a label-blind pi lets pi(j) cross classes, and then |loss_i - loss_j| is not controlled by ||z_i - z_j||, so the Lipschitz step of the bound fails",
+    "rationale": "the bound |R_D(theta) - R_{S,w}(theta)| <= L * D(S) requires w_i to carry assignment mass; equal-weight training does not test the object the theory motivates, so the weighted arm is the only line connecting theory to experiment",
+    "D_of_S_recorded_as": "covering_distortion (weighted mean nearest-representative distance over the whole selection pool)",
+    "bound_check": "secondary, non-gating: across arms, does larger covering_distortion predict a larger audit-vs-pool risk gap"
+  },
+
+  "preregistration": {
+    "frozen_before_any_audit_result_was_read": true,
+    "primary_contrast": {
+      "decision_id": "F",
+      "treatment": "task_geometry_plus_pilot",
+      "control": "permuted_task_geometry_plus_pilot",
+      "endpoint": "balanced_accuracy",
+      "weighting": "equal",
+      "pairing": "within (dataset, block)",
+      "why_not_geometry_plus_pilot": "task_features() consumes every pool label via errors[i, y_i] -= 1 while geometry_plus_pilot consumes none, so that difference confounds 'task geometry helps' with 'label access helps'. The within-class permutation control consumes exactly the same labels and destroys only the point-to-gradient correspondence."
+    },
+    "tau": {
+      "decision_id": "G",
+      "value": 0.5,
+      "status": "pre_registered_frozen",
+      "may_be_tuned_on_audit_results": false,
+      "enforcement": "run_linear_probe.py exits unless --tau matches PREREGISTERED_TAU; --unfreeze-tau stamps tau_frozen=false into run_metadata.json",
+      "sensitivity_runs": "permitted but must be reported separately and may never replace the frozen primary analysis"
+    },
+    "gpu_gate": {
+      "decision_id": "G",
+      "status": "pre_registered_frozen",
+      "implemented_by": "gate_decision.py",
+      "input": "linear_probe_results.csv rows with training_weighting == 'equal'",
+      "statistic": "delta[d][b] = BA(treatment) - BA(control); per-dataset effect = mean over blocks; dataset is the unit of replication",
+      "why_dataset_is_the_unit": "blocks within a dataset resample the same capped candidate pool, so they are not independent; the 3/5 replication requirement replaces a pooled p-value",
+      "threshold_pp": 1.0,
+      "threshold_justification": "the project's own measured screen MDE is 1.2-8.8pp for full training; the probe removes training noise, and 1-3pp is the effect size the whole line targets, so 1.0pp is the smallest honest bar",
+      "rules": {
+        "GO": "mean over datasets of the per-dataset effect >= +1.0pp AND at least 3 of 5 datasets individually >= +1.0pp",
+        "NO_GO": "mean over datasets < +0.5pp OR at least 3 of 5 datasets negative",
+        "AMBIGUOUS": "otherwise -- extend blocks 6 -> 12 (CPU only, no GPU spend) and re-apply this rule exactly once; a second AMBIGUOUS resolves to NO_GO"
+      },
+      "on_GO": "120 GPU runs, target-classifier training, same frozen tau and same primary contrast",
+      "on_NO_GO": "no GPU spend; report the probe result as a negative and close the task-geometry branch"
+    },
+    "secondary_endpoints_non_gating": [
+      "training_weighting main effect (voronoi - equal) within each arm",
+      "ece15 -- KNOWN DEGENERATE, measured before the run: at budget 50/class with C=1.0 on unit-norm UNI features the probe is severely underconfident (bloodmnist acc 0.920 vs mean confidence 0.431, so ece15 ~ 0.49 for every arm). That offset is L2 shrinkage on a small training set, not a property of the selection. Between-arm ece15 differences are swamped and must not be reported as calibration findings.",
+      "worst_class_recall",
+      "covering_distortion vs primary delta association",
+      "round1 method ordering as a sanity check against prior Table-1 results"
+    ],
+    "multiplicity": "exactly one primary endpoint, one primary contrast, one weighting level. Everything listed as secondary is descriptive and may not be promoted to the headline after the fact."
+  },
+
+  "round3_allocation": {
+    "status": "design_only_until_round1_round2_signal_is_reproducible",
+    "total_budget": "fixed",
+    "allocation_methods": ["mass_fallback", "dimension_law", "direct_marginal_distortion", "oracle_upper_bound"],
+    "oracle_upper_bound": {
+      "decision_id": "H",
+      "purpose": "the three real allocators may all sit inside noise, in which case the comparison teaches nothing. The oracle answers the prior question -- how much headroom does allocation have at all -- before asking which allocator is better.",
+      "definition": "allocate_by_direct_marginal over region curves whose demand side IS the evaluation set (demand_source='evaluation')",
+      "status_in_reporting": "upper bound only; never a competing method, never a deployable result",
+      "leakage_guard": "allocate_by_direct_marginal raises unless allow_oracle=True when any curve has demand_source != 'calibration'"
+    },
+    "direct_distortion": "weighted_mean_nearest_representative_distance_on_train_calibration_regions",
+    "direct_marginal_gain": "D_r(k-1)-D_r(k)",
+    "calibration_selection_separation": true,
+    "minimum_per_region": "pre_registered_floor",
+    "maximum_per_region": "candidate_count",
+    "final_evaluation": "source_validation_only",
+    "official_test_accessed": false
+  },
+
+  "official_validation_accessed": false,
+  "official_test_accessed": false,
+  "target_classifier_training": false,
+  "seed_schedule": "base_seed + 1000003*dataset_index + 1009*block"
+}
