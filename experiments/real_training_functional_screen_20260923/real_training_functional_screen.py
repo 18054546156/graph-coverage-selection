@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import socket
 import sys
 import time
 from pathlib import Path
@@ -19,6 +20,9 @@ import torch
 import functional_screen as F
 import run_linear_probe as R
 import train_weighted as T
+
+HOST = socket.gethostname()
+GPU_NAME = torch.cuda.get_device_name(0) if torch.cuda.is_available() else "cpu"
 
 
 def load_raw_dataset(graphcov_root: Path, dataset: str, size: int, medmnist_root: Path):
@@ -122,6 +126,13 @@ def run_dataset(args, dataset: str, device: torch.device) -> int:
                     continue
                 if args.global_end is not None and global_index >= args.global_end:
                     continue
+                # Stride, not a contiguous slice: --skip-existing makes an
+                # already-measured index almost free, and the measured rows are
+                # clustered (the first wave covered only block 1's [242,358)).
+                # Contiguous shards would hand one worker a range that is 90%
+                # skips and another a range that is all training runs.
+                if args.shard_count > 1 and global_index % args.shard_count != args.shard_index:
+                    continue
                 train_seed = args.train_seed_offset + 100000 * di + 1000 * block
                 if (block, name, train_seed) in done:
                     skipped += 1
@@ -159,6 +170,15 @@ def run_dataset(args, dataset: str, device: torch.device) -> int:
                     "global_screen_index": global_index,
                     "endpoint_seconds": time.time() - started,
                     "alignment_probe_ba": align,
+                    # Recorded because the screen now runs across two GPU models
+                    # (A100 and RTX 4090) to use the 12-GPU quota. The same
+                    # selection at the same train_seed has already been observed
+                    # to differ by 2.58pp across hosts, so GPU type is a real
+                    # nuisance variable; logging it makes that auditable as a
+                    # covariate instead of silently confounding a shard with a
+                    # device.
+                    "host": HOST,
+                    "gpu_name": GPU_NAME,
                 }
                 out.write(json.dumps(row, sort_keys=True) + "\n")
                 out.flush()
@@ -212,12 +232,23 @@ def main():
         "--global-end", type=int, default=None,
         help="Exclusive global selection index across all blocks (default: all).",
     )
+    p.add_argument(
+        "--shard-index", type=int, default=0,
+        help="Take only global indices where index %% shard-count == shard-index. "
+             "Striding rather than slicing keeps workers balanced when many "
+             "indices are cheap skips (see --skip-existing).",
+    )
+    p.add_argument("--shard-count", type=int, default=1)
     args = p.parse_args()
 
     if args.global_start < 0:
         p.error("--global-start must be non-negative")
     if args.global_end is not None and args.global_end <= args.global_start:
         p.error("--global-end must be greater than --global-start")
+    if args.shard_count < 1:
+        p.error("--shard-count must be >= 1")
+    if not 0 <= args.shard_index < args.shard_count:
+        p.error("--shard-index must be in [0, --shard-count)")
 
     args.output.mkdir(parents=True, exist_ok=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

@@ -107,9 +107,61 @@ TRAIN_SEED_OFFSET=100000 ONLY_SHARD=0 ./submit_complete_screen.sh   # block 0
 TRAIN_SEED_OFFSET=100000 ONLY_SHARD=1 ./submit_complete_screen.sh   # block 1
 ```
 
-It submits one shard index across all five datasets rather than all shards of one
-dataset, because `qos-high-gpu` runs 5 jobs per user at a time and submission order is
-therefore priority order.
+### Use the whole quota: 12 GPUs, not 5 (added 2026-09-23)
+
+`qos-high-gpu` caps a user at **5 running jobs but 12 GPUs**:
+
+```
+MaxJobsPU=5   MaxSubmitPU=15   cpu=128,gres/gpu=12,mem=256G
+```
+
+One dataset per job at `--gres=gpu:1` therefore spent all five job slots to run five
+GPUs and stranded seven — while the four GPU nodes had ~20 GPUs free. The job count,
+not the GPU count, was the binding constraint, and it was being wasted on
+one-worker jobs.
+
+`run_real_multigpu.slurm` packs N single-GPU workers into one job.
+`submit_multigpu_screen.sh` lays out 4 jobs x 3 workers = 12 GPUs, within every cap
+(`mem 4*60=240G <= 256G`, `cpu 4*18=72 <= 128`) and leaving a fifth job slot spare:
+
+```bash
+./submit_multigpu_screen.sh              # submit
+DRY_RUN=1 ./submit_multigpu_screen.sh    # print only
+```
+
+Three things are load-bearing here:
+
+- **Work items are positional arguments, never `--export`.** `sbatch` splits an
+  `--export` value on commas, so `--export=ALL,WORK="bloodmnist,0,2 pathmnist,0,3"`
+  silently sets `WORK=bloodmnist` and invents variables named `0` and `2 pathmnist`.
+  The first attempt (jobs 33894-33897) died this way in four seconds.
+- **Shards stride, they do not slice** (`--shard-index` / `--shard-count`, keeping
+  `global_index % count == index`). With `--skip-existing`, an already-measured index
+  costs almost nothing, and the measured rows are clustered in block 1's
+  `[242,358)`. Contiguous shards would hand one worker a range that is nearly all
+  skips and another a range that is all training runs.
+- **Workers map onto the GPUs SLURM allocated**, via `CUDA_VISIBLE_DEVICES` as SLURM
+  set it, not onto physical devices `0..n-1`. `nvidia-smi` inside these jobs lists
+  every GPU on the node, so this cluster does **not** isolate devices by cgroup;
+  hardcoding `0,1,2` would run on another user's GPUs whenever SLURM allocated
+  anything else.
+
+Datasets are weighted by cost — pathmnist and tissuemnist train slower (~82s/run vs
+~69s) and get 3 workers, the others 2 — and each job mixes fast with slow datasets so
+no single job becomes the straggler.
+
+### GPU model is now a recorded covariate
+
+Neither partition has 12 free GPUs alone, so the screen runs across `gpu-a100` and
+`gpu-rtx4090`. The same selection at the same `train_seed` has already been observed
+to differ by **2.58pp** across hosts (blood `random_1`: 0.8064 in `run_33848` vs
+0.7806 in `seed_0`), so device is a real nuisance variable. Two mitigations:
+
+- Stride sharding spreads each dataset's indices across jobs on both partitions, so
+  GPU model is approximately *randomised* across selections rather than aligned with
+  a contiguous index range.
+- Every row now records `host` and `gpu_name`, so the effect can be estimated and
+  controlled for instead of silently confounding a shard with a device.
 
 ## The training protocol is NOT the paper's, deliberately
 
