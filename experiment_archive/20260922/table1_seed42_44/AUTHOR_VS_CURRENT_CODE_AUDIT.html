@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Table 1 复现代码审计：作者 vs 当前项目</title>
+  <style>
+    :root { --ink:#17212b; --muted:#5c6b78; --line:#d8e0e7; --blue:#155eef; --blue-bg:#eef4ff; --amber:#9a6700; --amber-bg:#fff8e1; --red:#b42318; --red-bg:#fff1f0; --green:#087443; --green-bg:#ecfdf3; --panel:#f7f9fb; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:#fff; font:15px/1.65 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif; }
+    main { max-width:1220px; margin:0 auto; padding:34px 28px 72px; }
+    h1 { font-size:32px; line-height:1.2; margin:0 0 8px; letter-spacing:0; }
+    h2 { margin:40px 0 12px; padding-bottom:7px; border-bottom:2px solid var(--line); font-size:23px; letter-spacing:0; }
+    h3 { margin:26px 0 8px; font-size:18px; }
+    p { margin:9px 0; }
+    .sub { color:var(--muted); margin-top:0; }
+    .meta { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin:24px 0; }
+    .meta div, .card { border:1px solid var(--line); border-radius:7px; padding:13px 15px; background:var(--panel); }
+    .meta strong { display:block; font-size:12px; text-transform:uppercase; color:var(--muted); }
+    code, pre { font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace; }
+    code { background:#f0f3f6; padding:1px 4px; border-radius:3px; }
+    pre { overflow:auto; margin:10px 0; padding:14px 16px; border:1px solid var(--line); border-radius:6px; background:#101820; color:#e8eef4; font-size:13px; line-height:1.55; }
+    table { width:100%; border-collapse:collapse; margin:12px 0 20px; font-size:14px; }
+    th, td { text-align:left; vertical-align:top; border:1px solid var(--line); padding:9px 10px; }
+    th { background:#edf2f7; font-weight:700; }
+    tr:nth-child(even) td { background:#fbfcfd; }
+    .callout { border-left:5px solid var(--blue); background:var(--blue-bg); padding:13px 16px; margin:15px 0; }
+    .warn { border-left-color:#d99000; background:var(--amber-bg); }
+    .danger { border-left-color:var(--red); background:var(--red-bg); }
+    .good { border-left-color:var(--green); background:var(--green-bg); }
+    .badge { display:inline-block; padding:2px 8px; border-radius:999px; font-size:12px; font-weight:700; background:#e9eef5; }
+    .same { color:var(--green); }
+    .diff { color:var(--red); }
+    .unknown { color:var(--amber); }
+    .flow { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:10px; margin:15px 0; }
+    .step { position:relative; border:1px solid var(--line); border-radius:7px; padding:13px; background:#fff; }
+    .step:not(:last-child)::after { content:"→"; position:absolute; right:-18px; top:34px; color:#718096; font-size:22px; z-index:2; }
+    .step b { display:block; margin-bottom:5px; }
+    .small { color:var(--muted); font-size:13px; }
+    .verdict { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .verdict .card strong { display:block; margin-bottom:5px; }
+    .path { white-space:nowrap; }
+    @media (max-width:800px) { main { padding:22px 15px 50px; } .meta,.flow,.verdict { grid-template-columns:1fr; } .step:not(:last-child)::after { content:"↓"; right:auto; left:50%; top:auto; bottom:-25px; } table { font-size:13px; display:block; overflow:auto; } h1 { font-size:26px; } }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Table 1 复现代码审计</h1>
+  <p class="sub">作者公开仓库、当前项目严格复现 runner、clean-only 多种子 runner 的逐项对照。生成日期：2026-09-23。</p>
+
+  <div class="meta">
+    <div><strong>作者仓库</strong><a href="https://github.com/zahiriddin-rustamov/graph-coverage-selection">graph-coverage-selection</a></div>
+    <div><strong>作者固定版本</strong><code>8cf757adc4c333dc1427d511f0de2f246d15ebac</code></div>
+    <div><strong>审计目录</strong><code>table1_reproduction_audit_20260922/</code></div>
+  </div>
+
+  <div class="callout danger">
+    <strong>先给结论：</strong>不能说当前项目的“整个流程”和作者完全一样。更准确的说法是：严格 Table 1 runner 使用了作者固定的 <code>graphcov</code> 算法源码，但项目重新编排了选择、训练、checkpoint 和评估；clean-only 多种子实验又采用了另一套 paired-seed/final-epoch 协议。因此当前结果与论文差距不能只归因于随机种子。
+  </div>
+
+  <div class="verdict">
+    <div class="card"><strong class="same">相同：方法核心</strong>Graph-A2、Facility、FPS、Herding、Random、EL2N、Forgetting、EVA 的方法接口和主要选择逻辑来自作者版本或其固定副本。</div>
+    <div class="card"><strong class="diff">不同：评估流程</strong>作者公开 runtime 周期性看 test 并追踪 best test BA；严格 runner 用 validation 选 checkpoint；clean-only 直接使用 final epoch。</div>
+    <div class="card"><strong class="diff">不同：seed 协议</strong>作者/strict 对确定性方法固定 selection seed 42；clean-only 让所有方法的 selection seed 跟 training seed 一起变化。</div>
+  </div>
+
+  <h2>1. 三条流程分别是什么</h2>
+  <p>当前项目里存在两条不同用途的 Table 1 路径。它们不能混写成一个实验。</p>
+
+  <h3>作者公开 runtime</h3>
+  <div class="flow">
+    <div class="step"><b>读取 train</b>读取 MedMNIST train，生成或读取 UNI embedding / dynamics。</div>
+    <div class="step"><b>选择子集</b>按比例和方法选择，每个类别有预算。</div>
+    <div class="step"><b>训练 ResNet-18</b>在选中子集上训练；默认 runtime 支持 epoch 或 iteration 两种范式。</div>
+    <div class="step"><b>周期性 test</b>作者代码每 10 个 epoch 或固定 iteration 间隔评估 test，并记录 best test BA 和 final BA。</div>
+  </div>
+  <p class="small">证据：<code>original_author/graphcov/run/experiment.py:150-177, 391-454, 560-822</code>；<code>original_author/graphcov/run/evaluation.py:348-552</code>。</p>
+
+  <h3>当前项目的 strict Table 1 runner</h3>
+  <div class="flow">
+    <div class="step"><b>Job 1：只选择</b>只读取 train，生成冻结的 selected indices 和 hash。</div>
+    <div class="step"><b>Job 2：只训练</b>读取冻结索引，在 selected train 上训练。</div>
+    <div class="step"><b>validation 选 checkpoint</b>每 10 epoch 在 validation 上算 BA，只保存 validation BA 最好的 checkpoint。</div>
+    <div class="step"><b>test 一次</b>训练结束后加载 best validation checkpoint，只在 test 上评估一次。</div>
+  </div>
+  <p class="small">证据：<code>table1_reproduction/experiments/job1_select.py:170-380</code>；<code>table1_reproduction/experiments/job2_downstream.py:170-235</code>、<code>:285-330</code>；<code>configs/job2_table1.json</code>。</p>
+  <div class="callout good"><strong>这条 strict 流程的优点：</strong>test 不参与 checkpoint 选择，避免用 test 反复挑最好 epoch。它是当前项目的防泄漏复现协议，但不是作者公开 runtime 原样行为。</div>
+
+  <h3>当前项目的 clean-only paired-seed runner</h3>
+  <div class="flow">
+    <div class="step"><b>读取 clean train</b>不读取 MedMNIST-C，不使用 corrupted train。</div>
+    <div class="step"><b>选择 clean 子集</b>使用一个 <code>SELECTION_SEED</code>，按 2% 或 5% 和 8 个方法选择。</div>
+    <div class="step"><b>clean selected training</b>用对应 <code>TRAINING_SEED</code> 训练 1000 epochs。</div>
+    <div class="step"><b>clean test final</b>不做 validation checkpoint 选择，训练结束后用 final epoch 模型测 clean test。</div>
+  </div>
+  <p class="small">证据：<code>table1_clean_only_20260922/run_clean_only.slurm:43-85</code>、<code>:95-126</code>；<code>pipeline.clean_only.patch.py:572-610</code>、<code>:869-930</code>、<code>:1069-1165</code>、<code>:1325-1350</code>。</p>
+  <div class="callout warn"><strong>因此 clean-only 不是 strict runner 的同义词：</strong>它是为估计 paired seed 下结果波动而建立的独立实验。它能回答“选样随机性和训练随机性一起变化时结果如何”，不能直接称为作者 runtime 的逐字复现。</div>
+
+  <h2>2. 方法本身：当前项目和作者是否一样</h2>
+  <table>
+    <thead><tr><th>方法</th><th>作者实现</th><th>当前项目实际使用</th><th>判断</th></tr></thead>
+    <tbody>
+      <tr><td>Random</td><td>按类别随机选样，seed 控制随机抽样。</td><td>strict 使用官方选择接口；clean-only 在 <code>choose()</code> 中用当前 selection seed。</td><td><span class="same">核心相同</span>，seed 口径不同。</td></tr>
+      <tr><td>EL2N</td><td>读取早期训练 dynamics 的错误分数，按分数选样。</td><td>28×28 dynamics、200 epochs，并调用同一方法注册表。</td><td><span class="same">核心相同</span>，缓存/编排不同。</td></tr>
+      <tr><td>Forgetting</td><td>按正确到错误的 forgetting 事件计数。</td><td>复用同一 dynamics 产生方式和选择接口。</td><td><span class="same">核心相同</span>。</td></tr>
+      <tr><td>EVA</td><td>从 dynamics 的早晚窗口计算误差变化/波动。</td><td>使用同一 28×28、200 epoch、window=10 约定。</td><td><span class="same">核心相同</span>，需保证窗口和 seed 一致。</td></tr>
+      <tr><td>Facility</td><td>按 cosine 相似度做 greedy facility location；公开实现可构建 dense 矩阵。</td><td>strict/clean-only 使用 blockwise cosine 计算，避免 TissueMNIST dense 矩阵爆内存。</td><td><span class="unknown">目标函数相同</span>，浮点累积、tie-breaking 和内存路径可能不同。</td></tr>
+      <tr><td>FPS</td><td>按 farthest-point 递推，每类选样，第一点受 seed 影响。</td><td>调用作者选择函数；clean-only 每个 paired seed 都重新选择。</td><td><span class="same">核心相同</span>，seed 传播不同。</td></tr>
+      <tr><td>Herding</td><td>逐步匹配类别 embedding 均值。</td><td>调用同一选择接口和 per-class budget。</td><td><span class="same">核心相同</span>。</td></tr>
+      <tr><td>Graph-A2</td><td>kNN graph + two-hop graph coverage；CLI 默认 k=10、global 默认关闭。</td><td>Table 1 config 显式设为 global、k=50、H=2，使用 <code>K=A_hat+A_hat^2</code>。</td><td><span class="diff">配置不同</span>；k=50/global 是项目根据论文 Table 2 做的显式复现假设。</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout danger"><strong>Graph-A2 的关键风险：</strong>不能只看到方法名相同就认为实验相同。作者 CLI 默认是 <code>k=10</code> 且 global 不是默认值；当前 strict/clean-only 为了对齐 Table 1 证据显式使用 <code>k=50</code>、<code>H=2</code>、global。若原论文 Table 1 实际采用的配置没有被补充材料明确写出，这里仍然存在可审计的实现假设。</div>
+
+  <h2>3. 训练和评估参数的逐项差异</h2>
+  <table>
+    <thead><tr><th>项目</th><th>作者公开代码</th><th>当前 strict</th><th>当前 clean-only</th><th>影响</th></tr></thead>
+    <tbody>
+      <tr><td>输入图像</td><td>默认 foundation embedding 224；训练支持 224。</td><td>224。</td><td>224。</td><td class="same">基本一致。</td></tr>
+      <tr><td>模型</td><td>ResNet-18 from scratch。</td><td>ResNet-18 from scratch。</td><td>ResNet-18 from scratch。</td><td class="same">基本一致。</td></tr>
+      <tr><td>优化器</td><td>SGD, lr=0.1, momentum=0.9, weight decay=5e-4, cosine scheduler。</td><td>相同配置。</td><td>相同配置。</td><td class="same">基本一致。</td></tr>
+      <tr><td>augmentation</td><td>Table 1 配置关闭；代码支持开启。</td><td>关闭。</td><td>关闭。</td><td class="same">基本一致。</td></tr>
+      <tr><td>训练长度</td><td>代码默认 epoch=200；作者 README 的示例使用 <code>training-paradigm iteration --iterations 1000</code>。</td><td>配置为 1000 epochs。</td><td>脚本固定 1000 epochs。</td><td class="diff">高风险：1000 iterations 不等于 1000 epochs。</td></tr>
+      <tr><td>checkpoint</td><td>公开 runtime 每 10 epoch 看 test，记录 best test 和 final。</td><td>validation BA 最好 checkpoint，test 一次。</td><td>final epoch，test 一次。</td><td class="diff">会直接改变最终 BA。</td></tr>
+      <tr><td>数据边界</td><td>公开 runtime 标准路径加载 train 和 test；无 strict val-only 防泄漏约束。</td><td>Job 1 只 train；Job 2 validation 选点，test 最后一次。</td><td>clean train/clean test；不使用 MedMNIST-C。</td><td class="diff">流程目的不同。</td></tr>
+      <tr><td>deterministic</td><td>默认 <code>deterministic=false</code>；只设 seed 时 GPU 仍可能有非确定性。</td><td>strict config 记录为 false。</td><td>Slurm 设置 <code>DETERMINISTIC_TRAINING=1</code>，并固定 DataLoader generator/worker seed。</td><td class="diff">运行噪声和速度不同。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>4. 随机种子：作者、strict 和 clean-only 的真正区别</h2>
+  <h3>作者公开 runtime 的 seed 传播</h3>
+  <p>作者在 <code>experiment.py</code> 中用 <code>seed = config['seed'] + trial</code>，CLI 默认 base seed 是 42。因此 5 个 trial 通常对应训练 seed：</p>
+  <pre>trial 0 → 42
+trial 1 → 43
+trial 2 → 44
+trial 3 → 45
+trial 4 → 46</pre>
+  <p>作者对选择结果做了缓存：<code>random</code>、<code>FPS</code> 等非确定性方法不缓存，会随 trial seed 变化；Graph-A2、Facility、Herding、EL2N、Forgetting、EVA 等确定性方法缓存第一次选择结果，通常固定为第一 trial 的 selection seed 42。作者代码证据见 <code>experiment.py:391-454</code> 和 <code>:656-720</code>。</p>
+
+  <h3>当前 strict runner 的 seed 策略</h3>
+  <table>
+    <thead><tr><th>方法类别</th><th>selection seed</th><th>training seed</th><th>是否与作者策略接近</th></tr></thead>
+    <tbody>
+      <tr><td>Random、FPS</td><td>42、43、44、45、46，跟每个 trial 的 training seed 走。</td><td>42、43、44、45、46。</td><td class="same">接近作者公开 runtime。</td></tr>
+      <tr><td>其余确定性方法</td><td>固定 42，只生成一个 frozen subset。</td><td>42、43、44、45、46。</td><td class="same">接近作者缓存逻辑。</td></tr>
+    </tbody>
+  </table>
+  <p class="small">代码证据：<code>table1_reproduction/experiments/job1_select.py:170-176</code>；<code>configs/job1_table1.json</code> 的 <code>selection_seed_policy</code>。</p>
+
+  <h3>当前 clean-only paired seed 的 seed 策略</h3>
+  <pre>seed 42: selection_seed=42, training_seed=42
+seed 43: selection_seed=43, training_seed=43
+seed 44: selection_seed=44, training_seed=44</pre>
+  <p>clean-only 的 <code>choose()</code> 对所有 8 个方法都传入同一个 <code>SELECTION_SEED</code>；之后 <code>run_one()</code> 再传入对应的 <code>train_seed</code>。所以在 clean-only 中，即使是 Graph-A2、Facility、Herding 等“确定性方法”，seed 42 和 seed 43 也会生成不同选集，随后训练也使用不同 seed。</p>
+  <div class="callout warn"><strong>这意味着：</strong>clean-only 的 42→43 差异是“选集变化 + 训练变化”的联合差异，不是纯 training-seed 方差。若要估计纯训练随机性，应冻结 selection index/hash，只改变 training seed；若要估计真实端到端复现波动，当前 paired 设计是合理的，但必须这样解释。</div>
+
+  <h2>5. 当前项目是否已经“完全按作者流程”</h2>
+  <table>
+    <thead><tr><th>问题</th><th>结论</th><th>解释</th></tr></thead>
+    <tbody>
+      <tr><td>选择方法代码是否完全换成了新方法？</td><td><span class="same">没有</span></td><td>strict Table 1 使用固定作者源码副本；clean-only 复用作者方法接口并加入自己的编排/审计逻辑。</td></tr>
+      <tr><td>数据集、比例、类别均衡是否相同？</td><td><span class="same">大体相同</span></td><td>五个 MedMNIST 数据集、2%/5%、按类别预算；有效预算是 <code>floor(floor(n×ratio)/n_classes)</code>。</td></tr>
+      <tr><td>Graph-A2 的参数是否自动等于作者默认值？</td><td><span class="diff">不是</span></td><td>当前显式使用 k=50/global/H=2；作者 CLI 默认 k=10、global 关闭。</td></tr>
+      <tr><td>训练是否逐行相同？</td><td><span class="diff">不是</span></td><td>当前项目有 strict validation runner 和 clean-only final runner；作者公开 runtime 的 checkpoint/test 逻辑不同。</td></tr>
+      <tr><td>seed 是否相同？</td><td><span class="diff">取决于 pipeline</span></td><td>strict 接近作者：确定性方法固定 selection=42；clean-only 明确采用 selection=train 的 paired seed。</td></tr>
+      <tr><td>test 是否参与模型选择？</td><td><span class="diff">strict 不参与，作者 raw 会参与，clean-only 不参与</span></td><td>作者 raw 周期性 test 并记录 best test；strict 用 val；clean-only 只在 final epoch 测 clean test。</td></tr>
+      <tr><td>能否把 clean-only 数值直接叫“作者 Table 1 严格复现”？</td><td><span class="diff">不能</span></td><td>它是 clean-only paired-seed 扩展，适合研究 seed 敏感性，不是原作者 runtime 的逐字复刻。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>6. 为什么差距可能很大</h2>
+  <ol>
+    <li><strong>训练长度口径：</strong>作者 README 示例的 1000 iterations 与当前 1000 epochs 不是同一个计算量；每个 epoch 会遍历整个 selected train。</li>
+    <li><strong>checkpoint 口径：</strong>best test、best validation 和 final epoch 是三个不同指标来源。即使模型完全相同，最终 BA 也可能不同。</li>
+    <li><strong>Graph-A2 配置：</strong>k=10 与 k=50、global 与 per-class 会改变图覆盖关系和选集。</li>
+    <li><strong>Facility 数值路径：</strong>blockwise 实现目标等价，但浮点累积和候选 tie 的细节可能改变极少数边界选择。</li>
+    <li><strong>seed 联动：</strong>clean-only 同时改变 selection 和 training；不能把它与 strict 的“固定选集、多 training seed”结果混合。</li>
+    <li><strong>GPU 确定性：</strong>clean-only 开启 deterministic，作者默认关闭；这改变运行速度，也可能改变 CUDA 算子结果。</li>
+  </ol>
+  <div class="callout danger"><strong>因此目前最严谨的表述：</strong>结果显示项目当前实现与论文报告存在差异，但尚未证明差异来自某一个算法 bug。必须先统一训练范式、checkpoint 规则、Graph-A2 参数和 seed policy，才能把剩余差距归因到代码或硬件。</div>
+
+  <h2>7. 建议的最终对照实验</h2>
+  <table>
+    <thead><tr><th>对照</th><th>固定项</th><th>只改变项</th><th>目的</th></tr></thead>
+    <tbody>
+      <tr><td>A：作者 raw</td><td>作者 commit、作者 CLI 示例、作者 test tracking</td><td>无</td><td>知道公开代码真实输出。</td></tr>
+      <tr><td>B：strict</td><td>作者选择代码、k=50/global/H=2、冻结索引</td><td>validation checkpoint + test once</td><td>得到防泄漏的论文对照。</td></tr>
+      <tr><td>C：clean-only paired</td><td>当前 clean-only 代码、deterministic、final epoch</td><td>selection=train=42/43/44</td><td>测端到端 seed 敏感性。</td></tr>
+      <tr><td>D：纯训练 seed</td><td>同一个 selection index SHA256、同一 ratio/method</td><td>只改变 training seed</td><td>分离 selection variance 与 training variance。</td></tr>
+      <tr><td>E：训练范式 AB</td><td>同一选集、同一 training seed</td><td>1000 iterations vs 1000 epochs</td><td>确认训练长度是不是主要误差源。</td></tr>
+    </tbody>
+  </table>
+
+  <h2>8. 代码入口索引</h2>
+  <table>
+    <thead><tr><th>用途</th><th>文件</th></tr></thead>
+    <tbody>
+      <tr><td>作者原始方法和训练</td><td><code>table1_reproduction_audit_20260922/original_author/graphcov/run/</code></td></tr>
+      <tr><td>作者源码固定副本</td><td><code>table1_reproduction/vendor/graphcov/</code></td></tr>
+      <tr><td>strict 选择 Job 1</td><td><code>table1_reproduction/experiments/job1_select.py</code></td></tr>
+      <tr><td>strict 训练/validation checkpoint/test</td><td><code>table1_reproduction/experiments/job2_downstream.py</code></td></tr>
+      <tr><td>strict 配置</td><td><code>table1_reproduction/configs/job1_table1.json</code>、<code>job2_table1.json</code></td></tr>
+      <tr><td>clean-only launcher</td><td><code>table1_clean_only_20260922/run_clean_only.slurm</code></td></tr>
+      <tr><td>clean-only pipeline</td><td><code>table1_clean_only_20260922/pipeline.clean_only.patch.py</code></td></tr>
+      <tr><td>已有差异摘要</td><td><code>table1_reproduction_audit_20260922/COMPARISON.md</code></td></tr>
+      <tr><td>逐文件 patch</td><td><code>table1_reproduction_audit_20260922/diffs/PROJECT_VS_AUTHOR.patch</code></td></tr>
+    </tbody>
+  </table>
+
+  <p class="small">审计边界：本页面只解释代码、配置和协议差异，不把当前结果差值自动解释成算法优劣。作者源码快照和当前项目快照的来源与 SHA256 见审计包中的 <code>diffs/FILE_MANIFEST.csv</code>。</p>
+</main>
+</body>
+</html>
