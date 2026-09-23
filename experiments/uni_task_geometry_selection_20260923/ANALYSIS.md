@@ -188,34 +188,54 @@ families) and a baseline leaderboard (every anchor's unperturbed BA as a z-score
 against the random draws in the same dataset/block) — see the code for exact
 definitions.
 
-**Status as of 2026-09-23:** the dynamics anchors and functionals (Forgetting,
-EL2N, AUM, CCS, Moderate) were wired in and smoke-tested; a full run
-(`run_functional_screen.slurm`, job 33767) is queued on the cluster. A single-block,
-tiny-`n` smoke test on bloodmnist showed `forget_high`/`el2n_high` scoring ~17pp
-*below* random — plausible (both methods are published at 30–90% retention, far
-outside the 25/class regime here) but **not evidence**; it is one block with
-`n_random=2`.
+**Status as of 2026-09-23 (probe run COMPLETE):** job 33767 finished in 19m12s and
+produced **7,350 selections** across all 5 datasets x 2 blocks x 26 functionals
+(`results/screen_33767/screen_{0..3}.jsonl.gz`, committed here). Analysis output is
+`results/screen_33767/analyze_screen.json`.
+
+A real bug was found and fixed while running the analysis: `analyze_screen.py` called
+`collections.groupby`, which does not exist (only `itertools` has `groupby`), so
+analysis E raised `AttributeError` before producing anything. Fixed to
+`itertools.groupby`.
+
+**Probe-endpoint survivors** (`|t|>3` in both D and D2, same sign) — 10 functionals:
+`dist_mean`, `dist_p90`, `mmd2`, `moment1`, `moment2`, `mass_gini`, `purity`,
+`spread`, `aum_mean`, `el2n_early_mean`.
+
+**These are candidates, not conclusions.** They are what predicts *linear-probe*
+balanced accuracy. Per §3, the probe is not validated as a within-method ranker for
+real training, so this list is a hypothesis set to be re-tested at the real endpoint
+(§7) — not a result to build a method on. That mistake is exactly what killed items
+1-8 in §1.
 
 ---
 
 ## 6. Immediate gaps (not yet done)
 
-1. **Endpoint is still the probe, not real training.** Given §3, any functional
-   screen conclusion built on probe BA inherits the same unresolved question:
-   whether the probe ranks selections the way training does, within a family, is
-   only bounded (not resolved) by the current data. The probe screen is useful as
-   a cheap way to choose *which* selections to feed to real training (it is
-   deterministic and free), not as the final verdict.
+1. ~~**Endpoint is still the probe, not real training.**~~ **CLOSED (code) / IN
+   FLIGHT (measurement).** The real-training driver is implemented in
+   [`../real_training_functional_screen_20260923/`](../real_training_functional_screen_20260923/)
+   and is running — see §7.
 2. **EVA's own score and true submodular Facility Location** are not in the
-   functional/anchor set (§4).
-3. **Full-scale dataset priors** (`measure_priors_fullscale.py`) are queued but not
-   landed; the current `medmnist-five-dataset-priors` numbers were measured on an
-   8%-of-pool capped sample for pathmnist and should not be used to exclude it from
-   anything until the full-scale run lands.
+   functional/anchor set (§4). Still open. Needed before any claim of the form
+   "beats all eight baselines" is fully honest.
+3. ~~**Full-scale dataset priors** are queued but not landed.~~ **CLOSED.**
+   `measure_priors_fullscale.py` completed as part of job 33767;
+   `results/screen_33767/priors_fullscale.json` is committed here. The pathmnist
+   exclusion from the training factorial cited a headroom measured on an 8%-capped
+   pool and should now be rechecked against this file.
 
 ---
 
-## 7. Recommended next step: real-training functional screen, sized to the noise floor
+## 7. Next step, now RUNNING: real-training functional screen
+
+> **Status 2026-09-23 16:20.** Implemented, smoke-tested, and submitted. Code lives
+> in [`../real_training_functional_screen_20260923/`](../real_training_functional_screen_20260923/)
+> (see its README for the exact design and launch commands). 15 one-GPU jobs are in
+> flight across three cluster accounts; first rows confirmed on disk with correct
+> `ba_real` and `endpoint="resnet18_official_test_equal_weight_final_epoch"` fields.
+> **The measurement is not finished — no functional-vs-`ba_real` result exists yet.**
+> The rest of this section is the design rationale, which is unchanged.
 
 Move the screen's endpoint from probe BA to real training BA, and size the seed
 count to the reliability numbers in §3 rather than reusing the 2-seed design that
@@ -232,9 +252,9 @@ afford real training.
 | | |
 |---|---|
 | datasets × blocks | 5 × 2 = 10 cells |
-| selections per block | ~214 (60 random + 14 anchors × (1 unperturbed + 5 perturbation levels)) |
-| training seeds | 3 |
-| **total runs** | **~6,420 × 52s ≈ 87 GPU-h** (~7.5h wall-clock on 12 concurrent GPUs) |
+| selections per block | **225** (60 random + 15 anchors × (1 unperturbed + 5 perturbation levels × 2 seeds)) |
+| training seeds | 3 (`--train-seed-offset` 0 / 100000 / 200000) |
+| **total runs** | **6,750 × ~52s ≈ 97 GPU-h** |
 
 Three seeds is justified from the organsmnist/herding cell (`σ_sel=1.18pp`,
 single-seed `σ=1.50pp`): at k=3, reliability ≈0.65, a true `r=0.4` functional
@@ -255,19 +275,40 @@ This run simultaneously produces three things the project currently lacks:
    Forgetting / EL2N / GraphCov actually wins under real training, not under the
    probe.
 
-The already-queued probe screen (job 33767) is not wasted: it stays useful as a
-free, deterministic way to pick which ~214 selections per cell go into the
-perturbation ladders, so they span the functional space rather than being drawn
-blind. Its role changes from *decision-maker* to *selection-library tool*.
+The completed probe screen (job 33767) is not wasted: the real-training driver
+reuses its selection library *verbatim* (same `build_library`, same seeds), so the
+two runs measure the same 225 sets per block at two different endpoints. That makes
+the probe-vs-real-training comparison a paired, `n=225`/cell test instead of the
+`n=10` one that left §3 unresolved. The probe's role changes from *decision-maker*
+to *selection-library generator and comparison baseline*.
 
 ---
 
 ## 8. File index
 
+### Committed measurement outputs
+
+| file | what it is |
+|---|---|
+| `results/screen_33767/screen_{0..3}.jsonl.gz` | **The probe screen itself** — 7,350 selections x 26 functionals x 5 datasets x 2 blocks (job 33767, 19m12s). `gunzip -c` to read; one JSON object per line |
+| `results/screen_33767/analyze_screen.json` | `analyze_screen.py` output on the above: the A/B/C/D/D2/E analyses, baseline leaderboard, and the 10-functional `survivors` list (§5) |
+| `results/screen_33767/priors_fullscale.json` | Full-pool, uncapped dataset priors — closes §6 gap 3 |
+| `results/gate_training.json` | The frozen REFUTED gate (§2) |
+| `results/probe_vs_training.json` | The probe-vs-real-training diagnosis (§3), incl. the per-cell reliability decomposition |
+| `results/ladder.json` | The covering-distortion regression (`r=+0.014, t=0.21`) referenced in §1 |
+| `results/dataset_priors.json` | Earlier capped-pool priors, superseded by `priors_fullscale.json` |
+
+Raw training logs and embedding caches are deliberately **not** committed (they are
+GB-scale and regenerable); everything needed to re-run the analyses is here.
+
+### Code
+
 | file | role |
 |---|---|
 | `functional_screen.py` | Measures 26 functionals of a selected set against probe BA at fixed budget; perturbation-based library generation; dynamics anchors wired in 2026-09-23 |
-| `analyze_screen.py` | Four/five nested analyses (whole library → competitive → within-family → within-family-competitive → outcome-conditioned-biased) plus baseline leaderboard |
+| `analyze_screen.py` | Four/five nested analyses (whole library → competitive → within-family → within-family-competitive → outcome-conditioned-biased) plus baseline leaderboard. Set `ENDPOINT = "ba_real"` to re-run against the real-training screen |
+| `HANDOFF_NEXT_SESSION_20260923.md` | Operational handoff: paths, cluster layout, standing constraints, what to do next |
+| `../real_training_functional_screen_20260923/` | **The real-training endpoint screen** (§7) — same library, `ba_real` instead of probe BA |
 | `probe_vs_training.py` | Tests probe-BA vs. real-training-BA rank agreement on the 60 selections behind the 360-run gate |
 | `gate_training.py` | The frozen, pre-registered REFUTED gate (§2) |
 | `measure_dataset_priors.py` | Capped-pool (1000/class) dataset priors — superseded by `measure_priors_fullscale.py`, not yet landed |

@@ -1,0 +1,46 @@
+{
+  "per_dataset": {
+    "bloodmnist": {
+      "n": 20,
+      "mean_pp": -0.08991578261708151,
+      "se_pp": 1.0816454775141118,
+      "n_positive": 8
+    },
+    "organsmnist": {
+      "n": 20,
+      "mean_pp": 0.3824517276200551,
+      "se_pp": 0.6997244794335283,
+      "n_positive": 11
+    },
+    "tissuemnist": {
+      "n": 20,
+      "mean_pp": -0.4843872515257028,
+      "se_pp": 0.32989700285000023,
+      "n_positive": 9
+    }
+  },
+  "per_dataset_permuted": {
+    "bloodmnist": {
+      "n": 20,
+      "mean_pp": 0.714282234568871,
+      "se_pp": 1.1083847430010727,
+      "n_positive": 12
+    },
+    "organsmnist": {
+      "n": 20,
+      "mean_pp": -0.36449532656316286,
+      "se_pp": 0.5625663610755975,
+      "n_positive": 9
+    },
+    "tissuemnist": {
+      "n": 20,
+      "mean_pp": -0.1782092496316212,
+      "se_pp": 0.40253796294540933,
+      "n_positive": 8
+    }
+  },
+  "pooled_did_pp": -0.0639504355075764,
+  "pooled_permuted_did_pp": 0.057192552791362296,
+  "verdict": "REFUTED",
+  "action": "the probe effect does not survive real training; report as a negative and close the branch"
+}

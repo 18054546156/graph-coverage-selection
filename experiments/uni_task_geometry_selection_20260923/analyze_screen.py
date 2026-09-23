@@ -28,6 +28,7 @@ from __future__ import annotations
 
 import argparse
 import collections
+import itertools
 import json
 import math
 from pathlib import Path
@@ -205,7 +206,7 @@ def main():
 
     # outcome-conditioned, reported but not trusted
     keep = []
-    for (ds, blk), v in collections.groupby(
+    for (ds, blk), v in itertools.groupby(
             sorted(rows, key=lambda r: (r["dataset"], r["block"])),
             key=lambda r: (r["dataset"], r["block"])):
         v = list(v)
