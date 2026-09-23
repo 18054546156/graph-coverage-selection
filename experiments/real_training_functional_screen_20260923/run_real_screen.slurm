@@ -26,7 +26,7 @@ MEDMNIST=/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/data/medmnist
 : "${TRAIN_SEED_OFFSET:=0}"
 : "${EPOCHS:=200}"
 : "${N_RANDOM:=60}"
-: "${N_PERTURB_SEEDS:=2}"
+: "${N_PERTURB_SEEDS:=3}"
 
 mkdir -p "$PROJECT/results" "$PROJECT/logs"
 OUT="$PROJECT/results/run_$SLURM_JOB_ID"

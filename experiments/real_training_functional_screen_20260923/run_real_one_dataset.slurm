@@ -33,7 +33,7 @@ python_args=(
   --embedding-root "$EMBED" --data-root "$DATA" --medmnist-root "$MEDMNIST"
   --dynamics-root "$DYN" --graphcov-root "$GRAPH" --output "$OUT"
   --datasets "$DATASET" --blocks 2 --budget 25
-  --n-random 60 --n-perturb-seeds 2 --train-seed-offset "$TRAIN_SEED_OFFSET"
+  --n-random 60 --n-perturb-seeds 3 --train-seed-offset "$TRAIN_SEED_OFFSET"
   --epochs "$EPOCHS" --batch-size 128 --lr 0.1 --weight-decay 5e-4
   --size 224 --num-workers 4 --progress-every 1
 )

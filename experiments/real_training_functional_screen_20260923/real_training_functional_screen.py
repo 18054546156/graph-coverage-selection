@@ -42,6 +42,35 @@ def load_raw_dataset(graphcov_root: Path, dataset: str, size: int, medmnist_root
     return train_ds, test_ds, info, len(info["label"])
 
 
+def load_done_keys(roots, dataset: str) -> set:
+    """(block, name, train_seed) already measured for `dataset` under any of `roots`.
+
+    Keyed on `name`, deliberately NOT on `global_screen_index`: the index depends on
+    `--n-perturb-seeds` (library length is 60 + n_anchors * (1 + 5 * seeds)), so it
+    shifts whenever that changes, while `name` and the selection it denotes do not --
+    `perturb()` seeds on `seed + 7919*m + s`, which is independent of how many seeds
+    the library asks for. That is what makes raising the seed count additive rather
+    than invalidating everything measured so far.
+    """
+    done = set()
+    for root in roots:
+        root = Path(root)
+        if not root.exists():
+            continue
+        for p in root.rglob("*.jsonl"):
+            for line in p.open(encoding="utf-8"):
+                if not line.strip():
+                    continue
+                try:
+                    r = json.loads(line)
+                except json.JSONDecodeError:
+                    continue  # a row truncated by a killed job
+                if r.get("dataset") != dataset or r.get("ba_real") is None:
+                    continue
+                done.add((r["block"], r["name"], r["train_seed"]))
+    return done
+
+
 def run_dataset(args, dataset: str, device: torch.device) -> int:
     emb_path = args.embedding_root / f"{dataset}_train_uni_{args.size}.npz"
     x = np.asarray(np.load(emb_path, allow_pickle=False)["embeddings"], dtype=np.float32)
@@ -60,9 +89,15 @@ def run_dataset(args, dataset: str, device: torch.device) -> int:
     )
     datasets = (train_ds, test_ds, info, n_classes)
 
+    done = load_done_keys(args.skip_existing, dataset)
+    if done:
+        print(f"[{dataset}] skip-existing: {len(done)} selections already measured",
+              flush=True)
+
     out_path = args.output / f"{dataset}.jsonl"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     rows = 0
+    skipped = 0
     with out_path.open("w", encoding="utf-8") as out:
         print(f"[{dataset}] n={len(y_all)} align_ba={align:.4f} device={device}", flush=True)
         for block in range(args.blocks):
@@ -82,6 +117,17 @@ def run_dataset(args, dataset: str, device: torch.device) -> int:
             print(f"  block={block} pool={len(pool_ids)} library={len(library)}", flush=True)
 
             for index, (name, family, m, sel) in enumerate(library):
+                global_index = block * len(library) + index
+                if global_index < args.global_start:
+                    continue
+                if args.global_end is not None and global_index >= args.global_end:
+                    continue
+                train_seed = args.train_seed_offset + 100000 * di + 1000 * block
+                if (block, name, train_seed) in done:
+                    skipped += 1
+                    continue
+                # Only now pay for the functionals: cdist over the whole pool is the
+                # expensive part of everything that is not the training run itself.
                 features, _weights = F.functionals(zp, yp, sel, pre)
                 if dyn is not None:
                     features.update(F.dyn_functionals(dyn, sel, yp))
@@ -89,7 +135,6 @@ def run_dataset(args, dataset: str, device: torch.device) -> int:
                 # Use raw train indices and equal weights. The train endpoint is
                 # deliberately independent of the probe audit set and Voronoi weights.
                 selected_ids = pool_ids[sel].astype(np.int64)
-                train_seed = args.train_seed_offset + 100000 * di + 1000 * block
                 cell = {
                     "dataset": dataset,
                     "block": block,
@@ -111,6 +156,7 @@ def run_dataset(args, dataset: str, device: torch.device) -> int:
                     "ba_real": result["balanced_accuracy"],
                     "endpoint": "resnet18_official_test_equal_weight_final_epoch",
                     "screen_index": index,
+                    "global_screen_index": global_index,
                     "endpoint_seconds": time.time() - started,
                     "alignment_probe_ba": align,
                 }
@@ -121,6 +167,9 @@ def run_dataset(args, dataset: str, device: torch.device) -> int:
                     print(f"  {dataset} block={block} {rows}/{len(library)} "
                           f"BA={row['ba_real']:.4f} elapsed={time.time()-started:.0f}s",
                           flush=True)
+    if skipped:
+        print(f"[{dataset}] skipped {skipped} already-measured selections, "
+              f"ran {rows}", flush=True)
     del z_all
     return rows
 
@@ -137,7 +186,14 @@ def main():
     p.add_argument("--budget", type=int, default=25)
     p.add_argument("--blocks", type=int, default=2)
     p.add_argument("--n-random", type=int, default=60)
-    p.add_argument("--n-perturb-seeds", type=int, default=2)
+    p.add_argument("--n-perturb-seeds", type=int, default=3,
+                   help="Perturbation replicates per (anchor, m). Must be >=3: "
+                        "analyze_screen.py centres within (dataset, block, family, m) "
+                        "and drops groups smaller than 3, so at 2 the entire "
+                        "perturbation ladder contributes nothing to the decision cell.")
+    p.add_argument("--skip-existing", nargs="*", default=[], type=Path,
+                   help="Result directories to treat as already done (matched on "
+                        "dataset/block/name/train_seed, scanned recursively).")
     p.add_argument("--train-seed-offset", type=int, default=0)
     p.add_argument("--seed", type=int, default=20260923)
     p.add_argument("--size", type=int, default=224)
@@ -148,7 +204,20 @@ def main():
     p.add_argument("--augment", action="store_true")
     p.add_argument("--num-workers", type=int, default=4)
     p.add_argument("--progress-every", type=int, default=1)
+    p.add_argument(
+        "--global-start", type=int, default=0,
+        help="Inclusive global selection index across all blocks (default: 0).",
+    )
+    p.add_argument(
+        "--global-end", type=int, default=None,
+        help="Exclusive global selection index across all blocks (default: all).",
+    )
     args = p.parse_args()
+
+    if args.global_start < 0:
+        p.error("--global-start must be non-negative")
+    if args.global_end is not None and args.global_end <= args.global_start:
+        p.error("--global-end must be greater than --global-start")
 
     args.output.mkdir(parents=True, exist_ok=True)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

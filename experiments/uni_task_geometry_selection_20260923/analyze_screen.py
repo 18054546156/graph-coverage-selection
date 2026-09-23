@@ -74,8 +74,9 @@ def pearson_t(x: np.ndarray, y: np.ndarray):
     return r, t, len(x)
 
 
-def centred(rows, keys, func, endpoint=ENDPOINT):
+def centred(rows, keys, func, endpoint=None):
     """Centre functional and endpoint within every group defined by `keys`."""
+    endpoint = endpoint or ENDPOINT
     g = collections.defaultdict(list)
     for r in rows:
         g[tuple(r[k] for k in keys)].append(r)
@@ -168,9 +169,15 @@ def main():
     p.add_argument("--results", nargs="+", required=True)
     p.add_argument("--output", type=Path, default=None)
     p.add_argument("--competitive-pp", type=float, default=2.0)
+    p.add_argument("--endpoint", default="ba_equal",
+                   help="'ba_equal' = linear-probe screen, 'ba_real' = real-training screen")
     args = p.parse_args()
 
+    global ENDPOINT
+    ENDPOINT = args.endpoint
+
     rows = load(args.results)
+    rows = [r for r in rows if r.get(ENDPOINT) is not None]
     funcs = sorted(k for k in rows[0] if k.startswith("F_"))
     print(f"loaded {len(rows)} selections | datasets "
           f"{sorted({r['dataset'] for r in rows})} | families {sorted({r['family'] for r in rows})}")
