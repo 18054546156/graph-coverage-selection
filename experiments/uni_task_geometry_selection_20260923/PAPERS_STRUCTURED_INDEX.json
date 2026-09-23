@@ -1,0 +1,470 @@
+{
+  "meta": {
+    "search_date": "2026-09-23",
+    "total_papers": 150,
+    "total_queries": 10,
+    "highly_relevant_count": 35,
+    "focus_period": "2016-2026"
+  },
+  "eva_paper": {
+    "arxiv_id": "2406.05677",
+    "title": "Evolution-aware VAriance (EVA) Coreset Selection for Medical Image Classification",
+    "authors": [
+      "Yuxin Hong",
+      "Xiao Zhang",
+      "Xin Zhang",
+      "Joey Tianyi Zhou"
+    ],
+    "published": "2024-06-09",
+    "venue": "arXiv pre-print",
+    "characteristics": {
+      "uses_soft_labels": false,
+      "uses_instance_weights": true,
+      "weight_criterion": "temporal_variance",
+      "uses_geometric_structure": false,
+      "geometric_types_used": "none",
+      "medical_imaging_focused": true,
+      "compression_rate_range": "5-10%",
+      "performance_at_10pct": "98.27% vs 97.20% baseline"
+    },
+    "key_innovations": [
+      "Dual-window variance measurement",
+      "Captures training dynamics evolution",
+      "Specialized for medical imaging"
+    ],
+    "limitations": [
+      "No geometric diversity guarantee",
+      "No theoretical approximation bounds",
+      "Requires full training for selection",
+      "No soft label integration"
+    ],
+    "pdf_url": "https://arxiv.org/pdf/2406.05677.pdf"
+  },
+  "top_papers": [
+    {
+      "rank": 1,
+      "arxiv_id": "1906.01827",
+      "title": "Coresets for Data-efficient Training of Machine Learning Models",
+      "authors": ["Baharan Mirzasoleiman", "Jeff Bilmes", "Jure Leskovec"],
+      "year": 2019,
+      "uses_weights": true,
+      "uses_soft_labels": false,
+      "geometric_structure": "implicit",
+      "relevance_score": 10,
+      "why_important": "Foundational coreset framework with 1±ε approximation bounds",
+      "key_contribution": "Theoretical guarantees for subset training efficiency",
+      "pdf_url": "https://arxiv.org/pdf/1906.01827.pdf"
+    },
+    {
+      "rank": 2,
+      "arxiv_id": "2312.10602",
+      "title": "A Weighted K-Center Algorithm for Data Subset Selection",
+      "authors": ["Srikumar Ramalingam", "Pranjal Awasthi", "Sanjiv Kumar"],
+      "year": 2023,
+      "uses_weights": true,
+      "uses_soft_labels": false,
+      "geometric_structure": "k-center",
+      "relevance_score": 10,
+      "why_important": "Most directly relevant: geometric selection for deep learning",
+      "key_contribution": "K-center geometry applied to DNN training with instance weights",
+      "compression_rates": "10-50%",
+      "pdf_url": "https://arxiv.org/pdf/2312.10602.pdf",
+      "recommended_for_geometry_work": true
+    },
+    {
+      "rank": 3,
+      "arxiv_id": "2606.16061",
+      "title": "Coresets for Continuous k-Center in Hyperbolic Space",
+      "authors": ["Eunku Park"],
+      "year": 2026,
+      "uses_weights": true,
+      "uses_soft_labels": false,
+      "geometric_structure": "k-center_hyperbolic",
+      "relevance_score": 9,
+      "why_important": "Latest advance in k-center theory for non-Euclidean geometry",
+      "key_contribution": "Extension of k-center to hyperbolic metrics",
+      "pdf_url": "https://arxiv.org/pdf/2606.16061.pdf"
+    },
+    {
+      "rank": 4,
+      "arxiv_id": "2406.16966",
+      "title": "Mitigating Noisy Supervision Using Synthetic Samples with Soft Labels",
+      "authors": ["Yangdi Lu", "Wenbo He"],
+      "year": 2024,
+      "uses_weights": true,
+      "uses_soft_labels": true,
+      "geometric_structure": "none",
+      "relevance_score": 10,
+      "why_important": "Combines instance weights AND soft labels for noisy data",
+      "key_contribution": "Soft label generation for noise robustness",
+      "pdf_url": "https://arxiv.org/pdf/2406.16966.pdf",
+      "recommended_for_soft_labels": true
+    },
+    {
+      "rank": 5,
+      "arxiv_id": "2306.11113",
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "authors": ["Deep Pandey", "Qi Yu"],
+      "year": 2023,
+      "uses_weights": true,
+      "uses_soft_labels": true,
+      "geometric_structure": "none",
+      "relevance_score": 9,
+      "why_important": "Combines evidential learning with per-sample uncertainty weighting",
+      "key_contribution": "Weights via learned evidence, soft labels via probabilities",
+      "pdf_url": "https://arxiv.org/pdf/2306.11113.pdf"
+    },
+    {
+      "rank": 6,
+      "arxiv_id": "2301.02814",
+      "title": "Randomized Greedy Algorithms and Composable Coreset for k-Center Clustering with Outliers",
+      "authors": ["Hu Ding", "Ruomin Huang", "Kai Liu"],
+      "year": 2023,
+      "uses_weights": true,
+      "uses_soft_labels": false,
+      "geometric_structure": "k-center",
+      "relevance_score": 9,
+      "why_important": "Practical k-center with outlier handling",
+      "key_contribution": "O(nd log n) algorithm with outlier robustness",
+      "pdf_url": "https://arxiv.org/pdf/2301.02814.pdf"
+    },
+    {
+      "rank": 7,
+      "arxiv_id": "2011.00080",
+      "title": "Dynamic Data Selection for Curriculum Learning via Ability Estimation",
+      "authors": ["John P. Lalor", "Hong Yu"],
+      "year": 2020,
+      "uses_weights": true,
+      "uses_soft_labels": false,
+      "geometric_structure": "none",
+      "relevance_score": 8,
+      "why_important": "Temporal dynamics approach similar to EVA's philosophy",
+      "key_contribution": "Learned difficulty estimation for sample ordering",
+      "pdf_url": "https://arxiv.org/pdf/2011.00080.pdf"
+    },
+    {
+      "rank": 8,
+      "arxiv_id": "2302.08893",
+      "title": "Active learning for data streams: a survey",
+      "authors": ["Davide Cacciarelli", "Murat Kulahci"],
+      "year": 2023,
+      "uses_weights": false,
+      "uses_soft_labels": false,
+      "geometric_structure": "varies",
+      "relevance_score": 8,
+      "why_important": "Comprehensive active learning survey (150+ papers)",
+      "key_contribution": "Taxonomy of selection strategies for sequential data",
+      "pdf_url": "https://arxiv.org/pdf/2302.08893.pdf"
+    },
+    {
+      "rank": 9,
+      "arxiv_id": "2401.07639",
+      "title": "Compute-Efficient Active Learning",
+      "authors": ["Gábor Németh", "Tamás Matuszka"],
+      "year": 2024,
+      "uses_weights": true,
+      "uses_soft_labels": false,
+      "geometric_structure": "implicit",
+      "relevance_score": 8,
+      "why_important": "Computational efficiency in geometric selection",
+      "key_contribution": "Efficient acquisition functions",
+      "pdf_url": "https://arxiv.org/pdf/2401.07639.pdf"
+    },
+    {
+      "rank": 10,
+      "arxiv_id": "2110.08265",
+      "title": "Knowledge-driven Active Learning",
+      "authors": ["Gabriele Ciravegna", "Frédéric Precioso", "Alessandro Betti"],
+      "year": 2021,
+      "uses_weights": true,
+      "uses_soft_labels": false,
+      "geometric_structure": "implicit",
+      "relevance_score": 8,
+      "why_important": "Integrating prior knowledge into selection",
+      "key_contribution": "Knowledge injection for biased class handling",
+      "pdf_url": "https://arxiv.org/pdf/2110.08265.pdf"
+    },
+    {
+      "rank": 11,
+      "arxiv_id": "1812.10761",
+      "title": "Improving Generalization of Deep Neural Networks by Leveraging Margin Distribution",
+      "authors": ["Shen-Huan Lyu", "Lu Wang", "Zhi-Hua Zhou"],
+      "year": 2018,
+      "uses_weights": true,
+      "uses_soft_labels": false,
+      "geometric_structure": "margin_geometry",
+      "relevance_score": 8,
+      "why_important": "Margin as geometric criterion for sample weighting",
+      "key_contribution": "Bridges geometry and generalization theory",
+      "pdf_url": "https://arxiv.org/pdf/1812.10761.pdf"
+    },
+    {
+      "rank": 12,
+      "arxiv_id": "2105.04026",
+      "title": "The Modern Mathematics of Deep Learning",
+      "authors": ["Julius Berner", "Philipp Grohs", "Gitta Kutyniok"],
+      "year": 2021,
+      "uses_weights": false,
+      "uses_soft_labels": false,
+      "geometric_structure": "none",
+      "relevance_score": 7,
+      "why_important": "Theoretical foundations for subset training complexity",
+      "key_contribution": "Sample complexity bounds for deep learning",
+      "pdf_url": "https://arxiv.org/pdf/2105.04026.pdf"
+    },
+    {
+      "rank": 13,
+      "arxiv_id": "1612.07516",
+      "title": "On Coreset Constructions for the Fuzzy K-Means Problem",
+      "authors": ["Johannes Blömer", "Sascha Brauer", "Kathrin Bujna"],
+      "year": 2016,
+      "uses_weights": true,
+      "uses_soft_labels": true,
+      "geometric_structure": "clustering",
+      "relevance_score": 8,
+      "why_important": "Soft clustering coresets with theoretical bounds",
+      "key_contribution": "O(dk/ε^{d+2}) size bounds for soft k-means",
+      "pdf_url": "https://arxiv.org/pdf/1612.07516.pdf"
+    },
+    {
+      "rank": 14,
+      "arxiv_id": "2311.18356",
+      "title": "Towards Comparable Active Learning",
+      "authors": ["Thorben Werner", "Johannes Burchert", "Lars Schmidt-Thieme"],
+      "year": 2023,
+      "uses_weights": false,
+      "uses_soft_labels": false,
+      "geometric_structure": "none",
+      "relevance_score": 9,
+      "why_important": "Standardized evaluation methodology for selection methods",
+      "key_contribution": "Identifies pitfalls in AL reporting; sets standards",
+      "critical_findings": "Most published claims don't hold under controlled conditions",
+      "pdf_url": "https://arxiv.org/pdf/2311.18356.pdf",
+      "required_reading_before_experiments": true
+    },
+    {
+      "rank": 15,
+      "arxiv_id": "2202.05448",
+      "title": "Fast Rates in Pool-Based Batch Active Learning",
+      "authors": ["Claudio Gentile", "Zhilei Wang", "Tong Zhang"],
+      "year": 2022,
+      "uses_weights": false,
+      "uses_soft_labels": false,
+      "geometric_structure": "disagreement_based",
+      "relevance_score": 8,
+      "why_important": "Theoretical guarantees for batch geometric selection",
+      "key_contribution": "Õ(1/ε²) sample complexity vs. naive Õ(1/ε³)",
+      "pdf_url": "https://arxiv.org/pdf/2202.05448.pdf"
+    }
+  ],
+  "search_results_by_query": {
+    "coreset_selection_machine_learning": {
+      "papers_found": 15,
+      "highly_relevant": 4,
+      "recent_2023_plus": 1,
+      "top_paper": "1906.01827"
+    },
+    "data_selection_neural_networks": {
+      "papers_found": 15,
+      "highly_relevant": 2,
+      "recent_2023_plus": 2,
+      "top_paper": "2312.10602"
+    },
+    "instance_weighting_deep_learning": {
+      "papers_found": 15,
+      "highly_relevant": 3,
+      "recent_2023_plus": 3,
+      "top_paper": "2406.16966"
+    },
+    "soft_labels_training": {
+      "papers_found": 15,
+      "highly_relevant": 2,
+      "recent_2023_plus": 2,
+      "top_paper": "2406.16966"
+    },
+    "k_center_coreset": {
+      "papers_found": 15,
+      "highly_relevant": 5,
+      "recent_2023_plus": 4,
+      "top_paper": "2312.10602"
+    },
+    "facility_location_coreset": {
+      "papers_found": 15,
+      "highly_relevant": 3,
+      "recent_2023_plus": 2,
+      "top_paper": "2412.11049"
+    },
+    "influence_functions_neural_network": {
+      "papers_found": 15,
+      "highly_relevant": 3,
+      "recent_2023_plus": 2,
+      "top_paper": "1611.02305"
+    },
+    "active_learning_coreset": {
+      "papers_found": 15,
+      "highly_relevant": 8,
+      "recent_2023_plus": 5,
+      "top_paper": "2401.07639"
+    },
+    "curriculum_learning_data_selection": {
+      "papers_found": 15,
+      "highly_relevant": 4,
+      "recent_2023_plus": 4,
+      "top_paper": "2011.00080"
+    },
+    "weighted_training_soft_labels": {
+      "papers_found": 15,
+      "highly_relevant": 1,
+      "recent_2023_plus": 1,
+      "top_paper": "2406.16966"
+    }
+  },
+  "papers_combining_weights_and_soft_labels": [
+    {
+      "arxiv_id": "2406.16966",
+      "title": "Mitigating Noisy Supervision Using Synthetic Samples with Soft Labels",
+      "year": 2024,
+      "both_present": true
+    },
+    {
+      "arxiv_id": "1612.07516",
+      "title": "On Coreset Constructions for the Fuzzy K-Means Problem",
+      "year": 2016,
+      "both_present": true
+    },
+    {
+      "arxiv_id": "2306.11113",
+      "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+      "year": 2023,
+      "both_present": true
+    }
+  ],
+  "papers_using_geometric_structure": {
+    "k_center": [
+      "2312.10602",
+      "2606.16061",
+      "2301.02814",
+      "1901.08219",
+      "1612.07516"
+    ],
+    "facility_location": [
+      "2412.11049",
+      "1709.10278",
+      "1806.11527"
+    ],
+    "margin_geometry": [
+      "1812.10761"
+    ],
+    "disagreement_based": [
+      "2202.05448"
+    ],
+    "clustering": [
+      "1612.07516",
+      "2302.09911"
+    ],
+    "voronoi": [],
+    "knn_graph": []
+  },
+  "research_gaps_identified": [
+    {
+      "gap": "Voronoi partitioning for coreset selection in deep learning",
+      "papers_addressing": 0,
+      "opportunity": "Novel geometric method combining Voronoi + neural networks"
+    },
+    {
+      "gap": "Graph-based coreset selection for GNNs",
+      "papers_addressing": 0,
+      "opportunity": "Combine graph neural networks with coreset theory"
+    },
+    {
+      "gap": "Multi-task coreset selection with shared geometry",
+      "papers_addressing": 0,
+      "opportunity": "Cross-task geometric structure learning"
+    },
+    {
+      "gap": "Streaming/online coreset updates",
+      "papers_addressing": 1,
+      "opportunity": "Dynamic coreset maintenance during training"
+    },
+    {
+      "gap": "Interpretable selection decisions",
+      "papers_addressing": 0,
+      "opportunity": "Explainability for why samples are selected"
+    },
+    {
+      "gap": "Weights + soft labels combination",
+      "papers_addressing": 3,
+      "opportunity": "Systematic study of joint optimization"
+    },
+    {
+      "gap": "Medical imaging specificity with geometry",
+      "papers_addressing": 1,
+      "opportunity": "Domain-specific geometric selection"
+    }
+  ],
+  "evaluation_standards": {
+    "source": "2311.18356",
+    "title": "Towards Comparable Active Learning",
+    "authors": ["Thorben Werner", "Johannes Burchert", "Lars Schmidt-Thieme"],
+    "key_pitfalls": [
+      "Single-seed results (noise-dominated, σ=2-3pp)",
+      "Unfair baseline implementations",
+      "Data contamination (train/test leakage)",
+      "Insufficient statistical significance testing",
+      "Selection cost not included in timing"
+    ],
+    "recommendations": [
+      "Use 5+ independent seeds",
+      "Fair baseline implementation",
+      "Strict data separation",
+      "Paired t-tests with α=0.05",
+      "Include selection time in comparisons"
+    ]
+  },
+  "recommended_reading_order": {
+    "week_1": [
+      "1906.01827",
+      "2302.08893",
+      "2105.04026"
+    ],
+    "week_2": [
+      "2406.16966",
+      "2306.11113",
+      "1812.10761"
+    ],
+    "week_3": [
+      "2312.10602",
+      "2011.00080"
+    ],
+    "week_4": [
+      "1812.10761",
+      "2311.18356"
+    ],
+    "week_5": [
+      "2606.16061",
+      "2302.08893"
+    ],
+    "week_6": [
+      "2105.04026",
+      "2202.05448"
+    ]
+  },
+  "citation_strategy": {
+    "essential": [
+      "1906.01827",
+      "2312.10602",
+      "2311.18356",
+      "2406.16966"
+    ],
+    "supporting": [
+      "1812.10761",
+      "2302.08893",
+      "2105.04026"
+    ],
+    "optional": [
+      "2301.02814",
+      "2011.00080",
+      "2606.16061"
+    ]
+  }
+}

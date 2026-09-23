@@ -1,0 +1,2991 @@
+{
+  "metadata": {
+    "total_queries": 10,
+    "total_papers": 150,
+    "date_generated": "2026-09-23",
+    "focus_period": "2018-2024+",
+    "search_strategy": "10 targeted arXiv queries on coreset, data selection, and weighting methods"
+  },
+  "categories": {
+    "Coreset Theory & Selection": [
+      {
+        "rank": 1,
+        "arxiv_id": "2306.04338",
+        "title": "Changing Data Sources in the Age of Machine Learning for Official Statistics",
+        "authors": [
+          "Cedric De Boom",
+          "Michael Reusens"
+        ],
+        "published": "2023-06-07",
+        "categories": [
+          "stat.ML",
+          "cs.LG"
+        ],
+        "abstract": "Data science has become increasingly essential for the production of official statistics, as it enables the automated collection, processing, and analysis of large amounts of data. With such data science practices in place, it enables more timely, mo...",
+        "arxiv_url": "https://arxiv.org/abs/2306.04338",
+        "pdf_url": "https://arxiv.org/pdf/2306.04338.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "2006.16189",
+        "title": "DOME: Recommendations for supervised machine learning validation in biology",
+        "authors": [
+          "Ian Walsh",
+          "Dmytro Fishman",
+          "Dario Garcia-Gasulla"
+        ],
+        "published": "2020-06-25",
+        "categories": [
+          "q-bio.OT",
+          "cs.LG"
+        ],
+        "abstract": "Modern biology frequently relies on machine learning to provide predictions and improve decision processes. There have been recent calls for more scrutiny on machine learning performance and possible limitations. Here we present a set of community-wi...",
+        "arxiv_url": "https://arxiv.org/abs/2006.16189",
+        "pdf_url": "https://arxiv.org/pdf/2006.16189.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "2201.12150",
+        "title": "Learning Curves for Decision Making in Supervised Machine Learning: A Survey",
+        "authors": [
+          "Felix Mohr",
+          "Jan N. van Rijn"
+        ],
+        "published": "2022-01-28",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "Learning curves are a concept from social sciences that has been adopted in the context of machine learning to assess the performance of a learning algorithm with respect to a certain resource, e.g., the number of training examples or the number of t...",
+        "arxiv_url": "https://arxiv.org/abs/2201.12150",
+        "pdf_url": "https://arxiv.org/pdf/2201.12150.pdf",
+        "relevance_score": 6,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "2302.08893",
+        "title": "Active learning for data streams: a survey",
+        "authors": [
+          "Davide Cacciarelli",
+          "Murat Kulahci"
+        ],
+        "published": "2023-02-17",
+        "categories": [
+          "stat.ML",
+          "cs.LG",
+          "stat.ME"
+        ],
+        "abstract": "Online active learning is a paradigm in machine learning that aims to select the most informative data points to label from a data stream. The problem of minimizing the cost associated with collecting labeled observations has gained a lot of attentio...",
+        "arxiv_url": "https://arxiv.org/abs/2302.08893",
+        "pdf_url": "https://arxiv.org/pdf/2302.08893.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "2304.02381",
+        "title": "Physics-Inspired Interpretability Of Machine Learning Models",
+        "authors": [
+          "Maximilian P Niroomand",
+          "David J Wales"
+        ],
+        "published": "2023-04-05",
+        "categories": [
+          "cs.LG",
+          "cs.AI"
+        ],
+        "abstract": "The ability to explain decisions made by machine learning models remains one of the most significant hurdles towards widespread adoption of AI in highly sensitive areas such as medicine, cybersecurity or autonomous driving. Great interest exists in u...",
+        "arxiv_url": "https://arxiv.org/abs/2304.02381",
+        "pdf_url": "https://arxiv.org/pdf/2304.02381.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "1905.04749",
+        "title": "A Benchmark Study of Machine Learning Models for Online Fake News Detection",
+        "authors": [
+          "Junaed Younus Khan",
+          "Md. Tawkat Islam Khondaker",
+          "Sadia Afroz"
+        ],
+        "published": "2019-05-12",
+        "categories": [
+          "cs.CL",
+          "cs.IR",
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "The proliferation of fake news and its propagation on social media has become a major concern due to its ability to create devastating impacts. Different machine learning approaches have been suggested to detect fake news. However, most of those focu...",
+        "arxiv_url": "https://arxiv.org/abs/1905.04749",
+        "pdf_url": "https://arxiv.org/pdf/1905.04749.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "1705.05172",
+        "title": "Emotion in Reinforcement Learning Agents and Robots: A Survey",
+        "authors": [
+          "Thomas M. Moerland",
+          "Joost Broekens",
+          "Catholijn M. Jonker"
+        ],
+        "published": "2017-05-15",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "cs.HC",
+          "cs.RO",
+          "stat.ML"
+        ],
+        "abstract": "This article provides the first survey of computational models of emotion in reinforcement learning (RL) agents. The survey focuses on agent/robot emotions, and mostly ignores human user emotions. Emotions are recognized as functional in decision-mak...",
+        "arxiv_url": "https://arxiv.org/abs/1705.05172",
+        "pdf_url": "https://arxiv.org/pdf/1705.05172.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "2303.15563",
+        "title": "Privacy-preserving machine learning for healthcare: open challenges and future perspectives",
+        "authors": [
+          "Alejandro Guerra-Manzanares",
+          "L. Julian Lechuga Lopez",
+          "Michail Maniatakos"
+        ],
+        "published": "2023-03-27",
+        "categories": [
+          "cs.LG",
+          "cs.CR"
+        ],
+        "abstract": "Machine Learning (ML) has recently shown tremendous success in modeling various healthcare prediction tasks, ranging from disease diagnosis and prognosis to patient treatment. Due to the sensitive nature of medical data, privacy must be considered al...",
+        "arxiv_url": "https://arxiv.org/abs/2303.15563",
+        "pdf_url": "https://arxiv.org/pdf/2303.15563.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "2602.11092",
+        "title": "MerLin: A Discovery Engine for Photonic and Hybrid Quantum Machine Learning",
+        "authors": [
+          "Cassandre Notton",
+          "Benjamin Stott",
+          "Philippe Schoeb"
+        ],
+        "published": "2026-02-11",
+        "categories": [
+          "cs.LG",
+          "cs.PL",
+          "quant-ph"
+        ],
+        "abstract": "Identifying where quantum models may offer practical benefits in near term quantum machine learning (QML) requires moving beyond isolated algorithmic proposals toward systematic and empirical exploration across models, datasets, and hardware constrai...",
+        "arxiv_url": "https://arxiv.org/abs/2602.11092",
+        "pdf_url": "https://arxiv.org/pdf/2602.11092.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "2404.12511",
+        "title": "Generalizing Machine Learning Evaluation through the Integration of Shannon Entropy and Rough Set Theory",
+        "authors": [
+          "Olga Cherednichenko",
+          "Dmytro Chernyshov",
+          "Dmytro Sytnikov"
+        ],
+        "published": "2024-04-18",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "This research paper delves into the innovative integration of Shannon entropy and rough set theory, presenting a novel approach to generalize the evaluation approach in machine learning. The conventional application of entropy, primarily focused on i...",
+        "arxiv_url": "https://arxiv.org/abs/2404.12511",
+        "pdf_url": "https://arxiv.org/pdf/2404.12511.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "2509.08759",
+        "title": "Fourier Learning Machines: Nonharmonic Fourier-Based Neural Networks for Scientific Machine Learning",
+        "authors": [
+          "Mominul Rubel",
+          "Adam Meyers",
+          "Gabriel Nicolosi"
+        ],
+        "published": "2025-09-10",
+        "categories": [
+          "cs.LG",
+          "math.OC"
+        ],
+        "abstract": "We introduce the Fourier Learning Machine (FLM), a neural network (NN) architecture designed to represent a multidimensional nonharmonic Fourier series. The FLM uses a simple feedforward structure with cosine activation functions to learn the frequen...",
+        "arxiv_url": "https://arxiv.org/abs/2509.08759",
+        "pdf_url": "https://arxiv.org/pdf/2509.08759.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "1906.01827",
+        "title": "Coresets for Data-efficient Training of Machine Learning Models",
+        "authors": [
+          "Baharan Mirzasoleiman",
+          "Jeff Bilmes",
+          "Jure Leskovec"
+        ],
+        "published": "2019-06-05",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "stat.ML"
+        ],
+        "abstract": "Incremental gradient (IG) methods, such as stochastic gradient descent and its variants are commonly used for large scale optimization in machine learning. Despite the sustained effort to make IG methods more data-efficient, it remains an open questi...",
+        "arxiv_url": "https://arxiv.org/abs/1906.01827",
+        "pdf_url": "https://arxiv.org/pdf/1906.01827.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "1906.01101",
+        "title": "MEMe: An Accurate Maximum Entropy Method for Efficient Approximations in Large-Scale Machine Learning",
+        "authors": [
+          "Diego Granziol",
+          "Binxin Ru",
+          "Stefan Zohren"
+        ],
+        "published": "2019-06-03",
+        "categories": [
+          "stat.ML",
+          "cs.LG"
+        ],
+        "abstract": "Efficient approximation lies at the heart of large-scale machine learning problems. In this paper, we propose a novel, robust maximum entropy algorithm, which is capable of dealing with hundreds of moments and allows for computationally efficient app...",
+        "arxiv_url": "https://arxiv.org/abs/1906.01101",
+        "pdf_url": "https://arxiv.org/pdf/1906.01101.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "2402.01393",
+        "title": "ALERT-Transformer: Bridging Asynchronous and Synchronous Machine Learning for Real-Time Event-based Spatio-Temporal Data",
+        "authors": [
+          "Carmen Martin-Turrero",
+          "Maxence Bouvier",
+          "Manuel Breitenstein"
+        ],
+        "published": "2024-02-02",
+        "categories": [
+          "cs.CV",
+          "cs.LG",
+          "cs.NE"
+        ],
+        "abstract": "We seek to enable classic processing of continuous ultra-sparse spatiotemporal data generated by event-based sensors with dense machine learning models. We propose a novel hybrid pipeline composed of asynchronous sensing and synchronous processing th...",
+        "arxiv_url": "https://arxiv.org/abs/2402.01393",
+        "pdf_url": "https://arxiv.org/pdf/2402.01393.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "1812.09225",
+        "title": "Learning Representations from Dendrograms",
+        "authors": [
+          "Morteza Haghir Chehreghani",
+          "Mostafa Haghir Chehreghani"
+        ],
+        "published": "2018-12-21",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "We propose unsupervised representation learning and feature extraction from dendrograms. The commonly used Minimax distance measures correspond to building a dendrogram with single linkage criterion, with defining specific forms of a level function a...",
+        "arxiv_url": "https://arxiv.org/abs/1812.09225",
+        "pdf_url": "https://arxiv.org/pdf/1812.09225.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      }
+    ],
+    "Data Selection in Deep Learning": [
+      {
+        "rank": 1,
+        "arxiv_id": "2306.14753",
+        "title": "The Deep Arbitrary Polynomial Chaos Neural Network or how Deep Artificial Neural Networks could benefit from Data-Driven Homogeneous Chaos Theory",
+        "authors": [
+          "Sergey Oladyshkin",
+          "Timothy Praditia",
+          "Ilja Kröker"
+        ],
+        "published": "2023-06-26",
+        "categories": [
+          "cs.NE",
+          "stat.ML"
+        ],
+        "abstract": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo...",
+        "arxiv_url": "https://arxiv.org/abs/2306.14753",
+        "pdf_url": "https://arxiv.org/pdf/2306.14753.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "2307.05639",
+        "title": "Learning Active Subspaces and Discovering Important Features with Gaussian Radial Basis Functions Neural Networks",
+        "authors": [
+          "Danny D'Agostino",
+          "Ilija Ilievski",
+          "Christine Annette Shoemaker"
+        ],
+        "published": "2023-07-11",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "cs.NE",
+          "stat.ML"
+        ],
+        "abstract": "Providing a model that achieves a strong predictive performance and is simultaneously interpretable by humans is one of the most difficult challenges in machine learning research due to the conflicting nature of these two objectives. To address this ...",
+        "arxiv_url": "https://arxiv.org/abs/2307.05639",
+        "pdf_url": "https://arxiv.org/pdf/2307.05639.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "1905.05918",
+        "title": "A Neural Network-Evolutionary Computational Framework for Remaining Useful Life Estimation of Mechanical Systems",
+        "authors": [
+          "David Laredo",
+          "Zhaoyin Chen",
+          "Oliver Schütze"
+        ],
+        "published": "2019-05-15",
+        "categories": [
+          "cs.LG",
+          "cs.NE",
+          "stat.ML"
+        ],
+        "abstract": "This paper presents a framework for estimating the remaining useful life (RUL) of mechanical systems. The framework consists of a multi-layer perceptron and an evolutionary algorithm for optimizing the data-related parameters. The framework makes use...",
+        "arxiv_url": "https://arxiv.org/abs/1905.05918",
+        "pdf_url": "https://arxiv.org/pdf/1905.05918.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "1901.06610",
+        "title": "Hierarchical Attentional Hybrid Neural Networks for Document Classification",
+        "authors": [
+          "Jader Abreu",
+          "Luis Fred",
+          "David Macêdo"
+        ],
+        "published": "2019-01-20",
+        "categories": [
+          "cs.CL",
+          "cs.AI",
+          "cs.LG",
+          "cs.NE"
+        ],
+        "abstract": "Document classification is a challenging task with important applications. The deep learning approaches to the problem have gained much attention recently. Despite the progress, the proposed models do not incorporate the knowledge of the document str...",
+        "arxiv_url": "https://arxiv.org/abs/1901.06610",
+        "pdf_url": "https://arxiv.org/pdf/1901.06610.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "2103.07492",
+        "title": "Continual Learning for Recurrent Neural Networks: an Empirical Evaluation",
+        "authors": [
+          "Andrea Cossu",
+          "Antonio Carta",
+          "Vincenzo Lomonaco"
+        ],
+        "published": "2021-03-12",
+        "categories": [
+          "cs.LG",
+          "cs.AI"
+        ],
+        "abstract": "Learning continuously during all model lifetime is fundamental to deploy machine learning solutions robust to drifts in the data distribution. Advances in Continual Learning (CL) with recurrent neural networks could pave the way to a large number of ...",
+        "arxiv_url": "https://arxiv.org/abs/2103.07492",
+        "pdf_url": "https://arxiv.org/pdf/2103.07492.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "2609.05946",
+        "title": "Interpretable and Fair Generalized Additive Neural Networks via Multi-objective Learning",
+        "authors": [
+          "Ziming Wang",
+          "Changwu Huang",
+          "Ke Tang"
+        ],
+        "published": "2026-09-05",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "Interpretability and fairness are two of the most emphasized dimensions in trustworthy artificial intelligence (AI). Various explainable AI methods have been introduced to improve interpretability. This paper focuses on neural network (NN)-based gene...",
+        "arxiv_url": "https://arxiv.org/abs/2609.05946",
+        "pdf_url": "https://arxiv.org/pdf/2609.05946.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "1906.10015",
+        "title": "A Review on Neural Network Models of Schizophrenia and Autism Spectrum Disorder",
+        "authors": [
+          "Pablo Lanillos",
+          "Daniel Oliva",
+          "Anja Philippsen"
+        ],
+        "published": "2019-06-24",
+        "categories": [
+          "q-bio.NC",
+          "cs.AI",
+          "cs.NE"
+        ],
+        "abstract": "This survey presents the most relevant neural network models of autism spectrum disorder and schizophrenia, from the first connectionist models to recent deep network architectures. We analyzed and compared the most representative symptoms with its n...",
+        "arxiv_url": "https://arxiv.org/abs/1906.10015",
+        "pdf_url": "https://arxiv.org/pdf/1906.10015.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "1512.00242",
+        "title": "Towards Dropout Training for Convolutional Neural Networks",
+        "authors": [
+          "Haibing Wu",
+          "Xiaodong Gu"
+        ],
+        "published": "2015-12-01",
+        "categories": [
+          "cs.LG",
+          "cs.CV",
+          "cs.NE"
+        ],
+        "abstract": "Recently, dropout has seen increasing use in deep learning. For deep convolutional neural networks, dropout is known to work well in fully-connected layers. However, its effect in convolutional and pooling layers is still not clear. This paper demons...",
+        "arxiv_url": "https://arxiv.org/abs/1512.00242",
+        "pdf_url": "https://arxiv.org/pdf/1512.00242.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "1807.02477",
+        "title": "Development of a sensory-neural network for medical diagnosing",
+        "authors": [
+          "Igor Grabec",
+          "Eva Švegl",
+          "Mihael Sok"
+        ],
+        "published": "2018-07-06",
+        "categories": [
+          "cs.NE"
+        ],
+        "abstract": "Performance of a sensory-neural network developed for diagnosing of diseases is described. Information about patient's condition is provided by answers to the questionnaire. Questions correspond to sensors generating signals when patients acknowledge...",
+        "arxiv_url": "https://arxiv.org/abs/1807.02477",
+        "pdf_url": "https://arxiv.org/pdf/1807.02477.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "2205.13273",
+        "title": "Acute Lymphoblastic Leukemia Detection Using Hypercomplex-Valued Convolutional Neural Networks",
+        "authors": [
+          "Guilherme Vieira",
+          "Marcos Eduardo Valle"
+        ],
+        "published": "2022-05-26",
+        "categories": [
+          "cs.CV",
+          "cs.LG",
+          "cs.NE",
+          "eess.IV"
+        ],
+        "abstract": "This paper features convolutional neural networks defined on hypercomplex algebras applied to classify lymphocytes in blood smear digital microscopic images. Such classification is helpful for the diagnosis of acute lymphoblast leukemia (ALL), a type...",
+        "arxiv_url": "https://arxiv.org/abs/2205.13273",
+        "pdf_url": "https://arxiv.org/pdf/2205.13273.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "1003.3081",
+        "title": "Optimal hierarchical modular topologies for producing limited sustained activation of neural networks",
+        "authors": [
+          "Marcus Kaiser",
+          "Claus C. Hilgetag"
+        ],
+        "published": "2010-03-16",
+        "categories": [
+          "q-bio.NC",
+          "cond-mat.dis-nn",
+          "physics.soc-ph"
+        ],
+        "abstract": "An essential requirement for the representation of functional patterns in complex neural networks, such as the mammalian cerebral cortex, is the existence of stable regimes of network activation, typically arising from a limited parameter range. In t...",
+        "arxiv_url": "https://arxiv.org/abs/1003.3081",
+        "pdf_url": "https://arxiv.org/pdf/1003.3081.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "2001.10696",
+        "title": "Spiking Inception Module for Multi-layer Unsupervised Spiking Neural Networks",
+        "authors": [
+          "Mingyuan Meng",
+          "Xingyu Yang",
+          "Shanlin Xiao"
+        ],
+        "published": "2020-01-29",
+        "categories": [
+          "cs.NE",
+          "cs.LG",
+          "q-bio.NC"
+        ],
+        "abstract": "Spiking Neural Network (SNN), as a brain-inspired approach, is attracting attention due to its potential to produce ultra-high-energy-efficient hardware. Competitive learning based on Spike-Timing-Dependent Plasticity (STDP) is a popular method to tr...",
+        "arxiv_url": "https://arxiv.org/abs/2001.10696",
+        "pdf_url": "https://arxiv.org/pdf/2001.10696.pdf",
+        "relevance_score": 6,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "1812.10761",
+        "title": "Improving Generalization of Deep Neural Networks by Leveraging Margin Distribution",
+        "authors": [
+          "Shen-Huan Lyu",
+          "Lu Wang",
+          "Zhi-Hua Zhou"
+        ],
+        "published": "2018-12-27",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "Recent research has used margin theory to analyze the generalization performance for deep neural networks (DNNs). The existed results are almost based on the spectrally-normalized minimum margin. However, optimizing the minimum margin ignores a mass ...",
+        "arxiv_url": "https://arxiv.org/abs/1812.10761",
+        "pdf_url": "https://arxiv.org/pdf/1812.10761.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "1907.02664",
+        "title": "Data Encoding for Byzantine-Resilient Distributed Optimization",
+        "authors": [
+          "Deepesh Data",
+          "Linqi Song",
+          "Suhas Diggavi"
+        ],
+        "published": "2019-07-05",
+        "categories": [
+          "cs.DC",
+          "cs.CR",
+          "cs.LG"
+        ],
+        "abstract": "We study distributed optimization in the presence of Byzantine adversaries, where both data and computation are distributed among $m$ worker machines, $t$ of which may be corrupt. The compromised nodes may collaboratively and arbitrarily deviate from...",
+        "arxiv_url": "https://arxiv.org/abs/1907.02664",
+        "pdf_url": "https://arxiv.org/pdf/1907.02664.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "2006.02951",
+        "title": "CiwGAN and fiwGAN: Encoding information in acoustic data to model lexical learning with Generative Adversarial Networks",
+        "authors": [
+          "Gašper Beguš"
+        ],
+        "published": "2020-06-04",
+        "categories": [
+          "cs.CL",
+          "cs.LG"
+        ],
+        "abstract": "How can deep neural networks encode information that corresponds to words in human speech into raw acoustic data? This paper proposes two neural network architectures for modeling unsupervised lexical learning from raw acoustic inputs, ciwGAN (Catego...",
+        "arxiv_url": "https://arxiv.org/abs/2006.02951",
+        "pdf_url": "https://arxiv.org/pdf/2006.02951.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      }
+    ],
+    "Instance Weighting Methods": [
+      {
+        "rank": 1,
+        "arxiv_id": "2306.11113",
+        "title": "Learn to Accumulate Evidence from All Training Samples: Theory and Practice",
+        "authors": [
+          "Deep Pandey",
+          "Qi Yu"
+        ],
+        "published": "2023-06-19",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "cs.CV"
+        ],
+        "abstract": "Evidential deep learning, built upon belief theory and subjective logic, offers a principled and computationally efficient way to turn a deterministic neural network uncertainty-aware. The resultant evidential models can quantify fine-grained uncerta...",
+        "arxiv_url": "https://arxiv.org/abs/2306.11113",
+        "pdf_url": "https://arxiv.org/pdf/2306.11113.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "2105.04026",
+        "title": "The Modern Mathematics of Deep Learning",
+        "authors": [
+          "Julius Berner",
+          "Philipp Grohs",
+          "Gitta Kutyniok"
+        ],
+        "published": "2021-05-09",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "We describe the new field of mathematical analysis of deep learning. This field emerged around a list of research questions that were not answered within the classical framework of learning theory. These questions concern: the outstanding generalizat...",
+        "arxiv_url": "https://arxiv.org/abs/2105.04026",
+        "pdf_url": "https://arxiv.org/pdf/2105.04026.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "1905.12226",
+        "title": "Address Instance-level Label Prediction in Multiple Instance Learning",
+        "authors": [
+          "Minlong Peng",
+          "Qi Zhang"
+        ],
+        "published": "2019-05-29",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "\\textit{Multiple Instance Learning} (MIL) is concerned with learning from bags of instances, where only bag labels are given and instance labels are unknown. Existent approaches in this field were mainly designed for the bag-level label prediction (p...",
+        "arxiv_url": "https://arxiv.org/abs/1905.12226",
+        "pdf_url": "https://arxiv.org/pdf/1905.12226.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "2301.00942",
+        "title": "Deep Learning and Computational Physics (Lecture Notes)",
+        "authors": [
+          "Deep Ray",
+          "Orazio Pinti",
+          "Assad A. Oberai"
+        ],
+        "published": "2023-01-03",
+        "categories": [
+          "cs.LG",
+          "math-ph"
+        ],
+        "abstract": "These notes were compiled as lecture notes for a course developed and taught at the University of the Southern California. They should be accessible to a typical engineering graduate student with a strong background in Applied Mathematics.   The main...",
+        "arxiv_url": "https://arxiv.org/abs/2301.00942",
+        "pdf_url": "https://arxiv.org/pdf/2301.00942.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "2603.29261",
+        "title": "Monodense Deep Neural Model for Determining Item Price Elasticity",
+        "authors": [
+          "Lakshya Garg",
+          "Sai Yaswanth",
+          "Deep Narayan Mishra"
+        ],
+        "published": "2026-03-31",
+        "categories": [
+          "cs.LG",
+          "cs.AI"
+        ],
+        "abstract": "Item Price Elasticity is used to quantify the responsiveness of consumer demand to changes in item prices, enabling businesses to create pricing strategies and optimize revenue management. Sectors such as store retail, e-commerce, and consumer goods ...",
+        "arxiv_url": "https://arxiv.org/abs/2603.29261",
+        "pdf_url": "https://arxiv.org/pdf/2603.29261.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "1711.00146",
+        "title": "A multitask deep learning model for real-time deployment in embedded systems",
+        "authors": [
+          "Miquel Martí",
+          "Atsuto Maki"
+        ],
+        "published": "2017-10-31",
+        "categories": [
+          "cs.CV",
+          "cs.LG"
+        ],
+        "abstract": "We propose an approach to Multitask Learning (MTL) to make deep learning models faster and lighter for applications in which multiple tasks need to be solved simultaneously, which is particularly useful in embedded, real-time systems. We develop a mu...",
+        "arxiv_url": "https://arxiv.org/abs/1711.00146",
+        "pdf_url": "https://arxiv.org/pdf/1711.00146.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "2012.06469",
+        "title": "DILIE: Deep Internal Learning for Image Enhancement",
+        "authors": [
+          "Indra Deep Mastan",
+          "Shanmuganathan Raman"
+        ],
+        "published": "2020-12-11",
+        "categories": [
+          "cs.CV"
+        ],
+        "abstract": "We consider the generic deep image enhancement problem where an input image is transformed into a perceptually better-looking image. Recent methods for image enhancement consider the problem by performing style transfer and image restoration. The met...",
+        "arxiv_url": "https://arxiv.org/abs/2012.06469",
+        "pdf_url": "https://arxiv.org/pdf/2012.06469.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "1903.03040",
+        "title": "Deep learning observables in computational fluid dynamics",
+        "authors": [
+          "Kjetil O. Lye",
+          "Siddhartha Mishra",
+          "Deep Ray"
+        ],
+        "published": "2019-03-07",
+        "categories": [
+          "physics.comp-ph",
+          "cs.LG",
+          "math.NA",
+          "physics.flu-dyn",
+          "stat.ML"
+        ],
+        "abstract": "Many large scale problems in computational fluid dynamics such as uncertainty quantification, Bayesian inversion, data assimilation and PDE constrained optimization are considered very challenging computationally as they require a large number of exp...",
+        "arxiv_url": "https://arxiv.org/abs/1903.03040",
+        "pdf_url": "https://arxiv.org/pdf/1903.03040.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "2512.23753",
+        "title": "Generalized Regularized Evidential Deep Learning Models: Theory and Comprehensive Evaluation",
+        "authors": [
+          "Deep Shankar Pandey",
+          "Hyomin Choi",
+          "Qi Yu"
+        ],
+        "published": "2025-12-27",
+        "categories": [
+          "cs.LG",
+          "cs.AI"
+        ],
+        "abstract": "Evidential deep learning (EDL) models, based on Subjective Logic, introduce a principled and computationally efficient way to make deterministic neural networks uncertainty-aware. The resulting evidential models can quantify fine-grained uncertainty ...",
+        "arxiv_url": "https://arxiv.org/abs/2512.23753",
+        "pdf_url": "https://arxiv.org/pdf/2512.23753.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "1903.04717",
+        "title": "Activation Analysis of a Byte-Based Deep Neural Network for Malware Classification",
+        "authors": [
+          "Scott E. Coull",
+          "Christopher Gardner"
+        ],
+        "published": "2019-03-12",
+        "categories": [
+          "cs.LG",
+          "cs.CR",
+          "stat.ML"
+        ],
+        "abstract": "Feature engineering is one of the most costly aspects of developing effective machine learning models, and that cost is even greater in specialized problem domains, like malware classification, where expert skills are necessary to identify useful fea...",
+        "arxiv_url": "https://arxiv.org/abs/1903.04717",
+        "pdf_url": "https://arxiv.org/pdf/1903.04717.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "2302.04143",
+        "title": "Predicting Thrombectomy Recanalization from CT Imaging Using Deep Learning Models",
+        "authors": [
+          "Haoyue Zhang",
+          "Jennifer S. Polson",
+          "Eric J. Yang"
+        ],
+        "published": "2023-02-08",
+        "categories": [
+          "eess.IV",
+          "cs.CV"
+        ],
+        "abstract": "For acute ischemic stroke (AIS) patients with large vessel occlusions, clinicians must decide if the benefit of mechanical thrombectomy (MTB) outweighs the risks and potential complications following an invasive procedure. Pre-treatment computed tomo...",
+        "arxiv_url": "https://arxiv.org/abs/2302.04143",
+        "pdf_url": "https://arxiv.org/pdf/2302.04143.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "2011.03712",
+        "title": "DeepCFL: Deep Contextual Features Learning from a Single Image",
+        "authors": [
+          "Indra Deep Mastan",
+          "Shanmuganathan Raman"
+        ],
+        "published": "2020-11-07",
+        "categories": [
+          "cs.CV"
+        ],
+        "abstract": "Recently, there is a vast interest in developing image feature learning methods that are independent of the training data, such as deep image prior, InGAN, SinGAN, and DCIL. These methods are unsupervised and are used to perform low-level vision task...",
+        "arxiv_url": "https://arxiv.org/abs/2011.03712",
+        "pdf_url": "https://arxiv.org/pdf/2011.03712.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "2403.12562",
+        "title": "PePR: Performance Per Resource Unit as a Metric to Promote Small-Scale Deep Learning in Medical Image Analysis",
+        "authors": [
+          "Raghavendra Selvan",
+          "Bob Pepin",
+          "Christian Igel"
+        ],
+        "published": "2024-03-19",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "stat.ML"
+        ],
+        "abstract": "The recent advances in deep learning (DL) have been accelerated by access to large-scale data and compute. These large-scale resources have been used to train progressively larger models which are resource intensive in terms of compute, data, energy,...",
+        "arxiv_url": "https://arxiv.org/abs/2403.12562",
+        "pdf_url": "https://arxiv.org/pdf/2403.12562.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "2107.10804",
+        "title": "Active Learning in Incomplete Label Multiple Instance Multiple Label Learning",
+        "authors": [
+          "Tam Nguyen",
+          "Raviv Raich"
+        ],
+        "published": "2021-07-22",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "In multiple instance multiple label learning, each sample, a bag, consists of multiple instances. To alleviate labeling complexity, each sample is associated with a set of bag-level labels leaving instances within the bag unlabeled. This setting is m...",
+        "arxiv_url": "https://arxiv.org/abs/2107.10804",
+        "pdf_url": "https://arxiv.org/pdf/2107.10804.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "2107.02926",
+        "title": "Solution of Physics-based Bayesian Inverse Problems with Deep Generative Priors",
+        "authors": [
+          "Dhruv V Patel",
+          "Deep Ray",
+          "Assad A Oberai"
+        ],
+        "published": "2021-07-06",
+        "categories": [
+          "stat.ML",
+          "cs.LG"
+        ],
+        "abstract": "Inverse problems are ubiquitous in nature, arising in almost all areas of science and engineering ranging from geophysics and climate science to astrophysics and biomechanics. One of the central challenges in solving inverse problems is tackling thei...",
+        "arxiv_url": "https://arxiv.org/abs/2107.02926",
+        "pdf_url": "https://arxiv.org/pdf/2107.02926.pdf",
+        "relevance_score": 6,
+        "relevance_tier": "SUPPORTIVE"
+      }
+    ],
+    "Soft Labels & Label Smoothing": [
+      {
+        "rank": 1,
+        "arxiv_id": "1409.0903",
+        "title": "How soft repulsion enhances the depletion mechanism",
+        "authors": [
+          "Lorenzo Rovigatti",
+          "Nicoletta Gnan",
+          "Alberto Parola"
+        ],
+        "published": "2014-09-02",
+        "categories": [
+          "cond-mat.soft"
+        ],
+        "abstract": "We investigate binary mixtures of large colloids interacting through soft potentials with small, ideal depletants. We show that softness has a dramatic effect on the resulting colloid-colloid effective potential when the depletant-to-colloid size rat...",
+        "arxiv_url": "https://arxiv.org/abs/1409.0903",
+        "pdf_url": "https://arxiv.org/pdf/1409.0903.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "1309.1755",
+        "title": "From adhesion to wetting of a soft particle",
+        "authors": [
+          "Thomas Salez",
+          "Michael Benzaquen",
+          "Elie Raphaël"
+        ],
+        "published": "2013-09-06",
+        "categories": [
+          "cond-mat.soft",
+          "cond-mat.mes-hall",
+          "cond-mat.mtrl-sci",
+          "physics.chem-ph",
+          "physics.class-ph"
+        ],
+        "abstract": "Using a thermodynamical approach, we calculate the deformation of a spherical elastic particle placed on a rigid substrate, under zero external load, and including an ingredient of importance in soft matter: the interfacial tension of the cap. In a f...",
+        "arxiv_url": "https://arxiv.org/abs/1309.1755",
+        "pdf_url": "https://arxiv.org/pdf/1309.1755.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "1711.07196",
+        "title": "Softening and Yielding of Soft Glassy Materials",
+        "authors": [
+          "Simon Dagois-Bohy",
+          "Ellák Somfai",
+          "Brian P. Tighe"
+        ],
+        "published": "2017-11-20",
+        "categories": [
+          "cond-mat.soft",
+          "cond-mat.dis-nn",
+          "cond-mat.stat-mech"
+        ],
+        "abstract": "Solids deform and fluids flow, but soft glassy materials, such as emulsions, foams, suspensions, and pastes, exhibit an intricate mix of solid and liquid-like behavior. While much progress has been made to understand their elastic (small strain) and ...",
+        "arxiv_url": "https://arxiv.org/abs/1711.07196",
+        "pdf_url": "https://arxiv.org/pdf/1711.07196.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "0905.1224",
+        "title": "The zero-temperature phase diagram of soft-repulsive particle fluids",
+        "authors": [
+          "Santi Prestipino",
+          "Franz Saija",
+          "Gianpietro Malescio"
+        ],
+        "published": "2009-05-08",
+        "categories": [
+          "cond-mat.soft"
+        ],
+        "abstract": "Effective pair interactions with a soft-repulsive component are a well-known feature of polymer solutions and colloidal suspensions, but they also provide a key to interpret the high-pressure behaviour of simple elements. We have computed the zero-te...",
+        "arxiv_url": "https://arxiv.org/abs/0905.1224",
+        "pdf_url": "https://arxiv.org/pdf/0905.1224.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "0912.2657",
+        "title": "Anomalous structural evolution of soft particles: Equibrium liquid state theory",
+        "authors": [
+          "Hugo Jacquin",
+          "Ludovic Berthier"
+        ],
+        "published": "2009-12-14",
+        "categories": [
+          "cond-mat.stat-mech",
+          "cond-mat.soft"
+        ],
+        "abstract": "We use the hyper-netted chain approximation of liquid state theory to analyze the evolution with density of the pair correlation function in a model of soft spheres with harmonic repulsion. As observed in recent experiments on jammed soft particles, ...",
+        "arxiv_url": "https://arxiv.org/abs/0912.2657",
+        "pdf_url": "https://arxiv.org/pdf/0912.2657.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "0805.2759",
+        "title": "Stochastic resonance in soft matter systems: combined effects of static and dynamic disorder",
+        "authors": [
+          "Matjaz Perc",
+          "Marko Gosak",
+          "Samo Kralj"
+        ],
+        "published": "2008-05-18",
+        "categories": [
+          "cond-mat.soft",
+          "physics.comp-ph"
+        ],
+        "abstract": "We study the impact of static and dynamic disorder on the phenomenon of stochastic resonance (SR) in a representative soft matter system. Due to their extreme susceptibility to weak perturbations soft matter systems appear to be excellent candidates ...",
+        "arxiv_url": "https://arxiv.org/abs/0805.2759",
+        "pdf_url": "https://arxiv.org/pdf/0805.2759.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "1301.0454",
+        "title": "Intuitionistic fuzzy parametrized soft set theory and its decision making",
+        "authors": [
+          "İrfan Deli",
+          "Naim Çağman"
+        ],
+        "published": "2013-01-03",
+        "categories": [
+          "math.LO"
+        ],
+        "abstract": "In this work, we first define intuitionistic fuzzy parametrized soft sets (intuitionistic FP-soft sets) and study some of their properties. We then introduce an adjustable approaches to intuitionistic FP-soft sets based decision making. We also give ...",
+        "arxiv_url": "https://arxiv.org/abs/1301.0454",
+        "pdf_url": "https://arxiv.org/pdf/1301.0454.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "1311.5359",
+        "title": "Master equation for the probability distribution functions of forces in soft particle packings",
+        "authors": [
+          "Kuniyasu Saitoh",
+          "Vanessa Magnanimo",
+          "Stefan Luding"
+        ],
+        "published": "2013-11-21",
+        "categories": [
+          "cond-mat.soft"
+        ],
+        "abstract": "Employing molecular dynamics simulations of jammed soft particles, we study microscopic responses of force-chain networks to quasi-static isotropic (de)compressions. We show that not only contacts but also interparticle gaps between the nearest neigh...",
+        "arxiv_url": "https://arxiv.org/abs/1311.5359",
+        "pdf_url": "https://arxiv.org/pdf/1311.5359.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "2007.05351",
+        "title": "Are pathologist-defined labels reproducible? Comparison of the TUPAC16 mitotic figure dataset with an alternative set of labels",
+        "authors": [
+          "Christof A. Bertram",
+          "Mitko Veta",
+          "Christian Marzahl"
+        ],
+        "published": "2020-07-10",
+        "categories": [
+          "cs.CV",
+          "cs.LG",
+          "eess.IV",
+          "q-bio.QM"
+        ],
+        "abstract": "Pathologist-defined labels are the gold standard for histopathological data sets, regardless of well-known limitations in consistency for some tasks. To date, some datasets on mitotic figures are available and were used for development of promising d...",
+        "arxiv_url": "https://arxiv.org/abs/2007.05351",
+        "pdf_url": "https://arxiv.org/pdf/2007.05351.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "1010.5087",
+        "title": "Spatially heterogeneous dynamics in a thermosensitive soft suspension before and after the glass transition",
+        "authors": [
+          "Rémy Colin",
+          "Ahmed M. Alsayed",
+          "Jean-Christophe Castaing"
+        ],
+        "published": "2010-10-25",
+        "categories": [
+          "cond-mat.soft",
+          "cond-mat.stat-mech"
+        ],
+        "abstract": "The microscopic dynamics and aging of a soft thermosensitive suspension was investigated by looking at the thermal fluctuations of tracers in the suspension. Below and above the glass transition, the dense microgel particles suspension was found to d...",
+        "arxiv_url": "https://arxiv.org/abs/1010.5087",
+        "pdf_url": "https://arxiv.org/pdf/1010.5087.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "0711.4629",
+        "title": "Effective Interactions in Soft Materials",
+        "authors": [
+          "Alan R. Denton"
+        ],
+        "published": "2007-11-29",
+        "categories": [
+          "cond-mat.soft",
+          "cond-mat.stat-mech"
+        ],
+        "abstract": "Soft materials, such as colloidal suspensions, polymer solutions, and biological systems, are typically multicomponent mixtures of macromolecules and simpler components (e.g., microions, monomers, solvent) that can assemble into complex structures sp...",
+        "arxiv_url": "https://arxiv.org/abs/0711.4629",
+        "pdf_url": "https://arxiv.org/pdf/0711.4629.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "2406.16966",
+        "title": "Mitigating Noisy Supervision Using Synthetic Samples with Soft Labels",
+        "authors": [
+          "Yangdi Lu",
+          "Wenbo He"
+        ],
+        "published": "2024-06-22",
+        "categories": [
+          "cs.CV",
+          "cs.LG"
+        ],
+        "abstract": "Noisy labels are ubiquitous in real-world datasets, especially in the large-scale ones derived from crowdsourcing and web searching. It is challenging to train deep neural networks with noisy datasets since the networks are prone to overfitting the n...",
+        "arxiv_url": "https://arxiv.org/abs/2406.16966",
+        "pdf_url": "https://arxiv.org/pdf/2406.16966.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "2503.15819",
+        "title": "Control Pneumatic Soft Bending Actuator with Online Learning Pneumatic Physical Reservoir Computing",
+        "authors": [
+          "Junyi Shen",
+          "Tetsuro Miyazaki",
+          "Kenji Kawashima"
+        ],
+        "published": "2025-03-20",
+        "categories": [
+          "cs.RO",
+          "cs.LG",
+          "eess.SY"
+        ],
+        "abstract": "The intrinsic nonlinearities of soft robots present significant control but simultaneously provide them with rich computational potential. Reservoir computing (RC) has shown effectiveness in online learning systems for controlling nonlinear systems s...",
+        "arxiv_url": "https://arxiv.org/abs/2503.15819",
+        "pdf_url": "https://arxiv.org/pdf/2503.15819.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "2410.18519",
+        "title": "Reinforcement Learning Controllers for Soft Robots using Learned Environments",
+        "authors": [
+          "Uljad Berdica",
+          "Matthew Jackson",
+          "Niccolò Enrico Veronese"
+        ],
+        "published": "2024-10-24",
+        "categories": [
+          "cs.RO",
+          "eess.SY"
+        ],
+        "abstract": "Soft robotic manipulators offer operational advantage due to their compliant and deformable structures. However, their inherently nonlinear dynamics presents substantial challenges. Traditional analytical methods often depend on simplifying assumptio...",
+        "arxiv_url": "https://arxiv.org/abs/2410.18519",
+        "pdf_url": "https://arxiv.org/pdf/2410.18519.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "1312.4512",
+        "title": "Coupling of elasticity to capillarity in soft aerated materials",
+        "authors": [
+          "Lucie Ducloué",
+          "Olivier Pitois",
+          "Julie Goyon"
+        ],
+        "published": "2013-12-16",
+        "categories": [
+          "cond-mat.soft"
+        ],
+        "abstract": "We study the elastic properties of soft solids containing air bubbles. Contrary to standard porous materials, the softness of the matrix allows for a coupling of the matrix elasticity to surface tension forces brought in by the bubbles. Thanks to app...",
+        "arxiv_url": "https://arxiv.org/abs/1312.4512",
+        "pdf_url": "https://arxiv.org/pdf/1312.4512.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      }
+    ],
+    "K-Center Algorithms": [
+      {
+        "rank": 1,
+        "arxiv_id": "2606.16061",
+        "title": "Coresets for Continuous $k$-Center in Hyperbolic Space",
+        "authors": [
+          "Eunku Park"
+        ],
+        "published": "2026-06-14",
+        "categories": [
+          "cs.CG",
+          "cs.DS"
+        ],
+        "abstract": "We study the continuous $k$-center problem in fixed-dimensional hyperbolic space. The input is a finite point set $P \\subset \\mathbb H^D$, while the centers may be placed anywhere in the ambient space. A nonempty subset $P_\\varepsilon\\subseteq P$ is ...",
+        "arxiv_url": "https://arxiv.org/abs/2606.16061",
+        "pdf_url": "https://arxiv.org/pdf/2606.16061.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "1612.07516",
+        "title": "On Coreset Constructions for the Fuzzy $K$-Means Problem",
+        "authors": [
+          "Johannes Blömer",
+          "Sascha Brauer",
+          "Kathrin Bujna"
+        ],
+        "published": "2016-12-22",
+        "categories": [
+          "cs.LG",
+          "cs.DS"
+        ],
+        "abstract": "The fuzzy $K$-means problem is a popular generalization of the well-known $K$-means problem to soft clusterings. We present the first coresets for fuzzy $K$-means with size linear in the dimension, polynomial in the number of clusters, and poly-logar...",
+        "arxiv_url": "https://arxiv.org/abs/1612.07516",
+        "pdf_url": "https://arxiv.org/pdf/1612.07516.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "2312.10602",
+        "title": "A Weighted K-Center Algorithm for Data Subset Selection",
+        "authors": [
+          "Srikumar Ramalingam",
+          "Pranjal Awasthi",
+          "Sanjiv Kumar"
+        ],
+        "published": "2023-12-17",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "cs.CV"
+        ],
+        "abstract": "The success of deep learning hinges on enormous data and large models, which require labor-intensive annotations and heavy computation costs. Subset selection is a fundamental problem that can play a key role in identifying smaller portions of the tr...",
+        "arxiv_url": "https://arxiv.org/abs/2312.10602",
+        "pdf_url": "https://arxiv.org/pdf/2312.10602.pdf",
+        "relevance_score": 10,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "1902.01896",
+        "title": "A Composable Coreset for k-Center in Doubling Metrics",
+        "authors": [
+          "Sepideh Aghamolaei",
+          "Mohammad Ghodsi"
+        ],
+        "published": "2019-02-05",
+        "categories": [
+          "cs.DS",
+          "cs.CG"
+        ],
+        "abstract": "A set of points $P$ in a metric space and a constant integer $k$ are given. The $k$-center problem finds $k$ points as centers among $P$, such that the maximum distance of any point of $P$ to their closest centers $(r)$ is minimized.   Doubling metri...",
+        "arxiv_url": "https://arxiv.org/abs/1902.01896",
+        "pdf_url": "https://arxiv.org/pdf/1902.01896.pdf",
+        "relevance_score": 8.0,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "2301.02814",
+        "title": "Randomized Greedy Algorithms and Composable Coreset for k-Center Clustering with Outliers",
+        "authors": [
+          "Hu Ding",
+          "Ruomin Huang",
+          "Kai Liu"
+        ],
+        "published": "2023-01-07",
+        "categories": [
+          "cs.LG",
+          "cs.DS"
+        ],
+        "abstract": "In this paper, we study the problem of {\\em $k$-center clustering with outliers}. The problem has many important applications in real world, but the presence of outliers can significantly increase the computational complexity. Though a number of meth...",
+        "arxiv_url": "https://arxiv.org/abs/2301.02814",
+        "pdf_url": "https://arxiv.org/pdf/2301.02814.pdf",
+        "relevance_score": 10,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "2302.09911",
+        "title": "Fair $k$-Center: a Coreset Approach in Low Dimensions",
+        "authors": [
+          "Jinxiang Gan",
+          "Mordecai Golin",
+          "Zonghan Yang"
+        ],
+        "published": "2023-02-20",
+        "categories": [
+          "cs.DC"
+        ],
+        "abstract": "Center-based clustering techniques are fundamental in some areas of machine learning such as data summarization. Generic $k$-center algorithms can produce biased cluster representatives so there has been a recent interest in fair $k$-center clusterin...",
+        "arxiv_url": "https://arxiv.org/abs/2302.09911",
+        "pdf_url": "https://arxiv.org/pdf/2302.09911.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "2211.08184",
+        "title": "Improved Coresets for Euclidean $k$-Means",
+        "authors": [
+          "Vincent Cohen-Addad",
+          "Kasper Green Larsen",
+          "David Saulpic"
+        ],
+        "published": "2022-11-15",
+        "categories": [
+          "cs.CG",
+          "cs.LG"
+        ],
+        "abstract": "Given a set of $n$ points in $d$ dimensions, the Euclidean $k$-means problem (resp. the Euclidean $k$-median problem) consists of finding $k$ centers such that the sum of squared distances (resp. sum of distances) from every point to its closest cent...",
+        "arxiv_url": "https://arxiv.org/abs/2211.08184",
+        "pdf_url": "https://arxiv.org/pdf/2211.08184.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "1901.08219",
+        "title": "Greedy Strategy Works for $k$-Center Clustering with Outliers and Coreset Construction",
+        "authors": [
+          "Hu Ding",
+          "Haikuo Yu",
+          "Zixiu Wang"
+        ],
+        "published": "2019-01-24",
+        "categories": [
+          "cs.CG",
+          "cs.LG"
+        ],
+        "abstract": "We study the problem of $k$-center clustering with outliers in arbitrary metrics and Euclidean space. Though a number of methods have been developed in the past decades, it is still quite challenging to design quality guaranteed algorithm with low co...",
+        "arxiv_url": "https://arxiv.org/abs/1901.08219",
+        "pdf_url": "https://arxiv.org/pdf/1901.08219.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "2310.18034",
+        "title": "Experimental Evaluation of Fully Dynamic k-Means via Coresets",
+        "authors": [
+          "Monika Henzinger",
+          "David Saulpic",
+          "Leonhard Sidl"
+        ],
+        "published": "2023-10-27",
+        "categories": [
+          "cs.DS"
+        ],
+        "abstract": "For a set of points in $\\mathbb{R}^d$, the Euclidean $k$-means problems consists of finding $k$ centers such that the sum of distances squared from each data point to its closest center is minimized. Coresets are one the main tools developed recently...",
+        "arxiv_url": "https://arxiv.org/abs/2310.18034",
+        "pdf_url": "https://arxiv.org/pdf/2310.18034.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "2104.12141",
+        "title": "Coresets for $k$-median clustering under Fréchet and Hausdorff distances",
+        "authors": [
+          "Abhinandan Nath"
+        ],
+        "published": "2021-04-25",
+        "categories": [
+          "cs.CG"
+        ],
+        "abstract": "We give algorithms for computing coresets for $(1+\\varepsilon)$-approximate $k$-median clustering of polygonal curves (under the discrete and continuous Fréchet distance) and point sets (under the Hausdorff distance), when the cluster centers are res...",
+        "arxiv_url": "https://arxiv.org/abs/2104.12141",
+        "pdf_url": "https://arxiv.org/pdf/2104.12141.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "2202.12793",
+        "title": "Towards Optimal Lower Bounds for k-median and k-means Coresets",
+        "authors": [
+          "Vincent Cohen-Addad",
+          "Kasper Green Larsen",
+          "David Saulpic"
+        ],
+        "published": "2022-02-25",
+        "categories": [
+          "cs.DS",
+          "cs.CG",
+          "cs.LG"
+        ],
+        "abstract": "Given a set of points in a metric space, the $(k,z)$-clustering problem consists of finding a set of $k$ points called centers, such that the sum of distances raised to the power of $z$ of every data point to its closest center is minimized. Special ...",
+        "arxiv_url": "https://arxiv.org/abs/2202.12793",
+        "pdf_url": "https://arxiv.org/pdf/2202.12793.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "1903.04351",
+        "title": "Coresets for Ordered Weighted Clustering",
+        "authors": [
+          "Vladimir Braverman",
+          "Shaofeng H. -C. Jiang",
+          "Robert Krauthgamer"
+        ],
+        "published": "2019-03-11",
+        "categories": [
+          "cs.DS"
+        ],
+        "abstract": "We design coresets for Ordered k-Median, a generalization of classical clustering problems such as k-Median and k-Center, that offers a more flexible data analysis, like easily combining multiple objectives (e.g., to increase fairness or for Pareto o...",
+        "arxiv_url": "https://arxiv.org/abs/1903.04351",
+        "pdf_url": "https://arxiv.org/pdf/1903.04351.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "2405.01339",
+        "title": "Sensitivity Sampling for $k$-Means: Worst Case and Stability Optimal Coreset Bounds",
+        "authors": [
+          "Nikhil Bansal",
+          "Vincent Cohen-Addad",
+          "Milind Prabhu"
+        ],
+        "published": "2024-05-02",
+        "categories": [
+          "cs.DS"
+        ],
+        "abstract": "Coresets are arguably the most popular compression paradigm for center-based clustering objectives such as $k$-means. Given a point set $P$, a coreset $Ω$ is a small, weighted summary that preserves the cost of all candidate solutions $S$ up to a $(1...",
+        "arxiv_url": "https://arxiv.org/abs/2405.01339",
+        "pdf_url": "https://arxiv.org/pdf/2405.01339.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "2112.05083",
+        "title": "Improved approximation algorithms for two Euclidean k-Center variants",
+        "authors": [
+          "Haris Angelidakis",
+          "Ivan Sergeev",
+          "Pontus Westermark"
+        ],
+        "published": "2021-12-09",
+        "categories": [
+          "cs.DS",
+          "cs.CG"
+        ],
+        "abstract": "The $k$-Center problem is one of the most popular clustering problems. After decades of work, the complexity of most of its variants on general metrics is now well understood. Surprisingly, this is not the case for a natural setting that often arises...",
+        "arxiv_url": "https://arxiv.org/abs/2112.05083",
+        "pdf_url": "https://arxiv.org/pdf/2112.05083.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "2305.16890",
+        "title": "Universal Weak Coreset",
+        "authors": [
+          "Ragesh Jaiswal",
+          "Amit Kumar"
+        ],
+        "published": "2023-05-26",
+        "categories": [
+          "cs.DS",
+          "cs.LG"
+        ],
+        "abstract": "Coresets for $k$-means and $k$-median problems yield a small summary of the data, which preserve the clustering cost with respect to any set of $k$ centers. Recently coresets have also been constructed for constrained $k$-means and $k$-median problem...",
+        "arxiv_url": "https://arxiv.org/abs/2305.16890",
+        "pdf_url": "https://arxiv.org/pdf/2305.16890.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      }
+    ],
+    "Facility Location Problems": [
+      {
+        "rank": 1,
+        "arxiv_id": "2412.11049",
+        "title": "Distributed Facility Location Games with Candidate Locations",
+        "authors": [
+          "Feiyue Sun"
+        ],
+        "published": "2024-12-15",
+        "categories": [
+          "cs.GT",
+          "math.OC"
+        ],
+        "abstract": "We study the distributed facility location games with candidate locations, where agents on a line are partitioned into groups. Both desirable and obnoxious facility location settings are discussed. In distributed location problems, distortion can ser...",
+        "arxiv_url": "https://arxiv.org/abs/2412.11049",
+        "pdf_url": "https://arxiv.org/pdf/2412.11049.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "1612.07516",
+        "title": "On Coreset Constructions for the Fuzzy $K$-Means Problem",
+        "authors": [
+          "Johannes Blömer",
+          "Sascha Brauer",
+          "Kathrin Bujna"
+        ],
+        "published": "2016-12-22",
+        "categories": [
+          "cs.LG",
+          "cs.DS"
+        ],
+        "abstract": "The fuzzy $K$-means problem is a popular generalization of the well-known $K$-means problem to soft clusterings. We present the first coresets for fuzzy $K$-means with size linear in the dimension, polynomial in the number of clusters, and poly-logar...",
+        "arxiv_url": "https://arxiv.org/abs/1612.07516",
+        "pdf_url": "https://arxiv.org/pdf/1612.07516.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "2606.16061",
+        "title": "Coresets for Continuous $k$-Center in Hyperbolic Space",
+        "authors": [
+          "Eunku Park"
+        ],
+        "published": "2026-06-14",
+        "categories": [
+          "cs.CG",
+          "cs.DS"
+        ],
+        "abstract": "We study the continuous $k$-center problem in fixed-dimensional hyperbolic space. The input is a finite point set $P \\subset \\mathbb H^D$, while the centers may be placed anywhere in the ambient space. A nonempty subset $P_\\varepsilon\\subseteq P$ is ...",
+        "arxiv_url": "https://arxiv.org/abs/2606.16061",
+        "pdf_url": "https://arxiv.org/pdf/2606.16061.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "1806.11527",
+        "title": "Representative families for matroid intersections, with applications to location, packing, and covering problems",
+        "authors": [
+          "René van Bevern",
+          "Oxana Yu. Tsidulko",
+          "Philipp Zschoche"
+        ],
+        "published": "2018-06-29",
+        "categories": [
+          "cs.DS",
+          "cs.DM",
+          "math.OC"
+        ],
+        "abstract": "We show algorithms for computing representative families for matroid intersections and use them in fixed-parameter algorithms for set packing, set covering, and facility location problems with multiple matroid constraints. We complement our tractabil...",
+        "arxiv_url": "https://arxiv.org/abs/1806.11527",
+        "pdf_url": "https://arxiv.org/pdf/1806.11527.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "1709.10278",
+        "title": "Shapley Facility Location Games",
+        "authors": [
+          "Omer Ben-Porat",
+          "Moshe Tennenholtz"
+        ],
+        "published": "2017-09-29",
+        "categories": [
+          "cs.GT"
+        ],
+        "abstract": "Facility location games have been a topic of major interest in economics, operations research and computer science, starting from the seminal work by Hotelling. Spatial facility location models have successfully predicted the outcome of competition i...",
+        "arxiv_url": "https://arxiv.org/abs/1709.10278",
+        "pdf_url": "https://arxiv.org/pdf/1709.10278.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "2009.07982",
+        "title": "Strategy Proof Mechanisms for Facility Location at Limited Locations",
+        "authors": [
+          "Toby Walsh"
+        ],
+        "published": "2020-09-17",
+        "categories": [
+          "cs.AI",
+          "cs.GT"
+        ],
+        "abstract": "Facility location problems often permit facilities to be located at any position. But what if this is not the case in practice? What if facilities can only be located at particular locations like a highway exit or close to a bus stop? We consider her...",
+        "arxiv_url": "https://arxiv.org/abs/2009.07982",
+        "pdf_url": "https://arxiv.org/pdf/2009.07982.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "2512.22873",
+        "title": "Facility Location Games for Multi-Location Agents with Satisfaction",
+        "authors": [
+          "Huanjun Wang",
+          "Qizhi Fang",
+          "Wenjing Liu"
+        ],
+        "published": "2025-12-28",
+        "categories": [
+          "cs.GT"
+        ],
+        "abstract": "In this paper, we study mechanism design for single-facility location games where each agent has multiple private locations in [0, 1]. The individual objective is a satisfaction function that measures the discrepancy between the optimal facility loca...",
+        "arxiv_url": "https://arxiv.org/abs/2512.22873",
+        "pdf_url": "https://arxiv.org/pdf/2512.22873.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "2105.01425",
+        "title": "Two-Stage Facility Location Games with Strategic Clients and Facilities",
+        "authors": [
+          "Simon Krogmann",
+          "Pascal Lenzner",
+          "Louise Molitor"
+        ],
+        "published": "2021-05-04",
+        "categories": [
+          "cs.GT",
+          "cs.AI"
+        ],
+        "abstract": "We consider non-cooperative facility location games where both facilities and clients act strategically and heavily influence each other. This contrasts established game-theoretic facility location models with non-strategic clients that simply select...",
+        "arxiv_url": "https://arxiv.org/abs/2105.01425",
+        "pdf_url": "https://arxiv.org/pdf/2105.01425.pdf",
+        "relevance_score": 6,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "2006.16762",
+        "title": "Online Multi-Facility Location",
+        "authors": [
+          "Christine Markarian",
+          "Abdul-Nasser Kassar",
+          "Manal Yunis"
+        ],
+        "published": "2020-06-30",
+        "categories": [
+          "cs.DS"
+        ],
+        "abstract": "Facility Location problems ask to place facilities in a way that optimizes a given objective function so as to provide a service to all clients. These are one of the most well-studied optimization problems spanning many research areas such as operati...",
+        "arxiv_url": "https://arxiv.org/abs/2006.16762",
+        "pdf_url": "https://arxiv.org/pdf/2006.16762.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "2310.04102",
+        "title": "Nash Welfare and Facility Location",
+        "authors": [
+          "Alexander Lam",
+          "Haris Aziz",
+          "Toby Walsh"
+        ],
+        "published": "2023-10-06",
+        "categories": [
+          "cs.GT",
+          "cs.AI",
+          "cs.MA"
+        ],
+        "abstract": "We consider the problem of locating a facility to serve a set of agents located along a line. The Nash welfare objective function, defined as the product of the agents' utilities, is known to provide a compromise between fairness and efficiency in re...",
+        "arxiv_url": "https://arxiv.org/abs/2310.04102",
+        "pdf_url": "https://arxiv.org/pdf/2310.04102.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "1807.10507",
+        "title": "Location, Location, Location: Exploring Amazon EC2 Spot Instance Pricing Across Geographical Regions - Extended Version",
+        "authors": [
+          "Nnamdi Ekwe-Ekwe",
+          "Adam Barker"
+        ],
+        "published": "2018-07-27",
+        "categories": [
+          "cs.DC"
+        ],
+        "abstract": "Cloud computing is becoming an almost ubiquitous part of the computing landscape. For many companies today, moving their entire infrastructure and workloads to the cloud reduces complexity, time to deployment, and saves money. Spot Instances, a subse...",
+        "arxiv_url": "https://arxiv.org/abs/1807.10507",
+        "pdf_url": "https://arxiv.org/pdf/1807.10507.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "1807.03839",
+        "title": "Online Facility Location with Deletions",
+        "authors": [
+          "Marek Cygan",
+          "Artur Czumaj",
+          "Marcin Mucha"
+        ],
+        "published": "2018-07-10",
+        "categories": [
+          "cs.DS"
+        ],
+        "abstract": "In this paper we study three previously unstudied variants of the online Facility Location problem, considering an intrinsic scenario when the clients and facilities are not only allowed to arrive to the system, but they can also depart at any moment...",
+        "arxiv_url": "https://arxiv.org/abs/1807.03839",
+        "pdf_url": "https://arxiv.org/pdf/1807.03839.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "1602.03655",
+        "title": "Multi-Unit Facility Location Games",
+        "authors": [
+          "Omer Ben-Porat",
+          "Moshe Tennenholtz"
+        ],
+        "published": "2016-02-11",
+        "categories": [
+          "cs.GT"
+        ],
+        "abstract": "Facility location games have been a topic of major interest in economics, operations research and computer science, starting from the seminal work by Hotelling. In the classical pure location Hotelling game businesses compete for maximizing customer ...",
+        "arxiv_url": "https://arxiv.org/abs/1602.03655",
+        "pdf_url": "https://arxiv.org/pdf/1602.03655.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "1701.00529",
+        "title": "Truthful Facility Location with Additive Errors",
+        "authors": [
+          "Iddan Golomb",
+          "Christos Tzamos"
+        ],
+        "published": "2017-01-02",
+        "categories": [
+          "cs.GT",
+          "cs.AI"
+        ],
+        "abstract": "We address the problem of locating facilities on the $[0,1]$ interval based on reports from strategic agents. The cost of each agent is her distance to the closest facility, and the global objective is to minimize either the maximum cost of an agent ...",
+        "arxiv_url": "https://arxiv.org/abs/1701.00529",
+        "pdf_url": "https://arxiv.org/pdf/1701.00529.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "2005.03095",
+        "title": "Heterogeneous Facility Location Games",
+        "authors": [
+          "Eleftherios Anastasiadis",
+          "Argyrios Deligkas"
+        ],
+        "published": "2020-05-06",
+        "categories": [
+          "cs.GT"
+        ],
+        "abstract": "We study heterogeneous $k$-facility location games. In this model there are $k$ facilities where each facility serves a different purpose. Thus, the preferences of the agents over the facilities can vary arbitrarily. Our goal is to design strategy pr...",
+        "arxiv_url": "https://arxiv.org/abs/2005.03095",
+        "pdf_url": "https://arxiv.org/pdf/2005.03095.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      }
+    ],
+    "Influence Functions & Data Valuation": [
+      {
+        "rank": 1,
+        "arxiv_id": "1609.04846",
+        "title": "A Tutorial about Random Neural Networks in Supervised Learning",
+        "authors": [
+          "Sebastián Basterrech",
+          "Gerardo Rubino"
+        ],
+        "published": "2016-09-15",
+        "categories": [
+          "cs.NE"
+        ],
+        "abstract": "Random Neural Networks (RNNs) are a class of Neural Networks (NNs) that can also be seen as a specific type of queuing network. They have been successfully used in several domains during the last 25 years, as queuing networks to analyze the performan...",
+        "arxiv_url": "https://arxiv.org/abs/1609.04846",
+        "pdf_url": "https://arxiv.org/pdf/1609.04846.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "2502.01654",
+        "title": "Predicting concentration levels of air pollutants by transfer learning and recurrent neural network",
+        "authors": [
+          "Iat Hang Fong",
+          "Tengyue Li",
+          "Simon Fong"
+        ],
+        "published": "2025-01-30",
+        "categories": [
+          "cs.LG",
+          "cs.NE",
+          "physics.ao-ph"
+        ],
+        "abstract": "Air pollution (AP) poses a great threat to human health, and people are paying more attention than ever to its prediction. Accurate prediction of AP helps people to plan for their outdoor activities and aids protecting human health. In this paper, lo...",
+        "arxiv_url": "https://arxiv.org/abs/2502.01654",
+        "pdf_url": "https://arxiv.org/pdf/2502.01654.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "1803.02421",
+        "title": "Masked Conditional Neural Networks for Audio Classification",
+        "authors": [
+          "Fady Medhat",
+          "David Chesmore",
+          "John Robinson"
+        ],
+        "published": "2018-03-06",
+        "categories": [
+          "stat.ML",
+          "cs.LG",
+          "cs.SD",
+          "eess.AS"
+        ],
+        "abstract": "We present the ConditionaL Neural Network (CLNN) and the Masked ConditionaL Neural Network (MCLNN) designed for temporal signal recognition. The CLNN takes into consideration the temporal nature of the sound signal and the MCLNN extends upon the CLNN...",
+        "arxiv_url": "https://arxiv.org/abs/1803.02421",
+        "pdf_url": "https://arxiv.org/pdf/1803.02421.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "1509.08985",
+        "title": "Generalizing Pooling Functions in Convolutional Neural Networks: Mixed, Gated, and Tree",
+        "authors": [
+          "Chen-Yu Lee",
+          "Patrick W. Gallagher",
+          "Zhuowen Tu"
+        ],
+        "published": "2015-09-30",
+        "categories": [
+          "stat.ML",
+          "cs.LG",
+          "cs.NE"
+        ],
+        "abstract": "We seek to improve deep neural networks by generalizing the pooling operations that play a central role in current architectures. We pursue a careful exploration of approaches to allow pooling to learn and to adapt to complex and variable patterns. T...",
+        "arxiv_url": "https://arxiv.org/abs/1509.08985",
+        "pdf_url": "https://arxiv.org/pdf/1509.08985.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "2306.14753",
+        "title": "The Deep Arbitrary Polynomial Chaos Neural Network or how Deep Artificial Neural Networks could benefit from Data-Driven Homogeneous Chaos Theory",
+        "authors": [
+          "Sergey Oladyshkin",
+          "Timothy Praditia",
+          "Ilja Kröker"
+        ],
+        "published": "2023-06-26",
+        "categories": [
+          "cs.NE",
+          "stat.ML"
+        ],
+        "abstract": "Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo...",
+        "arxiv_url": "https://arxiv.org/abs/2306.14753",
+        "pdf_url": "https://arxiv.org/pdf/2306.14753.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "2307.05639",
+        "title": "Learning Active Subspaces and Discovering Important Features with Gaussian Radial Basis Functions Neural Networks",
+        "authors": [
+          "Danny D'Agostino",
+          "Ilija Ilievski",
+          "Christine Annette Shoemaker"
+        ],
+        "published": "2023-07-11",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "cs.NE",
+          "stat.ML"
+        ],
+        "abstract": "Providing a model that achieves a strong predictive performance and is simultaneously interpretable by humans is one of the most difficult challenges in machine learning research due to the conflicting nature of these two objectives. To address this ...",
+        "arxiv_url": "https://arxiv.org/abs/2307.05639",
+        "pdf_url": "https://arxiv.org/pdf/2307.05639.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "2304.09590",
+        "title": "Parallel Neural Networks in Golang",
+        "authors": [
+          "Daniela Kalwarowskyj",
+          "Erich Schikuta"
+        ],
+        "published": "2023-04-19",
+        "categories": [
+          "cs.NE",
+          "cs.DC"
+        ],
+        "abstract": "This paper describes the design and implementation of parallel neural networks (PNNs) with the novel programming language Golang. We follow in our approach the classical Single-Program Multiple-Data (SPMD) model where a PNN is composed of several seq...",
+        "arxiv_url": "https://arxiv.org/abs/2304.09590",
+        "pdf_url": "https://arxiv.org/pdf/2304.09590.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "1807.02477",
+        "title": "Development of a sensory-neural network for medical diagnosing",
+        "authors": [
+          "Igor Grabec",
+          "Eva Švegl",
+          "Mihael Sok"
+        ],
+        "published": "2018-07-06",
+        "categories": [
+          "cs.NE"
+        ],
+        "abstract": "Performance of a sensory-neural network developed for diagnosing of diseases is described. Information about patient's condition is provided by answers to the questionnaire. Questions correspond to sensors generating signals when patients acknowledge...",
+        "arxiv_url": "https://arxiv.org/abs/1807.02477",
+        "pdf_url": "https://arxiv.org/pdf/1807.02477.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "1611.02305",
+        "title": "Learning Influence Functions from Incomplete Observations",
+        "authors": [
+          "Xinran He",
+          "Ke Xu",
+          "David Kempe"
+        ],
+        "published": "2016-11-07",
+        "categories": [
+          "cs.SI",
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "We study the problem of learning influence functions under incomplete observations of node activations. Incomplete observations are a major concern as most (online and real-world) social networks are not fully observable. We establish both proper and...",
+        "arxiv_url": "https://arxiv.org/abs/1611.02305",
+        "pdf_url": "https://arxiv.org/pdf/1611.02305.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "1906.10015",
+        "title": "A Review on Neural Network Models of Schizophrenia and Autism Spectrum Disorder",
+        "authors": [
+          "Pablo Lanillos",
+          "Daniel Oliva",
+          "Anja Philippsen"
+        ],
+        "published": "2019-06-24",
+        "categories": [
+          "q-bio.NC",
+          "cs.AI",
+          "cs.NE"
+        ],
+        "abstract": "This survey presents the most relevant neural network models of autism spectrum disorder and schizophrenia, from the first connectionist models to recent deep network architectures. We analyzed and compared the most representative symptoms with its n...",
+        "arxiv_url": "https://arxiv.org/abs/1906.10015",
+        "pdf_url": "https://arxiv.org/pdf/1906.10015.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "1411.1792",
+        "title": "How transferable are features in deep neural networks?",
+        "authors": [
+          "Jason Yosinski",
+          "Jeff Clune",
+          "Yoshua Bengio"
+        ],
+        "published": "2014-11-06",
+        "categories": [
+          "cs.LG",
+          "cs.NE"
+        ],
+        "abstract": "Many deep neural networks trained on natural images exhibit a curious phenomenon in common: on the first layer they learn features similar to Gabor filters and color blobs. Such first-layer features appear not to be specific to a particular dataset o...",
+        "arxiv_url": "https://arxiv.org/abs/1411.1792",
+        "pdf_url": "https://arxiv.org/pdf/1411.1792.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "2212.06370",
+        "title": "Dual Accuracy-Quality-Driven Neural Network for Prediction Interval Generation",
+        "authors": [
+          "Giorgio Morales",
+          "John W. Sheppard"
+        ],
+        "published": "2022-12-13",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "Accurate uncertainty quantification is necessary to enhance the reliability of deep learning models in real-world applications. In the case of regression tasks, prediction intervals (PIs) should be provided along with the deterministic predictions of...",
+        "arxiv_url": "https://arxiv.org/abs/2212.06370",
+        "pdf_url": "https://arxiv.org/pdf/2212.06370.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "2603.01172",
+        "title": "Midterm Status Report of the ILC Technology Network Activities",
+        "authors": [
+          "ILC Technology Network"
+        ],
+        "published": "2026-03-01",
+        "categories": [
+          "physics.acc-ph",
+          "hep-ex",
+          "hep-ph"
+        ],
+        "abstract": "The ILC Technology Network (ITN) was established in 2022 by the ILC International Development Team, a subcommittee of the International Committee for Future Accelerators, to advance engineering studies toward the realisation of the International Line...",
+        "arxiv_url": "https://arxiv.org/abs/2603.01172",
+        "pdf_url": "https://arxiv.org/pdf/2603.01172.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "1606.00825",
+        "title": "Training a Hidden Markov Model with a Bayesian Spiking Neural Network",
+        "authors": [
+          "Amirhossein Tavanaei",
+          "Anthony S Maida"
+        ],
+        "published": "2016-06-02",
+        "categories": [
+          "cs.NE"
+        ],
+        "abstract": "It is of some interest to understand how statistically based mechanisms for signal processing might be integrated with biologically motivated mechanisms such as neural networks. This paper explores a novel hybrid approach for classifying segments of ...",
+        "arxiv_url": "https://arxiv.org/abs/1606.00825",
+        "pdf_url": "https://arxiv.org/pdf/1606.00825.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "2606.02682",
+        "title": "Neural Networks and Schramm-Loewner Evolutions",
+        "authors": [
+          "Neilesh Shrotri",
+          "Vlad Margarint"
+        ],
+        "published": "2026-06-01",
+        "categories": [
+          "cond-mat.dis-nn",
+          "math.PR"
+        ],
+        "abstract": "In this manuscript, we explore the application of neural networks to predict the natural parameter $κ\\geq 0$ of Schramm-Loewner Evolution (SLE$_κ$) theory. SLE$_κ$ is a family of random fractal curves that has significant implications in Statistical ...",
+        "arxiv_url": "https://arxiv.org/abs/2606.02682",
+        "pdf_url": "https://arxiv.org/pdf/2606.02682.pdf",
+        "relevance_score": 8,
+        "relevance_tier": "HIGHLY RELEVANT"
+      }
+    ],
+    "Active Learning & Selection": [
+      {
+        "rank": 1,
+        "arxiv_id": "1612.07516",
+        "title": "On Coreset Constructions for the Fuzzy $K$-Means Problem",
+        "authors": [
+          "Johannes Blömer",
+          "Sascha Brauer",
+          "Kathrin Bujna"
+        ],
+        "published": "2016-12-22",
+        "categories": [
+          "cs.LG",
+          "cs.DS"
+        ],
+        "abstract": "The fuzzy $K$-means problem is a popular generalization of the well-known $K$-means problem to soft clusterings. We present the first coresets for fuzzy $K$-means with size linear in the dimension, polynomial in the number of clusters, and poly-logar...",
+        "arxiv_url": "https://arxiv.org/abs/1612.07516",
+        "pdf_url": "https://arxiv.org/pdf/1612.07516.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "2302.08893",
+        "title": "Active learning for data streams: a survey",
+        "authors": [
+          "Davide Cacciarelli",
+          "Murat Kulahci"
+        ],
+        "published": "2023-02-17",
+        "categories": [
+          "stat.ML",
+          "cs.LG",
+          "stat.ME"
+        ],
+        "abstract": "Online active learning is a paradigm in machine learning that aims to select the most informative data points to label from a data stream. The problem of minimizing the cost associated with collecting labeled observations has gained a lot of attentio...",
+        "arxiv_url": "https://arxiv.org/abs/2302.08893",
+        "pdf_url": "https://arxiv.org/pdf/2302.08893.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "1208.3561",
+        "title": "Efficient Active Learning of Halfspaces: an Aggressive Approach",
+        "authors": [
+          "Alon Gonen",
+          "Sivan Sabato",
+          "Shai Shalev-Shwartz"
+        ],
+        "published": "2012-08-17",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "We study pool-based active learning of half-spaces. We revisit the aggressive approach for active learning in the realizable case, and show that it can be made efficient and practical, while also having theoretical guarantees under reasonable assumpt...",
+        "arxiv_url": "https://arxiv.org/abs/1208.3561",
+        "pdf_url": "https://arxiv.org/pdf/1208.3561.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "2110.08265",
+        "title": "Knowledge-driven Active Learning",
+        "authors": [
+          "Gabriele Ciravegna",
+          "Frédéric Precioso",
+          "Alessandro Betti"
+        ],
+        "published": "2021-10-15",
+        "categories": [
+          "cs.LG",
+          "cs.AI"
+        ],
+        "abstract": "The deployment of Deep Learning (DL) models is still precluded in those contexts where the amount of supervised data is limited. To answer this issue, active learning strategies aim at minimizing the amount of labelled data required to train a DL mod...",
+        "arxiv_url": "https://arxiv.org/abs/2110.08265",
+        "pdf_url": "https://arxiv.org/pdf/2110.08265.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "2311.18356",
+        "title": "Towards Comparable Active Learning",
+        "authors": [
+          "Thorben Werner",
+          "Johannes Burchert",
+          "Lars Schmidt-Thieme"
+        ],
+        "published": "2023-11-30",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "Active Learning has received significant attention in the field of machine learning for its potential in selecting the most informative samples for labeling, thereby reducing data annotation costs. However, we show that the reported lifts in recent l...",
+        "arxiv_url": "https://arxiv.org/abs/2311.18356",
+        "pdf_url": "https://arxiv.org/pdf/2311.18356.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "1507.04155",
+        "title": "ALEVS: Active Learning by Statistical Leverage Sampling",
+        "authors": [
+          "Cem Orhan",
+          "Öznur Taştan"
+        ],
+        "published": "2015-07-15",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "Active learning aims to obtain a classifier of high accuracy by using fewer label requests in comparison to passive learning by selecting effective queries. Many active learning methods have been developed in the past two decades, which sample querie...",
+        "arxiv_url": "https://arxiv.org/abs/1507.04155",
+        "pdf_url": "https://arxiv.org/pdf/1507.04155.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "2107.10804",
+        "title": "Active Learning in Incomplete Label Multiple Instance Multiple Label Learning",
+        "authors": [
+          "Tam Nguyen",
+          "Raviv Raich"
+        ],
+        "published": "2021-07-22",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "In multiple instance multiple label learning, each sample, a bag, consists of multiple instances. To alleviate labeling complexity, each sample is associated with a set of bag-level labels leaving instances within the bag unlabeled. This setting is m...",
+        "arxiv_url": "https://arxiv.org/abs/2107.10804",
+        "pdf_url": "https://arxiv.org/pdf/2107.10804.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "2401.07639",
+        "title": "Compute-Efficient Active Learning",
+        "authors": [
+          "Gábor Németh",
+          "Tamás Matuszka"
+        ],
+        "published": "2024-01-15",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "Active learning, a powerful paradigm in machine learning, aims at reducing labeling costs by selecting the most informative samples from an unlabeled dataset. However, the traditional active learning process often demands extensive computational reso...",
+        "arxiv_url": "https://arxiv.org/abs/2401.07639",
+        "pdf_url": "https://arxiv.org/pdf/2401.07639.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "2111.15258",
+        "title": "DeepAL: Deep Active Learning in Python",
+        "authors": [
+          "Kuan-Hao Huang"
+        ],
+        "published": "2021-11-30",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "We present DeepAL, a Python library that implements several common strategies for active learning, with a particular emphasis on deep active learning. DeepAL provides a simple and unified framework based on PyTorch that allows users to easily load cu...",
+        "arxiv_url": "https://arxiv.org/abs/2111.15258",
+        "pdf_url": "https://arxiv.org/pdf/2111.15258.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "2007.11126",
+        "title": "Efficient Graph-Based Active Learning with Probit Likelihood via Gaussian Approximations",
+        "authors": [
+          "Kevin Miller",
+          "Hao Li",
+          "Andrea L. Bertozzi"
+        ],
+        "published": "2020-07-21",
+        "categories": [
+          "stat.ML",
+          "cs.LG"
+        ],
+        "abstract": "We present a novel adaptation of active learning to graph-based semi-supervised learning (SSL) under non-Gaussian Bayesian models. We present an approximation of non-Gaussian distributions to adapt previously Gaussian-based acquisition functions to t...",
+        "arxiv_url": "https://arxiv.org/abs/2007.11126",
+        "pdf_url": "https://arxiv.org/pdf/2007.11126.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "2607.06063",
+        "title": "Determinantal point process sampling for bioacoustic active learning",
+        "authors": [
+          "Hugo Magaldi",
+          "Gabriel Dubus"
+        ],
+        "published": "2026-07-07",
+        "categories": [
+          "cs.SD",
+          "cs.LG"
+        ],
+        "abstract": "Eco-acoustic monitoring generates vast volumes of audio data, making active learning a promising approach for reducing annotation effort while efficiently training reliable biodiversity classifiers. This report presents CARE-DPP, a batch active-learn...",
+        "arxiv_url": "https://arxiv.org/abs/2607.06063",
+        "pdf_url": "https://arxiv.org/pdf/2607.06063.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "2210.01090",
+        "title": "Nonstationary data stream classification with online active learning and siamese neural networks",
+        "authors": [
+          "Kleanthis Malialis",
+          "Christos G. Panayiotou",
+          "Marios M. Polycarpou"
+        ],
+        "published": "2022-10-03",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "We have witnessed in recent years an ever-growing volume of information becoming available in a streaming manner in various application areas. As a result, there is an emerging need for online learning methods that train predictive models on-the-fly....",
+        "arxiv_url": "https://arxiv.org/abs/2210.01090",
+        "pdf_url": "https://arxiv.org/pdf/2210.01090.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "2212.13067",
+        "title": "Online Active Learning for Soft Sensor Development using Semi-Supervised Autoencoders",
+        "authors": [
+          "Davide Cacciarelli",
+          "Murat Kulahci",
+          "John Tyssedal"
+        ],
+        "published": "2022-12-26",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "Data-driven soft sensors are extensively used in industrial and chemical processes to predict hard-to-measure process variables whose real value is difficult to track during routine operations. The regression models used by these sensors often requir...",
+        "arxiv_url": "https://arxiv.org/abs/2212.13067",
+        "pdf_url": "https://arxiv.org/pdf/2212.13067.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "2210.06873",
+        "title": "Data augmentation on-the-fly and active learning in data stream classification",
+        "authors": [
+          "Kleanthis Malialis",
+          "Dimitris Papatheodoulou",
+          "Stylianos Filippou"
+        ],
+        "published": "2022-10-13",
+        "categories": [
+          "cs.LG"
+        ],
+        "abstract": "There is an emerging need for predictive models to be trained on-the-fly, since in numerous machine learning applications data are arriving in an online fashion. A critical challenge encountered is that of limited availability of ground truth informa...",
+        "arxiv_url": "https://arxiv.org/abs/2210.06873",
+        "pdf_url": "https://arxiv.org/pdf/2210.06873.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "2202.05448",
+        "title": "Fast Rates in Pool-Based Batch Active Learning",
+        "authors": [
+          "Claudio Gentile",
+          "Zhilei Wang",
+          "Tong Zhang"
+        ],
+        "published": "2022-02-11",
+        "categories": [
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "We consider a batch active learning scenario where the learner adaptively issues batches of points to a labeling oracle. Sampling labels in batches is highly desirable in practice due to the smaller number of interactive rounds with the labeling orac...",
+        "arxiv_url": "https://arxiv.org/abs/2202.05448",
+        "pdf_url": "https://arxiv.org/pdf/2202.05448.pdf",
+        "relevance_score": 7.5,
+        "relevance_tier": "RELEVANT"
+      }
+    ],
+    "Curriculum Learning": [
+      {
+        "rank": 1,
+        "arxiv_id": "2407.02419",
+        "title": "Quantum Curriculum Learning",
+        "authors": [
+          "Quoc Hoan Tran",
+          "Yasuhiro Endo",
+          "Hirotaka Oshima"
+        ],
+        "published": "2024-07-02",
+        "categories": [
+          "quant-ph",
+          "cs.LG",
+          "stat.ML"
+        ],
+        "abstract": "Quantum machine learning (QML) requires significant quantum resources to address practical real-world problems. When the underlying quantum information exhibits hierarchical structures in the data, limitations persist in training complexity and gener...",
+        "arxiv_url": "https://arxiv.org/abs/2407.02419",
+        "pdf_url": "https://arxiv.org/pdf/2407.02419.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "2005.07866",
+        "title": "Byzantine-Resilient SGD in High Dimensions on Heterogeneous Data",
+        "authors": [
+          "Deepesh Data",
+          "Suhas Diggavi"
+        ],
+        "published": "2020-05-16",
+        "categories": [
+          "stat.ML",
+          "cs.CR",
+          "cs.DC",
+          "cs.LG"
+        ],
+        "abstract": "We study distributed stochastic gradient descent (SGD) in the master-worker architecture under Byzantine attacks. We consider the heterogeneous data model, where different workers may have different local datasets, and we do not make any probabilisti...",
+        "arxiv_url": "https://arxiv.org/abs/2005.07866",
+        "pdf_url": "https://arxiv.org/pdf/2005.07866.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "1907.02664",
+        "title": "Data Encoding for Byzantine-Resilient Distributed Optimization",
+        "authors": [
+          "Deepesh Data",
+          "Linqi Song",
+          "Suhas Diggavi"
+        ],
+        "published": "2019-07-05",
+        "categories": [
+          "cs.DC",
+          "cs.CR",
+          "cs.LG"
+        ],
+        "abstract": "We study distributed optimization in the presence of Byzantine adversaries, where both data and computation are distributed among $m$ worker machines, $t$ of which may be corrupt. The compromised nodes may collaboratively and arbitrarily deviate from...",
+        "arxiv_url": "https://arxiv.org/abs/1907.02664",
+        "pdf_url": "https://arxiv.org/pdf/1907.02664.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "1110.5626",
+        "title": "Constraints on dark energy from H II starburst galaxy apparent magnitude versus redshift data",
+        "authors": [
+          "Data Mania",
+          "Bharat Ratra"
+        ],
+        "published": "2011-10-25",
+        "categories": [
+          "astro-ph.CO"
+        ],
+        "abstract": "In this paper we use H II starburst galaxy apparent magnitude versus redshift data from Siegel et al. (2005) to constrain dark energy cosmological model parameters. These constraints are generally consistent with those derived using other data sets, ...",
+        "arxiv_url": "https://arxiv.org/abs/1110.5626",
+        "pdf_url": "https://arxiv.org/pdf/1110.5626.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "2411.15497",
+        "title": "AeroGen: Enhancing Remote Sensing Object Detection with Diffusion-Driven Data Generation",
+        "authors": [
+          "Datao Tang",
+          "Xiangyong Cao",
+          "Xuan Wu"
+        ],
+        "published": "2024-11-23",
+        "categories": [
+          "cs.CV"
+        ],
+        "abstract": "Remote sensing image object detection (RSIOD) aims to identify and locate specific objects within satellite or aerial imagery. However, there is a scarcity of labeled data in current RSIOD datasets, which significantly limits the performance of curre...",
+        "arxiv_url": "https://arxiv.org/abs/2411.15497",
+        "pdf_url": "https://arxiv.org/pdf/2411.15497.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "2510.21391",
+        "title": "TerraGen: A Unified Multi-Task Layout Generation Framework for Remote Sensing Data Augmentation",
+        "authors": [
+          "Datao Tang",
+          "Hao Wang",
+          "Yudeng Xin"
+        ],
+        "published": "2025-10-24",
+        "categories": [
+          "cs.CV"
+        ],
+        "abstract": "Remote sensing vision tasks require extensive labeled data across multiple, interconnected domains. However, current generative data augmentation frameworks are task-isolated, i.e., each vision task requires training an independent generative model, ...",
+        "arxiv_url": "https://arxiv.org/abs/2510.21391",
+        "pdf_url": "https://arxiv.org/pdf/2510.21391.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "2010.16064",
+        "title": "A 20 Gbps Data Transmitting ASIC with PAM4 for Particle Physics Experiments",
+        "authors": [
+          "Li Zhang",
+          "Datao Gong",
+          "Suen Hou"
+        ],
+        "published": "2020-10-30",
+        "categories": [
+          "physics.ins-det",
+          "hep-ex"
+        ],
+        "abstract": "We present the design principle and test results of a data transmitting ASIC, GBS20, for particle physics experiments. The goal of GBS20 will be an ASIC that employs two serializers each from the 10.24 Gbps lpGBT SerDes, sharing the PLL also from lpG...",
+        "arxiv_url": "https://arxiv.org/abs/2010.16064",
+        "pdf_url": "https://arxiv.org/pdf/2010.16064.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "2302.08893",
+        "title": "Active learning for data streams: a survey",
+        "authors": [
+          "Davide Cacciarelli",
+          "Murat Kulahci"
+        ],
+        "published": "2023-02-17",
+        "categories": [
+          "stat.ML",
+          "cs.LG",
+          "stat.ME"
+        ],
+        "abstract": "Online active learning is a paradigm in machine learning that aims to select the most informative data points to label from a data stream. The problem of minimizing the cost associated with collecting labeled observations has gained a lot of attentio...",
+        "arxiv_url": "https://arxiv.org/abs/2302.08893",
+        "pdf_url": "https://arxiv.org/pdf/2302.08893.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "2312.10602",
+        "title": "A Weighted K-Center Algorithm for Data Subset Selection",
+        "authors": [
+          "Srikumar Ramalingam",
+          "Pranjal Awasthi",
+          "Sanjiv Kumar"
+        ],
+        "published": "2023-12-17",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "cs.CV"
+        ],
+        "abstract": "The success of deep learning hinges on enormous data and large models, which require labor-intensive annotations and heavy computation costs. Subset selection is a fundamental problem that can play a key role in identifying smaller portions of the tr...",
+        "arxiv_url": "https://arxiv.org/abs/2312.10602",
+        "pdf_url": "https://arxiv.org/pdf/2312.10602.pdf",
+        "relevance_score": 10,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "2510.23241",
+        "title": "Progressive Growing of Patch Size: Curriculum Learning for Accelerated and Improved Medical Image Segmentation",
+        "authors": [
+          "Stefan M. Fischer",
+          "Johannes Kiechle",
+          "Laura Daza"
+        ],
+        "published": "2025-10-27",
+        "categories": [
+          "cs.CV",
+          "cs.AI",
+          "cs.LG"
+        ],
+        "abstract": "In this work, we introduce Progressive Growing of Patch Size, an automatic curriculum learning approach for 3D medical image segmentation. Our approach progressively increases the patch size during model training, resulting in an improved class balan...",
+        "arxiv_url": "https://arxiv.org/abs/2510.23241",
+        "pdf_url": "https://arxiv.org/pdf/2510.23241.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "1901.11478",
+        "title": "An Optimization Framework for Task Sequencing in Curriculum Learning",
+        "authors": [
+          "Francesco Foglino",
+          "Christiano Coletto Christakou",
+          "Matteo Leonetti"
+        ],
+        "published": "2019-01-31",
+        "categories": [
+          "cs.LG",
+          "cs.AI",
+          "stat.ML"
+        ],
+        "abstract": "Curriculum learning in reinforcement learning is used to shape exploration by presenting the agent with increasingly complex tasks. The idea of curriculum learning has been largely applied in both animal training and pedagogy. In reinforcement learni...",
+        "arxiv_url": "https://arxiv.org/abs/1901.11478",
+        "pdf_url": "https://arxiv.org/pdf/1901.11478.pdf",
+        "relevance_score": 6.5,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "2006.13041",
+        "title": "Byzantine-Resilient High-Dimensional Federated Learning",
+        "authors": [
+          "Deepesh Data",
+          "Suhas Diggavi"
+        ],
+        "published": "2020-06-22",
+        "categories": [
+          "stat.ML",
+          "cs.CR",
+          "cs.DC",
+          "cs.LG"
+        ],
+        "abstract": "We study stochastic gradient descent (SGD) with local iterations in the presence of malicious/Byzantine clients, motivated by the federated learning. The clients, instead of communicating with the central server in every iteration, maintain their loc...",
+        "arxiv_url": "https://arxiv.org/abs/2006.13041",
+        "pdf_url": "https://arxiv.org/pdf/2006.13041.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "1807.08135",
+        "title": "Integrating Feature and Image Pyramid: A Lung Nodule Detector Learned in Curriculum Fashion",
+        "authors": [
+          "Benyuan Sun",
+          "Zhen Zhou",
+          "Fandong Zhang"
+        ],
+        "published": "2018-07-21",
+        "categories": [
+          "cs.CV"
+        ],
+        "abstract": "Lung nodules suffer large variation in size and appearance in CT images. Nodules less than 10mm can easily lose information after down-sampling in convolutional neural networks, which results in low sensitivity. In this paper, a combination of 3D ima...",
+        "arxiv_url": "https://arxiv.org/abs/1807.08135",
+        "pdf_url": "https://arxiv.org/pdf/1807.08135.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "2011.00080",
+        "title": "Dynamic Data Selection for Curriculum Learning via Ability Estimation",
+        "authors": [
+          "John P. Lalor",
+          "Hong Yu"
+        ],
+        "published": "2020-10-30",
+        "categories": [
+          "cs.CL",
+          "cs.LG"
+        ],
+        "abstract": "Curriculum learning methods typically rely on heuristics to estimate the difficulty of training examples or the ability of the model. In this work, we propose replacing difficulty heuristics with learned difficulty parameters. We also propose Dynamic...",
+        "arxiv_url": "https://arxiv.org/abs/2011.00080",
+        "pdf_url": "https://arxiv.org/pdf/2011.00080.pdf",
+        "relevance_score": 8.0,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "2507.11773",
+        "title": "Small Data Explainer -- The impact of small data methods in everyday life",
+        "authors": [
+          "Maren Hackenberg",
+          "Sophia G. Connor",
+          "Fabian Kabus"
+        ],
+        "published": "2025-07-15",
+        "categories": [
+          "cs.CY",
+          "cs.AI"
+        ],
+        "abstract": "The emergence of breakthrough artificial intelligence (AI) techniques has led to a renewed focus on how small data settings, i.e., settings with limited information, can benefit from such developments. This includes societal issues such as how best t...",
+        "arxiv_url": "https://arxiv.org/abs/2507.11773",
+        "pdf_url": "https://arxiv.org/pdf/2507.11773.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      }
+    ],
+    "Combined Weighting + Soft Labels": [
+      {
+        "rank": 1,
+        "arxiv_id": "1409.0903",
+        "title": "How soft repulsion enhances the depletion mechanism",
+        "authors": [
+          "Lorenzo Rovigatti",
+          "Nicoletta Gnan",
+          "Alberto Parola"
+        ],
+        "published": "2014-09-02",
+        "categories": [
+          "cond-mat.soft"
+        ],
+        "abstract": "We investigate binary mixtures of large colloids interacting through soft potentials with small, ideal depletants. We show that softness has a dramatic effect on the resulting colloid-colloid effective potential when the depletant-to-colloid size rat...",
+        "arxiv_url": "https://arxiv.org/abs/1409.0903",
+        "pdf_url": "https://arxiv.org/pdf/1409.0903.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 2,
+        "arxiv_id": "1309.1755",
+        "title": "From adhesion to wetting of a soft particle",
+        "authors": [
+          "Thomas Salez",
+          "Michael Benzaquen",
+          "Elie Raphaël"
+        ],
+        "published": "2013-09-06",
+        "categories": [
+          "cond-mat.soft",
+          "cond-mat.mes-hall",
+          "cond-mat.mtrl-sci",
+          "physics.chem-ph",
+          "physics.class-ph"
+        ],
+        "abstract": "Using a thermodynamical approach, we calculate the deformation of a spherical elastic particle placed on a rigid substrate, under zero external load, and including an ingredient of importance in soft matter: the interfacial tension of the cap. In a f...",
+        "arxiv_url": "https://arxiv.org/abs/1309.1755",
+        "pdf_url": "https://arxiv.org/pdf/1309.1755.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 3,
+        "arxiv_id": "1711.07196",
+        "title": "Softening and Yielding of Soft Glassy Materials",
+        "authors": [
+          "Simon Dagois-Bohy",
+          "Ellák Somfai",
+          "Brian P. Tighe"
+        ],
+        "published": "2017-11-20",
+        "categories": [
+          "cond-mat.soft",
+          "cond-mat.dis-nn",
+          "cond-mat.stat-mech"
+        ],
+        "abstract": "Solids deform and fluids flow, but soft glassy materials, such as emulsions, foams, suspensions, and pastes, exhibit an intricate mix of solid and liquid-like behavior. While much progress has been made to understand their elastic (small strain) and ...",
+        "arxiv_url": "https://arxiv.org/abs/1711.07196",
+        "pdf_url": "https://arxiv.org/pdf/1711.07196.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 4,
+        "arxiv_id": "0905.1224",
+        "title": "The zero-temperature phase diagram of soft-repulsive particle fluids",
+        "authors": [
+          "Santi Prestipino",
+          "Franz Saija",
+          "Gianpietro Malescio"
+        ],
+        "published": "2009-05-08",
+        "categories": [
+          "cond-mat.soft"
+        ],
+        "abstract": "Effective pair interactions with a soft-repulsive component are a well-known feature of polymer solutions and colloidal suspensions, but they also provide a key to interpret the high-pressure behaviour of simple elements. We have computed the zero-te...",
+        "arxiv_url": "https://arxiv.org/abs/0905.1224",
+        "pdf_url": "https://arxiv.org/pdf/0905.1224.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 5,
+        "arxiv_id": "0912.2657",
+        "title": "Anomalous structural evolution of soft particles: Equibrium liquid state theory",
+        "authors": [
+          "Hugo Jacquin",
+          "Ludovic Berthier"
+        ],
+        "published": "2009-12-14",
+        "categories": [
+          "cond-mat.stat-mech",
+          "cond-mat.soft"
+        ],
+        "abstract": "We use the hyper-netted chain approximation of liquid state theory to analyze the evolution with density of the pair correlation function in a model of soft spheres with harmonic repulsion. As observed in recent experiments on jammed soft particles, ...",
+        "arxiv_url": "https://arxiv.org/abs/0912.2657",
+        "pdf_url": "https://arxiv.org/pdf/0912.2657.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 6,
+        "arxiv_id": "0805.2759",
+        "title": "Stochastic resonance in soft matter systems: combined effects of static and dynamic disorder",
+        "authors": [
+          "Matjaz Perc",
+          "Marko Gosak",
+          "Samo Kralj"
+        ],
+        "published": "2008-05-18",
+        "categories": [
+          "cond-mat.soft",
+          "physics.comp-ph"
+        ],
+        "abstract": "We study the impact of static and dynamic disorder on the phenomenon of stochastic resonance (SR) in a representative soft matter system. Due to their extreme susceptibility to weak perturbations soft matter systems appear to be excellent candidates ...",
+        "arxiv_url": "https://arxiv.org/abs/0805.2759",
+        "pdf_url": "https://arxiv.org/pdf/0805.2759.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 7,
+        "arxiv_id": "1301.0454",
+        "title": "Intuitionistic fuzzy parametrized soft set theory and its decision making",
+        "authors": [
+          "İrfan Deli",
+          "Naim Çağman"
+        ],
+        "published": "2013-01-03",
+        "categories": [
+          "math.LO"
+        ],
+        "abstract": "In this work, we first define intuitionistic fuzzy parametrized soft sets (intuitionistic FP-soft sets) and study some of their properties. We then introduce an adjustable approaches to intuitionistic FP-soft sets based decision making. We also give ...",
+        "arxiv_url": "https://arxiv.org/abs/1301.0454",
+        "pdf_url": "https://arxiv.org/pdf/1301.0454.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 8,
+        "arxiv_id": "1311.5359",
+        "title": "Master equation for the probability distribution functions of forces in soft particle packings",
+        "authors": [
+          "Kuniyasu Saitoh",
+          "Vanessa Magnanimo",
+          "Stefan Luding"
+        ],
+        "published": "2013-11-21",
+        "categories": [
+          "cond-mat.soft"
+        ],
+        "abstract": "Employing molecular dynamics simulations of jammed soft particles, we study microscopic responses of force-chain networks to quasi-static isotropic (de)compressions. We show that not only contacts but also interparticle gaps between the nearest neigh...",
+        "arxiv_url": "https://arxiv.org/abs/1311.5359",
+        "pdf_url": "https://arxiv.org/pdf/1311.5359.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 9,
+        "arxiv_id": "2007.05351",
+        "title": "Are pathologist-defined labels reproducible? Comparison of the TUPAC16 mitotic figure dataset with an alternative set of labels",
+        "authors": [
+          "Christof A. Bertram",
+          "Mitko Veta",
+          "Christian Marzahl"
+        ],
+        "published": "2020-07-10",
+        "categories": [
+          "cs.CV",
+          "cs.LG",
+          "eess.IV",
+          "q-bio.QM"
+        ],
+        "abstract": "Pathologist-defined labels are the gold standard for histopathological data sets, regardless of well-known limitations in consistency for some tasks. To date, some datasets on mitotic figures are available and were used for development of promising d...",
+        "arxiv_url": "https://arxiv.org/abs/2007.05351",
+        "pdf_url": "https://arxiv.org/pdf/2007.05351.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 10,
+        "arxiv_id": "1010.5087",
+        "title": "Spatially heterogeneous dynamics in a thermosensitive soft suspension before and after the glass transition",
+        "authors": [
+          "Rémy Colin",
+          "Ahmed M. Alsayed",
+          "Jean-Christophe Castaing"
+        ],
+        "published": "2010-10-25",
+        "categories": [
+          "cond-mat.soft",
+          "cond-mat.stat-mech"
+        ],
+        "abstract": "The microscopic dynamics and aging of a soft thermosensitive suspension was investigated by looking at the thermal fluctuations of tracers in the suspension. Below and above the glass transition, the dense microgel particles suspension was found to d...",
+        "arxiv_url": "https://arxiv.org/abs/1010.5087",
+        "pdf_url": "https://arxiv.org/pdf/1010.5087.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 11,
+        "arxiv_id": "0711.4629",
+        "title": "Effective Interactions in Soft Materials",
+        "authors": [
+          "Alan R. Denton"
+        ],
+        "published": "2007-11-29",
+        "categories": [
+          "cond-mat.soft",
+          "cond-mat.stat-mech"
+        ],
+        "abstract": "Soft materials, such as colloidal suspensions, polymer solutions, and biological systems, are typically multicomponent mixtures of macromolecules and simpler components (e.g., microions, monomers, solvent) that can assemble into complex structures sp...",
+        "arxiv_url": "https://arxiv.org/abs/0711.4629",
+        "pdf_url": "https://arxiv.org/pdf/0711.4629.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      },
+      {
+        "rank": 12,
+        "arxiv_id": "2406.16966",
+        "title": "Mitigating Noisy Supervision Using Synthetic Samples with Soft Labels",
+        "authors": [
+          "Yangdi Lu",
+          "Wenbo He"
+        ],
+        "published": "2024-06-22",
+        "categories": [
+          "cs.CV",
+          "cs.LG"
+        ],
+        "abstract": "Noisy labels are ubiquitous in real-world datasets, especially in the large-scale ones derived from crowdsourcing and web searching. It is challenging to train deep neural networks with noisy datasets since the networks are prone to overfitting the n...",
+        "arxiv_url": "https://arxiv.org/abs/2406.16966",
+        "pdf_url": "https://arxiv.org/pdf/2406.16966.pdf",
+        "relevance_score": 8.5,
+        "relevance_tier": "HIGHLY RELEVANT"
+      },
+      {
+        "rank": 13,
+        "arxiv_id": "2410.18519",
+        "title": "Reinforcement Learning Controllers for Soft Robots using Learned Environments",
+        "authors": [
+          "Uljad Berdica",
+          "Matthew Jackson",
+          "Niccolò Enrico Veronese"
+        ],
+        "published": "2024-10-24",
+        "categories": [
+          "cs.RO",
+          "eess.SY"
+        ],
+        "abstract": "Soft robotic manipulators offer operational advantage due to their compliant and deformable structures. However, their inherently nonlinear dynamics presents substantial challenges. Traditional analytical methods often depend on simplifying assumptio...",
+        "arxiv_url": "https://arxiv.org/abs/2410.18519",
+        "pdf_url": "https://arxiv.org/pdf/2410.18519.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 14,
+        "arxiv_id": "2503.15819",
+        "title": "Control Pneumatic Soft Bending Actuator with Online Learning Pneumatic Physical Reservoir Computing",
+        "authors": [
+          "Junyi Shen",
+          "Tetsuro Miyazaki",
+          "Kenji Kawashima"
+        ],
+        "published": "2025-03-20",
+        "categories": [
+          "cs.RO",
+          "cs.LG",
+          "eess.SY"
+        ],
+        "abstract": "The intrinsic nonlinearities of soft robots present significant control but simultaneously provide them with rich computational potential. Reservoir computing (RC) has shown effectiveness in online learning systems for controlling nonlinear systems s...",
+        "arxiv_url": "https://arxiv.org/abs/2503.15819",
+        "pdf_url": "https://arxiv.org/pdf/2503.15819.pdf",
+        "relevance_score": 7,
+        "relevance_tier": "RELEVANT"
+      },
+      {
+        "rank": 15,
+        "arxiv_id": "1312.4512",
+        "title": "Coupling of elasticity to capillarity in soft aerated materials",
+        "authors": [
+          "Lucie Ducloué",
+          "Olivier Pitois",
+          "Julie Goyon"
+        ],
+        "published": "2013-12-16",
+        "categories": [
+          "cond-mat.soft"
+        ],
+        "abstract": "We study the elastic properties of soft solids containing air bubbles. Contrary to standard porous materials, the softness of the matrix allows for a coupling of the matrix elasticity to surface tension forces brought in by the bubbles. Thanks to app...",
+        "arxiv_url": "https://arxiv.org/abs/1312.4512",
+        "pdf_url": "https://arxiv.org/pdf/1312.4512.pdf",
+        "relevance_score": 5,
+        "relevance_tier": "SUPPORTIVE"
+      }
+    ]
+  }
+}

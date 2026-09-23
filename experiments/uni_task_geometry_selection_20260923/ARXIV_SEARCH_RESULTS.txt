@@ -1,0 +1,1090 @@
+
+====================================================================================================
+QUERY: coreset selection machine learning
+====================================================================================================
+
+1. arXiv ID: 2306.04338
+   Title: Changing Data Sources in the Age of Machine Learning for Official Statistics
+   Authors: Cedric De Boom, Michael Reusens
+   Published: 2023-06-07
+   Categories: stat.ML, cs.LG
+   Abstract: Data science has become increasingly essential for the production of official statistics, as it enables the automated collection, processing, and analysis of large amounts of data. With such data science practices in place, it enables more timely, mo...
+
+2. arXiv ID: 2006.16189
+   Title: DOME: Recommendations for supervised machine learning validation in biology
+   Authors: Ian Walsh, Dmytro Fishman, Dario Garcia-Gasulla
+   Published: 2020-06-25
+   Categories: q-bio.OT, cs.LG
+   Abstract: Modern biology frequently relies on machine learning to provide predictions and improve decision processes. There have been recent calls for more scrutiny on machine learning performance and possible limitations. Here we present a set of community-wi...
+
+3. arXiv ID: 2201.12150
+   Title: Learning Curves for Decision Making in Supervised Machine Learning: A Survey
+   Authors: Felix Mohr, Jan N. van Rijn
+   Published: 2022-01-28
+   Categories: cs.LG
+   Abstract: Learning curves are a concept from social sciences that has been adopted in the context of machine learning to assess the performance of a learning algorithm with respect to a certain resource, e.g., the number of training examples or the number of t...
+
+4. arXiv ID: 2302.08893
+   Title: Active learning for data streams: a survey
+   Authors: Davide Cacciarelli, Murat Kulahci
+   Published: 2023-02-17
+   Categories: stat.ML, cs.LG
+   Abstract: Online active learning is a paradigm in machine learning that aims to select the most informative data points to label from a data stream. The problem of minimizing the cost associated with collecting labeled observations has gained a lot of attentio...
+
+5. arXiv ID: 2304.02381
+   Title: Physics-Inspired Interpretability Of Machine Learning Models
+   Authors: Maximilian P Niroomand, David J Wales
+   Published: 2023-04-05
+   Categories: cs.LG, cs.AI
+   Abstract: The ability to explain decisions made by machine learning models remains one of the most significant hurdles towards widespread adoption of AI in highly sensitive areas such as medicine, cybersecurity or autonomous driving. Great interest exists in u...
+
+6. arXiv ID: 1905.04749
+   Title: A Benchmark Study of Machine Learning Models for Online Fake News Detection
+   Authors: Junaed Younus Khan, Md. Tawkat Islam Khondaker, Sadia Afroz
+   Published: 2019-05-12
+   Categories: cs.CL, cs.IR
+   Abstract: The proliferation of fake news and its propagation on social media has become a major concern due to its ability to create devastating impacts. Different machine learning approaches have been suggested to detect fake news. However, most of those focu...
+
+7. arXiv ID: 1705.05172
+   Title: Emotion in Reinforcement Learning Agents and Robots: A Survey
+   Authors: Thomas M. Moerland, Joost Broekens, Catholijn M. Jonker
+   Published: 2017-05-15
+   Categories: cs.LG, cs.AI
+   Abstract: This article provides the first survey of computational models of emotion in reinforcement learning (RL) agents. The survey focuses on agent/robot emotions, and mostly ignores human user emotions. Emotions are recognized as functional in decision-mak...
+
+8. arXiv ID: 2303.15563
+   Title: Privacy-preserving machine learning for healthcare: open challenges and future perspectives
+   Authors: Alejandro Guerra-Manzanares, L. Julian Lechuga Lopez, Michail Maniatakos
+   Published: 2023-03-27
+   Categories: cs.LG, cs.CR
+   Abstract: Machine Learning (ML) has recently shown tremendous success in modeling various healthcare prediction tasks, ranging from disease diagnosis and prognosis to patient treatment. Due to the sensitive nature of medical data, privacy must be considered al...
+
+9. arXiv ID: 2602.11092
+   Title: MerLin: A Discovery Engine for Photonic and Hybrid Quantum Machine Learning
+   Authors: Cassandre Notton, Benjamin Stott, Philippe Schoeb
+   Published: 2026-02-11
+   Categories: cs.LG, cs.PL
+   Abstract: Identifying where quantum models may offer practical benefits in near term quantum machine learning (QML) requires moving beyond isolated algorithmic proposals toward systematic and empirical exploration across models, datasets, and hardware constrai...
+
+10. arXiv ID: 2404.12511
+   Title: Generalizing Machine Learning Evaluation through the Integration of Shannon Entropy and Rough Set Theory
+   Authors: Olga Cherednichenko, Dmytro Chernyshov, Dmytro Sytnikov
+   Published: 2024-04-18
+   Categories: cs.LG
+   Abstract: This research paper delves into the innovative integration of Shannon entropy and rough set theory, presenting a novel approach to generalize the evaluation approach in machine learning. The conventional application of entropy, primarily focused on i...
+
+11. arXiv ID: 2509.08759
+   Title: Fourier Learning Machines: Nonharmonic Fourier-Based Neural Networks for Scientific Machine Learning
+   Authors: Mominul Rubel, Adam Meyers, Gabriel Nicolosi
+   Published: 2025-09-10
+   Categories: cs.LG, math.OC
+   Abstract: We introduce the Fourier Learning Machine (FLM), a neural network (NN) architecture designed to represent a multidimensional nonharmonic Fourier series. The FLM uses a simple feedforward structure with cosine activation functions to learn the frequen...
+
+12. arXiv ID: 1906.01827
+   Title: Coresets for Data-efficient Training of Machine Learning Models
+   Authors: Baharan Mirzasoleiman, Jeff Bilmes, Jure Leskovec
+   Published: 2019-06-05
+   Categories: cs.LG, cs.AI
+   Abstract: Incremental gradient (IG) methods, such as stochastic gradient descent and its variants are commonly used for large scale optimization in machine learning. Despite the sustained effort to make IG methods more data-efficient, it remains an open questi...
+
+13. arXiv ID: 1906.01101
+   Title: MEMe: An Accurate Maximum Entropy Method for Efficient Approximations in Large-Scale Machine Learning
+   Authors: Diego Granziol, Binxin Ru, Stefan Zohren
+   Published: 2019-06-03
+   Categories: stat.ML, cs.LG
+   Abstract: Efficient approximation lies at the heart of large-scale machine learning problems. In this paper, we propose a novel, robust maximum entropy algorithm, which is capable of dealing with hundreds of moments and allows for computationally efficient app...
+
+14. arXiv ID: 2402.01393
+   Title: ALERT-Transformer: Bridging Asynchronous and Synchronous Machine Learning for Real-Time Event-based Spatio-Temporal Data
+   Authors: Carmen Martin-Turrero, Maxence Bouvier, Manuel Breitenstein
+   Published: 2024-02-02
+   Categories: cs.CV, cs.LG
+   Abstract: We seek to enable classic processing of continuous ultra-sparse spatiotemporal data generated by event-based sensors with dense machine learning models. We propose a novel hybrid pipeline composed of asynchronous sensing and synchronous processing th...
+
+15. arXiv ID: 1812.09225
+   Title: Learning Representations from Dendrograms
+   Authors: Morteza Haghir Chehreghani, Mostafa Haghir Chehreghani
+   Published: 2018-12-21
+   Categories: cs.LG, stat.ML
+   Abstract: We propose unsupervised representation learning and feature extraction from dendrograms. The commonly used Minimax distance measures correspond to building a dendrogram with single linkage criterion, with defining specific forms of a level function a...
+
+====================================================================================================
+QUERY: data selection neural networks
+====================================================================================================
+
+1. arXiv ID: 2306.14753
+   Title: The Deep Arbitrary Polynomial Chaos Neural Network or how Deep Artificial Neural Networks could benefit from Data-Driven Homogeneous Chaos Theory
+   Authors: Sergey Oladyshkin, Timothy Praditia, Ilja Kröker
+   Published: 2023-06-26
+   Categories: cs.NE, stat.ML
+   Abstract: Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo...
+
+2. arXiv ID: 2307.05639
+   Title: Learning Active Subspaces and Discovering Important Features with Gaussian Radial Basis Functions Neural Networks
+   Authors: Danny D'Agostino, Ilija Ilievski, Christine Annette Shoemaker
+   Published: 2023-07-11
+   Categories: cs.LG, cs.AI
+   Abstract: Providing a model that achieves a strong predictive performance and is simultaneously interpretable by humans is one of the most difficult challenges in machine learning research due to the conflicting nature of these two objectives. To address this ...
+
+3. arXiv ID: 1905.05918
+   Title: A Neural Network-Evolutionary Computational Framework for Remaining Useful Life Estimation of Mechanical Systems
+   Authors: David Laredo, Zhaoyin Chen, Oliver Schütze
+   Published: 2019-05-15
+   Categories: cs.LG, cs.NE
+   Abstract: This paper presents a framework for estimating the remaining useful life (RUL) of mechanical systems. The framework consists of a multi-layer perceptron and an evolutionary algorithm for optimizing the data-related parameters. The framework makes use...
+
+4. arXiv ID: 1901.06610
+   Title: Hierarchical Attentional Hybrid Neural Networks for Document Classification
+   Authors: Jader Abreu, Luis Fred, David Macêdo
+   Published: 2019-01-20
+   Categories: cs.CL, cs.AI
+   Abstract: Document classification is a challenging task with important applications. The deep learning approaches to the problem have gained much attention recently. Despite the progress, the proposed models do not incorporate the knowledge of the document str...
+
+5. arXiv ID: 2103.07492
+   Title: Continual Learning for Recurrent Neural Networks: an Empirical Evaluation
+   Authors: Andrea Cossu, Antonio Carta, Vincenzo Lomonaco
+   Published: 2021-03-12
+   Categories: cs.LG, cs.AI
+   Abstract: Learning continuously during all model lifetime is fundamental to deploy machine learning solutions robust to drifts in the data distribution. Advances in Continual Learning (CL) with recurrent neural networks could pave the way to a large number of ...
+
+6. arXiv ID: 2609.05946
+   Title: Interpretable and Fair Generalized Additive Neural Networks via Multi-objective Learning
+   Authors: Ziming Wang, Changwu Huang, Ke Tang
+   Published: 2026-09-05
+   Categories: cs.LG
+   Abstract: Interpretability and fairness are two of the most emphasized dimensions in trustworthy artificial intelligence (AI). Various explainable AI methods have been introduced to improve interpretability. This paper focuses on neural network (NN)-based gene...
+
+7. arXiv ID: 1906.10015
+   Title: A Review on Neural Network Models of Schizophrenia and Autism Spectrum Disorder
+   Authors: Pablo Lanillos, Daniel Oliva, Anja Philippsen
+   Published: 2019-06-24
+   Categories: q-bio.NC, cs.AI
+   Abstract: This survey presents the most relevant neural network models of autism spectrum disorder and schizophrenia, from the first connectionist models to recent deep network architectures. We analyzed and compared the most representative symptoms with its n...
+
+8. arXiv ID: 1512.00242
+   Title: Towards Dropout Training for Convolutional Neural Networks
+   Authors: Haibing Wu, Xiaodong Gu
+   Published: 2015-12-01
+   Categories: cs.LG, cs.CV
+   Abstract: Recently, dropout has seen increasing use in deep learning. For deep convolutional neural networks, dropout is known to work well in fully-connected layers. However, its effect in convolutional and pooling layers is still not clear. This paper demons...
+
+9. arXiv ID: 1807.02477
+   Title: Development of a sensory-neural network for medical diagnosing
+   Authors: Igor Grabec, Eva Švegl, Mihael Sok
+   Published: 2018-07-06
+   Categories: cs.NE
+   Abstract: Performance of a sensory-neural network developed for diagnosing of diseases is described. Information about patient's condition is provided by answers to the questionnaire. Questions correspond to sensors generating signals when patients acknowledge...
+
+10. arXiv ID: 2205.13273
+   Title: Acute Lymphoblastic Leukemia Detection Using Hypercomplex-Valued Convolutional Neural Networks
+   Authors: Guilherme Vieira, Marcos Eduardo Valle
+   Published: 2022-05-26
+   Categories: cs.CV, cs.LG
+   Abstract: This paper features convolutional neural networks defined on hypercomplex algebras applied to classify lymphocytes in blood smear digital microscopic images. Such classification is helpful for the diagnosis of acute lymphoblast leukemia (ALL), a type...
+
+11. arXiv ID: 1003.3081
+   Title: Optimal hierarchical modular topologies for producing limited sustained activation of neural networks
+   Authors: Marcus Kaiser, Claus C. Hilgetag
+   Published: 2010-03-16
+   Categories: q-bio.NC, cond-mat.dis-nn
+   Abstract: An essential requirement for the representation of functional patterns in complex neural networks, such as the mammalian cerebral cortex, is the existence of stable regimes of network activation, typically arising from a limited parameter range. In t...
+
+12. arXiv ID: 2001.10696
+   Title: Spiking Inception Module for Multi-layer Unsupervised Spiking Neural Networks
+   Authors: Mingyuan Meng, Xingyu Yang, Shanlin Xiao
+   Published: 2020-01-29
+   Categories: cs.NE, cs.LG
+   Abstract: Spiking Neural Network (SNN), as a brain-inspired approach, is attracting attention due to its potential to produce ultra-high-energy-efficient hardware. Competitive learning based on Spike-Timing-Dependent Plasticity (STDP) is a popular method to tr...
+
+13. arXiv ID: 1812.10761
+   Title: Improving Generalization of Deep Neural Networks by Leveraging Margin Distribution
+   Authors: Shen-Huan Lyu, Lu Wang, Zhi-Hua Zhou
+   Published: 2018-12-27
+   Categories: cs.LG, stat.ML
+   Abstract: Recent research has used margin theory to analyze the generalization performance for deep neural networks (DNNs). The existed results are almost based on the spectrally-normalized minimum margin. However, optimizing the minimum margin ignores a mass ...
+
+14. arXiv ID: 1907.02664
+   Title: Data Encoding for Byzantine-Resilient Distributed Optimization
+   Authors: Deepesh Data, Linqi Song, Suhas Diggavi
+   Published: 2019-07-05
+   Categories: cs.DC, cs.CR
+   Abstract: We study distributed optimization in the presence of Byzantine adversaries, where both data and computation are distributed among $m$ worker machines, $t$ of which may be corrupt. The compromised nodes may collaboratively and arbitrarily deviate from...
+
+15. arXiv ID: 2006.02951
+   Title: CiwGAN and fiwGAN: Encoding information in acoustic data to model lexical learning with Generative Adversarial Networks
+   Authors: Gašper Beguš
+   Published: 2020-06-04
+   Categories: cs.CL, cs.LG
+   Abstract: How can deep neural networks encode information that corresponds to words in human speech into raw acoustic data? This paper proposes two neural network architectures for modeling unsupervised lexical learning from raw acoustic inputs, ciwGAN (Catego...
+
+====================================================================================================
+QUERY: instance weighting deep learning
+====================================================================================================
+
+1. arXiv ID: 2306.11113
+   Title: Learn to Accumulate Evidence from All Training Samples: Theory and Practice
+   Authors: Deep Pandey, Qi Yu
+   Published: 2023-06-19
+   Categories: cs.LG, cs.AI
+   Abstract: Evidential deep learning, built upon belief theory and subjective logic, offers a principled and computationally efficient way to turn a deterministic neural network uncertainty-aware. The resultant evidential models can quantify fine-grained uncerta...
+
+2. arXiv ID: 2105.04026
+   Title: The Modern Mathematics of Deep Learning
+   Authors: Julius Berner, Philipp Grohs, Gitta Kutyniok
+   Published: 2021-05-09
+   Categories: cs.LG, stat.ML
+   Abstract: We describe the new field of mathematical analysis of deep learning. This field emerged around a list of research questions that were not answered within the classical framework of learning theory. These questions concern: the outstanding generalizat...
+
+3. arXiv ID: 1905.12226
+   Title: Address Instance-level Label Prediction in Multiple Instance Learning
+   Authors: Minlong Peng, Qi Zhang
+   Published: 2019-05-29
+   Categories: cs.LG, stat.ML
+   Abstract: \textit{Multiple Instance Learning} (MIL) is concerned with learning from bags of instances, where only bag labels are given and instance labels are unknown. Existent approaches in this field were mainly designed for the bag-level label prediction (p...
+
+4. arXiv ID: 2301.00942
+   Title: Deep Learning and Computational Physics (Lecture Notes)
+   Authors: Deep Ray, Orazio Pinti, Assad A. Oberai
+   Published: 2023-01-03
+   Categories: cs.LG, math-ph
+   Abstract: These notes were compiled as lecture notes for a course developed and taught at the University of the Southern California. They should be accessible to a typical engineering graduate student with a strong background in Applied Mathematics.   The main...
+
+5. arXiv ID: 2603.29261
+   Title: Monodense Deep Neural Model for Determining Item Price Elasticity
+   Authors: Lakshya Garg, Sai Yaswanth, Deep Narayan Mishra
+   Published: 2026-03-31
+   Categories: cs.LG, cs.AI
+   Abstract: Item Price Elasticity is used to quantify the responsiveness of consumer demand to changes in item prices, enabling businesses to create pricing strategies and optimize revenue management. Sectors such as store retail, e-commerce, and consumer goods ...
+
+6. arXiv ID: 1711.00146
+   Title: A multitask deep learning model for real-time deployment in embedded systems
+   Authors: Miquel Martí, Atsuto Maki
+   Published: 2017-10-31
+   Categories: cs.CV, cs.LG
+   Abstract: We propose an approach to Multitask Learning (MTL) to make deep learning models faster and lighter for applications in which multiple tasks need to be solved simultaneously, which is particularly useful in embedded, real-time systems. We develop a mu...
+
+7. arXiv ID: 2012.06469
+   Title: DILIE: Deep Internal Learning for Image Enhancement
+   Authors: Indra Deep Mastan, Shanmuganathan Raman
+   Published: 2020-12-11
+   Categories: cs.CV
+   Abstract: We consider the generic deep image enhancement problem where an input image is transformed into a perceptually better-looking image. Recent methods for image enhancement consider the problem by performing style transfer and image restoration. The met...
+
+8. arXiv ID: 1903.03040
+   Title: Deep learning observables in computational fluid dynamics
+   Authors: Kjetil O. Lye, Siddhartha Mishra, Deep Ray
+   Published: 2019-03-07
+   Categories: physics.comp-ph, cs.LG
+   Abstract: Many large scale problems in computational fluid dynamics such as uncertainty quantification, Bayesian inversion, data assimilation and PDE constrained optimization are considered very challenging computationally as they require a large number of exp...
+
+9. arXiv ID: 2512.23753
+   Title: Generalized Regularized Evidential Deep Learning Models: Theory and Comprehensive Evaluation
+   Authors: Deep Shankar Pandey, Hyomin Choi, Qi Yu
+   Published: 2025-12-27
+   Categories: cs.LG, cs.AI
+   Abstract: Evidential deep learning (EDL) models, based on Subjective Logic, introduce a principled and computationally efficient way to make deterministic neural networks uncertainty-aware. The resulting evidential models can quantify fine-grained uncertainty ...
+
+10. arXiv ID: 1903.04717
+   Title: Activation Analysis of a Byte-Based Deep Neural Network for Malware Classification
+   Authors: Scott E. Coull, Christopher Gardner
+   Published: 2019-03-12
+   Categories: cs.LG, cs.CR
+   Abstract: Feature engineering is one of the most costly aspects of developing effective machine learning models, and that cost is even greater in specialized problem domains, like malware classification, where expert skills are necessary to identify useful fea...
+
+11. arXiv ID: 2302.04143
+   Title: Predicting Thrombectomy Recanalization from CT Imaging Using Deep Learning Models
+   Authors: Haoyue Zhang, Jennifer S. Polson, Eric J. Yang
+   Published: 2023-02-08
+   Categories: eess.IV, cs.CV
+   Abstract: For acute ischemic stroke (AIS) patients with large vessel occlusions, clinicians must decide if the benefit of mechanical thrombectomy (MTB) outweighs the risks and potential complications following an invasive procedure. Pre-treatment computed tomo...
+
+12. arXiv ID: 2011.03712
+   Title: DeepCFL: Deep Contextual Features Learning from a Single Image
+   Authors: Indra Deep Mastan, Shanmuganathan Raman
+   Published: 2020-11-07
+   Categories: cs.CV
+   Abstract: Recently, there is a vast interest in developing image feature learning methods that are independent of the training data, such as deep image prior, InGAN, SinGAN, and DCIL. These methods are unsupervised and are used to perform low-level vision task...
+
+13. arXiv ID: 2403.12562
+   Title: PePR: Performance Per Resource Unit as a Metric to Promote Small-Scale Deep Learning in Medical Image Analysis
+   Authors: Raghavendra Selvan, Bob Pepin, Christian Igel
+   Published: 2024-03-19
+   Categories: cs.LG, cs.AI
+   Abstract: The recent advances in deep learning (DL) have been accelerated by access to large-scale data and compute. These large-scale resources have been used to train progressively larger models which are resource intensive in terms of compute, data, energy,...
+
+14. arXiv ID: 2107.10804
+   Title: Active Learning in Incomplete Label Multiple Instance Multiple Label Learning
+   Authors: Tam Nguyen, Raviv Raich
+   Published: 2021-07-22
+   Categories: cs.LG
+   Abstract: In multiple instance multiple label learning, each sample, a bag, consists of multiple instances. To alleviate labeling complexity, each sample is associated with a set of bag-level labels leaving instances within the bag unlabeled. This setting is m...
+
+15. arXiv ID: 2107.02926
+   Title: Solution of Physics-based Bayesian Inverse Problems with Deep Generative Priors
+   Authors: Dhruv V Patel, Deep Ray, Assad A Oberai
+   Published: 2021-07-06
+   Categories: stat.ML, cs.LG
+   Abstract: Inverse problems are ubiquitous in nature, arising in almost all areas of science and engineering ranging from geophysics and climate science to astrophysics and biomechanics. One of the central challenges in solving inverse problems is tackling thei...
+
+====================================================================================================
+QUERY: soft labels training
+====================================================================================================
+
+1. arXiv ID: 1409.0903
+   Title: How soft repulsion enhances the depletion mechanism
+   Authors: Lorenzo Rovigatti, Nicoletta Gnan, Alberto Parola
+   Published: 2014-09-02
+   Categories: cond-mat.soft
+   Abstract: We investigate binary mixtures of large colloids interacting through soft potentials with small, ideal depletants. We show that softness has a dramatic effect on the resulting colloid-colloid effective potential when the depletant-to-colloid size rat...
+
+2. arXiv ID: 1309.1755
+   Title: From adhesion to wetting of a soft particle
+   Authors: Thomas Salez, Michael Benzaquen, Elie Raphaël
+   Published: 2013-09-06
+   Categories: cond-mat.soft, cond-mat.mes-hall
+   Abstract: Using a thermodynamical approach, we calculate the deformation of a spherical elastic particle placed on a rigid substrate, under zero external load, and including an ingredient of importance in soft matter: the interfacial tension of the cap. In a f...
+
+3. arXiv ID: 1711.07196
+   Title: Softening and Yielding of Soft Glassy Materials
+   Authors: Simon Dagois-Bohy, Ellák Somfai, Brian P. Tighe
+   Published: 2017-11-20
+   Categories: cond-mat.soft, cond-mat.dis-nn
+   Abstract: Solids deform and fluids flow, but soft glassy materials, such as emulsions, foams, suspensions, and pastes, exhibit an intricate mix of solid and liquid-like behavior. While much progress has been made to understand their elastic (small strain) and ...
+
+4. arXiv ID: 0905.1224
+   Title: The zero-temperature phase diagram of soft-repulsive particle fluids
+   Authors: Santi Prestipino, Franz Saija, Gianpietro Malescio
+   Published: 2009-05-08
+   Categories: cond-mat.soft
+   Abstract: Effective pair interactions with a soft-repulsive component are a well-known feature of polymer solutions and colloidal suspensions, but they also provide a key to interpret the high-pressure behaviour of simple elements. We have computed the zero-te...
+
+5. arXiv ID: 0912.2657
+   Title: Anomalous structural evolution of soft particles: Equibrium liquid state theory
+   Authors: Hugo Jacquin, Ludovic Berthier
+   Published: 2009-12-14
+   Categories: cond-mat.stat-mech, cond-mat.soft
+   Abstract: We use the hyper-netted chain approximation of liquid state theory to analyze the evolution with density of the pair correlation function in a model of soft spheres with harmonic repulsion. As observed in recent experiments on jammed soft particles, ...
+
+6. arXiv ID: 0805.2759
+   Title: Stochastic resonance in soft matter systems: combined effects of static and dynamic disorder
+   Authors: Matjaz Perc, Marko Gosak, Samo Kralj
+   Published: 2008-05-18
+   Categories: cond-mat.soft, physics.comp-ph
+   Abstract: We study the impact of static and dynamic disorder on the phenomenon of stochastic resonance (SR) in a representative soft matter system. Due to their extreme susceptibility to weak perturbations soft matter systems appear to be excellent candidates ...
+
+7. arXiv ID: 1301.0454
+   Title: Intuitionistic fuzzy parametrized soft set theory and its decision making
+   Authors: İrfan Deli, Naim Çağman
+   Published: 2013-01-03
+   Categories: math.LO
+   Abstract: In this work, we first define intuitionistic fuzzy parametrized soft sets (intuitionistic FP-soft sets) and study some of their properties. We then introduce an adjustable approaches to intuitionistic FP-soft sets based decision making. We also give ...
+
+8. arXiv ID: 1311.5359
+   Title: Master equation for the probability distribution functions of forces in soft particle packings
+   Authors: Kuniyasu Saitoh, Vanessa Magnanimo, Stefan Luding
+   Published: 2013-11-21
+   Categories: cond-mat.soft
+   Abstract: Employing molecular dynamics simulations of jammed soft particles, we study microscopic responses of force-chain networks to quasi-static isotropic (de)compressions. We show that not only contacts but also interparticle gaps between the nearest neigh...
+
+9. arXiv ID: 2007.05351
+   Title: Are pathologist-defined labels reproducible? Comparison of the TUPAC16 mitotic figure dataset with an alternative set of labels
+   Authors: Christof A. Bertram, Mitko Veta, Christian Marzahl
+   Published: 2020-07-10
+   Categories: cs.CV, cs.LG
+   Abstract: Pathologist-defined labels are the gold standard for histopathological data sets, regardless of well-known limitations in consistency for some tasks. To date, some datasets on mitotic figures are available and were used for development of promising d...
+
+10. arXiv ID: 1010.5087
+   Title: Spatially heterogeneous dynamics in a thermosensitive soft suspension before and after the glass transition
+   Authors: Rémy Colin, Ahmed M. Alsayed, Jean-Christophe Castaing
+   Published: 2010-10-25
+   Categories: cond-mat.soft, cond-mat.stat-mech
+   Abstract: The microscopic dynamics and aging of a soft thermosensitive suspension was investigated by looking at the thermal fluctuations of tracers in the suspension. Below and above the glass transition, the dense microgel particles suspension was found to d...
+
+11. arXiv ID: 0711.4629
+   Title: Effective Interactions in Soft Materials
+   Authors: Alan R. Denton
+   Published: 2007-11-29
+   Categories: cond-mat.soft, cond-mat.stat-mech
+   Abstract: Soft materials, such as colloidal suspensions, polymer solutions, and biological systems, are typically multicomponent mixtures of macromolecules and simpler components (e.g., microions, monomers, solvent) that can assemble into complex structures sp...
+
+12. arXiv ID: 2406.16966
+   Title: Mitigating Noisy Supervision Using Synthetic Samples with Soft Labels
+   Authors: Yangdi Lu, Wenbo He
+   Published: 2024-06-22
+   Categories: cs.CV, cs.LG
+   Abstract: Noisy labels are ubiquitous in real-world datasets, especially in the large-scale ones derived from crowdsourcing and web searching. It is challenging to train deep neural networks with noisy datasets since the networks are prone to overfitting the n...
+
+13. arXiv ID: 2503.15819
+   Title: Control Pneumatic Soft Bending Actuator with Online Learning Pneumatic Physical Reservoir Computing
+   Authors: Junyi Shen, Tetsuro Miyazaki, Kenji Kawashima
+   Published: 2025-03-20
+   Categories: cs.RO, cs.LG
+   Abstract: The intrinsic nonlinearities of soft robots present significant control but simultaneously provide them with rich computational potential. Reservoir computing (RC) has shown effectiveness in online learning systems for controlling nonlinear systems s...
+
+14. arXiv ID: 2410.18519
+   Title: Reinforcement Learning Controllers for Soft Robots using Learned Environments
+   Authors: Uljad Berdica, Matthew Jackson, Niccolò Enrico Veronese
+   Published: 2024-10-24
+   Categories: cs.RO, eess.SY
+   Abstract: Soft robotic manipulators offer operational advantage due to their compliant and deformable structures. However, their inherently nonlinear dynamics presents substantial challenges. Traditional analytical methods often depend on simplifying assumptio...
+
+15. arXiv ID: 1312.4512
+   Title: Coupling of elasticity to capillarity in soft aerated materials
+   Authors: Lucie Ducloué, Olivier Pitois, Julie Goyon
+   Published: 2013-12-16
+   Categories: cond-mat.soft
+   Abstract: We study the elastic properties of soft solids containing air bubbles. Contrary to standard porous materials, the softness of the matrix allows for a coupling of the matrix elasticity to surface tension forces brought in by the bubbles. Thanks to app...
+
+====================================================================================================
+QUERY: k-center coreset
+====================================================================================================
+
+1. arXiv ID: 2606.16061
+   Title: Coresets for Continuous $k$-Center in Hyperbolic Space
+   Authors: Eunku Park
+   Published: 2026-06-14
+   Categories: cs.CG, cs.DS
+   Abstract: We study the continuous $k$-center problem in fixed-dimensional hyperbolic space. The input is a finite point set $P \subset \mathbb H^D$, while the centers may be placed anywhere in the ambient space. A nonempty subset $P_\varepsilon\subseteq P$ is ...
+
+2. arXiv ID: 1612.07516
+   Title: On Coreset Constructions for the Fuzzy $K$-Means Problem
+   Authors: Johannes Blömer, Sascha Brauer, Kathrin Bujna
+   Published: 2016-12-22
+   Categories: cs.LG, cs.DS
+   Abstract: The fuzzy $K$-means problem is a popular generalization of the well-known $K$-means problem to soft clusterings. We present the first coresets for fuzzy $K$-means with size linear in the dimension, polynomial in the number of clusters, and poly-logar...
+
+3. arXiv ID: 2312.10602
+   Title: A Weighted K-Center Algorithm for Data Subset Selection
+   Authors: Srikumar Ramalingam, Pranjal Awasthi, Sanjiv Kumar
+   Published: 2023-12-17
+   Categories: cs.LG, cs.AI
+   Abstract: The success of deep learning hinges on enormous data and large models, which require labor-intensive annotations and heavy computation costs. Subset selection is a fundamental problem that can play a key role in identifying smaller portions of the tr...
+
+4. arXiv ID: 1902.01896
+   Title: A Composable Coreset for k-Center in Doubling Metrics
+   Authors: Sepideh Aghamolaei, Mohammad Ghodsi
+   Published: 2019-02-05
+   Categories: cs.DS, cs.CG
+   Abstract: A set of points $P$ in a metric space and a constant integer $k$ are given. The $k$-center problem finds $k$ points as centers among $P$, such that the maximum distance of any point of $P$ to their closest centers $(r)$ is minimized.   Doubling metri...
+
+5. arXiv ID: 2301.02814
+   Title: Randomized Greedy Algorithms and Composable Coreset for k-Center Clustering with Outliers
+   Authors: Hu Ding, Ruomin Huang, Kai Liu
+   Published: 2023-01-07
+   Categories: cs.LG, cs.DS
+   Abstract: In this paper, we study the problem of {\em $k$-center clustering with outliers}. The problem has many important applications in real world, but the presence of outliers can significantly increase the computational complexity. Though a number of meth...
+
+6. arXiv ID: 2302.09911
+   Title: Fair $k$-Center: a Coreset Approach in Low Dimensions
+   Authors: Jinxiang Gan, Mordecai Golin, Zonghan Yang
+   Published: 2023-02-20
+   Categories: cs.DC
+   Abstract: Center-based clustering techniques are fundamental in some areas of machine learning such as data summarization. Generic $k$-center algorithms can produce biased cluster representatives so there has been a recent interest in fair $k$-center clusterin...
+
+7. arXiv ID: 2211.08184
+   Title: Improved Coresets for Euclidean $k$-Means
+   Authors: Vincent Cohen-Addad, Kasper Green Larsen, David Saulpic
+   Published: 2022-11-15
+   Categories: cs.CG, cs.LG
+   Abstract: Given a set of $n$ points in $d$ dimensions, the Euclidean $k$-means problem (resp. the Euclidean $k$-median problem) consists of finding $k$ centers such that the sum of squared distances (resp. sum of distances) from every point to its closest cent...
+
+8. arXiv ID: 1901.08219
+   Title: Greedy Strategy Works for $k$-Center Clustering with Outliers and Coreset Construction
+   Authors: Hu Ding, Haikuo Yu, Zixiu Wang
+   Published: 2019-01-24
+   Categories: cs.CG, cs.LG
+   Abstract: We study the problem of $k$-center clustering with outliers in arbitrary metrics and Euclidean space. Though a number of methods have been developed in the past decades, it is still quite challenging to design quality guaranteed algorithm with low co...
+
+9. arXiv ID: 2310.18034
+   Title: Experimental Evaluation of Fully Dynamic k-Means via Coresets
+   Authors: Monika Henzinger, David Saulpic, Leonhard Sidl
+   Published: 2023-10-27
+   Categories: cs.DS
+   Abstract: For a set of points in $\mathbb{R}^d$, the Euclidean $k$-means problems consists of finding $k$ centers such that the sum of distances squared from each data point to its closest center is minimized. Coresets are one the main tools developed recently...
+
+10. arXiv ID: 2104.12141
+   Title: Coresets for $k$-median clustering under Fréchet and Hausdorff distances
+   Authors: Abhinandan Nath
+   Published: 2021-04-25
+   Categories: cs.CG
+   Abstract: We give algorithms for computing coresets for $(1+\varepsilon)$-approximate $k$-median clustering of polygonal curves (under the discrete and continuous Fréchet distance) and point sets (under the Hausdorff distance), when the cluster centers are res...
+
+11. arXiv ID: 2202.12793
+   Title: Towards Optimal Lower Bounds for k-median and k-means Coresets
+   Authors: Vincent Cohen-Addad, Kasper Green Larsen, David Saulpic
+   Published: 2022-02-25
+   Categories: cs.DS, cs.CG
+   Abstract: Given a set of points in a metric space, the $(k,z)$-clustering problem consists of finding a set of $k$ points called centers, such that the sum of distances raised to the power of $z$ of every data point to its closest center is minimized. Special ...
+
+12. arXiv ID: 1903.04351
+   Title: Coresets for Ordered Weighted Clustering
+   Authors: Vladimir Braverman, Shaofeng H. -C. Jiang, Robert Krauthgamer
+   Published: 2019-03-11
+   Categories: cs.DS
+   Abstract: We design coresets for Ordered k-Median, a generalization of classical clustering problems such as k-Median and k-Center, that offers a more flexible data analysis, like easily combining multiple objectives (e.g., to increase fairness or for Pareto o...
+
+13. arXiv ID: 2405.01339
+   Title: Sensitivity Sampling for $k$-Means: Worst Case and Stability Optimal Coreset Bounds
+   Authors: Nikhil Bansal, Vincent Cohen-Addad, Milind Prabhu
+   Published: 2024-05-02
+   Categories: cs.DS
+   Abstract: Coresets are arguably the most popular compression paradigm for center-based clustering objectives such as $k$-means. Given a point set $P$, a coreset $Ω$ is a small, weighted summary that preserves the cost of all candidate solutions $S$ up to a $(1...
+
+14. arXiv ID: 2112.05083
+   Title: Improved approximation algorithms for two Euclidean k-Center variants
+   Authors: Haris Angelidakis, Ivan Sergeev, Pontus Westermark
+   Published: 2021-12-09
+   Categories: cs.DS, cs.CG
+   Abstract: The $k$-Center problem is one of the most popular clustering problems. After decades of work, the complexity of most of its variants on general metrics is now well understood. Surprisingly, this is not the case for a natural setting that often arises...
+
+15. arXiv ID: 2305.16890
+   Title: Universal Weak Coreset
+   Authors: Ragesh Jaiswal, Amit Kumar
+   Published: 2023-05-26
+   Categories: cs.DS, cs.LG
+   Abstract: Coresets for $k$-means and $k$-median problems yield a small summary of the data, which preserve the clustering cost with respect to any set of $k$ centers. Recently coresets have also been constructed for constrained $k$-means and $k$-median problem...
+
+====================================================================================================
+QUERY: facility location coreset
+====================================================================================================
+
+1. arXiv ID: 2412.11049
+   Title: Distributed Facility Location Games with Candidate Locations
+   Authors: Feiyue Sun
+   Published: 2024-12-15
+   Categories: cs.GT, math.OC
+   Abstract: We study the distributed facility location games with candidate locations, where agents on a line are partitioned into groups. Both desirable and obnoxious facility location settings are discussed. In distributed location problems, distortion can ser...
+
+2. arXiv ID: 1612.07516
+   Title: On Coreset Constructions for the Fuzzy $K$-Means Problem
+   Authors: Johannes Blömer, Sascha Brauer, Kathrin Bujna
+   Published: 2016-12-22
+   Categories: cs.LG, cs.DS
+   Abstract: The fuzzy $K$-means problem is a popular generalization of the well-known $K$-means problem to soft clusterings. We present the first coresets for fuzzy $K$-means with size linear in the dimension, polynomial in the number of clusters, and poly-logar...
+
+3. arXiv ID: 2606.16061
+   Title: Coresets for Continuous $k$-Center in Hyperbolic Space
+   Authors: Eunku Park
+   Published: 2026-06-14
+   Categories: cs.CG, cs.DS
+   Abstract: We study the continuous $k$-center problem in fixed-dimensional hyperbolic space. The input is a finite point set $P \subset \mathbb H^D$, while the centers may be placed anywhere in the ambient space. A nonempty subset $P_\varepsilon\subseteq P$ is ...
+
+4. arXiv ID: 1806.11527
+   Title: Representative families for matroid intersections, with applications to location, packing, and covering problems
+   Authors: René van Bevern, Oxana Yu. Tsidulko, Philipp Zschoche
+   Published: 2018-06-29
+   Categories: cs.DS, cs.DM
+   Abstract: We show algorithms for computing representative families for matroid intersections and use them in fixed-parameter algorithms for set packing, set covering, and facility location problems with multiple matroid constraints. We complement our tractabil...
+
+5. arXiv ID: 1709.10278
+   Title: Shapley Facility Location Games
+   Authors: Omer Ben-Porat, Moshe Tennenholtz
+   Published: 2017-09-29
+   Categories: cs.GT
+   Abstract: Facility location games have been a topic of major interest in economics, operations research and computer science, starting from the seminal work by Hotelling. Spatial facility location models have successfully predicted the outcome of competition i...
+
+6. arXiv ID: 2009.07982
+   Title: Strategy Proof Mechanisms for Facility Location at Limited Locations
+   Authors: Toby Walsh
+   Published: 2020-09-17
+   Categories: cs.AI, cs.GT
+   Abstract: Facility location problems often permit facilities to be located at any position. But what if this is not the case in practice? What if facilities can only be located at particular locations like a highway exit or close to a bus stop? We consider her...
+
+7. arXiv ID: 2512.22873
+   Title: Facility Location Games for Multi-Location Agents with Satisfaction
+   Authors: Huanjun Wang, Qizhi Fang, Wenjing Liu
+   Published: 2025-12-28
+   Categories: cs.GT
+   Abstract: In this paper, we study mechanism design for single-facility location games where each agent has multiple private locations in [0, 1]. The individual objective is a satisfaction function that measures the discrepancy between the optimal facility loca...
+
+8. arXiv ID: 2105.01425
+   Title: Two-Stage Facility Location Games with Strategic Clients and Facilities
+   Authors: Simon Krogmann, Pascal Lenzner, Louise Molitor
+   Published: 2021-05-04
+   Categories: cs.GT, cs.AI
+   Abstract: We consider non-cooperative facility location games where both facilities and clients act strategically and heavily influence each other. This contrasts established game-theoretic facility location models with non-strategic clients that simply select...
+
+9. arXiv ID: 2006.16762
+   Title: Online Multi-Facility Location
+   Authors: Christine Markarian, Abdul-Nasser Kassar, Manal Yunis
+   Published: 2020-06-30
+   Categories: cs.DS
+   Abstract: Facility Location problems ask to place facilities in a way that optimizes a given objective function so as to provide a service to all clients. These are one of the most well-studied optimization problems spanning many research areas such as operati...
+
+10. arXiv ID: 2310.04102
+   Title: Nash Welfare and Facility Location
+   Authors: Alexander Lam, Haris Aziz, Toby Walsh
+   Published: 2023-10-06
+   Categories: cs.GT, cs.AI
+   Abstract: We consider the problem of locating a facility to serve a set of agents located along a line. The Nash welfare objective function, defined as the product of the agents' utilities, is known to provide a compromise between fairness and efficiency in re...
+
+11. arXiv ID: 1807.10507
+   Title: Location, Location, Location: Exploring Amazon EC2 Spot Instance Pricing Across Geographical Regions - Extended Version
+   Authors: Nnamdi Ekwe-Ekwe, Adam Barker
+   Published: 2018-07-27
+   Categories: cs.DC
+   Abstract: Cloud computing is becoming an almost ubiquitous part of the computing landscape. For many companies today, moving their entire infrastructure and workloads to the cloud reduces complexity, time to deployment, and saves money. Spot Instances, a subse...
+
+12. arXiv ID: 1807.03839
+   Title: Online Facility Location with Deletions
+   Authors: Marek Cygan, Artur Czumaj, Marcin Mucha
+   Published: 2018-07-10
+   Categories: cs.DS
+   Abstract: In this paper we study three previously unstudied variants of the online Facility Location problem, considering an intrinsic scenario when the clients and facilities are not only allowed to arrive to the system, but they can also depart at any moment...
+
+13. arXiv ID: 1602.03655
+   Title: Multi-Unit Facility Location Games
+   Authors: Omer Ben-Porat, Moshe Tennenholtz
+   Published: 2016-02-11
+   Categories: cs.GT
+   Abstract: Facility location games have been a topic of major interest in economics, operations research and computer science, starting from the seminal work by Hotelling. In the classical pure location Hotelling game businesses compete for maximizing customer ...
+
+14. arXiv ID: 1701.00529
+   Title: Truthful Facility Location with Additive Errors
+   Authors: Iddan Golomb, Christos Tzamos
+   Published: 2017-01-02
+   Categories: cs.GT, cs.AI
+   Abstract: We address the problem of locating facilities on the $[0,1]$ interval based on reports from strategic agents. The cost of each agent is her distance to the closest facility, and the global objective is to minimize either the maximum cost of an agent ...
+
+15. arXiv ID: 2005.03095
+   Title: Heterogeneous Facility Location Games
+   Authors: Eleftherios Anastasiadis, Argyrios Deligkas
+   Published: 2020-05-06
+   Categories: cs.GT
+   Abstract: We study heterogeneous $k$-facility location games. In this model there are $k$ facilities where each facility serves a different purpose. Thus, the preferences of the agents over the facilities can vary arbitrarily. Our goal is to design strategy pr...
+
+====================================================================================================
+QUERY: influence functions neural network
+====================================================================================================
+
+1. arXiv ID: 1609.04846
+   Title: A Tutorial about Random Neural Networks in Supervised Learning
+   Authors: Sebastián Basterrech, Gerardo Rubino
+   Published: 2016-09-15
+   Categories: cs.NE
+   Abstract: Random Neural Networks (RNNs) are a class of Neural Networks (NNs) that can also be seen as a specific type of queuing network. They have been successfully used in several domains during the last 25 years, as queuing networks to analyze the performan...
+
+2. arXiv ID: 2502.01654
+   Title: Predicting concentration levels of air pollutants by transfer learning and recurrent neural network
+   Authors: Iat Hang Fong, Tengyue Li, Simon Fong
+   Published: 2025-01-30
+   Categories: cs.LG, cs.NE
+   Abstract: Air pollution (AP) poses a great threat to human health, and people are paying more attention than ever to its prediction. Accurate prediction of AP helps people to plan for their outdoor activities and aids protecting human health. In this paper, lo...
+
+3. arXiv ID: 1803.02421
+   Title: Masked Conditional Neural Networks for Audio Classification
+   Authors: Fady Medhat, David Chesmore, John Robinson
+   Published: 2018-03-06
+   Categories: stat.ML, cs.LG
+   Abstract: We present the ConditionaL Neural Network (CLNN) and the Masked ConditionaL Neural Network (MCLNN) designed for temporal signal recognition. The CLNN takes into consideration the temporal nature of the sound signal and the MCLNN extends upon the CLNN...
+
+4. arXiv ID: 1509.08985
+   Title: Generalizing Pooling Functions in Convolutional Neural Networks: Mixed, Gated, and Tree
+   Authors: Chen-Yu Lee, Patrick W. Gallagher, Zhuowen Tu
+   Published: 2015-09-30
+   Categories: stat.ML, cs.LG
+   Abstract: We seek to improve deep neural networks by generalizing the pooling operations that play a central role in current architectures. We pursue a careful exploration of approaches to allow pooling to learn and to adapt to complex and variable patterns. T...
+
+5. arXiv ID: 2306.14753
+   Title: The Deep Arbitrary Polynomial Chaos Neural Network or how Deep Artificial Neural Networks could benefit from Data-Driven Homogeneous Chaos Theory
+   Authors: Sergey Oladyshkin, Timothy Praditia, Ilja Kröker
+   Published: 2023-06-26
+   Categories: cs.NE, stat.ML
+   Abstract: Artificial Intelligence and Machine learning have been widely used in various fields of mathematical computing, physical modeling, computational science, communication science, and stochastic analysis. Approaches based on Deep Artificial Neural Netwo...
+
+6. arXiv ID: 2307.05639
+   Title: Learning Active Subspaces and Discovering Important Features with Gaussian Radial Basis Functions Neural Networks
+   Authors: Danny D'Agostino, Ilija Ilievski, Christine Annette Shoemaker
+   Published: 2023-07-11
+   Categories: cs.LG, cs.AI
+   Abstract: Providing a model that achieves a strong predictive performance and is simultaneously interpretable by humans is one of the most difficult challenges in machine learning research due to the conflicting nature of these two objectives. To address this ...
+
+7. arXiv ID: 2304.09590
+   Title: Parallel Neural Networks in Golang
+   Authors: Daniela Kalwarowskyj, Erich Schikuta
+   Published: 2023-04-19
+   Categories: cs.NE, cs.DC
+   Abstract: This paper describes the design and implementation of parallel neural networks (PNNs) with the novel programming language Golang. We follow in our approach the classical Single-Program Multiple-Data (SPMD) model where a PNN is composed of several seq...
+
+8. arXiv ID: 1807.02477
+   Title: Development of a sensory-neural network for medical diagnosing
+   Authors: Igor Grabec, Eva Švegl, Mihael Sok
+   Published: 2018-07-06
+   Categories: cs.NE
+   Abstract: Performance of a sensory-neural network developed for diagnosing of diseases is described. Information about patient's condition is provided by answers to the questionnaire. Questions correspond to sensors generating signals when patients acknowledge...
+
+9. arXiv ID: 1611.02305
+   Title: Learning Influence Functions from Incomplete Observations
+   Authors: Xinran He, Ke Xu, David Kempe
+   Published: 2016-11-07
+   Categories: cs.SI, cs.LG
+   Abstract: We study the problem of learning influence functions under incomplete observations of node activations. Incomplete observations are a major concern as most (online and real-world) social networks are not fully observable. We establish both proper and...
+
+10. arXiv ID: 1906.10015
+   Title: A Review on Neural Network Models of Schizophrenia and Autism Spectrum Disorder
+   Authors: Pablo Lanillos, Daniel Oliva, Anja Philippsen
+   Published: 2019-06-24
+   Categories: q-bio.NC, cs.AI
+   Abstract: This survey presents the most relevant neural network models of autism spectrum disorder and schizophrenia, from the first connectionist models to recent deep network architectures. We analyzed and compared the most representative symptoms with its n...
+
+11. arXiv ID: 1411.1792
+   Title: How transferable are features in deep neural networks?
+   Authors: Jason Yosinski, Jeff Clune, Yoshua Bengio
+   Published: 2014-11-06
+   Categories: cs.LG, cs.NE
+   Abstract: Many deep neural networks trained on natural images exhibit a curious phenomenon in common: on the first layer they learn features similar to Gabor filters and color blobs. Such first-layer features appear not to be specific to a particular dataset o...
+
+12. arXiv ID: 2212.06370
+   Title: Dual Accuracy-Quality-Driven Neural Network for Prediction Interval Generation
+   Authors: Giorgio Morales, John W. Sheppard
+   Published: 2022-12-13
+   Categories: cs.LG, stat.ML
+   Abstract: Accurate uncertainty quantification is necessary to enhance the reliability of deep learning models in real-world applications. In the case of regression tasks, prediction intervals (PIs) should be provided along with the deterministic predictions of...
+
+13. arXiv ID: 2603.01172
+   Title: Midterm Status Report of the ILC Technology Network Activities
+   Authors: ILC Technology Network
+   Published: 2026-03-01
+   Categories: physics.acc-ph, hep-ex
+   Abstract: The ILC Technology Network (ITN) was established in 2022 by the ILC International Development Team, a subcommittee of the International Committee for Future Accelerators, to advance engineering studies toward the realisation of the International Line...
+
+14. arXiv ID: 1606.00825
+   Title: Training a Hidden Markov Model with a Bayesian Spiking Neural Network
+   Authors: Amirhossein Tavanaei, Anthony S Maida
+   Published: 2016-06-02
+   Categories: cs.NE
+   Abstract: It is of some interest to understand how statistically based mechanisms for signal processing might be integrated with biologically motivated mechanisms such as neural networks. This paper explores a novel hybrid approach for classifying segments of ...
+
+15. arXiv ID: 2606.02682
+   Title: Neural Networks and Schramm-Loewner Evolutions
+   Authors: Neilesh Shrotri, Vlad Margarint
+   Published: 2026-06-01
+   Categories: cond-mat.dis-nn, math.PR
+   Abstract: In this manuscript, we explore the application of neural networks to predict the natural parameter $κ\geq 0$ of Schramm-Loewner Evolution (SLE$_κ$) theory. SLE$_κ$ is a family of random fractal curves that has significant implications in Statistical ...
+
+====================================================================================================
+QUERY: active learning coreset
+====================================================================================================
+
+1. arXiv ID: 1612.07516
+   Title: On Coreset Constructions for the Fuzzy $K$-Means Problem
+   Authors: Johannes Blömer, Sascha Brauer, Kathrin Bujna
+   Published: 2016-12-22
+   Categories: cs.LG, cs.DS
+   Abstract: The fuzzy $K$-means problem is a popular generalization of the well-known $K$-means problem to soft clusterings. We present the first coresets for fuzzy $K$-means with size linear in the dimension, polynomial in the number of clusters, and poly-logar...
+
+2. arXiv ID: 2302.08893
+   Title: Active learning for data streams: a survey
+   Authors: Davide Cacciarelli, Murat Kulahci
+   Published: 2023-02-17
+   Categories: stat.ML, cs.LG
+   Abstract: Online active learning is a paradigm in machine learning that aims to select the most informative data points to label from a data stream. The problem of minimizing the cost associated with collecting labeled observations has gained a lot of attentio...
+
+3. arXiv ID: 1208.3561
+   Title: Efficient Active Learning of Halfspaces: an Aggressive Approach
+   Authors: Alon Gonen, Sivan Sabato, Shai Shalev-Shwartz
+   Published: 2012-08-17
+   Categories: cs.LG
+   Abstract: We study pool-based active learning of half-spaces. We revisit the aggressive approach for active learning in the realizable case, and show that it can be made efficient and practical, while also having theoretical guarantees under reasonable assumpt...
+
+4. arXiv ID: 2110.08265
+   Title: Knowledge-driven Active Learning
+   Authors: Gabriele Ciravegna, Frédéric Precioso, Alessandro Betti
+   Published: 2021-10-15
+   Categories: cs.LG, cs.AI
+   Abstract: The deployment of Deep Learning (DL) models is still precluded in those contexts where the amount of supervised data is limited. To answer this issue, active learning strategies aim at minimizing the amount of labelled data required to train a DL mod...
+
+5. arXiv ID: 2311.18356
+   Title: Towards Comparable Active Learning
+   Authors: Thorben Werner, Johannes Burchert, Lars Schmidt-Thieme
+   Published: 2023-11-30
+   Categories: cs.LG, stat.ML
+   Abstract: Active Learning has received significant attention in the field of machine learning for its potential in selecting the most informative samples for labeling, thereby reducing data annotation costs. However, we show that the reported lifts in recent l...
+
+6. arXiv ID: 1507.04155
+   Title: ALEVS: Active Learning by Statistical Leverage Sampling
+   Authors: Cem Orhan, Öznur Taştan
+   Published: 2015-07-15
+   Categories: cs.LG, stat.ML
+   Abstract: Active learning aims to obtain a classifier of high accuracy by using fewer label requests in comparison to passive learning by selecting effective queries. Many active learning methods have been developed in the past two decades, which sample querie...
+
+7. arXiv ID: 2107.10804
+   Title: Active Learning in Incomplete Label Multiple Instance Multiple Label Learning
+   Authors: Tam Nguyen, Raviv Raich
+   Published: 2021-07-22
+   Categories: cs.LG
+   Abstract: In multiple instance multiple label learning, each sample, a bag, consists of multiple instances. To alleviate labeling complexity, each sample is associated with a set of bag-level labels leaving instances within the bag unlabeled. This setting is m...
+
+8. arXiv ID: 2401.07639
+   Title: Compute-Efficient Active Learning
+   Authors: Gábor Németh, Tamás Matuszka
+   Published: 2024-01-15
+   Categories: cs.LG
+   Abstract: Active learning, a powerful paradigm in machine learning, aims at reducing labeling costs by selecting the most informative samples from an unlabeled dataset. However, the traditional active learning process often demands extensive computational reso...
+
+9. arXiv ID: 2111.15258
+   Title: DeepAL: Deep Active Learning in Python
+   Authors: Kuan-Hao Huang
+   Published: 2021-11-30
+   Categories: cs.LG
+   Abstract: We present DeepAL, a Python library that implements several common strategies for active learning, with a particular emphasis on deep active learning. DeepAL provides a simple and unified framework based on PyTorch that allows users to easily load cu...
+
+10. arXiv ID: 2007.11126
+   Title: Efficient Graph-Based Active Learning with Probit Likelihood via Gaussian Approximations
+   Authors: Kevin Miller, Hao Li, Andrea L. Bertozzi
+   Published: 2020-07-21
+   Categories: stat.ML, cs.LG
+   Abstract: We present a novel adaptation of active learning to graph-based semi-supervised learning (SSL) under non-Gaussian Bayesian models. We present an approximation of non-Gaussian distributions to adapt previously Gaussian-based acquisition functions to t...
+
+11. arXiv ID: 2607.06063
+   Title: Determinantal point process sampling for bioacoustic active learning
+   Authors: Hugo Magaldi, Gabriel Dubus
+   Published: 2026-07-07
+   Categories: cs.SD, cs.LG
+   Abstract: Eco-acoustic monitoring generates vast volumes of audio data, making active learning a promising approach for reducing annotation effort while efficiently training reliable biodiversity classifiers. This report presents CARE-DPP, a batch active-learn...
+
+12. arXiv ID: 2210.01090
+   Title: Nonstationary data stream classification with online active learning and siamese neural networks
+   Authors: Kleanthis Malialis, Christos G. Panayiotou, Marios M. Polycarpou
+   Published: 2022-10-03
+   Categories: cs.LG
+   Abstract: We have witnessed in recent years an ever-growing volume of information becoming available in a streaming manner in various application areas. As a result, there is an emerging need for online learning methods that train predictive models on-the-fly....
+
+13. arXiv ID: 2212.13067
+   Title: Online Active Learning for Soft Sensor Development using Semi-Supervised Autoencoders
+   Authors: Davide Cacciarelli, Murat Kulahci, John Tyssedal
+   Published: 2022-12-26
+   Categories: cs.LG, stat.ML
+   Abstract: Data-driven soft sensors are extensively used in industrial and chemical processes to predict hard-to-measure process variables whose real value is difficult to track during routine operations. The regression models used by these sensors often requir...
+
+14. arXiv ID: 2210.06873
+   Title: Data augmentation on-the-fly and active learning in data stream classification
+   Authors: Kleanthis Malialis, Dimitris Papatheodoulou, Stylianos Filippou
+   Published: 2022-10-13
+   Categories: cs.LG
+   Abstract: There is an emerging need for predictive models to be trained on-the-fly, since in numerous machine learning applications data are arriving in an online fashion. A critical challenge encountered is that of limited availability of ground truth informa...
+
+15. arXiv ID: 2202.05448
+   Title: Fast Rates in Pool-Based Batch Active Learning
+   Authors: Claudio Gentile, Zhilei Wang, Tong Zhang
+   Published: 2022-02-11
+   Categories: cs.LG, stat.ML
+   Abstract: We consider a batch active learning scenario where the learner adaptively issues batches of points to a labeling oracle. Sampling labels in batches is highly desirable in practice due to the smaller number of interactive rounds with the labeling orac...
+
+====================================================================================================
+QUERY: curriculum learning data selection
+====================================================================================================
+
+1. arXiv ID: 2407.02419
+   Title: Quantum Curriculum Learning
+   Authors: Quoc Hoan Tran, Yasuhiro Endo, Hirotaka Oshima
+   Published: 2024-07-02
+   Categories: quant-ph, cs.LG
+   Abstract: Quantum machine learning (QML) requires significant quantum resources to address practical real-world problems. When the underlying quantum information exhibits hierarchical structures in the data, limitations persist in training complexity and gener...
+
+2. arXiv ID: 2005.07866
+   Title: Byzantine-Resilient SGD in High Dimensions on Heterogeneous Data
+   Authors: Deepesh Data, Suhas Diggavi
+   Published: 2020-05-16
+   Categories: stat.ML, cs.CR
+   Abstract: We study distributed stochastic gradient descent (SGD) in the master-worker architecture under Byzantine attacks. We consider the heterogeneous data model, where different workers may have different local datasets, and we do not make any probabilisti...
+
+3. arXiv ID: 1907.02664
+   Title: Data Encoding for Byzantine-Resilient Distributed Optimization
+   Authors: Deepesh Data, Linqi Song, Suhas Diggavi
+   Published: 2019-07-05
+   Categories: cs.DC, cs.CR
+   Abstract: We study distributed optimization in the presence of Byzantine adversaries, where both data and computation are distributed among $m$ worker machines, $t$ of which may be corrupt. The compromised nodes may collaboratively and arbitrarily deviate from...
+
+4. arXiv ID: 1110.5626
+   Title: Constraints on dark energy from H II starburst galaxy apparent magnitude versus redshift data
+   Authors: Data Mania, Bharat Ratra
+   Published: 2011-10-25
+   Categories: astro-ph.CO
+   Abstract: In this paper we use H II starburst galaxy apparent magnitude versus redshift data from Siegel et al. (2005) to constrain dark energy cosmological model parameters. These constraints are generally consistent with those derived using other data sets, ...
+
+5. arXiv ID: 2411.15497
+   Title: AeroGen: Enhancing Remote Sensing Object Detection with Diffusion-Driven Data Generation
+   Authors: Datao Tang, Xiangyong Cao, Xuan Wu
+   Published: 2024-11-23
+   Categories: cs.CV
+   Abstract: Remote sensing image object detection (RSIOD) aims to identify and locate specific objects within satellite or aerial imagery. However, there is a scarcity of labeled data in current RSIOD datasets, which significantly limits the performance of curre...
+
+6. arXiv ID: 2510.21391
+   Title: TerraGen: A Unified Multi-Task Layout Generation Framework for Remote Sensing Data Augmentation
+   Authors: Datao Tang, Hao Wang, Yudeng Xin
+   Published: 2025-10-24
+   Categories: cs.CV
+   Abstract: Remote sensing vision tasks require extensive labeled data across multiple, interconnected domains. However, current generative data augmentation frameworks are task-isolated, i.e., each vision task requires training an independent generative model, ...
+
+7. arXiv ID: 2010.16064
+   Title: A 20 Gbps Data Transmitting ASIC with PAM4 for Particle Physics Experiments
+   Authors: Li Zhang, Datao Gong, Suen Hou
+   Published: 2020-10-30
+   Categories: physics.ins-det, hep-ex
+   Abstract: We present the design principle and test results of a data transmitting ASIC, GBS20, for particle physics experiments. The goal of GBS20 will be an ASIC that employs two serializers each from the 10.24 Gbps lpGBT SerDes, sharing the PLL also from lpG...
+
+8. arXiv ID: 2302.08893
+   Title: Active learning for data streams: a survey
+   Authors: Davide Cacciarelli, Murat Kulahci
+   Published: 2023-02-17
+   Categories: stat.ML, cs.LG
+   Abstract: Online active learning is a paradigm in machine learning that aims to select the most informative data points to label from a data stream. The problem of minimizing the cost associated with collecting labeled observations has gained a lot of attentio...
+
+9. arXiv ID: 2312.10602
+   Title: A Weighted K-Center Algorithm for Data Subset Selection
+   Authors: Srikumar Ramalingam, Pranjal Awasthi, Sanjiv Kumar
+   Published: 2023-12-17
+   Categories: cs.LG, cs.AI
+   Abstract: The success of deep learning hinges on enormous data and large models, which require labor-intensive annotations and heavy computation costs. Subset selection is a fundamental problem that can play a key role in identifying smaller portions of the tr...
+
+10. arXiv ID: 2510.23241
+   Title: Progressive Growing of Patch Size: Curriculum Learning for Accelerated and Improved Medical Image Segmentation
+   Authors: Stefan M. Fischer, Johannes Kiechle, Laura Daza
+   Published: 2025-10-27
+   Categories: cs.CV, cs.AI
+   Abstract: In this work, we introduce Progressive Growing of Patch Size, an automatic curriculum learning approach for 3D medical image segmentation. Our approach progressively increases the patch size during model training, resulting in an improved class balan...
+
+11. arXiv ID: 1901.11478
+   Title: An Optimization Framework for Task Sequencing in Curriculum Learning
+   Authors: Francesco Foglino, Christiano Coletto Christakou, Matteo Leonetti
+   Published: 2019-01-31
+   Categories: cs.LG, cs.AI
+   Abstract: Curriculum learning in reinforcement learning is used to shape exploration by presenting the agent with increasingly complex tasks. The idea of curriculum learning has been largely applied in both animal training and pedagogy. In reinforcement learni...
+
+12. arXiv ID: 2006.13041
+   Title: Byzantine-Resilient High-Dimensional Federated Learning
+   Authors: Deepesh Data, Suhas Diggavi
+   Published: 2020-06-22
+   Categories: stat.ML, cs.CR
+   Abstract: We study stochastic gradient descent (SGD) with local iterations in the presence of malicious/Byzantine clients, motivated by the federated learning. The clients, instead of communicating with the central server in every iteration, maintain their loc...
+
+13. arXiv ID: 1807.08135
+   Title: Integrating Feature and Image Pyramid: A Lung Nodule Detector Learned in Curriculum Fashion
+   Authors: Benyuan Sun, Zhen Zhou, Fandong Zhang
+   Published: 2018-07-21
+   Categories: cs.CV
+   Abstract: Lung nodules suffer large variation in size and appearance in CT images. Nodules less than 10mm can easily lose information after down-sampling in convolutional neural networks, which results in low sensitivity. In this paper, a combination of 3D ima...
+
+14. arXiv ID: 2011.00080
+   Title: Dynamic Data Selection for Curriculum Learning via Ability Estimation
+   Authors: John P. Lalor, Hong Yu
+   Published: 2020-10-30
+   Categories: cs.CL, cs.LG
+   Abstract: Curriculum learning methods typically rely on heuristics to estimate the difficulty of training examples or the ability of the model. In this work, we propose replacing difficulty heuristics with learned difficulty parameters. We also propose Dynamic...
+
+15. arXiv ID: 2507.11773
+   Title: Small Data Explainer -- The impact of small data methods in everyday life
+   Authors: Maren Hackenberg, Sophia G. Connor, Fabian Kabus
+   Published: 2025-07-15
+   Categories: cs.CY, cs.AI
+   Abstract: The emergence of breakthrough artificial intelligence (AI) techniques has led to a renewed focus on how small data settings, i.e., settings with limited information, can benefit from such developments. This includes societal issues such as how best t...
+
+====================================================================================================
+QUERY: weighted training soft labels
+====================================================================================================
+
+1. arXiv ID: 1409.0903
+   Title: How soft repulsion enhances the depletion mechanism
+   Authors: Lorenzo Rovigatti, Nicoletta Gnan, Alberto Parola
+   Published: 2014-09-02
+   Categories: cond-mat.soft
+   Abstract: We investigate binary mixtures of large colloids interacting through soft potentials with small, ideal depletants. We show that softness has a dramatic effect on the resulting colloid-colloid effective potential when the depletant-to-colloid size rat...
+
+2. arXiv ID: 1309.1755
+   Title: From adhesion to wetting of a soft particle
+   Authors: Thomas Salez, Michael Benzaquen, Elie Raphaël
+   Published: 2013-09-06
+   Categories: cond-mat.soft, cond-mat.mes-hall
+   Abstract: Using a thermodynamical approach, we calculate the deformation of a spherical elastic particle placed on a rigid substrate, under zero external load, and including an ingredient of importance in soft matter: the interfacial tension of the cap. In a f...
+
+3. arXiv ID: 1711.07196
+   Title: Softening and Yielding of Soft Glassy Materials
+   Authors: Simon Dagois-Bohy, Ellák Somfai, Brian P. Tighe
+   Published: 2017-11-20
+   Categories: cond-mat.soft, cond-mat.dis-nn
+   Abstract: Solids deform and fluids flow, but soft glassy materials, such as emulsions, foams, suspensions, and pastes, exhibit an intricate mix of solid and liquid-like behavior. While much progress has been made to understand their elastic (small strain) and ...
+
+4. arXiv ID: 0905.1224
+   Title: The zero-temperature phase diagram of soft-repulsive particle fluids
+   Authors: Santi Prestipino, Franz Saija, Gianpietro Malescio
+   Published: 2009-05-08
+   Categories: cond-mat.soft
+   Abstract: Effective pair interactions with a soft-repulsive component are a well-known feature of polymer solutions and colloidal suspensions, but they also provide a key to interpret the high-pressure behaviour of simple elements. We have computed the zero-te...
+
+5. arXiv ID: 0912.2657
+   Title: Anomalous structural evolution of soft particles: Equibrium liquid state theory
+   Authors: Hugo Jacquin, Ludovic Berthier
+   Published: 2009-12-14
+   Categories: cond-mat.stat-mech, cond-mat.soft
+   Abstract: We use the hyper-netted chain approximation of liquid state theory to analyze the evolution with density of the pair correlation function in a model of soft spheres with harmonic repulsion. As observed in recent experiments on jammed soft particles, ...
+
+6. arXiv ID: 0805.2759
+   Title: Stochastic resonance in soft matter systems: combined effects of static and dynamic disorder
+   Authors: Matjaz Perc, Marko Gosak, Samo Kralj
+   Published: 2008-05-18
+   Categories: cond-mat.soft, physics.comp-ph
+   Abstract: We study the impact of static and dynamic disorder on the phenomenon of stochastic resonance (SR) in a representative soft matter system. Due to their extreme susceptibility to weak perturbations soft matter systems appear to be excellent candidates ...
+
+7. arXiv ID: 1301.0454
+   Title: Intuitionistic fuzzy parametrized soft set theory and its decision making
+   Authors: İrfan Deli, Naim Çağman
+   Published: 2013-01-03
+   Categories: math.LO
+   Abstract: In this work, we first define intuitionistic fuzzy parametrized soft sets (intuitionistic FP-soft sets) and study some of their properties. We then introduce an adjustable approaches to intuitionistic FP-soft sets based decision making. We also give ...
+
+8. arXiv ID: 1311.5359
+   Title: Master equation for the probability distribution functions of forces in soft particle packings
+   Authors: Kuniyasu Saitoh, Vanessa Magnanimo, Stefan Luding
+   Published: 2013-11-21
+   Categories: cond-mat.soft
+   Abstract: Employing molecular dynamics simulations of jammed soft particles, we study microscopic responses of force-chain networks to quasi-static isotropic (de)compressions. We show that not only contacts but also interparticle gaps between the nearest neigh...
+
+9. arXiv ID: 2007.05351
+   Title: Are pathologist-defined labels reproducible? Comparison of the TUPAC16 mitotic figure dataset with an alternative set of labels
+   Authors: Christof A. Bertram, Mitko Veta, Christian Marzahl
+   Published: 2020-07-10
+   Categories: cs.CV, cs.LG
+   Abstract: Pathologist-defined labels are the gold standard for histopathological data sets, regardless of well-known limitations in consistency for some tasks. To date, some datasets on mitotic figures are available and were used for development of promising d...
+
+10. arXiv ID: 1010.5087
+   Title: Spatially heterogeneous dynamics in a thermosensitive soft suspension before and after the glass transition
+   Authors: Rémy Colin, Ahmed M. Alsayed, Jean-Christophe Castaing
+   Published: 2010-10-25
+   Categories: cond-mat.soft, cond-mat.stat-mech
+   Abstract: The microscopic dynamics and aging of a soft thermosensitive suspension was investigated by looking at the thermal fluctuations of tracers in the suspension. Below and above the glass transition, the dense microgel particles suspension was found to d...
+
+11. arXiv ID: 0711.4629
+   Title: Effective Interactions in Soft Materials
+   Authors: Alan R. Denton
+   Published: 2007-11-29
+   Categories: cond-mat.soft, cond-mat.stat-mech
+   Abstract: Soft materials, such as colloidal suspensions, polymer solutions, and biological systems, are typically multicomponent mixtures of macromolecules and simpler components (e.g., microions, monomers, solvent) that can assemble into complex structures sp...
+
+12. arXiv ID: 2406.16966
+   Title: Mitigating Noisy Supervision Using Synthetic Samples with Soft Labels
+   Authors: Yangdi Lu, Wenbo He
+   Published: 2024-06-22
+   Categories: cs.CV, cs.LG
+   Abstract: Noisy labels are ubiquitous in real-world datasets, especially in the large-scale ones derived from crowdsourcing and web searching. It is challenging to train deep neural networks with noisy datasets since the networks are prone to overfitting the n...
+
+13. arXiv ID: 2410.18519
+   Title: Reinforcement Learning Controllers for Soft Robots using Learned Environments
+   Authors: Uljad Berdica, Matthew Jackson, Niccolò Enrico Veronese
+   Published: 2024-10-24
+   Categories: cs.RO, eess.SY
+   Abstract: Soft robotic manipulators offer operational advantage due to their compliant and deformable structures. However, their inherently nonlinear dynamics presents substantial challenges. Traditional analytical methods often depend on simplifying assumptio...
+
+14. arXiv ID: 2503.15819
+   Title: Control Pneumatic Soft Bending Actuator with Online Learning Pneumatic Physical Reservoir Computing
+   Authors: Junyi Shen, Tetsuro Miyazaki, Kenji Kawashima
+   Published: 2025-03-20
+   Categories: cs.RO, cs.LG
+   Abstract: The intrinsic nonlinearities of soft robots present significant control but simultaneously provide them with rich computational potential. Reservoir computing (RC) has shown effectiveness in online learning systems for controlling nonlinear systems s...
+
+15. arXiv ID: 1312.4512
+   Title: Coupling of elasticity to capillarity in soft aerated materials
+   Authors: Lucie Ducloué, Olivier Pitois, Julie Goyon
+   Published: 2013-12-16
+   Categories: cond-mat.soft
+   Abstract: We study the elastic properties of soft solids containing air bubbles. Contrary to standard porous materials, the softness of the matrix allows for a coupling of the matrix elasticity to surface tension forces brought in by the bubbles. Thanks to app...

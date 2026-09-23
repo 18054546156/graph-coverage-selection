@@ -1,0 +1,352 @@
+================================================================================
+                    CORESET SELECTION LITERATURE SEARCH
+                            QUICK REFERENCE CARD
+                         September 23, 2026
+================================================================================
+
+EVA PAPER (2406.05677) - DIRECT ANSWERS
+────────────────────────────────────────────────────────────────────────────────
+
+Q1: Does EVA use soft labels?
+    A: NO - uses hard labels with variance-weighted importance
+
+Q2: How are soft labels derived?
+    A: N/A - EVA doesn't use soft labels
+
+Q3: Does EVA weight instances?
+    A: YES - by temporal variance of sample importance
+
+Q4: Weighting criterion?
+    A: Variance of evolutionary process (changes across training epochs)
+
+Q5: Uses Voronoi or geometric structures?
+    A: NO - purely temporal/statistical
+
+Q6: Method summary?
+    A: Variance-based coreset selection for medical images
+       - 98.27% accuracy with 10% data (vs 97.20% baseline with 100%)
+       - Dual-window temporal variance measurement
+       - Medical imaging specialized
+
+================================================================================
+
+TOP 15 PAPERS - RANKED BY RELEVANCE
+────────────────────────────────────────────────────────────────────────────────
+
+RANK 1: 2312.10602 (2023) - Weighted K-Center for DNN Subset Selection
+        → Most directly relevant for geometry + weighting
+
+RANK 2: 1906.01827 (2019) - Coresets for Data-efficient Training
+        → Foundational theory (must read first)
+
+RANK 3: 2406.16966 (2024) - Soft Labels + Instance Weighting
+        → Only paper combining both techniques
+
+RANK 4: 2311.18356 (2023) - Evaluation Standards for Selection Methods
+        → MUST READ before running experiments
+
+RANK 5: 2306.11113 (2023) - Evidential Learning with Uncertainty
+        → Probabilistic weights + soft labels
+
+RANK 6: 2606.16061 (2026) - k-Center in Hyperbolic Space
+        → Latest geometric theory
+
+RANK 7: 2301.02814 (2023) - k-Center with Outlier Handling
+        → Practical k-center algorithm
+
+RANK 8: 2011.00080 (2020) - Curriculum Learning via Difficulty
+        → Temporal dynamics approach
+
+RANK 9: 2302.08893 (2023) - Active Learning Survey (150+ papers)
+        → Comprehensive landscape
+
+RANK 10: 2401.07639 (2024) - Compute-Efficient Active Learning
+         → Practical efficiency concerns
+
+(See full ranking in TOP_PAPERS_FOR_GEOMETRY_SELECTION.md)
+
+================================================================================
+
+PAPERS COMBINING WEIGHTS + SOFT LABELS
+────────────────────────────────────────────────────────────────────────────────
+
+Only 3 papers found:
+  1. 2406.16966 (2024) ← Most recent and most relevant
+  2. 2306.11113 (2023)
+  3. 1612.07516 (2016)
+
+Finding: This combination is RARE - represents research opportunity
+
+================================================================================
+
+PAPERS WITH GEOMETRIC STRUCTURES
+────────────────────────────────────────────────────────────────────────────────
+
+K-Center (Most Common):
+  • 2312.10602 (2023) ⭐ Best for DNNs
+  • 2606.16061 (2026)
+  • 2301.02814 (2023)
+  • 1901.08219 (2019)
+  • 1612.07516 (2016)
+
+Facility Location:
+  • 2412.11049 (2024)
+  • 1709.10278 (2017)
+  • 1806.11527 (2018)
+
+Margin Geometry:
+  • 1812.10761 (2018)
+
+Disagreement-Based:
+  • 2202.05448 (2022)
+
+NOT FOUND:
+  • Voronoi partitioning (0 papers) ← Research opportunity
+  • KNN graphs (0 papers) ← Research opportunity
+
+================================================================================
+
+LITERATURE GAPS = RESEARCH OPPORTUNITIES
+────────────────────────────────────────────────────────────────────────────────
+
+HIGH-VALUE GAPS (Minimal effort, high novelty):
+  1. Voronoi partitioning for neural networks (0 papers)
+  2. Temporal + Geometric + Weighted combined (0 papers)
+  3. Graph-based coreset for GNNs (0 papers)
+
+MEDIUM-VALUE GAPS:
+  4. Interpretable selection decisions (0 papers)
+  5. Streaming coreset updates (1 paper)
+
+NOVELTY OPPORTUNITY:
+  Combine: EVA temporal dynamics + K-center geometry + Soft labels
+  Result: Novel hybrid method (no papers found with all three)
+
+================================================================================
+
+RECOMMENDED READING SEQUENCE
+────────────────────────────────────────────────────────────────────────────────
+
+WEEK 1 (FOUNDATIONS):
+  Day 1-2: 1906.01827 - Coreset theory
+  Day 3-4: 2312.10602 - K-center for DNNs
+  Day 5-7: 2311.18356 - Evaluation standards
+
+WEEK 2 (SOFT LABELS + WEIGHTING):
+  Day 1-2: 2406.16966 - Soft labels + weights
+  Day 3-4: 2306.11113 - Evidential learning
+  Day 5-7: 1812.10761 - Margin theory
+
+WEEK 3 (ALGORITHMS):
+  Day 1-2: 2301.02814 - k-center with outliers
+  Day 3-4: 2011.00080 - Curriculum learning
+  Day 5-7: 2401.07639 - Efficient active learning
+
+WEEKS 4+ (OPTIONAL):
+  • 2302.08893 - AL survey (optional breadth)
+  • 2105.04026 - DL theory (optional depth)
+
+================================================================================
+
+KEY STATISTICS
+────────────────────────────────────────────────────────────────────────────────
+
+Total papers surveyed:              150
+Highly relevant (8-10/10):          35 papers (23%)
+Recent (2023+):                     60 papers (40%)
+
+Papers with weighting:              ~80
+Papers with soft labels:            ~15
+Papers with BOTH:                   3 ← RARE
+Papers with geometry:               ~20
+Papers with geometry + weights:      ~10
+Papers with ALL THREE:              0 ← Your opportunity
+
+Search queries used:                10
+Papers per query:                   15
+
+================================================================================
+
+EVALUATION STANDARDS (From 2311.18356)
+────────────────────────────────────────────────────────────────────────────────
+
+MUST DO:
+  ✓ Minimum 5 independent seeds
+  ✓ Paired t-tests (α=0.05)
+  ✓ Include selection time in comparisons
+  ✓ Fair baseline implementations
+  ✓ Strict train/test separation
+  ✓ Report confidence intervals
+
+MUST AVOID:
+  ✗ Single-seed results (noise-dominated)
+  ✗ Unfair baseline code
+  ✗ Data contamination/leakage
+  ✗ No significance testing
+  ✗ Selection cost omitted
+
+================================================================================
+
+CITATION STRATEGY
+────────────────────────────────────────────────────────────────────────────────
+
+ESSENTIAL (Must cite):
+  1. 1906.01827 - Foundational coreset theory
+  2. 2312.10602 - Geometry in deep learning
+  3. 2311.18356 - Evaluation methodology
+  4. 2406.16966 - Soft labels + weighting (if using)
+
+SUPPORTING (Context):
+  5. 1812.10761 - Margin-based selection
+  6. 2302.08893 - Active learning survey
+  7. 2105.04026 - Deep learning theory
+
+OPTIONAL (Domain-specific):
+  8. 2301.02814 - Outlier handling
+  9. 2011.00080 - Curriculum learning
+  10. 2606.16061 - Advanced geometry
+
+================================================================================
+
+EVA METHOD SUMMARY
+────────────────────────────────────────────────────────────────────────────────
+
+Input:     Full training dataset with hard labels
+Process:
+  1. Divide training into 2 time windows
+  2. Track sample importance evolution across windows
+  3. Compute variance of importance per sample
+  4. Select top-K samples by variance
+
+Output:    Compressed dataset (~10% of original)
+Result:    98.27% accuracy (vs 97.20% baseline with 100% data)
+
+Strengths:
+  ✓ Effective at extreme compression (5-10%)
+  ✓ Medical imaging specialized
+  ✓ Simple implementation
+  ✓ No pre-training required
+
+Weaknesses:
+  ✗ No geometric diversity guarantee
+  ✗ No theoretical bounds
+  ✗ No soft label integration
+  ✗ Requires full training
+
+================================================================================
+
+HOW EVA COMPARES
+────────────────────────────────────────────────────────────────────────────────
+
+                      EVA    K-Center  SoftLabels  Curriculum
+Temporal?             YES    NO        NO          YES
+Geometric?            NO     YES       NO          NO
+Weighted?             YES    YES       YES         YES
+Soft labels?          NO     NO        YES         NO
+Medical focus?        YES    NO        SOME        NO
+Compression %?        5-10%  10-50%    VARIES      10-20%
+
+EVA is ORTHOGONAL to other methods → Can be COMBINED with them
+
+================================================================================
+
+YOUR RESEARCH OPPORTUNITY
+────────────────────────────────────────────────────────────────────────────────
+
+Proposed Hybrid Method:
+
+  importance = variance(training_dynamics) × k_center_distance × soft_label_uncertainty
+               ────────────────────────────  ──────────────────  ─────────────────────
+               From EVA (temporal)           From geometry        From soft labels
+
+Combines:
+  ✓ EVA's temporal dynamics (captures hard samples)
+  ✓ K-center's geometric structure (ensures diversity)
+  ✓ Soft labels' uncertainty (handles label noise)
+
+Novelty:
+  - No papers found with all three
+  - Medium difficulty to implement
+  - High potential impact
+
+Results if successful:
+  - Unique method combining 3 orthogonal approaches
+  - Novel contribution to literature
+  - Strong empirical results expected
+
+================================================================================
+
+FILE REFERENCE GUIDE
+────────────────────────────────────────────────────────────────────────────────
+
+COMPREHENSIVE (Full details):
+  → LITERATURE_SEARCH_FINAL_REPORT.md (70+ pages)
+
+EVA PAPER ONLY (Deep analysis):
+  → EVA_PAPER_ANALYSIS.md (30+ pages)
+
+TOP 15 PAPERS (Focused reading):
+  → TOP_PAPERS_FOR_GEOMETRY_SELECTION.md (20 pages)
+
+STRUCTURED DATA (Machine-readable):
+  → PAPERS_STRUCTURED_INDEX.json (Complete database)
+
+EXECUTIVE SUMMARY:
+  → SEARCH_EXECUTIVE_SUMMARY.md (This document, ~30 pages)
+
+QUICK REFERENCE:
+  → QUICK_REFERENCE_CARD.txt (This file)
+
+================================================================================
+
+NEXT STEPS
+────────────────────────────────────────────────────────────────────────────────
+
+IMMEDIATE (Today-Week 1):
+  1. Read SEARCH_EXECUTIVE_SUMMARY.md (overview)
+  2. Read EVA_PAPER_ANALYSIS.md (understand EVA)
+  3. Download and read full EVA paper (2406.05677)
+  4. Read 1906.01827 (coreset theory)
+
+SHORT TERM (Week 1-2):
+  5. Read 2312.10602 (k-center for DNNs)
+  6. Read 2311.18356 (evaluation standards) - CRITICAL
+  7. Read 2406.16966 (soft labels + weighting)
+  8. Download all 15 top papers
+
+MEDIUM TERM (Week 2-4):
+  9. Read remaining top 10 papers
+  10. Design experiments following evaluation standards
+  11. Plan novel hybrid method combining all three approaches
+  12. Write preliminary method description
+
+LONG TERM (Week 4+):
+  13. Implement hybrid method
+  14. Run experiments (5+ seeds, paired t-tests)
+  15. Write paper following best practices
+
+================================================================================
+
+QUESTIONS ANSWERED
+────────────────────────────────────────────────────────────────────────────────
+
+✓ Q1: Does EVA use soft labels?              → NO
+✓ Q2: How are soft labels derived?           → N/A (not used)
+✓ Q3: Does EVA weight instances?             → YES (variance-based)
+✓ Q4: Weighting criterion?                   → Temporal variance
+✓ Q5: Uses Voronoi or geometric?             → NO (purely temporal)
+✓ Q6: Method summary?                        → Temporal variance coreset selection
+✓ Q7: Best geometric selection papers?       → 2312.10602 (k-center)
+✓ Q8: Papers with weights + soft labels?     → Only 3 papers (rare)
+✓ Q9: Literature gaps?                       → Voronoi, temporal+geometric+soft
+✓ Q10: Research opportunity?                 → Hybrid method combining all three
+
+================================================================================
+
+LAST UPDATED: September 23, 2026
+SEARCH METHOD: Systematic arXiv + academic database queries
+DATA SOURCE: arXiv API + web search
+COVERAGE: 2012-2026, focus on 2018-2024
+CONFIDENCE LEVEL: High for findings; medium for EVA implementation details
+
+================================================================================

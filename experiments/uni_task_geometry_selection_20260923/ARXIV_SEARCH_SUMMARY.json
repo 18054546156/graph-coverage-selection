@@ -1,0 +1,146 @@
+{
+  "total_papers": 150,
+  "highly_relevant": 35,
+  "relevant": 45,
+  "supportive": 70,
+  "background": 0,
+  "by_year": {
+    "2023": 22,
+    "2020": 15,
+    "2022": 9,
+    "2019": 16,
+    "2017": 6,
+    "2026": 8,
+    "2024": 12,
+    "2025": 9,
+    "2018": 9,
+    "2021": 10,
+    "2015": 3,
+    "2010": 3,
+    "2014": 3,
+    "2013": 8,
+    "2009": 4,
+    "2008": 2,
+    "2007": 2,
+    "2016": 7,
+    "2012": 1,
+    "2011": 1
+  },
+  "top_10_papers": [
+    {
+      "rank": 1,
+      "arxiv_id": "2312.10602",
+      "title": "A Weighted K-Center Algorithm for Data Subset Selection",
+      "authors": [
+        "Srikumar Ramalingam",
+        "Pranjal Awasthi",
+        "Sanjiv Kumar"
+      ],
+      "score": 10,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 2,
+      "arxiv_id": "2301.02814",
+      "title": "Randomized Greedy Algorithms and Composable Coreset for k-Center Clustering with Outliers",
+      "authors": [
+        "Hu Ding",
+        "Ruomin Huang",
+        "Kai Liu"
+      ],
+      "score": 10,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 3,
+      "arxiv_id": "2312.10602",
+      "title": "A Weighted K-Center Algorithm for Data Subset Selection",
+      "authors": [
+        "Srikumar Ramalingam",
+        "Pranjal Awasthi",
+        "Sanjiv Kumar"
+      ],
+      "score": 10,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 4,
+      "arxiv_id": "2302.08893",
+      "title": "Active learning for data streams: a survey",
+      "authors": [
+        "Davide Cacciarelli",
+        "Murat Kulahci"
+      ],
+      "score": 8.5,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 5,
+      "arxiv_id": "2406.16966",
+      "title": "Mitigating Noisy Supervision Using Synthetic Samples with Soft Labels",
+      "authors": [
+        "Yangdi Lu",
+        "Wenbo He"
+      ],
+      "score": 8.5,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 6,
+      "arxiv_id": "2606.16061",
+      "title": "Coresets for Continuous $k$-Center in Hyperbolic Space",
+      "authors": [
+        "Eunku Park"
+      ],
+      "score": 8.5,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 7,
+      "arxiv_id": "2302.09911",
+      "title": "Fair $k$-Center: a Coreset Approach in Low Dimensions",
+      "authors": [
+        "Jinxiang Gan",
+        "Mordecai Golin",
+        "Zonghan Yang"
+      ],
+      "score": 8.5,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 8,
+      "arxiv_id": "2310.18034",
+      "title": "Experimental Evaluation of Fully Dynamic k-Means via Coresets",
+      "authors": [
+        "Monika Henzinger",
+        "David Saulpic",
+        "Leonhard Sidl"
+      ],
+      "score": 8.5,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 9,
+      "arxiv_id": "2405.01339",
+      "title": "Sensitivity Sampling for $k$-Means: Worst Case and Stability Optimal Coreset Bounds",
+      "authors": [
+        "Nikhil Bansal",
+        "Vincent Cohen-Addad",
+        "Milind Prabhu"
+      ],
+      "score": 8.5,
+      "tier": "HIGHLY RELEVANT"
+    },
+    {
+      "rank": 10,
+      "arxiv_id": "2305.16890",
+      "title": "Universal Weak Coreset",
+      "authors": [
+        "Ragesh Jaiswal",
+        "Amit Kumar"
+      ],
+      "score": 8.5,
+      "tier": "HIGHLY RELEVANT"
+    }
+  ]
+}
