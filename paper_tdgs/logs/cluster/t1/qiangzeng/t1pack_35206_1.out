@@ -1,0 +1,18 @@
+host=hpcgpu107.ln.edu.hk user=qiangzeng shard=1/3 task=1/5
+worklist=350 cells  stride=15 offset=6  ngpu=2
+exp_root=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928
+sel_dir=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/sel
+start=2026-09-28T17:37:30+08:00
+0, NVIDIA A100 80GB PCIe, 81920 MiB
+1, NVIDIA A100 80GB PCIe, 81920 MiB
+2, NVIDIA A100 80GB PCIe, 81920 MiB
+3, NVIDIA A100 80GB PCIe, 81920 MiB
+this job owns 23 cells
+[gpu1] ok organamnist r0.02 facility s42  (716s)
+[gpu0] ok organamnist r0.02 el2n_top s42  (716s)
+[gpu1] ok organamnist r0.02 eva s43  (711s)
+[gpu0] ok organamnist r0.02 random s43  (711s)
+[gpu0] ok organamnist r0.02 herding s43  (644s)
+[gpu1] ok organamnist r0.02 forgetting s44  (647s)
+[gpu0] ok organamnist r0.02 fps s44  (713s)
+[gpu1] ok organamnist r0.02 el2n_top s45  (720s)

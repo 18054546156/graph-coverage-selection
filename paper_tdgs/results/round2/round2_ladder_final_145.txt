@@ -1,0 +1,324 @@
+wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/archive/round2/round2_harvest.json: 145 cells (0 duplicates dropped, 0 unparsable)
+  a2_perclass       15 cells  ratios=[0.02]  seeds=[42, 43, 44]
+  graph_a2          35 cells  ratios=[0.02, 0.05]  seeds=[42, 43, 44, 45, 46]
+  tdgs_cls          35 cells  ratios=[0.02, 0.05]  seeds=[42, 43, 44, 45, 46]
+  tdgs_cls_perm     15 cells  ratios=[0.02]  seeds=[42, 43, 44]
+  tdgs_lam1         15 cells  ratios=[0.02]  seeds=[42, 43, 44]
+  tdgs_mask         15 cells  ratios=[0.02]  seeds=[42, 43, 44]
+  tdgs_wcls         15 cells  ratios=[0.02]  seeds=[42, 43, 44]
+loaded 220 cells, arms: ['a2_perclass', 'graph_a2', 'tdgs_cls', 'tdgs_cls_perm', 'tdgs_d', 'tdgs_du', 'tdgs_lam1', 'tdgs_mask', 'tdgs_perm', 'tdgs_wcls']
+
+
+####################################################################################################
+#  RATIO 0.02
+####################################################################################################
+
+  per-arm means (BA %, then worst-class recall %)
+
+  [ba] dataset           graph_a2 a2_perclass   tdgs_mask   tdgs_wcls    tdgs_cls tdgs_cls_pe   tdgs_lam1      tdgs_d     tdgs_du   tdgs_perm
+        pathmnist            81.60       82.29       82.20       81.84       82.71       82.90       79.86       78.94       78.08       79.56
+        organamnist          86.96       86.98       86.67       86.52       87.43       86.60       87.89       86.98       86.84       86.25
+        bloodmnist           81.30       82.75       85.67       83.43       82.34       85.20       85.50       81.53       81.93       81.08
+        organsmnist          63.41       63.15       61.95       62.38       63.62       62.82       61.43       59.70       59.95       61.74
+        tissuemnist          42.78       42.05       46.91       36.75       47.79       40.85       48.24       45.83       46.70       45.89
+
+  [worst] dataset           graph_a2 a2_perclass   tdgs_mask   tdgs_wcls    tdgs_cls tdgs_cls_pe   tdgs_lam1      tdgs_d     tdgs_du   tdgs_perm
+        pathmnist            42.09       39.83       40.62       41.73       39.57       34.05       36.58       35.47       37.13       36.34
+        organamnist          68.81       66.05       70.12       69.74       71.10       64.65       70.90       66.39       59.98       59.29
+        bloodmnist           53.96       48.59       59.70       56.88       56.30       62.87       62.06       49.28       45.71       49.80
+        organsmnist          35.66       38.00       34.19       31.06       37.95       38.91       38.10       26.70       30.45       33.09
+        tissuemnist          29.83       31.87       36.21       26.54       36.97       28.70       40.34       38.77       36.99       36.65
+
+====================================================================================================
+  BA  @ ratio 0.02   (all values pp; paired by training seed)
+====================================================================================================
+
+  tdgs_cls - graph_a2
+    round-1 headline, re-measured at n=5 / 5%
+    pooled  +1.57  (sd 2.40, se 0.48, n=25 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.71  (n=20)
+    sign: 5/5 datasets, 16/25 cells  (dataset sign test p=0.062)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) +1.11  bloodm(26.5%) +1.04  organa(42.4%) +0.47  organs(53.8%) +0.22  tissue(66.1%) +5.01
+    Spearman(cross-class share, effect) = +0.00   (mechanism predicts strongly positive for mask-based arms)
+
+  a2_perclass - graph_a2
+    P0-a: does the AUTHOR'S per-class scope already get the gain?
+    pooled  +0.09  (sd 2.35, se 0.61, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.32  (n=12)
+    sign: 2/5 datasets, 7/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -0.45  bloodm(26.5%) +1.90  organa(42.4%) -0.20  organs(53.8%) +0.03  tissue(66.1%) -0.82
+    Spearman(cross-class share, effect) = -0.30   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls - a2_perclass
+    P0-a: is the lam blend better than pure per-class scope?
+    pooled  +1.66  (sd 3.60, se 0.93, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.49  (n=12)
+    sign: 4/5 datasets, 9/15 cells  (dataset sign test p=0.375)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) +0.87  bloodm(26.5%) -0.18  organa(42.4%) +0.44  organs(53.8%) +0.83  tissue(66.1%) +6.37
+    Spearman(cross-class share, effect) = +0.40   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_mask - graph_a2
+    P0-b factorial: MASK main effect
+    pooled  +1.33  (sd 4.16, se 1.07, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.65  (n=12)
+    sign: 2/5 datasets, 8/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -0.53  bloodm(26.5%) +4.82  organa(42.4%) -0.51  organs(53.8%) -1.16  tissue(66.1%) +4.05
+    Spearman(cross-class share, effect) = +0.00   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_wcls - graph_a2
+    P0-b factorial: class-flat WEIGHT main effect
+    pooled  -1.17  (sd 4.34, se 1.12, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.07  (n=12)
+    sign: 1/5 datasets, 5/15 cells  (dataset sign test p=0.375)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -0.90  bloodm(26.5%) +2.57  organa(42.4%) -0.67  organs(53.8%) -0.74  tissue(66.1%) -6.11
+    Spearman(cross-class share, effect) = -0.40   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls - tdgs_mask
+    P0-b factorial: weight effect given mask
+    pooled  +0.43  (sd 3.91, se 1.01, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.16  (n=12)
+    sign: 4/5 datasets, 11/15 cells  (dataset sign test p=0.375)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) +0.96  bloodm(26.5%) -3.11  organa(42.4%) +0.75  organs(53.8%) +2.02  tissue(66.1%) +1.50
+    Spearman(cross-class share, effect) = +0.60   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls - tdgs_wcls
+    P0-b factorial: mask effect given weight
+    pooled  +2.93  (sd 5.72, se 1.48, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.74  (n=12)
+    sign: 4/5 datasets, 10/15 cells  (dataset sign test p=0.375)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) +1.33  bloodm(26.5%) -0.86  organa(42.4%) +0.91  organs(53.8%) +1.60  tissue(66.1%)+11.66
+    Spearman(cross-class share, effect) = +0.70   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls - tdgs_cls_perm
+    P1-a: THE NULL. If ~0, the win is not the within-class geometry.
+    pooled  +1.44  (sd 4.14, se 1.07, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  -0.10  (n=12)
+    sign: 4/5 datasets, 11/15 cells  (dataset sign test p=0.375)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) +0.27  bloodm(26.5%) -2.64  organa(42.4%) +0.83  organs(53.8%) +1.16  tissue(66.1%) +7.57
+    Spearman(cross-class share, effect) = +0.90   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls_perm - graph_a2
+    P1-a: how much does confining credit buy with geometry destroyed?
+    pooled  +0.32  (sd 3.23, se 0.83, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.91  (n=12)
+    sign: 2/5 datasets, 9/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) +0.16  bloodm(26.5%) +4.35  organa(42.4%) -0.59  organs(53.8%) -0.30  tissue(66.1%) -2.02
+    Spearman(cross-class share, effect) = -0.80   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_lam1 - tdgs_cls
+    P1-b: is the global term dead weight?
+    pooled  -0.52  (sd 3.09, se 0.80, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  -0.61  (n=12)
+    sign: 2/5 datasets, 7/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -3.30  bloodm(26.5%) +2.93  organa(42.4%) +0.47  organs(53.8%) -2.54  tissue(66.1%) -0.18
+    Spearman(cross-class share, effect) = +0.10   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_lam1 - graph_a2
+    P1-b: pure class-compatible coverage vs author
+    pooled  +1.23  (sd 3.93, se 1.01, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.20  (n=12)
+    sign: 3/5 datasets, 8/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -2.87  bloodm(26.5%) +4.65  organa(42.4%) +0.71  organs(53.8%) -1.68  tissue(66.1%) +5.37
+    Spearman(cross-class share, effect) = +0.60   (mechanism predicts strongly positive for mask-based arms)
+
+====================================================================================================
+  WORST  @ ratio 0.02   (all values pp; paired by training seed)
+====================================================================================================
+
+  tdgs_cls - graph_a2
+    round-1 headline, re-measured at n=5 / 5%
+    pooled  +2.31  (sd 6.32, se 1.26, n=25 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +1.10  (n=20)
+    sign: 4/5 datasets, 15/25 cells  (dataset sign test p=0.375)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -2.52  bloodm(26.5%) +2.35  organa(42.4%) +2.29  organs(53.8%) +2.29  tissue(66.1%) +7.15
+    Spearman(cross-class share, effect) = +0.60   (mechanism predicts strongly positive for mask-based arms)
+
+  a2_perclass - graph_a2
+    P0-a: does the AUTHOR'S per-class scope already get the gain?
+    pooled  -0.61  (sd 6.42, se 1.66, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  -1.54  (n=12)
+    sign: 2/5 datasets, 7/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -1.27  bloodm(26.5%) -6.10  organa(42.4%) -3.22  organs(53.8%) +4.42  tissue(66.1%) +3.11
+    Spearman(cross-class share, effect) = +0.60   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls - a2_perclass
+    P0-a: is the lam blend better than pure per-class scope?
+    pooled  +4.15  (sd 8.21, se 2.12, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +3.09  (n=12)
+    sign: 3/5 datasets, 11/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -0.24  bloodm(26.5%) +7.71  organa(42.4%) +5.33  organs(53.8%) -0.44  tissue(66.1%) +8.41
+    Spearman(cross-class share, effect) = +0.30   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_mask - graph_a2
+    P0-b factorial: MASK main effect
+    pooled  +2.69  (sd 5.52, se 1.43, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +1.50  (n=12)
+    sign: 4/5 datasets, 9/15 cells  (dataset sign test p=0.375)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -0.48  bloodm(26.5%) +5.01  organa(42.4%) +0.85  organs(53.8%) +0.61  tissue(66.1%) +7.45
+    Spearman(cross-class share, effect) = +0.60   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_wcls - graph_a2
+    P0-b factorial: class-flat WEIGHT main effect
+    pooled  -0.29  (sd 6.90, se 1.78, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.19  (n=12)
+    sign: 3/5 datasets, 5/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) +0.63  bloodm(26.5%) +2.19  organa(42.4%) +0.47  organs(53.8%) -2.52  tissue(66.1%) -2.23
+    Spearman(cross-class share, effect) = -0.80   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls - tdgs_mask
+    P0-b factorial: weight effect given mask
+    pooled  +0.86  (sd 6.40, se 1.65, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.05  (n=12)
+    sign: 3/5 datasets, 9/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -1.03  bloodm(26.5%) -3.40  organa(42.4%) +1.27  organs(53.8%) +3.37  tissue(66.1%) +4.07
+    Spearman(cross-class share, effect) = +0.90   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls - tdgs_wcls
+    P0-b factorial: mask effect given weight
+    pooled  +3.83  (sd 10.26, se 2.65, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +1.36  (n=12)
+    sign: 3/5 datasets, 10/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -2.14  bloodm(26.5%) -0.58  organa(42.4%) +1.64  organs(53.8%) +6.49  tissue(66.1%)+13.74
+    Spearman(cross-class share, effect) = +1.00   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls - tdgs_cls_perm
+    P1-a: THE NULL. If ~0, the win is not the within-class geometry.
+    pooled  +3.19  (sd 8.27, se 2.14, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +1.09  (n=12)
+    sign: 3/5 datasets, 11/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) +5.54  bloodm(26.5%) -6.56  organa(42.4%) +6.73  organs(53.8%) -1.36  tissue(66.1%)+11.58
+    Spearman(cross-class share, effect) = +0.50   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_cls_perm - graph_a2
+    P1-a: how much does confining credit buy with geometry destroyed?
+    pooled  +0.36  (sd 6.96, se 1.80, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.46  (n=12)
+    sign: 2/5 datasets, 8/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -7.05  bloodm(26.5%) +8.18  organa(42.4%) -4.62  organs(53.8%) +5.33  tissue(66.1%) -0.06
+    Spearman(cross-class share, effect) = +0.30   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_lam1 - tdgs_cls
+    P1-b: is the global term dead weight?
+    pooled  +0.57  (sd 5.44, se 1.40, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +0.70  (n=12)
+    sign: 3/5 datasets, 7/15 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -3.01  bloodm(26.5%) +5.76  organa(42.4%) -0.48  organs(53.8%) +0.54  tissue(66.1%) +0.07
+    Spearman(cross-class share, effect) = +0.30   (mechanism predicts strongly positive for mask-based arms)
+
+  tdgs_lam1 - graph_a2
+    P1-b: pure class-compatible coverage vs author
+    pooled  +4.12  (sd 6.57, se 1.70, n=15 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  +2.25  (n=12)
+    sign: 4/5 datasets, 12/15 cells  (dataset sign test p=0.375)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -4.51  bloodm(26.5%) +7.37  organa(42.4%) +1.63  organs(53.8%) +4.52  tissue(66.1%)+11.58
+    Spearman(cross-class share, effect) = +0.70   (mechanism predicts strongly positive for mask-based arms)
+
+====================================================================================================
+  2x2 FACTORIAL on BA @ ratio 0.02
+====================================================================================================
+  dataset              a2     mask     wcls      cls  mask_eff   wt_eff    inter
+  pathmnist         81.60    82.20    81.84    82.71     +0.61    +0.24    +0.26
+  organamnist       86.96    86.67    86.52    87.43     -0.28    -0.44    +1.19
+  bloodmnist        81.30    85.67    83.43    82.34     +4.38    +2.13    -5.46
+  organsmnist       63.41    61.95    62.38    63.62     -1.45    -1.03    +2.70
+  tissuemnist       42.78    46.91    36.75    47.79     +4.13    -6.02    +6.91
+
+  mean interaction +1.12pp. A large positive interaction means the two corrections are NOT separable --
+  credit must be confined AND reweighted -- which is a stronger claim than either main effect alone.
+
+====================================================================================================
+  2x2 FACTORIAL on WORST @ ratio 0.02
+====================================================================================================
+  dataset              a2     mask     wcls      cls  mask_eff   wt_eff    inter
+  pathmnist         42.09    40.62    41.73    39.57     -1.47    -0.36    -0.68
+  organamnist       68.81    70.12    69.74    71.10     +1.30    +0.92    +0.07
+  bloodmnist        53.96    59.70    56.88    56.30     +5.75    +2.92    -6.32
+  organsmnist       35.66    34.19    31.06    37.95     -1.47    -4.60    +8.36
+  tissuemnist       29.83    36.21    26.54    36.97     +6.38    -3.29    +4.06
+
+  mean interaction +1.10pp. A large positive interaction means the two corrections are NOT separable --
+  credit must be confined AND reweighted -- which is a stronger claim than either main effect alone.
+
+
+####################################################################################################
+#  RATIO 0.05
+####################################################################################################
+
+  per-arm means (BA %, then worst-class recall %)
+
+  [ba] dataset           graph_a2 a2_perclass   tdgs_mask   tdgs_wcls    tdgs_cls tdgs_cls_pe   tdgs_lam1      tdgs_d     tdgs_du   tdgs_perm
+        pathmnist            86.73          --          --          --       85.77          --          --          --          --          --
+        organamnist          91.76          --          --          --       90.81          --          --          --          --          --
+        bloodmnist           92.73          --          --          --       93.41          --          --          --          --          --
+        organsmnist          67.45          --          --          --       66.51          --          --          --          --          --
+        tissuemnist          44.40          --          --          --       48.54          --          --          --          --          --
+
+  [worst] dataset           graph_a2 a2_perclass   tdgs_mask   tdgs_wcls    tdgs_cls tdgs_cls_pe   tdgs_lam1      tdgs_d     tdgs_du   tdgs_perm
+        pathmnist            43.09          --          --          --       40.81          --          --          --          --          --
+        organamnist          78.94          --          --          --       73.07          --          --          --          --          --
+        bloodmnist           76.10          --          --          --       76.61          --          --          --          --          --
+        organsmnist          38.06          --          --          --       31.56          --          --          --          --          --
+        tissuemnist          34.82          --          --          --       40.03          --          --          --          --          --
+
+====================================================================================================
+  BA  @ ratio 0.05   (all values pp; paired by training seed)
+====================================================================================================
+
+  tdgs_cls - graph_a2
+    round-1 headline, re-measured at n=5 / 5%
+    pooled  +0.39  (sd 2.47, se 0.49, n=25 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  -0.55  (n=20)
+    sign: 2/5 datasets, 11/25 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -0.96  bloodm(26.5%) +0.68  organa(42.4%) -0.96  organs(53.8%) -0.94  tissue(66.1%) +4.13
+    Spearman(cross-class share, effect) = +0.70   (mechanism predicts strongly positive for mask-based arms)
+
+====================================================================================================
+  WORST  @ ratio 0.05   (all values pp; paired by training seed)
+====================================================================================================
+
+  tdgs_cls - graph_a2
+    round-1 headline, re-measured at n=5 / 5%
+    pooled  -1.78  (sd 6.79, se 1.36, n=25 cells over 5 datasets -- effective dataset N is 2-3, not 5)
+    pooled EXCLUDING tissuemnist  -3.53  (n=20)
+    sign: 2/5 datasets, 10/25 cells  (dataset sign test p=1.000)
+    per dataset (ordered by cross-class edge share): pathmn(2.5%) -2.28  bloodm(26.5%) +0.52  organa(42.4%) -5.87  organs(53.8%) -6.50  tissue(66.1%) +5.21
+    Spearman(cross-class share, effect) = +0.10   (mechanism predicts strongly positive for mask-based arms)
+
+====================================================================================================
+  2x2 FACTORIAL on BA @ ratio 0.05
+====================================================================================================
+  incomplete: missing ['tdgs_mask', 'tdgs_wcls']
+
+====================================================================================================
+  2x2 FACTORIAL on WORST @ ratio 0.05
+====================================================================================================
+  incomplete: missing ['tdgs_mask', 'tdgs_wcls']
+
+====================================================================================================
+  PRE-REGISTERED GATES (written before round 2 ran; read these, not the p-values)
+====================================================================================================
+  G1  KILL GATE.  If (a2_perclass - graph_a2) recovers >= 60% of
+      (tdgs_cls - graph_a2) on >= 3/5 datasets, then tdgs_cls sits inside the
+      author's own compare_global.py ablation cell and is NOT a contribution.
+      Consequence: drop the coverage-alignment framing, keep only the Act-2
+      flatness result, and the paper becomes a negative/diagnostic paper.
+
+  G2  NULL GATE.  If (tdgs_cls - tdgs_cls_perm) <= 0 pooled, the win comes from
+      confining credit within class AT ALL, not from within-class kNN geometry.
+      That is still publishable but must be described that way -- it makes the
+      method a class-scoping correction, not a graph method.
+
+  G3  FACTORIAL GATE.  If the mask main effect is >= 3x the weight main effect,
+      report the method as class-compatible coverage and demote the weighting to
+      an implementation detail. If they are comparable, both are required and the
+      interaction term decides whether they are separable.
+
+  G4  POWER GATE.  The headline (tdgs_cls - graph_a2) must survive at n=5 seeds
+      AND at ratio 0.05 with the same sign on >= 4/5 datasets. If it holds only
+      at 2%, the claim is budget-specific and the abstract must say so.
+
+  G5  TISSUE GATE.  If excluding tissuemnist drops the pooled effect below
+      +0.5pp, the honest headline is "one dataset, mechanistically predicted"
+      plus a 5-dataset directional trend -- NOT a 5-dataset mean improvement.
+====================================================================================================
+

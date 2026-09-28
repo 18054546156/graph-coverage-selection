@@ -1,0 +1,2 @@
+host=hpcgpu111.ln.edu.hk ds=pathmnist ratio=0.02 start=2026-09-28T17:58:24+08:00
+slurmstepd-hpcgpu111: error: *** JOB 35232 ON hpcgpu111 CANCELLED AT 2026-09-28T18:01:24 ***

@@ -1,0 +1,7 @@
+host=hpcgpu111.ln.edu.hk start=2026-09-28T18:24:47+08:00
+260 checkpoints; todo per ds: {'bloodmnist': 52, 'organamnist': 52, 'organsmnist': 52, 'pathmnist': 52, 'tissuemnist': 52}
+
+[bloodmnist] val (1712, 3, 224, 224) C=8 load 2s
+  CHECK bloodmnist: labels=True argmax=True max|dlogit|=1.92e-02
+fidelity check failed on /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/round2_20260927/formal/ratio_0.02/bloodmnist/a2_perclass/seed_42/results/bloodmnist/precomputed/ratio_0.02/selection_seed_42/train_seed_42/aug_0/final.pt
+end=2026-09-28T18:25:01+08:00

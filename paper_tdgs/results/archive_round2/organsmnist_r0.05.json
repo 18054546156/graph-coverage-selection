@@ -1,0 +1,43 @@
+{
+  "dataset": "organsmnist",
+  "ratio": 0.05,
+  "n": 13932,
+  "C": 11,
+  "bpc": 63,
+  "lam": 0.5,
+  "k_neighbors": 50,
+  "k_hops": 2,
+  "embedding": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/organsmnist_train_uni_224.npz",
+  "proxy": {
+    "oof_ba": 0.8399948993839771,
+    "insample_acc": 0.9346827447602641,
+    "proxy_worst": 2,
+    "proxy_partner": 1,
+    "final_worst": 4,
+    "final_partner": null,
+    "worst_match": false,
+    "partner_match": true
+  },
+  "arms": [
+    {
+      "arm": "graph_a2",
+      "n": 693,
+      "lam": 0.0,
+      "gain_first": 0.010872009145131756,
+      "gain_last": 3.77548931282945e-05
+    },
+    {
+      "arm": "tdgs_cls",
+      "n": 693,
+      "lam": 0.5,
+      "gain_first": 0.01123677553452751,
+      "gain_last": 8.832095954858232e-05
+    }
+  ],
+  "jaccard": {
+    "graph_a2|graph_a2": 1.0,
+    "graph_a2|tdgs_cls": 0.2430493273542601,
+    "tdgs_cls|graph_a2": 0.2430493273542601,
+    "tdgs_cls|tdgs_cls": 1.0
+  }
+}

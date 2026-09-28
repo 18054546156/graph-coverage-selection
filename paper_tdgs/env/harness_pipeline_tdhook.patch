@@ -1,0 +1,385 @@
+diff --git a/reliability_medmnistc/reliability/pipeline.py b/reliability_medmnistc/reliability/pipeline.py
+index 010ec53..f1fe346 100644
+--- a/reliability_medmnistc/reliability/pipeline.py
++++ b/reliability_medmnistc/reliability/pipeline.py
+@@ -6,6 +6,7 @@ without modification. The command wrappers select a phase through ``PHASE``.
+ 
+ from pathlib import Path
+ import csv
++import fcntl
+ import hashlib
+ import json
+ import math
+@@ -28,6 +29,14 @@ GRAPH_ROOT = Path(os.environ.get("GRAPH_ROOT", str(PREP))).resolve()
+ MEDC_ROOT = Path(os.environ.get("MEDC_ROOT", str(PREP / "third_party" / "medmnistc"))).resolve()
+ DATA_ROOT = Path(os.environ.get("MEDMNIST_ROOT", str(PREP / "medmnist_data"))).resolve()
+ CORR_ROOT = Path(os.environ.get("MEDMNISTC_ROOT", str(PREP / "medmnistc_data"))).resolve()
++TRAIN_SOURCE = os.environ.get("TRAIN_SOURCE", "clean").strip().lower()
++if TRAIN_SOURCE not in {"clean", "corrupted"}:
++    raise ValueError("TRAIN_SOURCE must be clean or corrupted")
++TRAIN_CORRUPTION = os.environ.get("TRAIN_CORRUPTION", "pixelate").strip()
++TRAIN_SEVERITY = int(os.environ.get("TRAIN_SEVERITY", "3"))
++if not 1 <= TRAIN_SEVERITY <= 5:
++    raise ValueError("TRAIN_SEVERITY must be in [1, 5]")
++TRAIN_ON_CORRUPTED = os.environ.get("TRAIN_ON_CORRUPTED", "0") == "1"
+ OUT = Path(os.environ.get("RELIABILITY_OUT", str(PREP / "full_run_outputs"))).resolve()
+ CACHE_ROOT = Path(os.environ.get("GRAPH_CACHE", str(PREP / "graph_cache"))).resolve()
+ SELECTION_OUT = Path(os.environ.get("SELECTION_OUT", str(OUT / "selections"))).resolve()
+@@ -48,10 +57,31 @@ BATCH_SIZE = int(os.environ.get("BATCH_SIZE", "256"))
+ NUM_WORKERS = int(os.environ.get("NUM_WORKERS", "4"))
+ EMBEDDING_SOURCE = os.environ.get("EMBEDDING_SOURCE", "uni")
+ AUGMENT = os.environ.get("AUGMENT", "0") == "1"
++# Training determinism. train_model() previously hardcoded
++# set_seed(seed, deterministic=False), which leaves cudnn.benchmark on and
++# permits nondeterministic kernels. Measured consequence: re-running an
++# identical (selection sha256, training seed, config) cell across trees
++# produced clean-BA spreads of 5.8pp (random) to 8.7pp (forgetting) -- replicate
++# noise larger than the effects being measured.
++#
++# The opt-in knob is deliberately NOT named DETERMINISTIC: several existing
++# launchers already `export DETERMINISTIC=1` as dead code (nothing read it), so
++# binding to that name would silently flip protocol the next time any of those
++# scripts is resubmitted, including other users' in-flight jobs. A new name
++# makes every opt-in explicit and greppable. Costs ~10-50% wall clock.
++DETERMINISTIC = os.environ.get("DETERMINISTIC_TRAINING", "0") == "1"
++if not DETERMINISTIC and os.environ.get("DETERMINISTIC", "0") == "1":
++    print(
++        "WARNING: DETERMINISTIC=1 is set but has no effect -- it was never read "
++        "by this pipeline. Training remains nondeterministic (measured replicate "
++        "spread 5.8-8.7pp). Set DETERMINISTIC_TRAINING=1 to actually enable it.",
++        file=sys.stderr, flush=True,
++    )
+ SIZE = int(os.environ.get("IMAGE_SIZE", "224"))
+ SMOKE_N = int(os.environ.get("SMOKE_N", "0"))
+ RUN_FULL_TRAIN = os.environ.get("RUN_FULL_TRAIN", "1") == "1"
+ CORR_HASH = os.environ.get("CORR_HASH", "0") == "1"
++CLEAN_ONLY = os.environ.get("CLEAN_ONLY", "0") == "1"
+ AUTO_CONSOLIDATE = os.environ.get("AUTO_CONSOLIDATE", "1") == "1"
+ ALLOW_MISSING_CLASSES = os.environ.get("ALLOW_MISSING_CLASSES", "0") == "1"
+ EXPECTED_GRAPHCOV_COMMIT = os.environ.get(
+@@ -76,6 +106,12 @@ DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+ CACHE = CACHE_ROOT / (
+     f"img{SIZE}_dyn{DYNAMICS_EPOCHS}_sel{SELECTION_SEED}_smoke{SMOKE_N or 'full'}"
+ )
++# Pretrained embeddings do not depend on the selection seed. Keep them in a
++# shared namespace so paired-seed jobs reuse one exact extraction. Dynamics
++# remain in CACHE because they are seed-dependent.
++EMBEDDING_CACHE = CACHE_ROOT / (
++    f"embeddings_img{SIZE}_smoke{SMOKE_N or 'full'}"
++)
+ 
+ OUT.mkdir(parents=True, exist_ok=True)
+ CACHE.mkdir(parents=True, exist_ok=True)
+@@ -85,6 +121,8 @@ VERIFIED_SOURCE_FILES = {}
+ 
+ 
+ def parse_corruptions(name):
++    if CLEAN_ONLY:
++        return []
+     available = list(CORRUPTIONS_DS[name].keys())
+     requested = os.environ.get("CORRUPTIONS", "").strip()
+     if not requested:
+@@ -191,6 +229,10 @@ print({
+     "datasets": DATASETS, "methods": METHODS, "ratios": RATIOS,
+     "selection_seed": SELECTION_SEED, "training_seeds": TRAINING_SEEDS,
+     "epochs": EPOCHS, "augment": AUGMENT, "smoke_n": SMOKE_N,
++        "deterministic": DETERMINISTIC,
++        "clean_only": CLEAN_ONLY,
++    "train_source": TRAIN_SOURCE, "train_corruption": TRAIN_CORRUPTION,
++    "train_severity": TRAIN_SEVERITY, "train_on_corrupted": TRAIN_ON_CORRUPTED,
+ })
+ 
+ 
+@@ -210,6 +252,53 @@ from graphcov.run import selection as graphcov_selection
+ from graphcov.run.selection import get_available_methods
+ from graphcov.run.embeddings import ResNet18WithFeatures
+ from graphcov.run.evaluation import train_one_epoch, set_seed
++
++# >>> TD-COVER RUNTIME HOOK (2026-09-25) -- added outside graphcov/ on purpose.
++# Registers one extra selector into the in-memory METHODS registry. No file
++# under graphcov/ is modified, so assert_graphcov_source_unchanged() still
++# passes and every published method behaves exactly as before.
++#
++# The TD-Cover arms compute their picks offline (gamma_beta_gate/td_cover.py)
++# and stage them as .npy. This loader replays them, so the graph_a2 baseline and
++# every TD-Cover arm reach the trainer through an identical code path and cannot
++# differ by harness rather than by which images were chosen.
++def _register_precomputed_selector():
++    import os as _os
++    import numpy as _np
++
++    @graphcov_selection.register_method(
++        'precomputed', needs=set(), importance='ignore',
++        description="Load selection indices from $TD_SEL_FILE (.npy)")
++    # importance defaults to None: select() omits the argument entirely for
++    # methods registered with importance='ignore', so it must not be positional.
++    def _select_precomputed(labels, budget_per_class, importance=None,
++                            seed=42, verbose=False, _verbose_level=1, **kwargs):
++        path = _os.environ.get("TD_SEL_FILE", "")
++        if not path or not _os.path.exists(path):
++            raise FileNotFoundError(f"TD_SEL_FILE not set or missing: {path!r}")
++        idx = _np.load(path).astype(int).ravel().tolist()
++
++        # Fail loudly rather than silently train a different budget: a mismatch
++        # would confound the arm comparison with a budget change, which is the
++        # one thing this screen holds fixed.
++        n_classes = len(_np.unique(labels))
++        expected = budget_per_class * n_classes
++        if len(idx) != expected:
++            raise ValueError(f"{path}: {len(idx)} indices, expected {expected} "
++                             f"({budget_per_class}/class x {n_classes} classes)")
++        if len(set(idx)) != len(idx):
++            raise ValueError(f"{path}: duplicate indices")
++        counts = _np.bincount(_np.asarray(labels)[idx], minlength=n_classes)
++        if not _np.all(counts == budget_per_class):
++            raise ValueError(f"{path}: per-class counts {counts.tolist()} != "
++                             f"{budget_per_class} each")
++        print(f"  [precomputed] loaded {len(idx)} indices from {path}", flush=True)
++        return idx
++
++
++_register_precomputed_selector()
++# <<< TD-COVER RUNTIME HOOK
++
+ from medmnistc.dataset import CorruptedMedMNIST
+ from medmnistc.corruptions.registry import CORRUPTIONS_DS, DATASET_RGB
+ 
+@@ -243,10 +332,52 @@ print("MedMNIST-C commit:", git_commit(MEDC_ROOT))
+ 
+ 
+ # ---------- data and corruption integrity ----------
+-def load_med(name, split, size=SIZE):
++class CorruptedViewDataset(torch.utils.data.Dataset):
++    """Deterministic on-the-fly train view; keeps clean and corrupted IDs aligned."""
++
++    def __init__(self, base, transform, dataset_name, corruption, severity):
++        self.base = base
++        self.imgs = base.imgs
++        self.labels = base.labels
++        self.transform = transform
++        self.dataset_name = dataset_name
++        self.corruptor = CORRUPTIONS_DS[dataset_name][corruption]
++        self.severity = int(severity) - 1
++
++    def __len__(self):
++        return len(self.labels)
++
++    def __getitem__(self, index):
++        image = Image.fromarray(np.asarray(self.imgs[index])).convert("RGB")
++        image = self.corruptor.apply(image, self.severity)
++        if not DATASET_RGB[self.dataset_name]:
++            image = Image.fromarray(image).convert("L")
++        if self.transform is not None:
++            image = self.transform(image)
++        # Match MedMNIST's label shape so GraphCov embedding workers can use
++        # both scalar and array-label code paths consistently.
++        return image, np.asarray(self.labels[index]).reshape(-1)
++
++
++def load_med(name, split, size=SIZE, source_override=None):
+     info = INFO[name]
+     dataset_class = getattr(__import__("medmnist", fromlist=[info["python_class"]]), info["python_class"])
+     download = os.environ.get("DOWNLOAD_MEDMNIST", "0") == "1"
++    source = TRAIN_SOURCE if source_override is None and split == "train" else (source_override or "clean")
++    if split == "train" and source == "corrupted":
++        base = dataset_class(
++            split=split, transform=None, download=download, size=size,
++            root=str(DATA_ROOT), as_rgb=True,
++        )
++        if TRAIN_CORRUPTION not in CORRUPTIONS_DS[name]:
++            raise RuntimeError(
++                f"{TRAIN_CORRUPTION!r} is not available for {name}; "
++                f"available={sorted(CORRUPTIONS_DS[name])}"
++            )
++        return CorruptedViewDataset(
++            base, get_transform(info["n_channels"], size), name,
++            TRAIN_CORRUPTION, TRAIN_SEVERITY,
++        ), info
+     dataset = dataset_class(
+         split=split, transform=get_transform(info["n_channels"], size),
+         download=download, size=size, root=str(DATA_ROOT),
+@@ -439,15 +570,23 @@ def get_selection_data(name, train_224, train_28, info):
+     embeddings = None
+     sources = {}
+     if needs_embedding:
+-        embedding_data = load_or_compute_embeddings(
+-            name, "train", EMBEDDING_SOURCE, train_224, len(info["label"]),
+-            info["n_channels"], size=SIZE, seed=SELECTION_SEED,
+-            cache_dir=CACHE, verbose=True,
+-        )
++        EMBEDDING_CACHE.mkdir(parents=True, exist_ok=True)
++        lock_path = EMBEDDING_CACHE / f".{name}_{EMBEDDING_SOURCE}.lock"
++        # Two paired-seed jobs can start together. Serialize only the
++        # seed-independent extraction for this dataset; different datasets
++        # still run concurrently.
++        with lock_path.open("a+") as lock:
++            fcntl.flock(lock.fileno(), fcntl.LOCK_EX)
++            embedding_data = load_or_compute_embeddings(
++                name, "train", EMBEDDING_SOURCE, train_224, len(info["label"]),
++                info["n_channels"], size=SIZE, seed=SELECTION_SEED,
++                cache_dir=EMBEDDING_CACHE, verbose=True,
++            )
++            fcntl.flock(lock.fileno(), fcntl.LOCK_UN)
+         embeddings = np.asarray(embedding_data["embeddings"])
+         embedding_cache = get_cache_path(
+             name, "train", EMBEDDING_SOURCE, SIZE, SELECTION_SEED,
+-            cache_dir=CACHE,
++            cache_dir=EMBEDDING_CACHE,
+         )
+         sources["embedding"] = {
+             "source": EMBEDDING_SOURCE,
+@@ -577,6 +716,9 @@ def save_selection_artifact(name, method, ratio, local_indices, source_train_ind
+         "graph_global": GRAPH_GLOBAL if method == "graph_a2" else None,
+         "graph_k": GRAPH_K if method == "graph_a2" else None,
+         "graph_hops": GRAPH_HOPS if method == "graph_a2" else None,
++        "selection_train_source": TRAIN_SOURCE,
++        "selection_train_corruption": TRAIN_CORRUPTION if TRAIN_SOURCE == "corrupted" else None,
++        "selection_train_severity": TRAIN_SEVERITY if TRAIN_SOURCE == "corrupted" else None,
+     })
+     os.replace(staging, directory)
+     return original_indices
+@@ -608,6 +750,17 @@ def load_selection_artifact(name, method, ratio, source_train_indices, labels, i
+     for key, expected in expected_scalars.items():
+         if config.get(key) != expected:
+             raise RuntimeError(f"selection config {key} mismatch at {directory}: {config.get(key)!r} != {expected!r}")
++    expected_source = TRAIN_SOURCE
++    if config.get("selection_train_source", "clean") != expected_source:
++        raise RuntimeError(
++            f"selection train source mismatch at {directory}: "
++            f"{config.get('selection_train_source')!r} != {expected_source!r}"
++        )
++    if expected_source == "corrupted":
++        if config.get("selection_train_corruption") != TRAIN_CORRUPTION:
++            raise RuntimeError(f"selection corruption mismatch at {directory}")
++        if int(config.get("selection_train_severity", -1)) != TRAIN_SEVERITY:
++            raise RuntimeError(f"selection severity mismatch at {directory}")
+     if not math.isclose(float(config.get("ratio", float("nan"))), ratio, rel_tol=1e-9, abs_tol=1e-12):
+         raise RuntimeError(f"selection ratio mismatch at {directory}")
+     expected_source_keys = set()
+@@ -716,7 +869,17 @@ def save_run_rows(path, rows):
+ 
+ 
+ def run_config(name, method, ratio_label, ratio_value, train_seed, n_selected, budget, corruptions, selection_sha256):
++    # NOTE on "deterministic": this dict is hashed into config_hash, which
++    # gates checkpoint reuse. The key is therefore emitted ONLY when
++    # DETERMINISTIC=1. Emitting it unconditionally would change config_hash
++    # for every legacy run and invalidate every existing checkpoint on resume.
++    # Conditional emission gives the behaviour we actually want: legacy runs
++    # keep their hash, while a deterministic run hashes differently because it
++    # genuinely is a different training protocol and must not be pooled with
++    # nondeterministic replicates.
++    deterministic_fields = {"deterministic": True} if DETERMINISTIC else {}
+     return {
++        **deterministic_fields,
+         "schema_version": 2, "dataset": name, "method": method,
+         "ratio": ratio_label if ratio_value is None else float(ratio_value),
+         "selection_seed": SELECTION_SEED, "training_seed": int(train_seed),
+@@ -724,6 +887,7 @@ def run_config(name, method, ratio_label, ratio_value, train_seed, n_selected, b
+         "budget_per_class": None if budget is None else int(budget),
+         "selection_sha256": selection_sha256,
+         "corruptions": list(corruptions), "severity": [1, 2, 3, 4, 5],
++        "clean_only": CLEAN_ONLY,
+         "image_size": SIZE, "epochs": EPOCHS, "dynamics_image_size": 28,
+         "dynamics_epochs": DYNAMICS_EPOCHS, "batch_size": BATCH_SIZE,
+         "num_workers": NUM_WORKERS, "embedding_source": EMBEDDING_SOURCE,
+@@ -733,6 +897,10 @@ def run_config(name, method, ratio_label, ratio_value, train_seed, n_selected, b
+         "graphcov_commit": EXPECTED_GRAPHCOV_COMMIT, "medmnistc_commit": git_commit(MEDC_ROOT),
+         "python": sys.version, "torch": torch.__version__, "cuda": torch.version.cuda,
+         "allow_missing_classes": ALLOW_MISSING_CLASSES,
++        "selection_train_source": TRAIN_SOURCE,
++        "selection_train_corruption": TRAIN_CORRUPTION if TRAIN_SOURCE == "corrupted" else None,
++        "selection_train_severity": TRAIN_SEVERITY if TRAIN_SOURCE == "corrupted" else None,
++        "training_source": "corrupted" if TRAIN_ON_CORRUPTED else "clean",
+     }
+ 
+ 
+@@ -746,13 +914,26 @@ def model_from_checkpoint(path, num_classes, in_channels, config_hash):
+ 
+ 
+ def train_model(train_ds, selected, num_classes, in_channels, seed, history_path):
+-    set_seed(seed, deterministic=False)
++    set_seed(seed, deterministic=DETERMINISTIC)
+     dataset = train_ds
+     if AUGMENT:
+         dataset = AugmentedDataset(dataset, get_train_transform(in_channels, SIZE))
++    loader_kwargs = {}
++    if DETERMINISTIC:
++        # Pin the shuffle stream to its own generator so the batch order no
++        # longer depends on how much global RNG the surrounding code consumed.
++        # Only under DETERMINISTIC=1 -- attaching a generator unconditionally
++        # would change the sampling stream, and therefore every result, even
++        # in the legacy path.
++        generator = torch.Generator()
++        generator.manual_seed(seed)
++        loader_kwargs["generator"] = generator
++        loader_kwargs["worker_init_fn"] = lambda worker_id: set_seed(
++            seed + worker_id, deterministic=False
++        )
+     loader = DataLoader(
+         Subset(dataset, selected.tolist()), batch_size=BATCH_SIZE, shuffle=True,
+-        num_workers=NUM_WORKERS, pin_memory=True, drop_last=False,
++        num_workers=NUM_WORKERS, pin_memory=True, drop_last=False, **loader_kwargs,
+     )
+     model = ResNet18WithFeatures(num_classes, in_channels, pretrained=False).to(DEVICE)
+     optimizer = torch.optim.SGD(model.parameters(), lr=0.1, momentum=0.9, weight_decay=0.0005)
+@@ -1013,6 +1194,7 @@ def run_one(name, method, ratio_label, ratio_value, train_seed, train_ds, test_d
+         "dataset": name, "method": method, "ratio": ratio_label if ratio_value is None else float(ratio_value),
+         "selection_seed": SELECTION_SEED, "training_seed": train_seed,
+         "augment": int(AUGMENT), "n_selected": int(len(selected_local)),
++        "deterministic": int(DETERMINISTIC),
+         "budget_per_class": None if budget is None else int(budget),
+         "selection_sha256": array_sha256(selected_original),
+         "checkpoint": str(checkpoint_path), "checkpoint_sha256": file_sha256(checkpoint_path),
+@@ -1141,6 +1323,12 @@ if PHASE == "summarize":
+ for dataset_name in DATASETS:
+     print("==========", dataset_name, "==========")
+     train_full, info = load_med(dataset_name, "train", SIZE)
++    # Selection and downstream training can intentionally use different views,
++    # while original IDs and labels remain shared.
++    if TRAIN_SOURCE == "corrupted" and not TRAIN_ON_CORRUPTED:
++        training_full, _ = load_med(dataset_name, "train", SIZE, source_override="clean")
++    else:
++        training_full = train_full
+     test_full, _ = load_med(dataset_name, "test", SIZE)
+     y_train_full = flat_labels(train_full)
+     y_test_full = flat_labels(test_full)
+@@ -1150,10 +1338,11 @@ for dataset_name in DATASETS:
+         train_source_indices = train_source_indices[:min(SMOKE_N, len(train_source_indices))]
+         test_source_indices = test_source_indices[:min(SMOKE_N, len(test_source_indices))]
+     train_ds = limit_dataset(train_full, train_source_indices)
++    training_ds = limit_dataset(training_full, train_source_indices)
+     test_ds = limit_dataset(test_full, test_source_indices)
+     y_train = y_train_full[train_source_indices]
+     corruptions = parse_corruptions(dataset_name)
+-    if PHASE in {"evaluate", "full"}:
++    if PHASE in {"evaluate", "full"} and not CLEAN_ONLY:
+         ensure_corruptions(dataset_name, y_test_full)
+ 
+     selecting = PHASE in {"select", "full"}
+@@ -1168,6 +1357,17 @@ for dataset_name in DATASETS:
+         embeddings, dynamics, selection_sources = get_selection_data(
+             dataset_name, train_ds, train_28_ds, info,
+         )
++        if TRAIN_SOURCE == "corrupted":
++            atomic_write_json(OUT / "_data_manifests" / f"{dataset_name}_train_view.json", {
++                "dataset": dataset_name,
++                "source": "medmnist train split, transformed on the fly",
++                "corruption": TRAIN_CORRUPTION,
++                "severity": TRAIN_SEVERITY,
++                "selection_train_source": TRAIN_SOURCE,
++                "training_source": "corrupted" if TRAIN_ON_CORRUPTED else "clean",
++                "clean_train_labels_sha256": array_sha256(y_train_full),
++                "n_train": int(len(y_train_full)),
++            })
+ 
+     for ratio in RATIOS:
+         chosen = None
+@@ -1192,7 +1392,7 @@ for dataset_name in DATASETS:
+                 continue
+             for train_seed in TRAINING_SEEDS:
+                 run_one(
+-                    dataset_name, method, f"{ratio:g}", ratio, train_seed, train_ds, test_ds,
++                    dataset_name, method, f"{ratio:g}", ratio, train_seed, training_ds, test_ds,
+                     y_test_full, test_source_indices, local_indices, original_indices,
+                     info, budget, corruptions, selection_config,
+                 )

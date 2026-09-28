@@ -1,0 +1,27 @@
+host=hpcgpu109.ln.edu.hk user=xiaoyuxu2 shard=0/3 task=3/5
+worklist=145 cells  stride=15 offset=3  ngpu=2
+exp_root=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/round2_20260927
+sel_dir=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/sel
+start=2026-09-27T23:42:47+08:00
+0, NVIDIA A100 80GB PCIe, 81920 MiB
+1, NVIDIA A100 80GB PCIe, 81920 MiB
+2, NVIDIA A100 80GB PCIe, 81920 MiB
+3, NVIDIA A100 80GB PCIe, 81920 MiB
+4, NVIDIA A100 80GB PCIe, 81920 MiB
+5, NVIDIA A100 80GB PCIe, 81920 MiB
+6, NVIDIA A100 80GB PCIe, 81920 MiB
+7, NVIDIA A100 80GB PCIe, 81920 MiB
+this job owns 10 cells
+[gpu1] ok organsmnist r0.02 tdgs_mask s42  (524s)
+[gpu0] ok organsmnist r0.02 a2_perclass s42  (535s)
+[gpu1] ok organsmnist r0.02 tdgs_cls_perm s42  (557s)
+[gpu0] ok organsmnist r0.02 tdgs_wcls s42  (569s)
+[gpu1] ok organsmnist r0.02 graph_a2 s45  (553s)
+[gpu0] ok organsmnist r0.02 tdgs_lam1 s42  (569s)
+[gpu0] ok organsmnist r0.02 tdgs_cls s46  (567s)
+[gpu1] ok organsmnist r0.05 graph_a2 s44  (1094s)
+[gpu0] ok organsmnist r0.05 tdgs_cls s42  (1097s)
+[gpu0] finished: ok=5 skip=0 fail=0
+[gpu1] ok organsmnist r0.05 tdgs_cls s45  (1096s)
+[gpu1] finished: ok=5 skip=0 fail=0
+shard=0 task=3 done=2026-09-28T00:46:32+08:00

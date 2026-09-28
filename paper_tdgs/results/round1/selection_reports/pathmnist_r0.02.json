@@ -1,0 +1,85 @@
+{
+  "dataset": "pathmnist",
+  "ratio": 0.02,
+  "n": 89996,
+  "C": 9,
+  "bpc": 199,
+  "lam": 0.5,
+  "k_neighbors": 50,
+  "k_hops": 2,
+  "embedding": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/pathmnist_train_uni_224.npz",
+  "proxy": {
+    "oof_ba": 0.9973934583329697,
+    "insample_acc": 0.9988443930841371,
+    "proxy_worst": 7,
+    "proxy_partner": 2,
+    "final_worst": 7,
+    "final_partner": null,
+    "worst_match": true,
+    "partner_match": true
+  },
+  "arms": [
+    {
+      "arm": "graph_a2",
+      "n": 1791,
+      "lam": 0.0,
+      "gain_first": 0.001895403083179037,
+      "gain_last": 7.533108873758465e-05
+    },
+    {
+      "arm": "tdgs_cls",
+      "n": 1791,
+      "lam": 0.5,
+      "gain_first": 0.0019620446140007353,
+      "gain_last": 8.687141962582245e-05
+    },
+    {
+      "arm": "tdgs_d",
+      "n": 1791,
+      "lam": 0.5,
+      "gain_first": 0.008267529341171365,
+      "gain_last": 5.131200123287272e-05
+    },
+    {
+      "arm": "tdgs_du",
+      "n": 1791,
+      "lam": 0.5,
+      "gain_first": 0.008071782610954124,
+      "gain_last": 5.2912226237822324e-05
+    },
+    {
+      "arm": "tdgs_perm",
+      "n": 1791,
+      "lam": 0.5,
+      "gain_first": 0.006908119889753261,
+      "gain_last": 5.355240136850625e-05
+    }
+  ],
+  "jaccard": {
+    "graph_a2|graph_a2": 1.0,
+    "graph_a2|tdgs_cls": 0.774145616641902,
+    "graph_a2|tdgs_d": 0.18530774321641297,
+    "graph_a2|tdgs_du": 0.18139841688654354,
+    "graph_a2|tdgs_perm": 0.16298701298701299,
+    "tdgs_cls|graph_a2": 0.774145616641902,
+    "tdgs_cls|tdgs_cls": 1.0,
+    "tdgs_cls|tdgs_d": 0.18884832392963824,
+    "tdgs_cls|tdgs_du": 0.18413223140495869,
+    "tdgs_cls|tdgs_perm": 0.16223231667748214,
+    "tdgs_d|graph_a2": 0.18530774321641297,
+    "tdgs_d|tdgs_cls": 0.18884832392963824,
+    "tdgs_d|tdgs_d": 1.0,
+    "tdgs_d|tdgs_du": 0.39540319439033894,
+    "tdgs_d|tdgs_perm": 0.26215644820295986,
+    "tdgs_du|graph_a2": 0.18139841688654354,
+    "tdgs_du|tdgs_cls": 0.18413223140495869,
+    "tdgs_du|tdgs_d": 0.39540319439033894,
+    "tdgs_du|tdgs_du": 1.0,
+    "tdgs_du|tdgs_perm": 0.23008241758241757,
+    "tdgs_perm|graph_a2": 0.16298701298701299,
+    "tdgs_perm|tdgs_cls": 0.16223231667748214,
+    "tdgs_perm|tdgs_d": 0.26215644820295986,
+    "tdgs_perm|tdgs_du": 0.23008241758241757,
+    "tdgs_perm|tdgs_perm": 1.0
+  }
+}

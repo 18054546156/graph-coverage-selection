@@ -1,0 +1,26 @@
+host=hpcgpu109.ln.edu.hk user=danranwang shard=2/3 task=4/5
+worklist=145 cells  stride=15 offset=14  ngpu=2
+exp_root=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/round2_20260927
+sel_dir=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/sel
+start=2026-09-28T04:44:28+08:00
+0, NVIDIA A100 80GB PCIe, 81920 MiB
+1, NVIDIA A100 80GB PCIe, 81920 MiB
+2, NVIDIA A100 80GB PCIe, 81920 MiB
+3, NVIDIA A100 80GB PCIe, 81920 MiB
+4, NVIDIA A100 80GB PCIe, 81920 MiB
+5, NVIDIA A100 80GB PCIe, 81920 MiB
+6, NVIDIA A100 80GB PCIe, 81920 MiB
+7, NVIDIA A100 80GB PCIe, 81920 MiB
+this job owns 9 cells
+[gpu1] ok tissuemnist r0.02 tdgs_mask s44  (5076s)
+[gpu0] ok tissuemnist r0.02 a2_perclass s44  (5414s)
+[gpu1] ok tissuemnist r0.02 tdgs_cls_perm s44  (3462s)
+[gpu0] ok tissuemnist r0.02 tdgs_wcls s44  (4125s)
+[gpu1] ok tissuemnist r0.02 tdgs_cls s45  (2813s)
+[gpu0] ok tissuemnist r0.02 tdgs_lam1 s44  (2933s)
+[gpu1] ok tissuemnist r0.05 graph_a2 s46  (3612s)
+[gpu1] finished: ok=4 skip=0 fail=0
+[gpu0] ok tissuemnist r0.05 graph_a2 s43  (3686s)
+[gpu0] ok tissuemnist r0.05 tdgs_cls s44  (3362s)
+[gpu0] finished: ok=5 skip=0 fail=0
+shard=2 task=4 done=2026-09-28T10:09:49+08:00

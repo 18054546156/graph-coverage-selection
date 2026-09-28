@@ -1,0 +1,47 @@
+arms: ['a2_perclass', 'graph_a2', 'tdgs_cls', 'tdgs_cls_perm', 'tdgs_d', 'tdgs_du', 'tdgs_lam1', 'tdgs_mask', 'tdgs_perm', 'tdgs_wcls']
+ratio 0.02 counts: {'graph_a2': 25, 'tdgs_cls': 25, 'tdgs_d': 15, 'tdgs_du': 15, 'tdgs_perm': 15, 'a2_perclass': 25, 'tdgs_cls_perm': 25, 'tdgs_lam1': 15, 'tdgs_mask': 25, 'tdgs_wcls': 25}
+ratio 0.05 counts: {'graph_a2': 25, 'tdgs_cls': 25}
+
+===== ratio 0.02 ba =====
+      tdgs_cls - graph_a2       r=0.02 ba    n/ds=[5] dsmean +1.57 [+0.21,+3.40] exTis +0.71 sign 5/5 cells 16/25 | pathm +1.11 blood +1.04 organ +0.47 organ +0.22 tissu +5.01
+   a2_perclass - graph_a2       r=0.02 ba    n/ds=[5] dsmean +0.46 [-0.59,+1.70] exTis +0.68 sign 3/5 cells 13/25 | pathm +0.41 blood +2.09 organ +0.50 organ -0.29 tissu -0.40
+      tdgs_cls - a2_perclass    r=0.02 ba    n/ds=[5] dsmean +1.11 [-0.75,+3.48] exTis +0.03 sign 3/5 cells 13/25 | pathm +0.69 blood -1.05 organ -0.03 organ +0.51 tissu +5.41
+     tdgs_mask - graph_a2       r=0.02 ba    n/ds=[5] dsmean +1.41 [-0.50,+3.58] exTis +0.72 sign 4/5 cells 16/25 | pathm +0.25 blood +3.39 organ +0.03 organ -0.78 tissu +4.17
+     tdgs_wcls - graph_a2       r=0.02 ba    n/ds=[5] dsmean -0.43 [-2.56,+1.60] exTis +0.31 sign 2/5 cells 11/25 | pathm +0.55 blood +2.03 organ -0.11 organ -1.21 tissu -3.40
+      tdgs_cls - tdgs_mask      r=0.02 ba    n/ds=[5] dsmean +0.16 [-1.59,+1.47] exTis -0.01 sign 4/5 cells 16/25 | pathm +0.86 blood -2.35 organ +0.44 organ +1.00 tissu +0.84
+      tdgs_cls - tdgs_wcls      r=0.02 ba    n/ds=[5] dsmean +2.00 [-0.60,+5.57] exTis +0.40 sign 4/5 cells 16/25 | pathm +0.56 blood -0.98 organ +0.58 organ +1.42 tissu +8.41
+      tdgs_cls - tdgs_cls_perm  r=0.02 ba    n/ds=[5] dsmean +1.41 [-0.83,+4.14] exTis +0.17 sign 4/5 cells 19/25 | pathm +0.91 blood -1.79 organ +0.83 organ +0.73 tissu +6.35
+ tdgs_cls_perm - graph_a2       r=0.02 ba    n/ds=[5] dsmean +0.16 [-1.24,+1.91] exTis +0.54 sign 2/5 cells 13/25 | pathm +0.20 blood +2.84 organ -0.36 organ -0.52 tissu -1.34
+     tdgs_lam1 - tdgs_cls       r=0.02 ba    n/ds=[3] dsmean -0.52 [-2.74,+1.69] exTis -0.61 sign 2/5 cells 7/15 | pathm -3.30 blood +2.93 organ +0.47 organ -2.54 tissu -0.18
+     tdgs_lam1 - graph_a2       r=0.02 ba    n/ds=[3] dsmean +1.23 [-1.74,+4.29] exTis +0.20 sign 3/5 cells 8/15 | pathm -2.87 blood +4.65 organ +0.71 organ -1.68 tissu +5.37
+     tdgs_lam1 - a2_perclass    r=0.02 ba    n/ds=[3] dsmean +1.14 [-1.52,+4.10] exTis -0.12 sign 3/5 cells 7/15 | pathm -2.43 blood +2.75 organ +0.91 organ -1.72 tissu +6.19
+     tdgs_mask - a2_perclass    r=0.02 ba    n/ds=[5] dsmean +0.95 [-0.71,+3.01] exTis +0.04 sign 2/5 cells 15/25 | pathm -0.16 blood +1.30 organ -0.47 organ -0.49 tissu +4.57
+        tdgs_d - tdgs_cls       r=0.02 ba    n/ds=[3] dsmean -2.51 [-4.05,-0.99] exTis -2.50 sign 0/5 cells 2/15 | pathm -4.22 blood -1.04 organ -0.44 organ -4.28 tissu -2.59
+       tdgs_du - tdgs_perm      r=0.02 ba    n/ds=[3] dsmean -0.20 [-1.75,+1.33] exTis -0.46 sign 3/5 cells 6/15 | pathm -1.48 blood +0.85 organ +0.60 organ -1.80 tissu +0.81
+-- interaction cls - mask - wcls + a2 (common basis) --
+    pathm +0.30(n5) blood -4.38(n5) organ +0.56(n5) organ +2.21(n5) tissu +4.24(n5) | dsmean +0.59
+
+===== ratio 0.05 ba =====
+      tdgs_cls - graph_a2       r=0.05 ba    n/ds=[5] dsmean +0.39 [-1.14,+2.39] exTis -0.55 sign 2/5 cells 11/25 | pathm -0.96 blood +0.68 organ -0.96 organ -0.94 tissu +4.13
+
+===== ratio 0.02 worst =====
+      tdgs_cls - graph_a2       r=0.02 worst n/ds=[5] dsmean +2.31 [-1.07,+5.75] exTis +1.10 sign 4/5 cells 15/25 | pathm -2.52 blood +2.35 organ +2.29 organ +2.29 tissu +7.15
+   a2_perclass - graph_a2       r=0.02 worst n/ds=[5] dsmean -0.07 [-3.10,+2.76] exTis -0.70 sign 2/5 cells 14/25 | pathm -3.18 blood -0.48 organ -1.36 organ +2.25 tissu +2.44
+      tdgs_cls - a2_perclass    r=0.02 worst n/ds=[5] dsmean +2.38 [-0.61,+5.76] exTis +1.80 sign 5/5 cells 17/25 | pathm +0.67 blood +2.83 organ +3.65 organ +0.04 tissu +4.71
+     tdgs_mask - graph_a2       r=0.02 worst n/ds=[5] dsmean +1.99 [-1.91,+5.50] exTis +0.75 sign 4/5 cells 16/25 | pathm -3.56 blood +3.28 organ +2.70 organ +0.58 tissu +6.95
+     tdgs_wcls - graph_a2       r=0.02 worst n/ds=[5] dsmean -0.56 [-4.49,+3.88] exTis -0.37 sign 1/5 cells 10/25 | pathm -0.86 blood +5.39 organ -0.42 organ -5.60 tissu -1.32
+      tdgs_cls - tdgs_mask      r=0.02 worst n/ds=[5] dsmean +0.32 [-2.24,+2.72] exTis +0.35 sign 3/5 cells 13/25 | pathm +1.05 blood -0.93 organ -0.41 organ +1.71 tissu +0.20
+      tdgs_cls - tdgs_wcls      r=0.02 worst n/ds=[5] dsmean +2.87 [-2.50,+8.04] exTis +1.48 sign 3/5 cells 17/25 | pathm -1.66 blood -3.04 organ +2.71 organ +7.89 tissu +8.47
+      tdgs_cls - tdgs_cls_perm  r=0.02 worst n/ds=[5] dsmean +3.18 [-1.93,+7.51] exTis +2.26 sign 4/5 cells 17/25 | pathm +6.18 blood -4.87 organ +6.28 organ +1.46 tissu +6.87
+ tdgs_cls_perm - graph_a2       r=0.02 worst n/ds=[5] dsmean -0.87 [-6.35,+4.21] exTis -1.16 sign 3/5 cells 12/25 | pathm -8.69 blood +7.22 organ -3.99 organ +0.83 tissu +0.27
+     tdgs_lam1 - tdgs_cls       r=0.02 worst n/ds=[3] dsmean +0.57 [-2.52,+4.19] exTis +0.70 sign 3/5 cells 7/15 | pathm -3.01 blood +5.76 organ -0.48 organ +0.54 tissu +0.07
+     tdgs_lam1 - graph_a2       r=0.02 worst n/ds=[3] dsmean +4.12 [-1.12,+8.78] exTis +2.25 sign 4/5 cells 12/15 | pathm -4.51 blood +7.37 organ +1.63 organ +4.52 tissu +11.58
+     tdgs_lam1 - a2_perclass    r=0.02 worst n/ds=[3] dsmean +4.73 [-0.62,+10.75] exTis +3.79 sign 4/5 cells 10/15 | pathm -3.25 blood +13.47 organ +4.84 organ +0.10 tissu +8.47
+     tdgs_mask - a2_perclass    r=0.02 worst n/ds=[5] dsmean +2.06 [-1.49,+5.90] exTis +1.45 sign 3/5 cells 16/25 | pathm -0.38 blood +3.77 organ +4.06 organ -1.67 tissu +4.51
+        tdgs_d - tdgs_cls       r=0.02 worst n/ds=[3] dsmean -5.70 [-9.36,-2.49] exTis -6.75 sign 0/5 cells 3/15 | pathm -4.12 blood -7.02 organ -4.99 organ -10.85 tissu -1.51
+       tdgs_du - tdgs_perm      r=0.02 worst n/ds=[3] dsmean -0.98 [-4.57,+2.04] exTis -1.31 sign 3/5 cells 8/15 | pathm +0.79 blood -4.09 organ +0.69 organ -2.64 tissu +0.34
+-- interaction cls - mask - wcls + a2 (common basis) --
+    pathm +1.90(n5) blood -6.32(n5) organ +0.01(n5) organ +7.31(n5) tissu +1.52(n5) | dsmean +0.88
+
+===== ratio 0.05 worst =====
+      tdgs_cls - graph_a2       r=0.05 worst n/ds=[5] dsmean -1.78 [-6.02,+2.45] exTis -3.53 sign 2/5 cells 10/25 | pathm -2.28 blood +0.52 organ -5.87 organ -6.50 tissu +5.21

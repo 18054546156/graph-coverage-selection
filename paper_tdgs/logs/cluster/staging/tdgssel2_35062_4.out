@@ -1,0 +1,129 @@
+host=hpcgpu107.ln.edu.hk ds=tissuemnist start=2026-09-27T23:30:57+08:00
+
+======================================================================================
+[tissuemnist r=0.02] n=165466 C=8 bpc=413 budget=3304
+  emb <- /project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/tissuemnist_train_uni_224.npz
+======================================================================================
+  global kernel nnz=615.3M (40s)
+  cross-class edge share = 66.06%  (mechanism predicts effect size scales with this)
+  building per-class (block-diagonal) kernel:
+    class 0: n=53075 k=50 nnz=158.73M
+    class 1: n=7814 k=50 nnz=13.05M
+    class 2: n=5866 k=50 nnz=8.17M
+    class 3: n=15406 k=50 nnz=31.25M
+    class 4: n=11789 k=50 nnz=22.30M
+    class 5: n=7705 k=50 nnz=11.51M
+    class 6: n=39203 k=50 nnz=109.01M
+    class 7: n=24608 k=50 nnz=56.02M
+  per-class kernel nnz=410.0M (32s)
+
+  --- identity check: (no mask, uniform w) == graph_a2 ---
+    set_match=True  order_match=False
+
+  --- arm a2_perclass ---
+    660/3304 picks  gain=0.000294914  (7s)
+    1320/3304 picks  gain=0.000171844  (12s)
+    1980/3304 picks  gain=9.67267e-05  (15s)
+    2640/3304 picks  gain=4.16391e-05  (17s)
+    3300/3304 picks  gain=7.17976e-06  (18s)
+    wrote tissuemnist_r0.02_a2_perclass_s42.npy  n=3304  quota ok (29s)
+
+  --- arm tdgs_mask ---
+    demand kernel nnz=208.8M  mask=True perm=False  lam=0.5  Kbar_scale=0.0340  F_task(P)=88742.8
+    660/3304 picks  gain=0.000236668  (13s)
+    1320/3304 picks  gain=0.000140835  (21s)
+    1980/3304 picks  gain=9.03572e-05  (25s)
+    2640/3304 picks  gain=6.25272e-05  (27s)
+    3300/3304 picks  gain=3.39693e-05  (28s)
+    wrote tissuemnist_r0.02_tdgs_mask_s42.npy  n=3304  quota ok (60s)
+
+  --- arm tdgs_wcls ---
+    demand kernel nnz=615.3M  mask=False perm=False  lam=0.5  Kbar_scale=0.0340  F_task(P)=0.559644
+    660/3304 picks  gain=0.00028824  (20s)
+    1320/3304 picks  gain=0.000175008  (32s)
+    1980/3304 picks  gain=0.000122824  (42s)
+    2640/3304 picks  gain=8.84274e-05  (45s)
+    3300/3304 picks  gain=5.10603e-05  (47s)
+    wrote tissuemnist_r0.02_tdgs_wcls_s42.npy  n=3304  quota ok (82s)
+
+  --- arm tdgs_lam1 ---
+    demand kernel nnz=208.8M  mask=True perm=False  lam=1.0  Kbar_scale=0.0340  F_task(P)=0.530068
+    660/3304 picks  gain=0.000203237  (2s)
+    1320/3304 picks  gain=0.000136275  (3s)
+    1980/3304 picks  gain=0.00010462  (4s)
+    2640/3304 picks  gain=8.48047e-05  (6s)
+    3300/3304 picks  gain=5.98444e-05  (7s)
+    wrote tissuemnist_r0.02_tdgs_lam1_s42.npy  n=3304  quota ok (33s)
+
+  --- arm tdgs_cls_perm ---
+    demand kernel nnz=208.8M  mask=True perm=True  lam=0.5  Kbar_scale=0.0340  F_task(P)=0.530068
+    660/3304 picks  gain=0.000239517  (13s)
+    1320/3304 picks  gain=0.000155076  (20s)
+    1980/3304 picks  gain=0.000115775  (27s)
+    2640/3304 picks  gain=9.09955e-05  (32s)
+    3300/3304 picks  gain=6.35523e-05  (36s)
+    wrote tissuemnist_r0.02_tdgs_cls_perm_s42.npy  n=3304  quota ok (69s)
+
+  pairwise Jaccard (random floor 0.0101, cross-method reference ~0.05):
+      a2_perclass    tdgs_mask    tdgs_wcls    tdgs_lam1  tdgs_cls_pe     graph_a2     tdgs_cls       tdgs_d      tdgs_du    tdgs_perm
+    a2_perclass       1.0000       0.0924       0.0615       0.0854       0.0428       0.0649       0.0813       0.0724       0.0670       0.0675
+      tdgs_mask       0.0924       1.0000       0.1100       0.1855       0.0527       0.1198       0.2043       0.1613       0.1444       0.1296
+      tdgs_wcls       0.0615       0.1100       1.0000       0.0590       0.0600       0.1480       0.0861       0.0859       0.0901       0.0890
+      tdgs_lam1       0.0854       0.1855       0.0590       1.0000       0.0442       0.0624       0.2340       0.1988       0.1712       0.1520
+    tdgs_cls_pe       0.0428       0.0527       0.0600       0.0442       1.0000       0.0612       0.0516       0.0534       0.0517       0.0501
+       graph_a2       0.0649       0.1198       0.1480       0.0624       0.0612       1.0000       0.0863       0.0849       0.0881       0.0826
+       tdgs_cls       0.0813       0.2043       0.0861       0.2340       0.0516       0.0863       1.0000       0.2312       0.2019       0.1689
+         tdgs_d       0.0724       0.1613       0.0859       0.1988       0.0534       0.0849       0.2312       1.0000       0.2772       0.2147
+        tdgs_du       0.0670       0.1444       0.0901       0.1712       0.0517       0.0881       0.2019       0.2772       1.0000       0.2028
+      tdgs_perm       0.0675       0.1296       0.0890       0.1520       0.0501       0.0826       0.1689       0.2147       0.2028       1.0000
+    NOTE a2_perclass vs tdgs_cls near 1.0 => tdgs_cls IS the author's per-class cell; the positive is not novel  (observed 0.0813)
+    NOTE tdgs_cls_perm vs tdgs_cls near 1.0 => the permutation did not bite and the null is uninformative  (observed 0.0516)
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/archive/round2/tissuemnist_r0.02_r2.json
+
+======================================================================================
+[tissuemnist r=0.05] n=165466 C=8 bpc=1034 budget=8272
+  emb <- /project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/tissuemnist_train_uni_224.npz
+======================================================================================
+  OOF probe: 5 folds x 4030 steps each  in-sample acc 0.6172  (14s)
+  PROXY VALIDITY  OOF balanced acc 0.4786  (in-sample 0.6172, gap +0.1385)
+    worst class 1 (final models: 1) MATCH;   top partner 1->0 (final: 1->0) ok
+    demand d_i: 0.5303  p10/p50/p90 0.1289/0.5472/0.9046  frac(d<0.05)=0.023
+  graph kernel nnz=615.3M (43s)
+
+  --- arm graph_a2 ---
+    1654/8272 picks  gain=0.000146028  (22s)
+    3308/8272 picks  gain=7.66319e-05  (32s)
+    4962/8272 picks  gain=4.05862e-05  (37s)
+    6616/8272 picks  gain=2.14401e-05  (39s)
+    8270/8272 picks  gain=5.62936e-06  (40s)
+    wrote tissuemnist_r0.05_graph_a2_s42.npy  n=8272  quota ok  (47s)
+
+  --- arm tdgs_cls ---
+    demand kernel nnz=208.8M  Kbar_max_scale=0.0340  F_task(P)=0.530068
+    1654/8272 picks  gain=0.000127203  (25s)
+    3308/8272 picks  gain=7.23887e-05  (38s)
+    4962/8272 picks  gain=4.72854e-05  (48s)
+    6616/8272 picks  gain=3.25091e-05  (54s)
+    8270/8272 picks  gain=1.23986e-05  (57s)
+    wrote tissuemnist_r0.05_tdgs_cls_s42.npy  n=8272  quota ok  (90s)
+
+  pairwise Jaccard (random-draw floor 0.0256; cross-method reference ~0.05):
+       graph_a2   tdgs_cls
+     graph_a2     1.0000     0.1240
+     tdgs_cls     0.1240     1.0000
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/archive/round2/tissuemnist_r0.05.json
+done=2026-09-27T23:42:18+08:00
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:34 tissuemnist_r0.02_a2_perclass_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:00 tissuemnist_r0.02_graph_a2_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:38 tissuemnist_r0.02_tdgs_cls_perm_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:00 tissuemnist_r0.02_tdgs_cls_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:00 tissuemnist_r0.02_tdgs_d_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:00 tissuemnist_r0.02_tdgs_du_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:37 tissuemnist_r0.02_tdgs_lam1_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:35 tissuemnist_r0.02_tdgs_mask_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:00 tissuemnist_r0.02_tdgs_perm_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 26560 Sep 27 23:37 tissuemnist_r0.02_tdgs_wcls_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 66304 Sep 27 23:40 tissuemnist_r0.05_graph_a2_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 66304 Sep 27 23:42 tissuemnist_r0.05_tdgs_cls_s42.npy

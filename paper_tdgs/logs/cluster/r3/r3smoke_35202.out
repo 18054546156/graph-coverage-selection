@@ -1,0 +1,12 @@
+uni bloodmnist train (512, 1024) 13s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/smoke/bloodmnist_train_uni_224_smoke512.npz
+dinov2 bloodmnist train (512, 1024) 14s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/smoke/bloodmnist_train_dinov2_224_smoke512.npz
+clip bloodmnist train (512, 1024) 13s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/smoke/bloodmnist_train_clip_224_smoke512.npz
+uni organamnist train (512, 1024) 13s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/smoke/organamnist_train_uni_224_smoke512.npz
+dinov2 organamnist train (512, 1024) 14s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/smoke/organamnist_train_dinov2_224_smoke512.npz
+clip organamnist train (512, 1024) 14s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/smoke/organamnist_train_clip_224_smoke512.npz
+bloodmnist UNI reproduce: cos min 1.000000 mean 1.000000  maxabs 0
+bloodmnist dinov2 (512, 1024) True
+bloodmnist clip (512, 1024) True
+organamnist UNI reproduce: cos min 1.000000 mean 1.000000  maxabs 0
+organamnist dinov2 (512, 1024) True
+organamnist clip (512, 1024) True

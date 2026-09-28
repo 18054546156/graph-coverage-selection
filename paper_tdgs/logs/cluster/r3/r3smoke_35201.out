@@ -1,0 +1,66 @@
+huggingface_hub.errors.OfflineModeIsEnabled: Cannot reach https://huggingface.co/MahmoodLab/UNI/resolve/main/config.json: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/extract_emb.py", line 98, in <module>
+    main()
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/extract_emb.py", line 67, in main
+    m = timm.create_model(ENCODERS[enc], pretrained=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_factory.py", line 114, in create_model
+    pretrained_cfg, model_name, model_args = load_model_config_from_hf(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_hub.py", line 196, in load_model_config_from_hf
+    cfg_path = download_from_hf(model_id, "config.json", cache_dir=cache_dir)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_hub.py", line 150, in download_from_hf
+    return hf_hub_download(
+           ^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1019, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1166, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1908, in _raise_on_head_call_error
+    raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
+huggingface_hub.errors.OfflineModeIsEnabled: Cannot reach https://huggingface.co/MahmoodLab/UNI/resolve/main/config.json: offline mode is enabled. To disable it, please unset the `HF_HUB_OFFLINE` environment variable.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/extract_emb.py", line 98, in <module>
+    main()
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/extract_emb.py", line 67, in main
+    m = timm.create_model(ENCODERS[enc], pretrained=True,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_factory.py", line 114, in create_model
+    pretrained_cfg, model_name, model_args = load_model_config_from_hf(
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_hub.py", line 196, in load_model_config_from_hf
+    cfg_path = download_from_hf(model_id, "config.json", cache_dir=cache_dir)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/timm/models/_hub.py", line 150, in download_from_hf
+    return hf_hub_download(
+           ^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/utils/_validators.py", line 88, in _inner_fn
+    return fn(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1019, in hf_hub_download
+    return _hf_hub_download_to_cache_dir(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1166, in _hf_hub_download_to_cache_dir
+    _raise_on_head_call_error(head_call_error, force_download, local_files_only)
+  File "/project/prj-sis01/xuxiaoyu/graph_select/envs/graphcov-py311/lib/python3.11/site-packages/huggingface_hub/file_download.py", line 1908, in _raise_on_head_call_error
+    raise LocalEntryNotFoundError(
+huggingface_hub.errors.LocalEntryNotFoundError: An error happened while trying to locate the file on the Hub and we cannot find the requested files in the local cache. Please check your connection and try again or make sure your Internet connection is on.
+Traceback (most recent call last):
+  File "<stdin>", line 5, in <module>
+  File "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/envs/medmnistc-py311/lib/python3.11/site-packages/numpy/lib/npyio.py", line 427, in load
+    fid = stack.enter_context(open(os_fspath(file), "rb"))
+                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/smoke/bloodmnist_train_uni_224_smoke512.npz'

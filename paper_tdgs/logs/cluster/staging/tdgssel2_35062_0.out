@@ -1,0 +1,130 @@
+host=hpcgpu107.ln.edu.hk ds=pathmnist start=2026-09-27T23:26:55+08:00
+
+======================================================================================
+[pathmnist r=0.02] n=89996 C=9 bpc=199 budget=1791
+  emb <- /project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/pathmnist_train_uni_224.npz
+======================================================================================
+  global kernel nnz=69.6M (9s)
+  cross-class edge share = 2.49%  (mechanism predicts effect size scales with this)
+  building per-class (block-diagonal) kernel:
+    class 0: n=9366 k=50 nnz=13.85M
+    class 1: n=9509 k=50 nnz=4.71M
+    class 2: n=10360 k=50 nnz=6.66M
+    class 3: n=10401 k=50 nnz=8.49M
+    class 4: n=8006 k=50 nnz=7.14M
+    class 5: n=12182 k=50 nnz=7.66M
+    class 6: n=7886 k=50 nnz=6.15M
+    class 7: n=9401 k=50 nnz=5.45M
+    class 8: n=12885 k=50 nnz=8.43M
+  per-class kernel nnz=68.5M (7s)
+
+  --- identity check: (no mask, uniform w) == graph_a2 ---
+    set_match=True  order_match=True
+
+  --- arm a2_perclass ---
+    358/1791 picks  gain=0.000738988  (1s)
+    716/1791 picks  gain=0.000364491  (2s)
+    1074/1791 picks  gain=0.000219099  (3s)
+    1432/1791 picks  gain=0.00014852  (4s)
+    1790/1791 picks  gain=7.61119e-05  (4s)
+    wrote pathmnist_r0.02_a2_perclass_s42.npy  n=1791  quota ok (6s)
+
+  --- arm tdgs_mask ---
+    demand kernel nnz=67.9M  mask=True perm=False  lam=0.5  Kbar_scale=0.0500  F_task(P)=46041.3
+    358/1791 picks  gain=0.000736365  (2s)
+    716/1791 picks  gain=0.000366766  (4s)
+    1074/1791 picks  gain=0.000220859  (5s)
+    1432/1791 picks  gain=0.00014721  (7s)
+    1790/1791 picks  gain=7.72021e-05  (8s)
+    wrote pathmnist_r0.02_tdgs_mask_s42.npy  n=1791  quota ok (12s)
+
+  --- arm tdgs_wcls ---
+    demand kernel nnz=69.6M  mask=False perm=False  lam=0.5  Kbar_scale=0.0500  F_task(P)=0.510377
+    358/1791 picks  gain=0.000737695  (2s)
+    716/1791 picks  gain=0.000369427  (4s)
+    1074/1791 picks  gain=0.000218905  (5s)
+    1432/1791 picks  gain=0.000148248  (7s)
+    1790/1791 picks  gain=8.48509e-05  (8s)
+    wrote pathmnist_r0.02_tdgs_wcls_s42.npy  n=1791  quota ok (12s)
+
+  --- arm tdgs_lam1 ---
+    demand kernel nnz=67.9M  mask=True perm=False  lam=1.0  Kbar_scale=0.0500  F_task(P)=0.510335
+    358/1791 picks  gain=0.000730267  (1s)
+    716/1791 picks  gain=0.000363734  (2s)
+    1074/1791 picks  gain=0.000218756  (3s)
+    1432/1791 picks  gain=0.000149289  (4s)
+    1790/1791 picks  gain=9.58284e-05  (4s)
+    wrote pathmnist_r0.02_tdgs_lam1_s42.npy  n=1791  quota ok (8s)
+
+  --- arm tdgs_cls_perm ---
+    demand kernel nnz=67.9M  mask=True perm=True  lam=0.5  Kbar_scale=0.0500  F_task(P)=0.510335
+    358/1791 picks  gain=0.000693875  (3s)
+    716/1791 picks  gain=0.000383362  (4s)
+    1074/1791 picks  gain=0.000237687  (6s)
+    1432/1791 picks  gain=0.000159352  (8s)
+    1790/1791 picks  gain=8.93014e-05  (9s)
+    wrote pathmnist_r0.02_tdgs_cls_perm_s42.npy  n=1791  quota ok (14s)
+
+  pairwise Jaccard (random floor 0.0101, cross-method reference ~0.05):
+      a2_perclass    tdgs_mask    tdgs_wcls    tdgs_lam1  tdgs_cls_pe     graph_a2     tdgs_cls       tdgs_d      tdgs_du    tdgs_perm
+    a2_perclass       1.0000       0.6645       0.6576       0.6186       0.0437       0.6560       0.6692       0.1896       0.1861       0.1603
+      tdgs_mask       0.6645       1.0000       0.8054       0.7507       0.0434       0.7689       0.9703       0.1896       0.1845       0.1626
+      tdgs_wcls       0.6576       0.8054       1.0000       0.6960       0.0452       0.8627       0.8045       0.1888       0.1826       0.1611
+      tdgs_lam1       0.6186       0.7507       0.6960       1.0000       0.0455       0.6630       0.7499       0.1869       0.1885       0.1668
+    tdgs_cls_pe       0.0437       0.0434       0.0452       0.0455       1.0000       0.0452       0.0437       0.0404       0.0380       0.0353
+       graph_a2       0.6560       0.7689       0.8627       0.6630       0.0452       1.0000       0.7741       0.1853       0.1814       0.1630
+       tdgs_cls       0.6692       0.9703       0.8045       0.7499       0.0437       0.7741       1.0000       0.1888       0.1841       0.1622
+         tdgs_d       0.1896       0.1896       0.1888       0.1869       0.0404       0.1853       0.1888       1.0000       0.3954       0.2622
+        tdgs_du       0.1861       0.1845       0.1826       0.1885       0.0380       0.1814       0.1841       0.3954       1.0000       0.2301
+      tdgs_perm       0.1603       0.1626       0.1611       0.1668       0.0353       0.1630       0.1622       0.2622       0.2301       1.0000
+    NOTE a2_perclass vs tdgs_cls near 1.0 => tdgs_cls IS the author's per-class cell; the positive is not novel  (observed 0.6692)
+    NOTE tdgs_cls_perm vs tdgs_cls near 1.0 => the permutation did not bite and the null is uninformative  (observed 0.0437)
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/archive/round2/pathmnist_r0.02_r2.json
+
+======================================================================================
+[pathmnist r=0.05] n=89996 C=9 bpc=499 budget=4491
+  emb <- /project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/pathmnist_train_uni_224.npz
+======================================================================================
+  OOF probe: 5 folds x 4047 steps each  in-sample acc 0.9989  (14s)
+  PROXY VALIDITY  OOF balanced acc 0.9974  (in-sample 0.9989, gap +0.0015)
+    worst class 7 (final models: 7) MATCH;   top partner 7->2 (final: 7->None) ok
+    demand d_i: 0.0061  p10/p50/p90 0.0000/0.0002/0.0048  frac(d<0.05)=0.981
+  graph kernel nnz=69.6M (7s)
+
+  --- arm graph_a2 ---
+    898/4491 picks  gain=0.000275791  (3s)
+    1796/4491 picks  gain=0.000108414  (4s)
+    2694/4491 picks  gain=5.30388e-05  (6s)
+    3592/4491 picks  gain=3.04062e-05  (6s)
+    4490/4491 picks  gain=1.16461e-05  (7s)
+    wrote pathmnist_r0.05_graph_a2_s42.npy  n=4491  quota ok  (8s)
+
+  --- arm tdgs_cls ---
+    demand kernel nnz=67.9M  Kbar_max_scale=0.0500  F_task(P)=0.510335
+    898/4491 picks  gain=0.000273716  (5s)
+    1796/4491 picks  gain=0.000108399  (8s)
+    2694/4491 picks  gain=5.33033e-05  (10s)
+    3592/4491 picks  gain=3.06627e-05  (11s)
+    4490/4491 picks  gain=1.33054e-05  (13s)
+    wrote pathmnist_r0.05_tdgs_cls_s42.npy  n=4491  quota ok  (17s)
+
+  pairwise Jaccard (random-draw floor 0.0256; cross-method reference ~0.05):
+       graph_a2   tdgs_cls
+     graph_a2     1.0000     0.7122
+     tdgs_cls     0.7122     1.0000
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/archive/round2/pathmnist_r0.05.json
+done=2026-09-27T23:29:14+08:00
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:27 pathmnist_r0.02_a2_perclass_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:00 pathmnist_r0.02_graph_a2_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:28 pathmnist_r0.02_tdgs_cls_perm_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:00 pathmnist_r0.02_tdgs_cls_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:00 pathmnist_r0.02_tdgs_d_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:00 pathmnist_r0.02_tdgs_du_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:28 pathmnist_r0.02_tdgs_lam1_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:27 pathmnist_r0.02_tdgs_mask_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:00 pathmnist_r0.02_tdgs_perm_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 14456 Sep 27 23:28 pathmnist_r0.02_tdgs_wcls_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 36056 Sep 27 23:28 pathmnist_r0.05_graph_a2_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502 36056 Sep 27 23:29 pathmnist_r0.05_tdgs_cls_s42.npy

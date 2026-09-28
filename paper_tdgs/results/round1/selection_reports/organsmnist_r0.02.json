@@ -1,0 +1,85 @@
+{
+  "dataset": "organsmnist",
+  "ratio": 0.02,
+  "n": 13932,
+  "C": 11,
+  "bpc": 25,
+  "lam": 0.5,
+  "k_neighbors": 50,
+  "k_hops": 2,
+  "embedding": "/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/organsmnist_train_uni_224.npz",
+  "proxy": {
+    "oof_ba": 0.8403494450668934,
+    "insample_acc": 0.9349698535745047,
+    "proxy_worst": 2,
+    "proxy_partner": 1,
+    "final_worst": 4,
+    "final_partner": null,
+    "worst_match": false,
+    "partner_match": true
+  },
+  "arms": [
+    {
+      "arm": "graph_a2",
+      "n": 275,
+      "lam": 0.0,
+      "gain_first": 0.010872009145131756,
+      "gain_last": 0.00026944620185531676
+    },
+    {
+      "arm": "tdgs_cls",
+      "n": 275,
+      "lam": 0.5,
+      "gain_first": 0.01123677553452751,
+      "gain_last": 0.0005310279666446149
+    },
+    {
+      "arm": "tdgs_d",
+      "n": 275,
+      "lam": 0.5,
+      "gain_first": 0.014936906097929636,
+      "gain_last": 0.0003607790208661754
+    },
+    {
+      "arm": "tdgs_du",
+      "n": 275,
+      "lam": 0.5,
+      "gain_first": 0.015211596234692593,
+      "gain_last": 0.00036096639814786613
+    },
+    {
+      "arm": "tdgs_perm",
+      "n": 275,
+      "lam": 0.5,
+      "gain_first": 0.015712895843478236,
+      "gain_last": 0.00036214602005202323
+    }
+  ],
+  "jaccard": {
+    "graph_a2|graph_a2": 1.0,
+    "graph_a2|tdgs_cls": 0.1702127659574468,
+    "graph_a2|tdgs_d": 0.11788617886178862,
+    "graph_a2|tdgs_du": 0.12704918032786885,
+    "graph_a2|tdgs_perm": 0.14107883817427386,
+    "tdgs_cls|graph_a2": 0.1702127659574468,
+    "tdgs_cls|tdgs_cls": 1.0,
+    "tdgs_cls|tdgs_d": 0.19825708061002179,
+    "tdgs_cls|tdgs_du": 0.16279069767441862,
+    "tdgs_cls|tdgs_perm": 0.16033755274261605,
+    "tdgs_d|graph_a2": 0.11788617886178862,
+    "tdgs_d|tdgs_cls": 0.19825708061002179,
+    "tdgs_d|tdgs_d": 1.0,
+    "tdgs_d|tdgs_du": 0.3285024154589372,
+    "tdgs_d|tdgs_perm": 0.25,
+    "tdgs_du|graph_a2": 0.12704918032786885,
+    "tdgs_du|tdgs_cls": 0.16279069767441862,
+    "tdgs_du|tdgs_d": 0.3285024154589372,
+    "tdgs_du|tdgs_du": 1.0,
+    "tdgs_du|tdgs_perm": 0.22494432071269488,
+    "tdgs_perm|graph_a2": 0.14107883817427386,
+    "tdgs_perm|tdgs_cls": 0.16033755274261605,
+    "tdgs_perm|tdgs_d": 0.25,
+    "tdgs_perm|tdgs_du": 0.22494432071269488,
+    "tdgs_perm|tdgs_perm": 1.0
+  }
+}

@@ -1,0 +1,61 @@
+host=hpcgpu107.ln.edu.hk user=qiangzeng ds=pathmnist seed=46 start=2026-09-28T13:06:57+08:00
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/stage/seed_46/results', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/sel/seed_46', 'device': 'cuda', 'datasets': ['pathmnist'], 'methods': ['random', 'el2n_top', 'forgetting', 'eva', 'facility', 'fps', 'herding'], 'ratios': [0.02, 0.05], 'selection_seed': 46, 'training_seeds': [46], 'epochs': 1000, 'augment': False, 'smoke_n': 0, 'deterministic': True, 'clean_only': True, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['random', 'el2n_top', 'forgetting', 'eva', 'facility', 'fps', 'herding']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: unknown
+========== pathmnist ==========
+  [Embeddings] Loaded uni from cache: n=89996, dim=1024
+  Computing training dynamics (200-epoch training)...
+[Training Dynamics] Computing EVA, AUM, Forgetting over 200 epochs...
+[EVA] Early window: epochs 1-10
+[EVA] Late window: epochs 190-199
+    [EVA] Early variance: min=0.000000, max=0.435332, mean=0.144698
+    [EVA] Early percentiles [0,25,50,75,90,99,100]: ['0.000000', '0.073323', '0.150114', '0.209289', '0.261773', '0.341363', '0.435332']
+    [EVA] Late variance: min=0.000000, max=0.000134, mean=0.000000
+    [EVA] Late percentiles [0,25,50,75,90,99,100]: ['0.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000134']
+
+[EVA] Score range: [0.000000, 0.435332]
+[EVA] Mean: 0.144698, Std: 0.089262
+[EVA] Percentiles [0,25,50,75,100]: ['0.0000', '0.0733', '0.1501', '0.2093', '0.4353']
+
+[AUM] Score range: [-0.444857, 0.999844]
+[AUM] Mean: 0.754161, Std: 0.206366
+[AUM] Percentiles [0,25,50,75,100]: ['-0.4449', '0.6145', '0.7919', '0.9381', '0.9998']
+[AUM] Samples with negative avg margin (often wrong): 97 (0.1%)
+
+[Forgetting] Score range: [0, 46]
+[Forgetting] Mean: 15.59, Std: 11.68
+[Forgetting] Never forgotten: 9458 (10.5%)
+[Forgetting] Forgotten 5+ times: 66262 (73.6%)
+  [Facility] execution_device=cuda, cpu_min_class_size=40000
+  [Facility] execution_device=cuda, cpu_min_class_size=40000
+=== staged ===
+2f8b19282718bed3  el2n_top/organamnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+9ede180999252265  el2n_top/organamnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+cd3d99015e58a489  el2n_top/pathmnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+da9d70904952ccd6  el2n_top/pathmnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+d64d88e3ce0d426f  eva/organamnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+005b2fd1d9ab0680  eva/organamnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+f0cd22d82c55592f  eva/pathmnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+ce2f7abdf33b39f9  eva/pathmnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+45604fd3ea7c0fc8  facility/organamnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+79855f77d34e0556  facility/organamnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+52897bbfc76652c7  facility/pathmnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+9b8ad32e3bce74e3  facility/pathmnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+57d75f975405cac8  forgetting/organamnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+8a8c51c089bf508d  forgetting/organamnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+776fcda2fabf33e0  forgetting/pathmnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+8d4b7846c3083964  forgetting/pathmnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+4da4d1e826122bc6  fps/organamnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+e4a5d247ccabe42f  fps/organamnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+a73d9d104194772d  fps/pathmnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+7493f1b5935286bf  fps/pathmnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+da4203a08717e216  herding/organamnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+d3e2427929aa04d6  herding/organamnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+57d52292a5a72ca2  herding/pathmnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+0f2fe40680c930db  herding/pathmnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+a5fd97c379f3f3ee  random/organamnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+86631307213a3b71  random/organamnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+847e98e7920541c4  random/pathmnist/ratio_0.02/selection_seed_46/index_order_sha256.txt
+0314e4fefd440100  random/pathmnist/ratio_0.05/selection_seed_46/index_order_sha256.txt
+done=2026-09-28T13:36:14+08:00

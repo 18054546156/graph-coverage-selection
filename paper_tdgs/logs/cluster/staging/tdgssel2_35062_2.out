@@ -1,0 +1,129 @@
+host=hpcgpu107.ln.edu.hk ds=bloodmnist start=2026-09-27T23:30:20+08:00
+
+======================================================================================
+[bloodmnist r=0.02] n=11959 C=8 bpc=29 budget=232
+  emb <- /project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/bloodmnist_train_uni_224.npz
+======================================================================================
+  global kernel nnz=14.4M (2s)
+  cross-class edge share = 26.52%  (mechanism predicts effect size scales with this)
+  building per-class (block-diagonal) kernel:
+    class 0: n=852 k=50 nnz=0.52M
+    class 1: n=2181 k=50 nnz=2.62M
+    class 2: n=1085 k=50 nnz=0.68M
+    class 3: n=2026 k=50 nnz=1.89M
+    class 4: n=849 k=50 nnz=0.52M
+    class 5: n=993 k=50 nnz=0.67M
+    class 6: n=2330 k=50 nnz=2.91M
+    class 7: n=1643 k=50 nnz=1.70M
+  per-class kernel nnz=11.5M (2s)
+
+  --- identity check: (no mask, uniform w) == graph_a2 ---
+    set_match=True  order_match=True
+
+  --- arm a2_perclass ---
+    46/232 picks  gain=0.00476851  (0s)
+    92/232 picks  gain=0.00252708  (0s)
+    138/232 picks  gain=0.00172939  (0s)
+    184/232 picks  gain=0.00103626  (1s)
+    230/232 picks  gain=0.000385069  (1s)
+    wrote bloodmnist_r0.02_a2_perclass_s42.npy  n=232  quota ok (1s)
+
+  --- arm tdgs_mask ---
+    demand kernel nnz=10.6M  mask=True perm=False  lam=0.5  Kbar_scale=0.0371  F_task(P)=6902.06
+    46/232 picks  gain=0.00471392  (0s)
+    92/232 picks  gain=0.00259973  (1s)
+    138/232 picks  gain=0.00167568  (1s)
+    184/232 picks  gain=0.00105973  (1s)
+    230/232 picks  gain=0.000486983  (1s)
+    wrote bloodmnist_r0.02_tdgs_mask_s42.npy  n=232  quota ok (2s)
+
+  --- arm tdgs_wcls ---
+    demand kernel nnz=14.4M  mask=False perm=False  lam=0.5  Kbar_scale=0.0371  F_task(P)=0.588123
+    46/232 picks  gain=0.00458781  (0s)
+    92/232 picks  gain=0.00255607  (1s)
+    138/232 picks  gain=0.00169069  (1s)
+    184/232 picks  gain=0.00122478  (1s)
+    230/232 picks  gain=0.000642293  (1s)
+    wrote bloodmnist_r0.02_tdgs_wcls_s42.npy  n=232  quota ok (2s)
+
+  --- arm tdgs_lam1 ---
+    demand kernel nnz=10.6M  mask=True perm=False  lam=1.0  Kbar_scale=0.0371  F_task(P)=0.586215
+    46/232 picks  gain=0.00457286  (0s)
+    92/232 picks  gain=0.00241213  (0s)
+    138/232 picks  gain=0.00160843  (0s)
+    184/232 picks  gain=0.00117614  (1s)
+    230/232 picks  gain=0.000747311  (1s)
+    wrote bloodmnist_r0.02_tdgs_lam1_s42.npy  n=232  quota ok (1s)
+
+  --- arm tdgs_cls_perm ---
+    demand kernel nnz=10.6M  mask=True perm=True  lam=0.5  Kbar_scale=0.0371  F_task(P)=0.586215
+    46/232 picks  gain=0.00471501  (0s)
+    92/232 picks  gain=0.00268442  (1s)
+    138/232 picks  gain=0.00173001  (1s)
+    184/232 picks  gain=0.00124625  (1s)
+    230/232 picks  gain=0.00061279  (1s)
+    wrote bloodmnist_r0.02_tdgs_cls_perm_s42.npy  n=232  quota ok (2s)
+
+  pairwise Jaccard (random floor 0.0101, cross-method reference ~0.05):
+      a2_perclass    tdgs_mask    tdgs_wcls    tdgs_lam1  tdgs_cls_pe     graph_a2     tdgs_cls       tdgs_d      tdgs_du    tdgs_perm
+    a2_perclass       1.0000       0.1688       0.1457       0.1717       0.0522       0.1514       0.1688       0.0943       0.0918       0.0791
+      tdgs_mask       0.1688       1.0000       0.3070       0.3528       0.0642       0.2818       0.4920       0.1317       0.0995       0.1373
+      tdgs_wcls       0.1457       0.3070       1.0000       0.2340       0.0594       0.4321       0.3410       0.0918       0.0791       0.1208
+      tdgs_lam1       0.1717       0.3528       0.2340       1.0000       0.0618       0.2211       0.3810       0.1127       0.0918       0.1290
+    tdgs_cls_pe       0.0522       0.0642       0.0594       0.0618       1.0000       0.0618       0.0618       0.0404       0.0498       0.0427
+       graph_a2       0.1514       0.2818       0.4321       0.2211       0.0618       1.0000       0.2853       0.0995       0.0918       0.1317
+       tdgs_cls       0.1688       0.4920       0.3410       0.3810       0.0618       0.2853       1.0000       0.1154       0.1021       0.1373
+         tdgs_d       0.0943       0.1317       0.0918       0.1127       0.0404       0.0995       0.1154       1.0000       0.2747       0.2308
+        tdgs_du       0.0918       0.0995       0.0791       0.0918       0.0498       0.0918       0.1021       0.2747       1.0000       0.2178
+      tdgs_perm       0.0791       0.1373       0.1208       0.1290       0.0427       0.1317       0.1373       0.2308       0.2178       1.0000
+    NOTE a2_perclass vs tdgs_cls near 1.0 => tdgs_cls IS the author's per-class cell; the positive is not novel  (observed 0.1688)
+    NOTE tdgs_cls_perm vs tdgs_cls near 1.0 => the permutation did not bite and the null is uninformative  (observed 0.0618)
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/archive/round2/bloodmnist_r0.02_r2.json
+
+======================================================================================
+[bloodmnist r=0.05] n=11959 C=8 bpc=74 budget=592
+  emb <- /project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/cache/embeddings_img224_smokefull/bloodmnist_train_uni_224.npz
+======================================================================================
+  OOF probe: 5 folds x 4000 steps each  in-sample acc 0.9875  (13s)
+  PROXY VALIDITY  OOF balanced acc 0.9796  (in-sample 0.9875, gap +0.0079)
+    worst class 3 (final models: 3) MATCH;   top partner 3->6 (final: 3->5) MISMATCH
+    demand d_i: 0.0418  p10/p50/p90 0.0001/0.0026/0.0932  frac(d<0.05)=0.856
+  graph kernel nnz=14.4M (1s)
+
+  --- arm graph_a2 ---
+    118/592 picks  gain=0.0020205  (1s)
+    236/592 picks  gain=0.000944356  (1s)
+    354/592 picks  gain=0.00050402  (1s)
+    472/592 picks  gain=0.000219833  (1s)
+    590/592 picks  gain=7.37339e-05  (1s)
+    wrote bloodmnist_r0.05_graph_a2_s42.npy  n=592  quota ok  (1s)
+
+  --- arm tdgs_cls ---
+    demand kernel nnz=10.6M  Kbar_max_scale=0.0371  F_task(P)=0.586215
+    118/592 picks  gain=0.00193712  (1s)
+    236/592 picks  gain=0.00092233  (1s)
+    354/592 picks  gain=0.000503765  (2s)
+    472/592 picks  gain=0.000280814  (2s)
+    590/592 picks  gain=8.70997e-05  (2s)
+    wrote bloodmnist_r0.05_tdgs_cls_s42.npy  n=592  quota ok  (3s)
+
+  pairwise Jaccard (random-draw floor 0.0256; cross-method reference ~0.05):
+       graph_a2   tdgs_cls
+     graph_a2     1.0000     0.2982
+     tdgs_cls     0.2982     1.0000
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/archive/round2/bloodmnist_r0.05.json
+done=2026-09-27T23:30:57+08:00
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:30 bloodmnist_r0.02_a2_perclass_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:00 bloodmnist_r0.02_graph_a2_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:30 bloodmnist_r0.02_tdgs_cls_perm_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:00 bloodmnist_r0.02_tdgs_cls_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:00 bloodmnist_r0.02_tdgs_d_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:00 bloodmnist_r0.02_tdgs_du_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:30 bloodmnist_r0.02_tdgs_lam1_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:30 bloodmnist_r0.02_tdgs_mask_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:00 bloodmnist_r0.02_tdgs_perm_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  1984 Sep 27 23:30 bloodmnist_r0.02_tdgs_wcls_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  4864 Sep 27 23:30 bloodmnist_r0.05_graph_a2_s42.npy
+-rw-rw-r-- 1 xiaoyuxu2 hgrp-1502  4864 Sep 27 23:30 bloodmnist_r0.05_tdgs_cls_s42.npy

@@ -1,3 +1,8 @@
+> **Branch `tdgs-research` (fork, not the official repo).** This branch adds `paper_tdgs/`, a research package
+> (reproduction audit of Graph-A2 Table 1, class-scoped / multi-encoder coverage experiments, preregistrations,
+> raw results and logs). The upstream code under `graphcov/` is unmodified (upstream commit 8cf757a).
+> Start at [`paper_tdgs/REPRODUCE.md`](paper_tdgs/REPRODUCE.md) and [`paper_tdgs/HANDOFF_20260927.md`](paper_tdgs/HANDOFF_20260927.md).
+
 # One-Shot Data Selection for Medical Image Classification via Graph Coverage
 
 Official implementation of *One-Shot Data Selection for Medical Image Classification via Graph Coverage* (MICCAI 2026).

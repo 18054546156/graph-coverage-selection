@@ -1,0 +1,54 @@
+host=hpcgpu107.ln.edu.hk user=xiaoyuxu2 ds=tissuemnist seed=42 start=2026-09-28T12:38:30+08:00
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/stage/seed_42/results', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/sel/seed_42', 'device': 'cuda', 'datasets': ['tissuemnist'], 'methods': ['random', 'el2n_top', 'forgetting', 'eva', 'facility', 'fps', 'herding'], 'ratios': [0.02, 0.05], 'selection_seed': 42, 'training_seeds': [42], 'epochs': 1000, 'augment': False, 'smoke_n': 0, 'deterministic': True, 'clean_only': True, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: ['random', 'el2n_top', 'forgetting', 'eva', 'facility', 'fps', 'herding']
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+========== tissuemnist ==========
+  [Embeddings] Loaded uni from cache: n=165466, dim=1024
+  [Dynamics] Loaded raw training dynamics from cache: tissuemnist_train_dynamics_28_e200_s42.npz
+  [Facility] execution_device=cpu, cpu_min_class_size=40000
+  [Facility] execution_device=cpu, cpu_min_class_size=40000
+=== staged ===
+38a2c8b4dc664410  el2n_top/organamnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+d218b84a93cfcda3  el2n_top/organamnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+c128d7dc18aee850  el2n_top/pathmnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+0e3f86c3afad68b7  el2n_top/pathmnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+e64e39c6fb74f41e  el2n_top/tissuemnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+a893ce22972016db  el2n_top/tissuemnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+b7fb25b41e358f13  eva/organamnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+b930bb2895936d25  eva/organamnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+4e863938fb568f99  eva/pathmnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+666d7ea222b89d16  eva/pathmnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+c81d965aff2676af  eva/tissuemnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+f63695bce114d979  eva/tissuemnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+45604fd3ea7c0fc8  facility/organamnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+79855f77d34e0556  facility/organamnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+52897bbfc76652c7  facility/pathmnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+9b8ad32e3bce74e3  facility/pathmnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+6f3fd8ce2e64b851  facility/tissuemnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+0c1847888377203b  facility/tissuemnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+91fb36d982a85925  forgetting/organamnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+21b5435a6fb29ea0  forgetting/organamnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+7d86f33049212c10  forgetting/pathmnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+1fb5aea3bcf8db41  forgetting/pathmnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+671fcfb6721d852c  forgetting/tissuemnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+ca2b5de0916db159  forgetting/tissuemnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+c2564984a3c9e910  fps/organamnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+35a74cee71b7d764  fps/organamnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+dd7920f36eda4b9c  fps/pathmnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+f37ae6c5525f0782  fps/pathmnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+0185ae9b872ffeb8  fps/tissuemnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+3bc31e11fbc16523  fps/tissuemnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+da4203a08717e216  herding/organamnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+d3e2427929aa04d6  herding/organamnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+57d52292a5a72ca2  herding/pathmnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+0f2fe40680c930db  herding/pathmnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+82163b54e5a1de47  herding/tissuemnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+2178705cd2580585  herding/tissuemnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+2003a437b8ead58c  random/organamnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+3ac1b16107dd8406  random/organamnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+c6fbc4655e7cc4a9  random/pathmnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+8e82b8d02b5daa8c  random/pathmnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+dc4d3cfd4ee5bb02  random/tissuemnist/ratio_0.02/selection_seed_42/index_order_sha256.txt
+1da231742b7477c6  random/tissuemnist/ratio_0.05/selection_seed_42/index_order_sha256.txt
+done=2026-09-28T13:57:23+08:00

@@ -1,0 +1,134 @@
+{
+  "schema": "tdgs-audit-manifest-v1",
+  "sources": [
+    {
+      "path": "D:\\graph_select\\paper_tdgs\\results\\round2\\round2_harvest_final_2b.json",
+      "sha256": "d44b9a2fa024163c9eef0714b2ec81bad2cc327d29e58437d9e6a0ebf58b89cb"
+    },
+    {
+      "path": "D:\\graph_select\\paper_tdgs\\results\\round1\\tdgs_round1_harvest.json",
+      "sha256": "d03c4819c28033b369cd343b3addf8802798d454be46b94b18d27e93fb58e343"
+    }
+  ],
+  "summaries": {
+    "round2_harvest_final_2b.json": {
+      "by_arm": {
+        "a2_perclass": 25,
+        "graph_a2": 35,
+        "tdgs_cls": 35,
+        "tdgs_cls_perm": 25,
+        "tdgs_lam1": 15,
+        "tdgs_mask": 25,
+        "tdgs_wcls": 25
+      },
+      "by_ratio": {
+        "0.02": 135,
+        "0.05": 50
+      },
+      "dataset_ratio_arm_groups": 45,
+      "duplicate_dataset_ratio_arm_seed": [],
+      "rows": 185,
+      "seed_range": [
+        42,
+        43,
+        44,
+        45,
+        46
+      ],
+      "seeds_per_dataset_ratio_arm": {
+        "bloodmnist|0.02|a2_perclass": 5,
+        "bloodmnist|0.02|graph_a2": 2,
+        "bloodmnist|0.02|tdgs_cls": 2,
+        "bloodmnist|0.02|tdgs_cls_perm": 5,
+        "bloodmnist|0.02|tdgs_lam1": 3,
+        "bloodmnist|0.02|tdgs_mask": 5,
+        "bloodmnist|0.02|tdgs_wcls": 5,
+        "bloodmnist|0.05|graph_a2": 5,
+        "bloodmnist|0.05|tdgs_cls": 5,
+        "organamnist|0.02|a2_perclass": 5,
+        "organamnist|0.02|graph_a2": 2,
+        "organamnist|0.02|tdgs_cls": 2,
+        "organamnist|0.02|tdgs_cls_perm": 5,
+        "organamnist|0.02|tdgs_lam1": 3,
+        "organamnist|0.02|tdgs_mask": 5,
+        "organamnist|0.02|tdgs_wcls": 5,
+        "organamnist|0.05|graph_a2": 5,
+        "organamnist|0.05|tdgs_cls": 5,
+        "organsmnist|0.02|a2_perclass": 5,
+        "organsmnist|0.02|graph_a2": 2,
+        "organsmnist|0.02|tdgs_cls": 2,
+        "organsmnist|0.02|tdgs_cls_perm": 5,
+        "organsmnist|0.02|tdgs_lam1": 3,
+        "organsmnist|0.02|tdgs_mask": 5,
+        "organsmnist|0.02|tdgs_wcls": 5,
+        "organsmnist|0.05|graph_a2": 5,
+        "organsmnist|0.05|tdgs_cls": 5,
+        "pathmnist|0.02|a2_perclass": 5,
+        "pathmnist|0.02|graph_a2": 2,
+        "pathmnist|0.02|tdgs_cls": 2,
+        "pathmnist|0.02|tdgs_cls_perm": 5,
+        "pathmnist|0.02|tdgs_lam1": 3,
+        "pathmnist|0.02|tdgs_mask": 5,
+        "pathmnist|0.02|tdgs_wcls": 5,
+        "pathmnist|0.05|graph_a2": 5,
+        "pathmnist|0.05|tdgs_cls": 5,
+        "tissuemnist|0.02|a2_perclass": 5,
+        "tissuemnist|0.02|graph_a2": 2,
+        "tissuemnist|0.02|tdgs_cls": 2,
+        "tissuemnist|0.02|tdgs_cls_perm": 5,
+        "tissuemnist|0.02|tdgs_lam1": 3,
+        "tissuemnist|0.02|tdgs_mask": 5,
+        "tissuemnist|0.02|tdgs_wcls": 5,
+        "tissuemnist|0.05|graph_a2": 5,
+        "tissuemnist|0.05|tdgs_cls": 5
+      }
+    },
+    "tdgs_round1_harvest.json": {
+      "by_arm": {
+        "graph_a2": 15,
+        "tdgs_cls": 15,
+        "tdgs_d": 15,
+        "tdgs_du": 15,
+        "tdgs_perm": 15
+      },
+      "by_ratio": {
+        "0.02": 75
+      },
+      "dataset_ratio_arm_groups": 25,
+      "duplicate_dataset_ratio_arm_seed": [],
+      "rows": 75,
+      "seed_range": [
+        42,
+        43,
+        44
+      ],
+      "seeds_per_dataset_ratio_arm": {
+        "bloodmnist|0.02|graph_a2": 3,
+        "bloodmnist|0.02|tdgs_cls": 3,
+        "bloodmnist|0.02|tdgs_d": 3,
+        "bloodmnist|0.02|tdgs_du": 3,
+        "bloodmnist|0.02|tdgs_perm": 3,
+        "organamnist|0.02|graph_a2": 3,
+        "organamnist|0.02|tdgs_cls": 3,
+        "organamnist|0.02|tdgs_d": 3,
+        "organamnist|0.02|tdgs_du": 3,
+        "organamnist|0.02|tdgs_perm": 3,
+        "organsmnist|0.02|graph_a2": 3,
+        "organsmnist|0.02|tdgs_cls": 3,
+        "organsmnist|0.02|tdgs_d": 3,
+        "organsmnist|0.02|tdgs_du": 3,
+        "organsmnist|0.02|tdgs_perm": 3,
+        "pathmnist|0.02|graph_a2": 3,
+        "pathmnist|0.02|tdgs_cls": 3,
+        "pathmnist|0.02|tdgs_d": 3,
+        "pathmnist|0.02|tdgs_du": 3,
+        "pathmnist|0.02|tdgs_perm": 3,
+        "tissuemnist|0.02|graph_a2": 3,
+        "tissuemnist|0.02|tdgs_cls": 3,
+        "tissuemnist|0.02|tdgs_d": 3,
+        "tissuemnist|0.02|tdgs_du": 3,
+        "tissuemnist|0.02|tdgs_perm": 3
+      }
+    }
+  }
+}

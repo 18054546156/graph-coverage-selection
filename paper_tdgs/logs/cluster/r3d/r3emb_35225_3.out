@@ -1,0 +1,7 @@
+host=hpcgpu111.ln.edu.hk ds=pathmnist start=2026-09-28T17:56:57+08:00
+dinov2 pathmnist train (89996, 1024) 527s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/pathmnist_train_dinov2_224.npz
+dinov2 pathmnist val (10004, 1024) 58s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/pathmnist_val_dinov2_224.npz
+clip pathmnist train (89996, 1024) 505s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/pathmnist_train_clip_224.npz
+clip pathmnist val (10004, 1024) 56s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/pathmnist_val_clip_224.npz
+uni pathmnist val (10004, 1024) 45s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/pathmnist_val_uni_224.npz
+done=2026-09-28T18:17:16+08:00

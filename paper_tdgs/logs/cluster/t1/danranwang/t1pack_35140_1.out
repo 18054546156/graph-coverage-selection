@@ -1,0 +1,59 @@
+host=hpcgpu107.ln.edu.hk user=danranwang shard=2/3 task=1/5
+worklist=350 cells  stride=15 offset=11  ngpu=2
+exp_root=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928
+sel_dir=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/sel
+start=2026-09-28T13:59:20+08:00
+0, NVIDIA A100 80GB PCIe, 81920 MiB
+1, NVIDIA A100 80GB PCIe, 81920 MiB
+2, NVIDIA A100 80GB PCIe, 81920 MiB
+3, NVIDIA A100 80GB PCIe, 81920 MiB
+this job owns 23 cells
+[gpu1] FAIL rc=1 organamnist r0.02 fps s42
+[gpu0] FAIL rc=1 organamnist r0.02 forgetting s42
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_42/config_fps_r0.02.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_42/config_forgetting_r0.02.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.02 facility s43
+[gpu0] FAIL rc=1 organamnist r0.02 el2n_top s43
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_43/config_facility_r0.02.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_43/config_el2n_top_r0.02.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.02 eva s44
+[gpu0] FAIL rc=1 organamnist r0.02 random s44
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_44/config_eva_r0.02.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_44/config_random_r0.02.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.02 forgetting s45
+[gpu0] FAIL rc=1 organamnist r0.02 herding s44
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_45/config_forgetting_r0.02.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_44/config_herding_r0.02.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.02 el2n_top s46
+[gpu0] FAIL rc=1 organamnist r0.02 fps s45
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_46/config_el2n_top_r0.02.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_45/config_fps_r0.02.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.05 random s42
+[gpu0] FAIL rc=1 organamnist r0.02 facility s46
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_42/config_random_r0.05.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_46/config_facility_r0.02.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.05 herding s42
+[gpu0] FAIL rc=1 organamnist r0.05 eva s42
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_42/config_herding_r0.05.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_42/config_eva_r0.05.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.05 fps s43
+[gpu0] FAIL rc=1 organamnist r0.05 forgetting s43
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_43/config_fps_r0.05.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_43/config_forgetting_r0.05.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.05 facility s44
+[gpu0] FAIL rc=1 organamnist r0.05 el2n_top s44
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_44/config_facility_r0.05.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_44/config_el2n_top_r0.05.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.05 eva s45
+[gpu0] FAIL rc=1 organamnist r0.05 random s45
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_45/config_eva_r0.05.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_45/config_random_r0.05.yaml: No such file or directory
+[gpu1] FAIL rc=1 organamnist r0.05 forgetting s46
+[gpu0] FAIL rc=1 organamnist r0.05 herding s45
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_46/config_forgetting_r0.05.yaml: No such file or directory
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_45/config_herding_r0.05.yaml: No such file or directory
+[gpu1] finished: ok=0 skip=0 fail=11
+[gpu0] FAIL rc=1 organamnist r0.05 fps s46
+/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/t1_run_one.sh: line 59: /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/formal/organamnist/seed_46/config_fps_r0.05.yaml: No such file or directory
+[gpu0] finished: ok=0 skip=0 fail=12
+shard=2 task=1 done=2026-09-28T13:59:20+08:00

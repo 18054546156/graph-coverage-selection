@@ -1,0 +1,81 @@
+host=hpcgpu111.ln.edu.hk ds=bloodmnist ratio=0.02 start=2026-09-28T18:01:27+08:00
+
+[bloodmnist r=0.02] n=11959 C=8 bpc=29 lam=0.5
+  view uni: K nnz=14.4M a nnz=10.6M xshare=26.52% (22s)
+    uni: {'xshare': 0.26523130363509395, 'knn_loo_ba': 0.9491234171042737, 'val_knn_ba': 0.9466786504242716}
+  view dinov2: K nnz=25.6M a nnz=10.6M xshare=58.54% (3s)
+    dinov2: {'xshare': 0.5853920310314188, 'knn_loo_ba': 0.8903200682521495, 'val_knn_ba': 0.9022663312271277}
+  view clip: K nnz=20.8M a nnz=9.4M xshare=54.94% (3s)
+    clip: {'xshare': 0.5494483235007239, 'knn_loo_ba': 0.8673301659199312, 'val_knn_ba': 0.8622694834341559}
+  identity graph_a2: greedy_blended order match=True  staged-set match=True
+  identity tdgs_cls: greedy_blended order match=True  staged-set match=True
+
+  --- arm hpc_cls ---
+    46/232 picks  gain=0.0048691  (0s)
+    92/232 picks  gain=0.00262208  (0s)
+    138/232 picks  gain=0.0016642  (1s)
+    184/232 picks  gain=0.00123333  (1s)
+    230/232 picks  gain=0.000606399  (1s)
+    wrote hpc_cls (3s)
+
+  --- arm a2_dinov2 ---
+    46/232 picks  gain=0.00444295  (0s)
+    92/232 picks  gain=0.00256355  (0s)
+    138/232 picks  gain=0.00176677  (1s)
+    184/232 picks  gain=0.00117748  (1s)
+    230/232 picks  gain=0.000738085  (1s)
+    wrote a2_dinov2 (1s)
+
+  --- arm a2_clip ---
+    46/232 picks  gain=0.00435439  (0s)
+    92/232 picks  gain=0.00252618  (0s)
+    138/232 picks  gain=0.00170663  (1s)
+    184/232 picks  gain=0.00119952  (1s)
+    230/232 picks  gain=0.000719882  (1s)
+    wrote a2_clip (1s)
+
+  --- arm cls_dinov2 ---
+    46/232 picks  gain=0.00443093  (0s)
+    92/232 picks  gain=0.00242688  (1s)
+    138/232 picks  gain=0.00167667  (1s)
+    184/232 picks  gain=0.00128692  (1s)
+    230/232 picks  gain=0.00074928  (1s)
+    wrote cls_dinov2 (1s)
+
+  --- arm cls_clip ---
+    46/232 picks  gain=0.0042951  (0s)
+    92/232 picks  gain=0.00241149  (1s)
+    138/232 picks  gain=0.00163917  (1s)
+    184/232 picks  gain=0.00126813  (1s)
+    230/232 picks  gain=0.000777326  (1s)
+    wrote cls_clip (1s)
+
+  --- arm cls_cat ---
+  view cat: K nnz=17.2M a nnz=12.3M xshare=28.09% (2s)
+    46/232 picks  gain=0.00435917  (0s)
+    92/232 picks  gain=0.00243495  (1s)
+    138/232 picks  gain=0.00157748  (1s)
+    184/232 picks  gain=0.00119284  (1s)
+    230/232 picks  gain=0.000641599  (1s)
+    wrote cls_cat (4s)
+
+  --- arm mv_mean ---
+    46/232 picks  gain=0.00440912  (1s)
+    92/232 picks  gain=0.00255917  (2s)
+    138/232 picks  gain=0.00170429  (3s)
+    184/232 picks  gain=0.00128607  (3s)
+    230/232 picks  gain=0.000721495  (4s)
+    wrote mv_mean (4s)
+
+  --- arm mv_rob ---
+    cap=0.80  F_v=[0.7183 0.6809 0.6791]  min=0.6791
+    cap=0.85  F_v=[0.7183 0.6809 0.6791]  min=0.6791
+    cap=0.90  F_v=[0.7183 0.6809 0.6791]  min=0.6791
+    cap=0.93  F_v=[0.7183 0.6809 0.6791]  min=0.6791
+    cap=0.96  F_v=[0.7183 0.6809 0.6791]  min=0.6791
+    cap=0.98  F_v=[0.7183 0.6809 0.6791]  min=0.6791
+    cap=1.00  F_v=[0.7183 0.6809 0.6791]  min=0.6791
+    wrote mv_rob (33s)
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/report/bloodmnist_r0.02_r3.json
+done=2026-09-28T18:02:49+08:00

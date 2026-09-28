@@ -1,0 +1,16 @@
+host=hpcgpu107.ln.edu.hk user=xiaoyuxu2 shard=0/3 task=0/5
+worklist=40 cells  stride=15 offset=0  ngpu=2
+exp_root=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/round2_20260927
+sel_dir=/mnt/prj01/hgrp-1502-5TB/tdgs_shared/sel
+start=2026-09-28T11:20:15+08:00
+0, NVIDIA A100 80GB PCIe, 81920 MiB
+1, NVIDIA A100 80GB PCIe, 81920 MiB
+2, NVIDIA A100 80GB PCIe, 81920 MiB
+3, NVIDIA A100 80GB PCIe, 81920 MiB
+this job owns 3 cells
+[gpu1] ok pathmnist r0.02 tdgs_cls_perm s46  (1542s)
+[gpu1] finished: ok=1 skip=0 fail=0
+[gpu0] ok pathmnist r0.02 a2_perclass s45  (1723s)
+[gpu0] ok pathmnist r0.02 tdgs_wcls s45  (1729s)
+[gpu0] finished: ok=2 skip=0 fail=0
+shard=0 task=0 done=2026-09-28T12:17:47+08:00

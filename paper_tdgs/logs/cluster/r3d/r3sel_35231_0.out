@@ -1,0 +1,15 @@
+host=hpcgpu111.ln.edu.hk ds=bloodmnist ratio=0.02 start=2026-09-28T17:58:24+08:00
+
+[bloodmnist r=0.02] n=11959 C=8 bpc=29 lam=0.5
+Traceback (most recent call last):
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/mv_select.py", line 378, in <module>
+    main()
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/mv_select.py", line 278, in main
+    views[v] = View(v, Zs[v], y, w_cls, keep_base=True)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/mv_select.py", line 218, in __init__
+    self.K, self.A = build_graph_kernel(Z, return_base=True)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: build_graph_kernel() got an unexpected keyword argument 'return_base'
+FAILED bloodmnist r0.02
+done=2026-09-28T17:58:24+08:00

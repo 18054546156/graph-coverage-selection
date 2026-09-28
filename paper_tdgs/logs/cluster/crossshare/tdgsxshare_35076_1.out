@@ -1,0 +1,12 @@
+host=hpcgpu107.ln.edu.hk ds=organamnist cpus=16 start=2026-09-28T00:47:31+08:00
+organamnist: n=34561 C=11 building K (k=50, hops=2) ...
+Traceback (most recent call last):
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/perclass_crossshare.py", line 110, in <module>
+    main()
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/perclass_crossshare.py", line 82, in main
+    K = build_graph_kernel(Z, a.k_neighbors, a.k_hops)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/code/tdgs_select.py", line 320, in build_graph_kernel
+    from graphcov.run.selection import build_knn_graph
+ModuleNotFoundError: No module named 'graphcov'
+done=2026-09-28T00:47:32+08:00

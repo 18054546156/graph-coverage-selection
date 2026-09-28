@@ -1,0 +1,62 @@
+host=hpcgpu111.ln.edu.hk start=2026-09-28T18:26:22+08:00
+260 checkpoints; todo per ds: {'bloodmnist': 52, 'organamnist': 52, 'organsmnist': 52, 'pathmnist': 52, 'tissuemnist': 52}
+
+[bloodmnist] val (1712, 3, 224, 224) C=8 load 2s
+  CHECK bloodmnist: labels=True argmax=True max|dlogit|=1.92e-02
+  bloodmnist r0.02 a2_perclass    s42  valBA=86.51
+  bloodmnist r0.02 a2_perclass    s43  valBA=83.92
+  bloodmnist r0.02 a2_perclass    s44  valBA=83.98
+  bloodmnist r0.02 a2_perclass    s45  valBA=87.31
+  bloodmnist r0.02 a2_perclass    s46  valBA=85.33
+  bloodmnist r0.02 graph_a2       s45  valBA=82.23
+  bloodmnist r0.02 graph_a2       s46  valBA=82.95
+  bloodmnist r0.02 tdgs_cls       s45  valBA=83.43
+  bloodmnist r0.02 tdgs_cls       s46  valBA=81.58
+  bloodmnist r0.02 tdgs_cls_perm  s42  valBA=86.19
+  bloodmnist r0.02 tdgs_cls_perm  s43  valBA=84.92
+  bloodmnist r0.02 tdgs_cls_perm  s44  valBA=88.55
+  bloodmnist r0.02 tdgs_cls_perm  s45  valBA=82.12
+  bloodmnist r0.02 tdgs_cls_perm  s46  valBA=86.63
+  bloodmnist r0.02 tdgs_lam1      s42  valBA=85.60
+  bloodmnist r0.02 tdgs_lam1      s43  valBA=86.05
+  bloodmnist r0.02 tdgs_lam1      s44  valBA=85.81
+  bloodmnist r0.02 tdgs_mask      s42  valBA=86.49
+  bloodmnist r0.02 tdgs_mask      s43  valBA=84.64
+  bloodmnist r0.02 tdgs_mask      s44  valBA=89.96
+  bloodmnist r0.02 tdgs_mask      s45  valBA=84.39
+  bloodmnist r0.02 tdgs_mask      s46  valBA=83.64
+  bloodmnist r0.02 tdgs_wcls      s42  valBA=84.88
+  bloodmnist r0.02 tdgs_wcls      s43  valBA=82.05
+  bloodmnist r0.02 tdgs_wcls      s44  valBA=86.83
+  bloodmnist r0.02 tdgs_wcls      s45  valBA=82.61
+  bloodmnist r0.02 tdgs_wcls      s46  valBA=86.98
+  bloodmnist r0.05 graph_a2       s42  valBA=94.09
+  bloodmnist r0.05 graph_a2       s43  valBA=94.25
+  bloodmnist r0.05 graph_a2       s44  valBA=93.68
+  bloodmnist r0.05 graph_a2       s45  valBA=91.37
+  bloodmnist r0.05 graph_a2       s46  valBA=94.87
+  bloodmnist r0.05 tdgs_cls       s42  valBA=93.86
+  bloodmnist r0.05 tdgs_cls       s43  valBA=93.34
+  bloodmnist r0.05 tdgs_cls       s44  valBA=94.20
+  bloodmnist r0.05 tdgs_cls       s45  valBA=92.45
+  bloodmnist r0.05 tdgs_cls       s46  valBA=94.85
+  bloodmnist r0.02 graph_a2       s42  valBA=82.34
+  bloodmnist r0.02 graph_a2       s43  valBA=84.18
+  bloodmnist r0.02 graph_a2       s44  valBA=78.15
+  bloodmnist r0.02 tdgs_cls       s42  valBA=80.51
+  bloodmnist r0.02 tdgs_cls       s43  valBA=86.08
+  bloodmnist r0.02 tdgs_cls       s44  valBA=81.62
+  bloodmnist r0.02 tdgs_d         s42  valBA=82.08
+  bloodmnist r0.02 tdgs_d         s43  valBA=84.90
+  bloodmnist r0.02 tdgs_d         s44  valBA=83.16
+  bloodmnist r0.02 tdgs_du        s42  valBA=79.56
+  bloodmnist r0.02 tdgs_du        s43  valBA=83.44
+  bloodmnist r0.02 tdgs_du        s44  valBA=85.51
+  bloodmnist r0.02 tdgs_perm      s42  valBA=81.66
+  bloodmnist r0.02 tdgs_perm      s43  valBA=83.37
+  bloodmnist r0.02 tdgs_perm      s44  valBA=82.10
+
+[organamnist] val (6491, 1, 224, 224) C=11 load 3s
+  CHECK organamnist: labels=True argmax=False max|dlogit|=3.39e-03
+fidelity check failed on /mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/round2_20260927/formal/ratio_0.02/organamnist/a2_perclass/seed_42/results/organamnist/precomputed/ratio_0.02/selection_seed_42/train_seed_42/aug_0/final.pt
+end=2026-09-28T18:27:00+08:00

@@ -1,0 +1,4 @@
+host=hpcgpu111.ln.edu.hk ds=tissuemnist start=2026-09-28T17:56:57+08:00
+dinov2 tissuemnist train (165466, 1024) 858s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/tissuemnist_train_dinov2_224.npz
+dinov2 tissuemnist val (23640, 1024) 122s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/tissuemnist_val_dinov2_224.npz
+clip tissuemnist train (165466, 1024) 836s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/tissuemnist_train_clip_224.npz

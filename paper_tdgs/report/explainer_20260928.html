@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TDGS 论文线：做了什么、验证了什么、还差什么（2026-09-28）</title>
+<style>
+  :root { --ok:#1a7f37; --run:#9a6700; --no:#b42318; --bg:#f6f8fa; --line:#d0d7de; --ink:#1f2328; --mute:#57606a; --acc:#0969da; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; color: var(--ink); margin: 0; line-height: 1.7; background: #fff; }
+  main { max-width: 1080px; margin: 0 auto; padding: 24px 28px 80px; }
+  h1 { font-size: 28px; margin: 8px 0 4px; }
+  h2 { font-size: 22px; margin: 44px 0 12px; padding-bottom: 6px; border-bottom: 2px solid var(--line); }
+  h3 { font-size: 17px; margin: 22px 0 8px; }
+  .sub { color: var(--mute); margin: 0 0 18px; }
+  nav { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 16px; font-size: 14px; }
+  nav a { color: var(--acc); text-decoration: none; margin-right: 14px; white-space: nowrap; }
+  .tldr { background: #ddf4ff; border-left: 5px solid var(--acc); padding: 14px 18px; border-radius: 6px; margin: 18px 0; }
+  .warn { background: #fff8c5; border-left: 5px solid var(--run); padding: 12px 16px; border-radius: 6px; margin: 14px 0; }
+  .bad  { background: #ffebe9; border-left: 5px solid var(--no); padding: 12px 16px; border-radius: 6px; margin: 14px 0; }
+  .card { border: 1px solid var(--line); border-radius: 10px; padding: 14px 18px; margin: 16px 0; }
+  .card h3 { margin-top: 0; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
+  .grid3 > div { background: var(--bg); border-radius: 6px; padding: 8px 12px; font-size: 14px; }
+  .grid3 b { display: block; font-size: 12px; color: var(--mute); letter-spacing: .5px; }
+  @media (max-width: 800px) { .grid3 { grid-template-columns: 1fr; } }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; margin: 10px 0; }
+  th, td { border: 1px solid var(--line); padding: 6px 9px; text-align: left; vertical-align: top; }
+  th { background: var(--bg); }
+  td.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .ok { color: var(--ok); font-weight: 600; }
+  .run { color: var(--run); font-weight: 600; }
+  .no { color: var(--no); font-weight: 600; }
+  .pill { display: inline-block; padding: 1px 9px; border-radius: 99px; font-size: 12px; font-weight: 600; }
+  .p-ok { background: #dafbe1; color: var(--ok); }
+  .p-run { background: #fff8c5; color: var(--run); }
+  .p-no { background: #ffebe9; color: var(--no); }
+  code { background: var(--bg); padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  dl.gloss { display: grid; grid-template-columns: 190px 1fr; gap: 6px 14px; }
+  dl.gloss dt { font-weight: 600; }
+  dl.gloss dd { margin: 0; }
+  .flow { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; font-size: 14px; margin: 10px 0; }
+  .flow span { background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; }
+  .flow i { color: var(--mute); font-style: normal; }
+  small, .mute { color: var(--mute); }
+</style>
+</head>
+<body>
+<main>
+
+<h1>TDGS 论文线：做了什么、验证了什么、还差什么</h1>
+<p class="sub">更新时间：2026-09-28 12:40（香港时间）。对标论文：Rustamov et al.，MICCAI 2026，arXiv:2606.22002（Graph-A2）。本页写给没参与过的人看。</p>
+
+<nav>
+  <a href="#tldr">一句话</a><a href="#gloss">名词</a><a href="#why">为什么做</a><a href="#steps">每一步</a>
+  <a href="#status">验证状态总表</a><a href="#table1">Table 1</a><a href="#todo">还没完成的</a><a href="#eta">时间</a><a href="#where">文件在哪</a>
+</nav>
+
+<div class="tldr" id="tldr">
+<b>一句话：</b>作者的方法 Graph-A2 从训练集里挑出 2% 或 5% 的样本训练分类器。我们发现它的挑选目标和评价指标（balanced accuracy，BA）有两处不匹配，改掉后得到新方法 <b>TDGS</b>（代码里叫 <code>tdgs_cls</code>）。
+<ul style="margin:6px 0 0">
+<li>在 <b>2% 预算</b>下，5 个数据集全部提升，平均 <b>+1.57 个百分点</b>。</li>
+<li>在 <b>5% 预算</b>下只在 TissueMNIST 上有效，所以论文要写成"低预算特定"。</li>
+<li>为了让 Table 1 和作者用同一组随机种子（42–46），7 个对比方法<b>正在重新跑</b>。</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="gloss">1. 先认识几个词</h2>
+<dl class="gloss">
+  <dt>数据选择（data selection）</dt><dd>训练集很大，但只允许挑一小部分（例如 2%）来训练。问题是挑哪些最好。</dd>
+  <dt>预算 2% / 5%</dt><dd>挑选的比例。每个类别分到相同数量，叫"每类配额"。</dd>
+  <dt>MedMNIST</dt><dd>医学图像分类的标准数据集合集。我们用 5 个：PathMNIST（病理）、OrganAMNIST 和 OrganSMNIST（腹部 CT）、TissueMNIST（肾组织）、BloodMNIST（血细胞）。</dd>
+  <dt>BA（balanced accuracy）</dt><dd>先算每个类别各自的正确率，再取平均。每类权重相同，小类不会被大类淹没。这是论文的主指标，我们<b>不换指标</b>。</dd>
+  <dt>worst（最差类召回）</dt><dd>所有类别里正确率最低的那一个。作为辅助指标报告。</dd>
+  <dt>种子（seed）</dt><dd>控制随机性的数字。同样的种子产生同样的随机抽样和训练初始化。作者用的是 <b>42、43、44、45、46</b>，一共 5 次重复。</dd>
+  <dt>cell（格子）</dt><dd>一次完整实验：一个数据集 × 一个预算 × 一个方法 × 一个种子，训练一个 ResNet-18 并在测试集上评估。</dd>
+  <dt>UNI embedding</dt><dd>用预训练大模型 UNI 把每张图转成一个 1024 维向量。"图"和"覆盖"都在这个向量空间里计算。</dd>
+  <dt>kNN 图 / 覆盖</dt><dd>把每个样本连到它最像的 50 个样本。Graph-A2 挑的是能"覆盖"最多样本的点，也就是离很多样本都很近的点。</dd>
+  <dt>配对差（paired Δ）</dt><dd>同一个种子下，新方法减旧方法的差值，再对种子取平均。这样可以抵消种子本身带来的随机波动。</dd>
+  <dt>门（gate）/ 预注册</dt><dd>跑实验<b>之前</b>就写好"结果满足什么条件算通过、什么条件算失败"，防止事后挑对自己有利的解释。</dd>
+  <dt>pp（百分点）</dt><dd>80% → 81.5% 就是 +1.5pp。</dd>
+</dl>
+
+<!-- ============================================================ -->
+<h2 id="why">2. 为什么要做这件事（故事线）</h2>
+<div class="flow">
+  <span>① 复现作者的 Table 1</span><i>→</i>
+  <span>② 确认实验仪器可靠</span><i>→</i>
+  <span>③ 发现"换打分准则没用"</span><i>→</i>
+  <span>④ 找到真正的问题：目标和 BA 不对齐</span><i>→</i>
+  <span>⑤ 设计 TDGS，逐层对照检验</span><i>→</i>
+  <span>⑥ Table 1 统一种子</span>
+</div>
+<p>最核心的发现是：在"好方法"扎堆的区域里，BA 几乎是平的。这些方法挑出来的子集几乎不重叠（Jaccard 只有 4.9%），但 BA 基本一样。所以再发明一种打分方法没有用。真正有用的是修改"覆盖的功劳算给谁、按什么比例算"。</p>
+
+<!-- ============================================================ -->
+<h2 id="steps">3. 每一步：做了什么、验证了什么、结果</h2>
+
+<div class="card">
+<h3>步骤 1　复现作者的 Table 1 <span class="pill p-ok">已完成</span></h3>
+<div class="grid3">
+  <div><b>做了什么</b>用作者的代码（commit 8cf757a），在 8 个方法 × 5 个数据集 × 2 个预算上训练。当时用的种子是 <b>0–4</b>。</div>
+  <div><b>验证了什么</b>通过 SSH 逐个数结果文件：<b>400/400</b> 个 cell 都有预测文件。再和论文 Table 1 的 80 个数字逐一比较。</div>
+  <div><b>结果</b>平均差 <b>1.91pp</b>，74/80 在 ±4pp 以内，没有系统性偏高或偏低（带符号平均 +0.16）。Graph-A2 单独比，平均差 1.34pp。</div>
+</div>
+<p class="mute" style="margin:8px 0 0">训练设置和论文正文一致：ResNet-18 从头训，224×224，SGD（lr 0.1，momentum 0.9，weight decay 5e-4），1000 epochs，batch 256，cosine 学习率，不做数据增强，评估最后一个 epoch。Graph-A2 的真实配置经过核对是 k=50、2 跳、全局图。注意，作者仓库的默认值是 k=10、按类建图，和论文不一致。</p>
+<div class="warn"><b>发现的问题：</b>我们的种子是 0–4，作者是 42–46。两边都不是逐位可复现的，所以数字接近但不相同。这就是步骤 7 要重新跑的原因。</div>
+</div>
+
+<div class="card">
+<h3>步骤 2　确认"实验仪器"可靠 <span class="pill p-ok">已完成</span></h3>
+<div class="grid3">
+  <div><b>做了什么</b>发现原始训练代码是非确定性的：同一个配置跑两次，BA 可以差 5–9pp。我们加了开关 <code>DETERMINISTIC_TRAINING=1</code>。</div>
+  <div><b>验证了什么</b>同一配置重复跑 48 次，<b>48/48 结果逐位相同</b>。另外测了噪声：训练种子带来的波动 σ≈1.37pp，换子集带来的波动 σ≈0.82pp。</div>
+  <div><b>结果</b>之后所有新实验都在确定性模式下运行。还得出一条经验：只跑 1 个种子的初筛基本是抛硬币（配对差的标准差有 2–3pp），至少要 5 个种子。</div>
+</div>
+</div>
+
+<div class="card">
+<h3>步骤 3　找方向：20 条线索全部关闭 <span class="pill p-ok">已完成</span></h3>
+<div class="grid3">
+  <div><b>做了什么</b>试了大量"换一种打分方式"的想法，例如难度加权、Voronoi 加权、类配额、稳定性筛选、多视角图等。</div>
+  <div><b>验证了什么</b>每条都用配对对照或置换对照检验，统计上都和 0 没有区别。</div>
+  <div><b>结果</b>总结成一个结构性结论：<b>BA 在竞争区域内是平的</b>，换准则没有用，要改的是目标本身和 BA 怎么对齐。这是论文的科学骨架（Act 2）。</div>
+</div>
+</div>
+
+<div class="card">
+<h3>步骤 4　Round 1：TDGS 第一次训练检验 <span class="pill p-ok">已完成</span></h3>
+<p>我们在 Graph-A2 的目标里指出两处和 BA 不对齐的地方：</p>
+<ol style="margin-top:0">
+  <li><b>跨类覆盖：</b>一个 A 类样本可以"覆盖"旁边的 B 类样本并因此得分，但这对分类没有帮助，还会把名额浪费到类别边界的另一侧。修正方法是只让同类覆盖算分，叫 <b>mask</b>。</li>
+  <li><b>按样本数加权：</b>大类的样本多，在目标里的发言权就大，但 BA 给每个类同样权重。修正方法是改成每类等权，叫 <b>类等权需求</b>。</li>
+</ol>
+<div class="grid3">
+  <div><b>做了什么</b>75 个 cell（5 个数据集 × 5 个方法变体 × 3 个种子，预算 2%）。</div>
+  <div><b>验证了什么</b>另外两个原本设计的"新点子"（难度需求、类对方向）都配了置换对照。</div>
+  <div><b>结果</b>两处修正合起来（<code>tdgs_cls</code>）+1.76pp，5/5 同向。两个"新点子"都被证伪：难度需求 −2.51pp，方向项相对置换对照 −0.20pp。论文里不写这两个点子，只作为已证伪项列出。</div>
+</div>
+</div>
+
+<div class="card">
+<h3>步骤 5　Round 2：加对照、加种子、加 5% 预算 <span class="pill p-ok">已完成 145/145</span></h3>
+<p>目的是回答"这个提升会不会是假的"。每个问题都在跑之前写好通过或失败的标准：</p>
+<table>
+<tr><th>门</th><th>要回答的问题</th><th>结果</th><th>判定</th></tr>
+<tr><td>主结论</td><td>TDGS 比 Graph-A2 好吗？（2%，5 个种子）</td><td class="n">+1.57pp，5/5 数据集同向；去掉 tissue 还有 +0.71</td><td class="ok">成立</td></tr>
+<tr><td>G1</td><td>作者自己的"按类建图"选项是不是已经能拿到这个提升？</td><td class="n">作者选项只比 Graph-A2 高 +0.09；我们比作者选项高 +1.66</td><td class="ok">通过（不是作者已有的东西）</td></tr>
+<tr><td>G2</td><td>类内部的几何结构真的有用，还是随便打乱也一样？</td><td class="n">总体 +1.44；但去掉 tissue 后是 −0.10</td><td class="run">按标准通过，但作用只在 tissue 上</td></tr>
+<tr><td>G3</td><td>两处修正是否都需要？</td><td class="n">只做 mask +1.33；只改权重 −1.17；在 mask 基础上再改权重只多 +0.43（n=3）</td><td class="run">mask 是主要干预；权重只是混合目标里的相对缩放，不写"两者都需要"</td></tr>
+<tr><td>λ</td><td>完全去掉原来的全局项（λ=1）会更好吗？</td><td class="n">−0.52</td><td class="ok">不会，保持 λ=0.5</td></tr>
+<tr><td>G4</td><td>到 5% 预算还成立吗？（要求 ≥4/5 同向）</td><td class="n">+0.39，只有 2/5 同向；tissue +4.13，其余 4 个 −0.94 到 +0.68</td><td class="no">不通过 → 论文写"2% 特定"</td></tr>
+<tr><td>G5</td><td>去掉 tissue 后还剩多少？（要求 &gt;0.5）</td><td class="n">+0.71</td><td class="ok">勉强通过</td></tr>
+</table>
+<p class="mute">为什么 5% 不行：每类名额变成 2.5 倍后，Graph-A2 自己也能覆盖类内的主要模式，跨类浪费的代价变小。只有 tissue 的跨类边高达 66%，浪费依然严重，所以提升保留了下来。这和另一个已知现象一致：Graph-A2 对 Random 在 2% 有 +1.12pp，在 5% 没有差别。结论是 2% 是这个 benchmark 上唯一能区分方法的预算。</p>
+</div>
+
+<div class="card">
+<h3>步骤 6　Round 2b：对照组补到 5 个种子 <span class="pill p-run">运行中</span></h3>
+<div class="grid3">
+  <div><b>做了什么</b>G1、G2、G3 的 4 个对照方法目前只有 3 个种子，补上种子 45 和 46，共 40 个 cell（jobs 35119 / 35124 / 35126）。</div>
+  <div><b>要验证什么</b>让对照组和主结论一样都是 n=5。唯一可能改变结论的是 G2：如果补完后总体 ≤0，要改写成"类作用域修正"，但叙事基本不变。</div>
+  <div><b>当前进度</b>12:30 时约 19/40 完成，预计 <b>13:30–15:00</b> 完成（有几个 tissue cell 比较慢）。</div>
+</div>
+</div>
+
+<div class="card">
+<h3>步骤 7　Table 1 的 7 个基线改用作者种子 42–46 重跑 <span class="pill p-run">已提交，排队中</span></h3>
+<div class="grid3">
+  <div><b>为什么</b>Graph-A2 和 TDGS 用的是作者种子 42–46，而 7 个基线来自种子 0–4 的归档。按你的决定，整张 Table 1 统一到 42–46。</div>
+  <div><b>做什么</b>7 个方法（Random、EL2N、Forgetting、EVA、Facility、FPS、Herding）× 5 个数据集 × 2 个预算 × 5 个种子，共 <b>350 个 cell</b>。流程和配置和归档完全相同，只换种子。选择种子等于训练种子，和作者代码一致。</div>
+  <div><b>怎么验证没跑偏</b>归档里本来就有少量种子 42 的 cell（OrganS、Blood、OrganA 的 2%）。新跑出来的这些 cell 必须和归档<b>逐位相同</b>，这证明新流程就是原流程。收割时自动检查。</div>
+</div>
+<p style="margin:8px 0 0">两步走：先"挑样本"（staging：jobs 35134 / 35136 / 35137，每个种子一个任务），再"训练"（jobs 35138 / 35139 / 35140，15 个任务、30 块 GPU，挑样本完成后自动开始）。</p>
+<p class="mute" style="margin:4px 0 0">这批写在独立的结果目录和独立的任务列表里，和正在跑的 Round 2b 没有任何重叠，所以不会重复训练同一个 cell。Graph-A2 不需要重跑，因为它的挑选结果和种子无关（归档里种子 0/1/42/43 的挑选结果哈希完全相同），而且 Round 1 和 Round 2 已经在 42–46 上训练过。</p>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="status">4. 验证状态总表</h2>
+<table>
+<tr><th>内容</th><th>状态</th><th>依据</th></tr>
+<tr><td>作者代码能复现论文 Table 1（量级上）</td><td class="ok">✅ 已验证</td><td>400/400 个 cell，平均差 1.91pp</td></tr>
+<tr><td>训练代码在确定性模式下可逐位复现</td><td class="ok">✅ 已验证</td><td>48/48 相同</td></tr>
+<tr><td>Graph-A2 的真实参数是 k=50、全局图</td><td class="ok">✅ 已验证</td><td>归档回放，逐位一致</td></tr>
+<tr><td>作者种子是 42–46</td><td class="ok">✅ 已验证</td><td>作者代码 <code>--seed 42</code>，<code>seed + trial</code>，<code>--trials 5</code></td></tr>
+<tr><td>TDGS 在 2% 优于 Graph-A2</td><td class="ok">✅ 已验证</td><td>n=5，+1.57pp，5/5</td></tr>
+<tr><td>提升不是作者"按类建图"选项已有的</td><td class="ok">✅ 已验证</td><td>G1</td></tr>
+<tr><td>两处修正都需要</td><td class="run">⚠️ 不能这么写</td><td>G3：mask 主效应清楚，权重增量小；交互项原报 +1.12 是混合口径（同口径 +1.60），等 2b 统一 n=5 重算</td></tr>
+<tr><td>类内几何有用</td><td class="run">⚠️ 部分成立</td><td>只在 tissue 上；2b 会给出 n=5 的最终读数</td></tr>
+<tr><td>5% 预算也成立</td><td class="no">❌ 不成立</td><td>G4 只有 2/5 → 论文限定为"2% 特定"</td></tr>
+<tr><td>"难度需求""类对方向"两个点子</td><td class="no">❌ 已证伪</td><td>Round 1 置换对照</td></tr>
+<tr><td>对照组达到 n=5</td><td class="run">⏳ 运行中</td><td>Round 2b</td></tr>
+<tr><td>Table 1 全部 9 列都用种子 42–46</td><td class="run">⏳ 排队中</td><td>步骤 7，350 个 cell</td></tr>
+<tr><td>新流程和归档流程逐位一致</td><td class="run">⏳ 待检查</td><td>步骤 7 收割时自动比对</td></tr>
+<tr><td>每类跨类边占比（Fig 3 的横轴）</td><td class="run">⏳ 待查</td><td>job 35076，状态未确认</td></tr>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="table1">5. Table 1 现在的样子</h2>
+<p>下表里，Graph-A2 和 TDGS 已经是种子 42–46 的最终数字。另外 7 列等步骤 7 跑完后填入。"论文"一行是作者 Table 1 里的 Graph-A2（Ours）。</p>
+<table>
+<tr><th rowspan="2">数据集</th><th colspan="4">2%</th><th colspan="4">5%</th></tr>
+<tr><th>论文 Graph-A2</th><th>我们的 Graph-A2</th><th>TDGS</th><th>配对 Δ</th><th>论文 Graph-A2</th><th>我们的 Graph-A2</th><th>TDGS</th><th>配对 Δ</th></tr>
+<tr><td>OrganS</td><td class="n">63.7±0.7</td><td class="n">63.4±0.6</td><td class="n">63.6±1.0</td><td class="n">+0.22</td><td class="n">68.4±1.0</td><td class="n">67.4±1.0</td><td class="n">66.5±1.1</td><td class="n">−0.94</td></tr>
+<tr><td>OrganA</td><td class="n">86.5±0.9</td><td class="n">87.0±1.0</td><td class="n">87.4±0.5</td><td class="n">+0.47</td><td class="n">91.9±0.3</td><td class="n">91.8±0.2</td><td class="n">90.8±0.9</td><td class="n">−0.96</td></tr>
+<tr><td>Path</td><td class="n">80.9±0.9</td><td class="n">81.6±3.0</td><td class="n">82.7±1.7</td><td class="n">+1.11</td><td class="n">85.9±1.7</td><td class="n">86.7±1.6</td><td class="n">85.8±1.1</td><td class="n">−0.96</td></tr>
+<tr><td>Tissue</td><td class="n">42.6±0.6</td><td class="n">42.8±1.1</td><td class="n">47.8±2.1</td><td class="n">+5.01</td><td class="n">49.5±1.3</td><td class="n">44.4±0.6</td><td class="n">48.5±0.8</td><td class="n">+4.13</td></tr>
+<tr><td>Blood</td><td class="n">84.5±1.7</td><td class="n">81.3±2.4</td><td class="n">82.3±2.5</td><td class="n">+1.04</td><td class="n">93.4±0.7</td><td class="n">92.7±1.5</td><td class="n">93.4±1.1</td><td class="n">+0.68</td></tr>
+</table>
+<p>我们的 Graph-A2 和论文相比：10 格里 8 格差距在 1pp 以内。两处偏差较大：Blood 2% 低 3.2pp，Tissue 5% 低 5.1pp。实验环境不完全相同，这种程度的上下浮动在预期内。Tissue 5% 在种子 0–4 的归档里各方法也普遍偏低 2.4–5.4pp，是系统性的。</p>
+<div class="warn">论文里会<b>如实</b>报告我们自己跑的数字，不会把作者的数字直接抄进来和我们的方法比。作者的数字会作为参考列出，或在正文里说明差距。</div>
+
+<!-- ============================================================ -->
+<h2 id="todo">6. 还没完成、还没验证的</h2>
+<h3>正在跑的实验</h3>
+<table>
+<tr><th>实验</th><th>规模</th><th>任务号</th><th>完成后要做的</th></tr>
+<tr><td>Round 2b（对照组补种子）</td><td class="n">40 个 cell</td><td>35119 / 35124 / 35126</td><td>收割，在 n=5 下重读 G1、G2、G3，更新 HANDOFF</td></tr>
+<tr><td>Table 1 基线：挑样本</td><td class="n">5 个种子 × 5 个数据集 × 2 个预算</td><td>35134 / 35136 / 35137</td><td>自动触发训练</td></tr>
+<tr><td>Table 1 基线：训练</td><td class="n">350 个 cell</td><td>35138 / 35139 / 35140</td><td>收割，逐位比对归档，生成最终 Table 1</td></tr>
+</table>
+<h3>还没做的分析（不需要 GPU）</h3>
+<ul>
+  <li>Table 2（最差类召回）、Table 5（机制预测）、Table 6（仪器和归档缺陷附录）。</li>
+  <li>Fig 1 方法示意、Fig 2 平坦性、Fig 6 每类召回热图、Fig 7 2% 和 5% 对比：数据都齐了，可以现在做。</li>
+  <li>Fig 3 类级机制散点：等 job 35076 的横轴数据。</li>
+  <li>Fig 4 交互图、Table 3/4 的对照行：等 Round 2b。</li>
+</ul>
+<h3>有意不做的</h3>
+<ul>
+  <li>不在 5% 上跑对照组：G4 已经不通过，拆解不会改变结论。</li>
+  <li>不加新预算（例如 1%）：作者 Table 1 只有 2% 和 5%。</li>
+  <li>不补 λ=1 的种子：它已经不如 λ=0.5，补种子不会改变推荐。</li>
+</ul>
+<h3>需要如实写进论文的弱点</h3>
+<div class="bad">
+<ul style="margin:0">
+  <li>5% 下只在 tissue 上有效（G4 失败）。</li>
+  <li>"类内几何有用"只在 tissue 上成立。</li>
+  <li>"跨类边占比能预测提升大小"在 2% 的 BA 上 Spearman 是 0.00，不能写成强预测。</li>
+</ul>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="eta">7. 时间预估</h2>
+<table>
+<tr><th>事项</th><th>预计完成（香港时间）</th><th>说明</th></tr>
+<tr><td>Round 2b</td><td>今天 13:30–15:00</td><td>剩余的主要是 tissue cell</td></tr>
+<tr><td>Table 1 挑样本</td><td>今天 16:00–21:00</td><td>Tissue 最慢：要算 3 个新种子的训练动态（每个约 35 分钟），Facility 在 CPU 上跑，每个预算约 30 分钟；其余数据集 2–3 小时</td></tr>
+<tr><td>Table 1 训练（350 cell）</td><td>明天（09-29）上午</td><td>约 230 GPU 小时，30 块 GPU 并行约 8–10 小时；最慢的单个 cell（Path/Tissue 5%）约 1.5 小时</td></tr>
+<tr><td>Table 1 最终版</td><td>训练完成后约 30 分钟</td><td>收割、逐位比对归档、生成表格</td></tr>
+</table>
+<p class="mute">三个账号的 GPU 队列和 Round 2b 共享。如果集群繁忙，排队时间会往后推。</p>
+
+<!-- ============================================================ -->
+<h2 id="where">8. 文件在哪</h2>
+<table>
+<tr><th>内容</th><th>位置</th></tr>
+<tr><td>唯一事实来源（最详细）</td><td><code>D:\graph_select\paper_tdgs\HANDOFF_20260927.md</code></td></tr>
+<tr><td>本页</td><td><code>D:\graph_select\paper_tdgs\report\explainer_20260928.html</code></td></tr>
+<tr><td>Round 2 最终结果</td><td><code>paper_tdgs\results\round2\round2_ladder_final_145.txt</code>、<code>round2_harvest_final_145.json</code></td></tr>
+<tr><td>Round 1 结果</td><td><code>paper_tdgs\results\round1\tables.md</code></td></tr>
+<tr><td>脚本（本地）</td><td><code>paper_tdgs\code\</code>。新增：<code>t1_select.slurm</code>（挑样本）、<code>t1_run_one.sh</code>（训练单个 cell）、<code>t1_harvest.py</code>（收割 + 逐位比对）、<code>make_table1.py</code>（生成 Table 1 并和论文对比）</td></tr>
+<tr><td>一键命令</td><td><code>launch_3accounts.sh t1status</code> 查进度，<code>t1harvest</code> 出表；Round 2b 用 <code>status</code> / <code>harvest</code></td></tr>
+<tr><td>Table 1 新结果树（集群）</td><td><code>/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/table1_s4246_20260928/</code></td></tr>
+<tr><td>Round 2 / 2b 结果树（集群）</td><td><code>/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/round2_20260927/</code></td></tr>
+<tr><td>种子 0–4 旧归档（集群，只读）</td><td><code>/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_clean_only_20260922/</code>（2%）和 <code>..._5pct_20260922/</code>（5%）</td></tr>
+</table>
+
+</main>
+</body>
+</html>

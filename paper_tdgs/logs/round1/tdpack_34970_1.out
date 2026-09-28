@@ -1,0 +1,33 @@
+host=hpcgpu109.ln.edu.hk task=1/4 ngpu=3 worklist=75 cells start=2026-09-27T02:57:21+08:00
+0, NVIDIA A100 80GB PCIe
+1, NVIDIA A100 80GB PCIe
+2, NVIDIA A100 80GB PCIe
+3, NVIDIA A100 80GB PCIe
+4, NVIDIA A100 80GB PCIe
+5, NVIDIA A100 80GB PCIe
+6, NVIDIA A100 80GB PCIe
+7, NVIDIA A100 80GB PCIe
+this task owns 19 cells
+[gpu2] ok pathmnist r0.02 tdgs_du s42
+[gpu1] ok pathmnist r0.02 tdgs_cls s44
+[gpu0] ok pathmnist r0.02 graph_a2 s43
+[gpu2] ok organamnist r0.02 tdgs_d s42
+[gpu1] ok organamnist r0.02 graph_a2 s44
+[gpu2] ok bloodmnist r0.02 tdgs_cls s42
+[gpu1] ok organamnist r0.02 tdgs_perm s44
+[gpu0] ok pathmnist r0.02 tdgs_perm s43
+[gpu2] ok organsmnist r0.02 graph_a2 s42
+[gpu1] ok bloodmnist r0.02 tdgs_du s44
+[gpu2] ok organsmnist r0.02 tdgs_perm s42
+[gpu0] ok organamnist r0.02 tdgs_du s43
+[gpu1] ok organsmnist r0.02 tdgs_d s44
+[gpu0] ok bloodmnist r0.02 tdgs_d s43
+[gpu0] ok organsmnist r0.02 tdgs_cls s43
+[gpu2] ok tissuemnist r0.02 tdgs_du s42
+[gpu2] finished: ok=6 skip=0 fail=0
+[gpu1] ok tissuemnist r0.02 tdgs_cls s44
+[gpu1] finished: ok=6 skip=0 fail=0
+[gpu0] ok tissuemnist r0.02 graph_a2 s43
+[gpu0] ok tissuemnist r0.02 tdgs_perm s43
+[gpu0] finished: ok=7 skip=0 fail=0
+task=1 done=2026-09-27T05:55:27+08:00

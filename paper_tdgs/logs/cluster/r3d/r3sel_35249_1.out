@@ -1,0 +1,26 @@
+host=hpcgpu111.ln.edu.hk ds=organamnist ratio=0.02 start=2026-09-28T18:22:41+08:00
+
+[organamnist r=0.02] n=34561 C=11 bpc=62 lam=0.5
+  view uni: K nnz=36.5M a nnz=21.0M xshare=42.41% (9s)
+    uni: {'xshare': 0.4241045321862626, 'knn_loo_ba': 0.8965027180905623, 'val_knn_ba': 0.7874040127357147}
+  view dinov2: K nnz=62.2M a nnz=32.8M xshare=47.30% (9s)
+    dinov2: {'xshare': 0.47297222602831923, 'knn_loo_ba': 0.9024543746632113, 'val_knn_ba': 0.8732431384792992}
+  view clip: K nnz=45.1M a nnz=27.2M xshare=39.62% (7s)
+    clip: {'xshare': 0.39622419602636794, 'knn_loo_ba': 0.9137797883828361, 'val_knn_ba': 0.8780724179430347}
+  identity graph_a2: greedy_blended order match=True  staged-set match=True
+  identity tdgs_cls: greedy_blended order match=True  staged-set match=True
+
+  --- arm mv_rob ---
+    cap=0.90  F_v/F_v(S_v)=[0.9311 0.9256 0.9317]  min=0.9256
+    cap=0.92  F_v/F_v(S_v)=[0.9378 0.9344 0.9393]  min=0.9344
+    cap=0.94  F_v/F_v(S_v)=[0.9466 0.9424 0.9476]  min=0.9424
+    cap=0.95  F_v/F_v(S_v)=[0.9511 0.9449 0.9517]  min=0.9449
+    cap=0.96  F_v/F_v(S_v)=[0.9521 0.9431 0.9541]  min=0.9431
+    cap=0.97  F_v/F_v(S_v)=[0.9521 0.9431 0.9541]  min=0.9431
+    cap=0.98  F_v/F_v(S_v)=[0.9521 0.9431 0.9541]  min=0.9431
+    cap=0.99  F_v/F_v(S_v)=[0.9521 0.9431 0.9541]  min=0.9431
+    cap=1.00  F_v/F_v(S_v)=[0.9521 0.9431 0.9541]  min=0.9431
+    wrote mv_rob (116s)
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/report/organamnist_r0.02_r3_mvrob_a1.json
+done=2026-09-28T18:25:13+08:00

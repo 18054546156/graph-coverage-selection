@@ -1,0 +1,7 @@
+host=hpcgpu109.ln.edu.hk ds=organsmnist start=2026-09-28T17:54:14+08:00
+dinov2 organsmnist train (13932, 1024) 138s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/organsmnist_train_dinov2_224.npz
+dinov2 organsmnist val (2452, 1024) 24s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/organsmnist_val_dinov2_224.npz
+clip organsmnist train (13932, 1024) 136s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/organsmnist_train_clip_224.npz
+clip organsmnist val (2452, 1024) 24s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/organsmnist_val_clip_224.npz
+uni organsmnist val (2452, 1024) 19s -> /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/emb/organsmnist_val_uni_224.npz
+done=2026-09-28T18:00:19+08:00

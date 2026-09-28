@@ -1,0 +1,81 @@
+host=hpcgpu111.ln.edu.hk ds=organsmnist ratio=0.02 start=2026-09-28T18:05:32+08:00
+
+[organsmnist r=0.02] n=13932 C=11 bpc=25 lam=0.5
+  view uni: K nnz=13.3M a nnz=6.2M xshare=53.77% (5s)
+    uni: {'xshare': 0.5376963550713678, 'knn_loo_ba': 0.7725107659648084, 'val_knn_ba': 0.7340809210306329}
+  view dinov2: K nnz=23.9M a nnz=8.7M xshare=63.46% (3s)
+    dinov2: {'xshare': 0.6345578505396854, 'knn_loo_ba': 0.7210714115413408, 'val_knn_ba': 0.7249058683746639}
+  view clip: K nnz=17.7M a nnz=7.0M xshare=60.52% (2s)
+    clip: {'xshare': 0.6052025864405363, 'knn_loo_ba': 0.7155200488922583, 'val_knn_ba': 0.6978831041324235}
+  identity graph_a2: greedy_blended order match=True  staged-set match=True
+  identity tdgs_cls: greedy_blended order match=True  staged-set match=True
+
+  --- arm hpc_cls ---
+    55/275 picks  gain=0.00429085  (0s)
+    110/275 picks  gain=0.00215096  (0s)
+    165/275 picks  gain=0.00138157  (1s)
+    220/275 picks  gain=0.000906283  (1s)
+    275/275 picks  gain=0.000322137  (1s)
+    wrote hpc_cls (3s)
+
+  --- arm a2_dinov2 ---
+    55/275 picks  gain=0.00372996  (0s)
+    110/275 picks  gain=0.00203382  (0s)
+    165/275 picks  gain=0.00129547  (1s)
+    220/275 picks  gain=0.000856688  (1s)
+    275/275 picks  gain=0.000391803  (1s)
+    wrote a2_dinov2 (1s)
+
+  --- arm a2_clip ---
+    55/275 picks  gain=0.00391411  (0s)
+    110/275 picks  gain=0.00220166  (0s)
+    165/275 picks  gain=0.00138417  (0s)
+    220/275 picks  gain=0.000905075  (1s)
+    275/275 picks  gain=0.00034553  (1s)
+    wrote a2_clip (1s)
+
+  --- arm cls_dinov2 ---
+    55/275 picks  gain=0.0034977  (0s)
+    110/275 picks  gain=0.0019781  (1s)
+    165/275 picks  gain=0.00141306  (1s)
+    220/275 picks  gain=0.000982639  (1s)
+    275/275 picks  gain=0.000563459  (1s)
+    wrote cls_dinov2 (1s)
+
+  --- arm cls_clip ---
+    55/275 picks  gain=0.00369031  (0s)
+    110/275 picks  gain=0.00220573  (0s)
+    165/275 picks  gain=0.00150464  (1s)
+    220/275 picks  gain=0.00105736  (1s)
+    275/275 picks  gain=0.00060081  (1s)
+    wrote cls_clip (1s)
+
+  --- arm cls_cat ---
+  view cat: K nnz=16.3M a nnz=7.8M xshare=52.29% (2s)
+    55/275 picks  gain=0.00374765  (0s)
+    110/275 picks  gain=0.00200036  (0s)
+    165/275 picks  gain=0.00136794  (1s)
+    220/275 picks  gain=0.00101065  (1s)
+    275/275 picks  gain=0.000566462  (1s)
+    wrote cls_cat (3s)
+
+  --- arm mv_mean ---
+    55/275 picks  gain=0.00342515  (1s)
+    110/275 picks  gain=0.00211035  (2s)
+    165/275 picks  gain=0.00147689  (2s)
+    220/275 picks  gain=0.00103762  (3s)
+    275/275 picks  gain=0.000582533  (3s)
+    wrote mv_mean (4s)
+
+  --- arm mv_rob ---
+    cap=0.80  F_v=[0.6449 0.6278 0.6453]  min=0.6278
+    cap=0.85  F_v=[0.6449 0.6278 0.6453]  min=0.6278
+    cap=0.90  F_v=[0.6449 0.6278 0.6453]  min=0.6278
+    cap=0.93  F_v=[0.6449 0.6278 0.6453]  min=0.6278
+    cap=0.96  F_v=[0.6449 0.6278 0.6453]  min=0.6278
+    cap=0.98  F_v=[0.6449 0.6278 0.6453]  min=0.6278
+    cap=1.00  F_v=[0.6449 0.6278 0.6453]  min=0.6278
+    wrote mv_rob (28s)
+
+  wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/r3/report/organsmnist_r0.02_r3.json
+done=2026-09-28T18:06:30+08:00
