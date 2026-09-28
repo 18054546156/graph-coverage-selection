@@ -50,7 +50,8 @@ T1_CACHE=$S/t1cache
 WORKLIST_T1=$S/work/table1_s4246.txt
 ARCH=/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab
 # staging split: the pipeline loops datasets inside one task, one task per seed
-T1_STAGE_DS=(tissuemnist pathmnist,bloodmnist organamnist,organsmnist)
+# ':'-separated: sbatch --export would split a ','-separated list (09-28 bug)
+T1_STAGE_DS=(tissuemnist pathmnist:bloodmnist organamnist:organsmnist)
 T1_STAGE_MEM=(48G 32G 32G)      # archive ran tissue at 48G including training
 EXP_ROOT=$S/runs/round2_20260927
 SEL_DIR=$S/sel

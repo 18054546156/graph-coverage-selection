@@ -33,6 +33,9 @@ umask 002
 : "${T1_ROOT:?T1_ROOT is required}"
 : "${T1_CACHE:?T1_CACHE is required}"
 SEED=$((42 + ${SLURM_ARRAY_TASK_ID:-0}))
+# sbatch --export splits on commas, so a list passed as DS=a,b arrives as DS=a
+# (09-28: blood/organS were silently never staged). Pass DS=a:b instead.
+DS=${DS//:/,}
 
 PROJECT_ROOT=/project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab
 SOURCE_ROOT=$PROJECT_ROOT/sources/table1_clean_only_20260922
