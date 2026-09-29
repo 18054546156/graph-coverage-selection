@@ -1,0 +1,26 @@
+
+== EXT_n3  C=['graph_a2', 'a2_perclass', 'tdgs_mask', 'tdgs_cls', 'cls_dinov2', 'cls_clip', 'mv_rob', 'mv_mean'] seeds=[42, 43, 44]
+  bloodmnist   choices=['cls_dinov2', 'tdgs_mask', 'mv_rob']  vsel-cls=+0.84 vsel-a2=+1.46 vsel-meanC=-1.35 oracle-cls=+5.98  r(val,test)=0.96
+  organamnist  choices=['cls_clip', 'cls_clip', 'cls_clip']  vsel-cls=+1.15 vsel-a2=+1.09 vsel-meanC=+0.99 oracle-cls=+1.33  r(val,test)=0.74
+  organsmnist  choices=['cls_clip', 'tdgs_cls', 'tdgs_cls']  vsel-cls=-0.56 vsel-a2=+0.18 vsel-meanC=+0.21 oracle-cls=+0.69  r(val,test)=0.56
+  pathmnist    choices=['cls_clip', 'cls_dinov2', 'cls_dinov2']  vsel-cls=+0.40 vsel-a2=+0.52 vsel-meanC=+0.58 oracle-cls=+2.23  r(val,test)=0.44
+  tissuemnist  choices=['mv_mean', 'mv_mean', 'mv_mean']  vsel-cls=+0.36 vsel-a2=+6.39 vsel-meanC=+2.47 oracle-cls=+0.61  r(val,test)=0.99
+  vsel-tdgs_cls: {'dataset_mean': 0.4379981114391877, 'ci95': [-0.533067698033483, 1.4015041168817726], 'n_pos': 4, 'n_ds': 5, 'excl_tissue': 0.4564982083138131, 'per_ds': {'bloodmnist': 0.8355090971449487, 'organamnist': 1.1486602947263076, 'organsmnist': -0.5621267140880737, 'pathmnist': 0.40395015547206964, 'tissuemnist': 0.36399772394068625}}
+  vsel-graph_a2: {'dataset_mean': 1.924800491784263, 'ci95': [-0.002833276175001094, 4.236071351811759], 'n_pos': 5, 'n_ds': 5, 'excl_tissue': 0.8093791105414092, 'per_ds': {'bloodmnist': 1.458029157718525, 'organamnist': 1.0859404538547464, 'organsmnist': 0.17501890311141613, 'pathmnist': 0.5185279274809496, 'tissuemnist': 6.386486016755678}}
+  vsel-meanC: {'dataset_mean': 0.5800947678841928, 'ci95': [-0.645935428507809, 1.6756391755812228], 'n_pos': 4, 'n_ds': 5, 'excl_tissue': 0.1084237024591872, 'per_ds': {'bloodmnist': -1.3455989444575416, 'organamnist': 0.9934878898362162, 'organsmnist': 0.20990020644553095, 'pathmnist': 0.5759056580125432, 'tissuemnist': 2.4667790295842154}}
+  worst_recall vsel-tdgs_cls: 0.6453492391233306
+  gate: FAIL
+
+== EXT_n3_A100ref  C=['graph_a2', 'a2_perclass', 'tdgs_mask', 'tdgs_cls@A100', 'cls_dinov2', 'cls_clip', 'mv_rob', 'mv_mean'] seeds=[42, 43, 44]
+  bloodmnist   choices=['cls_dinov2', 'tdgs_mask', 'mv_rob']  vsel-cls=-0.26 vsel-a2=+1.46 vsel-meanC=-1.48 oracle-cls=+5.10  r(val,test)=0.95
+  organamnist  choices=['cls_clip', 'cls_clip', 'cls_clip']  vsel-cls=+0.85 vsel-a2=+1.09 vsel-meanC=+0.96 oracle-cls=+1.03  r(val,test)=0.69
+  organsmnist  choices=['cls_clip', 'cls_clip', 'tdgs_cls@A100']  vsel-cls=-0.56 vsel-a2=+0.30 vsel-meanC=+0.32 oracle-cls=+0.61  r(val,test)=0.54
+  pathmnist    choices=['cls_clip', 'cls_dinov2', 'cls_dinov2']  vsel-cls=+0.09 vsel-a2=+0.52 vsel-meanC=+0.54 oracle-cls=+2.41  r(val,test)=0.42
+  tissuemnist  choices=['mv_mean', 'mv_mean', 'mv_mean']  vsel-cls=+0.84 vsel-a2=+6.39 vsel-meanC=+2.53 oracle-cls=+1.26  r(val,test)=0.99
+  vsel-tdgs_cls: {'dataset_mean': 0.1928512691173216, 'ci95': [-1.1447984767617987, 1.3702536838669785], 'n_pos': 3, 'n_ds': 5, 'excl_tissue': 0.03218600266888809, 'per_ds': {'bloodmnist': -0.2557900164210462, 'organamnist': 0.8485733210769916, 'organsmnist': -0.5575361654402385, 'pathmnist': 0.09349687145984549, 'tissuemnist': 0.8355123349110557}}
+  vsel-graph_a2: {'dataset_mean': 1.9502882948430613, 'ci95': [0.03185822890878595, 4.244758159406994], 'n_pos': 5, 'n_ds': 5, 'excl_tissue': 0.8412388643649071, 'per_ds': {'bloodmnist': 1.458029157718525, 'organamnist': 1.0859404538547464, 'organsmnist': 0.3024579184054077, 'pathmnist': 0.5185279274809496, 'tissuemnist': 6.386486016755678}}
+  vsel-meanC: {'dataset_mean': 0.571753240270407, 'ci95': [-0.6971220027108845, 1.7115281626745793], 'n_pos': 4, 'n_ds': 5, 'excl_tissue': 0.08326196134913107, 'per_ds': {'bloodmnist': -1.482011333653288, 'organamnist': 0.9559770181300498, 'organsmnist': 0.3219831634087493, 'pathmnist': 0.5370989975110133, 'tissuemnist': 2.5257183559555103}}
+  worst_recall vsel-tdgs_cls: -2.0514392259082936
+  gate: FAIL
+
+wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/val_eval_r3/vsel_ext_r0.02.json

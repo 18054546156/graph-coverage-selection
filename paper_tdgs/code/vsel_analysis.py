@@ -23,6 +23,15 @@ SETS = {
     "C5_n5":  (["graph_a2", "a2_perclass", "tdgs_mask", "tdgs_cls"], [42, 43, 44, 45, 46]),
     "C6_n3":  (["graph_a2", "a2_perclass", "tdgs_mask", "tdgs_cls", "tdgs_lam1"], [42, 43, 44]),
 }
+# Amendment 4: C5 + encoder arms. The R3 arms exist on seeds 42-44 only (G-MV
+# stage 2 never triggered), so this is n=3, not the n=5 the amendment names.
+# With --h100-ref, tdgs_cls is the P4-e H100 copy and the A100 copy is renamed.
+EXT = {
+    "EXT_n3": (["graph_a2", "a2_perclass", "tdgs_mask", "tdgs_cls",
+                "cls_dinov2", "cls_clip", "mv_rob", "mv_mean"], [42, 43, 44]),
+    "EXT_n3_A100ref": (["graph_a2", "a2_perclass", "tdgs_mask", "tdgs_cls@A100",
+                        "cls_dinov2", "cls_clip", "mv_rob", "mv_mean"], [42, 43, 44]),
+}
 
 
 def test_metrics(ckpt):
@@ -47,19 +56,26 @@ def hboot(d, B=20000, seed=0):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--val-eval", required=True)
+    ap.add_argument("--val-eval", required=True, nargs="+")
+    ap.add_argument("--h100-ref", action="store_true",
+                    help="Amendment 4: tdgs_cls := runs/r3hw_* copy; run the EXT sets")
     ap.add_argument("--ratio", type=float, default=0.02)
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     V = defaultdict(dict)                 # (ds, arm) -> seed -> (val, test, twr)
-    for line in open(os.path.join(a.val_eval, "val_metrics.jsonl")):
+    lines_in = [l for d in a.val_eval for l in open(os.path.join(d, "val_metrics.jsonl"))]
+    for line in lines_in:
         r = json.loads(line)
         if abs(r["ratio"] - a.ratio) > 1e-9:
             continue
+        if a.h100_ref and r["arm"] == "tdgs_cls" and "/r3hw_" not in r["ckpt"]:
+            r["arm"] = "tdgs_cls@A100"
         tb, tw = test_metrics(r["ckpt"])
         V[(r["dataset"], r["arm"])][r["seed"]] = (r["ba"], tb, tw, r["worst_recall"])
     rep = {}
-    for name, (C, seeds) in SETS.items():
+    ref = "tdgs_cls"
+    for name, (C, seeds) in (EXT if a.h100_ref else SETS).items():
+        ref = "tdgs_cls@A100" if name.endswith("A100ref") else "tdgs_cls"
         per_ds, lines = {}, []
         for ds in DSL:
             if not all(s in V.get((ds, c), {}) for c in C for s in seeds):
@@ -72,11 +88,11 @@ def main():
                 cstar = max(C, key=lambda c: score[c])
                 test = {c: V[(ds, c)][s][1] for c in C}
                 rows.append(dict(seed=s, choice=cstar, vsel=test[cstar],
-                                 tdgs_cls=test["tdgs_cls"], graph_a2=test["graph_a2"],
+                                 tdgs_cls=test[ref], graph_a2=test["graph_a2"],
                                  meanC=float(np.mean(list(test.values()))),
                                  oracle=max(test.values()),
                                  vsel_worst=V[(ds, cstar)][s][2],
-                                 cls_worst=V[(ds, "tdgs_cls")][s][2]))
+                                 cls_worst=V[(ds, ref)][s][2]))
             per_ds[ds] = rows
             # val-test agreement across all (arm, seed) of this dataset
             vt = np.array([V[(ds, c)][s][:2] for c in C for s in seeds])

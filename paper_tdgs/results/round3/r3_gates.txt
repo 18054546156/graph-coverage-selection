@@ -1,0 +1,42 @@
+== hardware noise tdgs_cls H100 - A100 (n=25): mean +0.22  mean|d| 1.67  sd 2.38  max|d| 6.74 pp
+== G-R2 (tdgs_cls[H100] - hpc_cls)
+  tdgs_cls - hpc_cls  n=5: +0.57 [-1.12, +2.26]  pos 3/5  exTis -0.15
+    bloodm=-1.78 organa=-0.25 organs=+1.31 pathmn=+0.11 tissue=+3.48
+  verdict: FAIL
+  sensitivity (A100 tdgs_cls):
+  tdgs_cls@A100 - hpc_cls  n=5: +0.36 [-0.86, +1.71]  pos 3/5  exTis -0.18
+    bloodm=-0.90 organa=+0.20 organs=+0.60 pathmn=-0.60 tissue=+2.49
+  worst-class recall (secondary):
+  tdgs_cls - hpc_cls  n=5: -0.62 [-5.63, +3.41]  pos 3/5  exTis -1.43
+    bloodm=-9.82 organa=+1.07 organs=+3.46 pathmn=-0.43 tissue=+2.60
+== G-MV stage 1 (mv_rob - tdgs_cls[H100], seeds 42-44)
+  mv_rob - tdgs_cls  n=3: -0.02 [-1.18, +1.60]  pos 2/5  exTis +0.25
+    bloodm=+2.08 organa=-0.05 organs=+0.14 pathmn=-1.17 tissue=-1.09
+  mv_rob - val-selected single view:
+  mv_rob - valsel_view  n=3: -0.24 [-1.45, +1.46]  pos 2/5  exTis -0.04
+    bloodm=+2.08 organa=-1.20 organs=+0.14 pathmn=-1.17 tissue=-1.03
+  verdict: STOP
+  pivot checks:
+  valsel_view - tdgs_cls  n=3: +0.22 [-0.24, +0.76]  pos 1/5  exTis +0.29
+    bloodm=+0.00 organa=+1.15 organs=+0.00 pathmn=+0.00 tissue=-0.07
+  mv_mean - mv_rob  n=3: +1.04 [-0.04, +2.30]  pos 4/5  exTis +0.93
+    bloodm=+2.50 organa=+0.31 organs=-0.19 pathmn=+1.12 tissue=+1.45
+  cls_cat - mv_rob  n=3: -0.51 [-1.51, +0.45]  pos 2/5  exTis -0.77
+    bloodm=-0.70 organa=+0.49 organs=-1.37 pathmn=-1.51 tissue=+0.54
+  sensitivity (A100 tdgs_cls):
+  mv_rob - tdgs_cls@A100  n=3: -0.29 [-1.60, +0.94]  pos 2/5  exTis -0.21
+    bloodm=+0.99 organa=-0.35 organs=+0.01 pathmn=-1.48 tissue=-0.62
+  worst-class recall (secondary):
+  mv_rob - tdgs_cls  n=3: +2.42 [-2.18, +7.25]  pos 3/5  exTis +3.45
+    bloodm=+8.92 organa=-1.02 organs=+0.73 pathmn=+5.15 tissue=-1.70
+== descriptive, seeds 42-44 (vs tdgs_cls[H100]; vs graph_a2@A100 is hardware-confounded)
+  hpc_cls     vs cls -0.17 (3/5)   vs a2@A100 +1.31 (5/5)
+  cls_dinov2  vs cls +0.47 (3/5)   vs a2@A100 +1.95 (4/5)
+  cls_clip    vs cls +0.43 (3/5)   vs a2@A100 +1.92 (5/5)
+  cls_cat     vs cls -0.53 (2/5)   vs a2@A100 +0.96 (3/5)
+  mv_mean     vs cls +1.02 (3/5)   vs a2@A100 +2.51 (5/5)
+  mv_rob      vs cls -0.02 (2/5)   vs a2@A100 +1.47 (3/5)
+  a2_dinov2   vs cls -1.21 (1/5)   vs a2@A100 +0.28 (3/5)
+  a2_clip     vs cls -2.03 (2/5)   vs a2@A100 -0.54 (2/5)
+== val-selected view per dataset: bloodm=uni, organa=clip, organs=uni, pathmn=uni, tissue=dinov2
+wrote /mnt/prj01/hgrp-1502-5TB/tdgs_shared/archive/round3/r3_gates.json

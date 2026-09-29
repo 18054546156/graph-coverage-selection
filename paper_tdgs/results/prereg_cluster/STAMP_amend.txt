@@ -1,1 +1,3 @@
 amendment_20260928 02dea5dee9dd751c 2026-09-28T18:22:20+08:00
+amendment3 f112d0722c05ad63 2026-09-28T18:34:27+08:00 (append-only: prefix identical to previous stamp)
+ea8883d3904383e79f2b83091b30ffc1b7ce5b946e81678212b9974cca2e9efa  2026-09-28T22:41:49+08:00  amendment 4

@@ -112,8 +112,17 @@ python harvest.py ... ; python ladder.py ... ; python audit_contrasts.py ...
 
 Seed convention: training seed ∈ {42..46} (the author's convention). The selection itself is deterministic (`_s42` only marks it).
 
-## 7. Status labels (read before quoting anything)
+## 7. Status labels (read before quoting anything; updated 2026-09-29)
 
-- **Verified (training results)**: rounds 1–2, 260 cells. See `report/evidence_ledger_20260928.md`.
-- **Selection space only, no training**: R3 S0 diagnostics (`results/r3_report/`).
-- **Running or not yet executed**: R3 training (P4-a..d), Table 1 rerun on seeds 42–46, val evaluation, and independent validation (DermaMNIST / CAMELYON17 **not executed**).
+- **Verified (training results)**: rounds 1–2 (260 cells), Round 3 P4 (130 cells) + hardware control P4-e (25), Table 1 baselines on seeds 42–46 (350). Gates read 09-29: **G-MV STOP, G-R2 FAIL, extended vsel FAIL** — see `report/r3_validation_report_20260928.md` §2, §5–§7.
+- **Harness identity**: 40/40 overlapping A100 cells are bit-identical to the Table-1 archive; H100 cells are not (same selection sha). Measured GPU-type noise on BA: per-cell sd 2.38pp, unbiased (P4-e). Reproduce on A100 to match bit for bit.
+- **Not executed**: R3 at 5%, DermaMNIST, CAMELYON17 (not triggered by the gates).
+
+## 8. Re-running the analysis from the shipped files (no GPU)
+
+```bash
+cd paper_tdgs/code
+python r3_gates.py --r3 ../results/round3/r3_harvest.json --r3hw ../results/round3/r3hw_harvest.json     --round1 ../results/round1/tdgs_round1_harvest.json --round2 ../results/archive_round2/round2_harvest.json     --r3-report ../results/r3_report --out /tmp/r3_gates.json
+python make_table1.py --baselines ../results/table1/t1_s4246_harvest.json     --round2 ../results/archive_round2/round2_harvest.json --round1 ../results/round1/tdgs_round1_harvest.json
+```
+`vsel_analysis.py` additionally needs each cell's `metrics.jsonl`, which the full repository ships under `cluster_outputs/runs/` (paths inside `val_metrics.jsonl` are cluster paths; see its docstring).

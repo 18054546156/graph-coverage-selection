@@ -80,3 +80,61 @@ The script `val_eval.py` is to be written. It must use exactly the same model co
 - The reason is from memory `metric-battery-closed`: of 182 tests, 0 survive BH correction.
 - Adding metrics only enlarges the multiple-comparison space.
 - The val side adds val BA only as a *selection* quantity, not as an endpoint.
+
+## Amendment 3 (2026-09-28 ~18:35 HKT; **no val BA has been read at this point**, and no R3 training has finished)
+
+1. **Candidate set 𝒞 of Amendment 2 is expanded** to include `tdgs_lam1` (λ = 1, n = 3 on seeds 42–44).
+   - 𝒞 now spans λ ∈ {0 (graph_a2), 0.5 (tdgs_cls), 1 (tdgs_lam1)} × scope {global, per-class (a2_perclass), mask (tdgs_mask)}.
+   - Per-dataset hyperparameters are therefore chosen **by val** over this trained grid.
+   - Because tdgs_lam1 only has n = 3, the leave-one-seed-out analysis runs on seeds 42–44 when tdgs_lam1 is in the set. A secondary analysis without tdgs_lam1 uses n = 5.
+2. **mv_rob after Amendment 1 (4/5 datasets, before training):**
+
+   | Dataset | J(mv_rob, mv_mean) | Chosen c |
+   |---|---|---|
+   | blood | 0.46 | 0.95 |
+   | organA | 0.56 | 0.95 |
+   | organS | 0.52 | 0.94 |
+   | path | pending (35256) | — |
+
+   - The equivalence threshold (≥ 0.8 on ≥ 4/5 datasets) is not met, so **both are trained**, as P4-b.
+   - The measured gain in min_v F̂_v over mv_mean is only +0.001 to +0.004, matching the ≤ 0.01 predicted in Amendment 1.
+   - mv_rob and mv_mean therefore differ **in their selection sets** (J ≈ 0.5) but are nearly identical **in objective value**. This is the "flat good region" phenomenon again.
+3. **P4 training was submitted** as job 35258 into the independent tree `runs/r3_20260928`, with worklist `work/r3.txt` (130 cells), SEL_WAIT = 4 h (waiting for the tissue / path staging to finish).
+   - The stale path `mv_rob` (v0) file was removed from the selection directory, so training cannot read the pre-amendment version.
+4. **S0 at 4/5 datasets (tissue is still staging):**
+   - S0-a: J(tdgs_cls, cls_dinov2 / cls_clip) is 0.009–0.020 on all 4 datasets, so it **passes**.
+   - S0-b (val kNN BA, uni / dinov2 / clip):
+
+     | Dataset | uni | dinov2 | clip |
+     |---|---|---|---|
+     | blood | 94.7 | 90.2 | 86.2 |
+     | organA | 78.7 | 87.3 | 87.8 |
+     | organS | 73.4 | 72.5 | 69.8 |
+     | path | 99.6 | 96.7 | 96.9 |
+
+     There is no single view that is best everywhere and leads by ≥ 2pp, so H_enc is **not falsified**. This is a zero-training kNN measurement.
+
+## Amendment 4 (2026-09-28 ~22:45 HKT; written **after** the 5/5 vsel was read and while 32/130 P4 cells exist; no P4 BA has been read)
+
+This amendment records procedural changes. It changes no gate.
+
+1. **val-eval fidelity criterion.** This replaces "bit for bit" in Amendment 2.
+   - New criterion: argmax agreement ≥ 0.999 **and** |ΔBA| ≤ 0.1pp against the harness `predictions_clean.npz`.
+   - It was fixed **before** vsel was first read (18:55).
+   - Final values:
+     - 4/5 datasets on H100: agreement ≥ 0.99989.
+     - tissue on A100 (job 35265): agreement 1.000000, |Δlogit| = 0.
+2. **P4 resubmitted** as job **35293** (6 GPUs; partition gpu-h100 or gpu-a100) in place of 35258 (4 GPUs, still queued).
+   - This happened with 0 cells trained; the worklist and tree are unchanged.
+   - As a result, **R3 arms train on H100**, while the R1/R2 `tdgs_cls`/`graph_a2` copies trained on A100.
+   - Deterministic training is not bit-identical across GPU types.
+3. **Hardware control P4-e (added).**
+   - `tdgs_cls` is retrained on H100, 5 datasets × seeds 42–46 = 25 cells.
+   - Separate tree `runs/r3hw_20260928`, worklist `work/r3hw.txt`, job **35306**, runs after 35293.
+   - **G-R2 and G-MV are evaluated against the H100 copy of `tdgs_cls`** (same hardware as the R3 arms).
+   - The A100 copy is reported as a sensitivity row.
+   - The per-cell |ΔBA(H100 − A100)| of `tdgs_cls` is reported as the measured hardware noise.
+4. **Extended vsel after P4.** 𝒞 is extended to C5 ∪ {cls_dinov2, cls_clip, mv_rob, mv_mean} at n = 5.
+   - This means "which encoder" is treated as a per-dataset hyperparameter chosen on val.
+   - Same leave-one-seed-out rule, same gate as Amendment 2.
+   - Because of item 3, the reference `tdgs_cls` is the H100 copy.
