@@ -1,0 +1,65 @@
+{
+ "dataset": "dermamnist",
+ "method": "typiclust",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/t1cache/embeddings_img224_smokefull/dermamnist_train_uni_224.npz",
+ "N": 7007,
+ "C": 7,
+ "ratios": {
+  "0.02": {
+   "bpc": 20,
+   "typiclust": {
+    "per_class": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     5,
+     3,
+     12,
+     2,
+     28,
+     88,
+     2
+    ]
+   },
+   "seconds": 35.9
+  },
+  "0.05": {
+   "bpc": 50,
+   "fallback_skip_exhausted_clusters": [
+    3,
+    6
+   ],
+   "typiclust": {
+    "per_class": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     12,
+     17,
+     20,
+     4,
+     49,
+     243,
+     5
+    ]
+   },
+   "seconds": 77.7
+  }
+ }
+}

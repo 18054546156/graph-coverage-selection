@@ -5,6 +5,7 @@
 > Audit ledger: [report/evidence_ledger_20260928.md](report/evidence_ledger_20260928.md).
 > Round 3 preregistration and amendments: `report/r3_prereg_*.md`.
 > The "TD" in TDGS means Task-Demand (train-pool OOF proxy), **not test/target**. No arm reads the test set. See HANDOFF §0.1.
+> **2026-10-02** — new line since the snapshot below: ACS (ambiguity-aware class-conditional selection), proposal + E0/E1 results + code; file-by-file index in [report/acs_index_20261002.md](report/acs_index_20261002.md).
 
 Target of comparison: **https://github.com/zahiriddin-rustamov/graph-coverage-selection**
 (Rustamov et al. 2026, MICCAI, arXiv:2606.22002), Table 1 protocol — 5 MedMNIST

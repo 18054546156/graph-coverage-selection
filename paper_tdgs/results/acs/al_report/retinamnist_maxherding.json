@@ -1,0 +1,57 @@
+{
+ "dataset": "retinamnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/ambig/t1cache/embeddings_img224_smokefull/retinamnist_train_uni_224.npz",
+ "N": 1080,
+ "C": 5,
+ "ratios": {
+  "0.02": {
+   "bpc": 4,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     4,
+     4,
+     4,
+     4,
+     4
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     11,
+     3,
+     5,
+     1,
+     0
+    ]
+   },
+   "seconds": 3.7
+  },
+  "0.05": {
+   "bpc": 10,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     10,
+     10,
+     10,
+     10,
+     10
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     21,
+     9,
+     11,
+     6,
+     3
+    ]
+   },
+   "seconds": 0.1
+  }
+ }
+}

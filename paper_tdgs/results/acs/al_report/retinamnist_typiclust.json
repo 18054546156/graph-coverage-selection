@@ -1,0 +1,53 @@
+{
+ "dataset": "retinamnist",
+ "method": "typiclust",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/ambig/t1cache/embeddings_img224_smokefull/retinamnist_train_uni_224.npz",
+ "N": 1080,
+ "C": 5,
+ "ratios": {
+  "0.02": {
+   "bpc": 4,
+   "typiclust": {
+    "per_class": [
+     4,
+     4,
+     4,
+     4,
+     4
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     11,
+     3,
+     3,
+     2,
+     1
+    ]
+   },
+   "seconds": 7.1
+  },
+  "0.05": {
+   "bpc": 10,
+   "typiclust": {
+    "per_class": [
+     10,
+     10,
+     10,
+     10,
+     10
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     26,
+     7,
+     10,
+     5,
+     2
+    ]
+   },
+   "seconds": 9.4
+  }
+ }
+}

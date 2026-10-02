@@ -1,0 +1,45 @@
+{
+ "dataset": "breastmnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/ambig/t1cache/embeddings_img224_smokefull/breastmnist_train_uni_224.npz",
+ "N": 546,
+ "C": 2,
+ "ratios": {
+  "0.02": {
+   "bpc": 5,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     5,
+     5
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     4,
+     6
+    ]
+   },
+   "seconds": 2.9
+  },
+  "0.05": {
+   "bpc": 13,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     13,
+     13
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     7,
+     19
+    ]
+   },
+   "seconds": 0.0
+  }
+ }
+}

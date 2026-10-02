@@ -1,0 +1,77 @@
+{
+ "dataset": "organsmnist",
+ "method": "typiclust",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/organsmnist_train_uni_224.npz",
+ "N": 13932,
+ "C": 11,
+ "ratios": {
+  "0.02": {
+   "bpc": 25,
+   "typiclust": {
+    "per_class": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     24,
+     16,
+     8,
+     17,
+     27,
+     19,
+     69,
+     15,
+     12,
+     32,
+     36
+    ]
+   },
+   "seconds": 72.3
+  },
+  "0.05": {
+   "bpc": 63,
+   "typiclust": {
+    "per_class": [
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     61,
+     27,
+     29,
+     37,
+     57,
+     53,
+     174,
+     41,
+     34,
+     97,
+     83
+    ]
+   },
+   "seconds": 172.0
+  }
+ }
+}

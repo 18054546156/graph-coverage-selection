@@ -1,0 +1,97 @@
+{
+ "dataset": "pathmnist",
+ "method": "probcover",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/pathmnist_train_uni_224.npz",
+ "N": 89996,
+ "C": 9,
+ "ratios": {
+  "0.02": {
+   "bpc": 199,
+   "unit_check_vs_official": true,
+   "delta": 0.7281296253204347,
+   "ball_median_within_class": [
+    134.0,
+    489.0,
+    86.0,
+    1117.0,
+    43.0,
+    69.0,
+    89.0,
+    8.0,
+    42.0
+   ],
+   "edges_nolab": 30234278,
+   "probcover": {
+    "per_class": [
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     159,
+     77,
+     225,
+     81,
+     201,
+     224,
+     174,
+     310,
+     340
+    ]
+   },
+   "seconds": 20.1
+  },
+  "0.05": {
+   "bpc": 499,
+   "unit_check_vs_official": true,
+   "delta": 0.7281296253204347,
+   "ball_median_within_class": [
+    134.0,
+    489.0,
+    86.0,
+    1117.0,
+    43.0,
+    69.0,
+    89.0,
+    8.0,
+    42.0
+   ],
+   "edges_nolab": 30234278,
+   "probcover": {
+    "per_class": [
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     390,
+     138,
+     579,
+     146,
+     475,
+     660,
+     375,
+     962,
+     766
+    ]
+   },
+   "seconds": 16.6
+  }
+ }
+}

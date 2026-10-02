@@ -1,0 +1,67 @@
+{
+ "dataset": "octmnist",
+ "method": "probcover",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/t1cache/embeddings_img224_smokefull/octmnist_train_uni_224.npz",
+ "N": 97477,
+ "C": 4,
+ "ratios": {
+  "0.02": {
+   "bpc": 487,
+   "unit_check_vs_official": true,
+   "delta": 0.2893369972705841,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    2.0
+   ],
+   "edges_nolab": 742747,
+   "probcover": {
+    "per_class": [
+     487,
+     487,
+     487,
+     487
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     622,
+     57,
+     160,
+     1109
+    ]
+   },
+   "seconds": 14.3
+  },
+  "0.05": {
+   "bpc": 1218,
+   "unit_check_vs_official": true,
+   "delta": 0.2893838584423065,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    2.0
+   ],
+   "edges_nolab": 744289,
+   "probcover": {
+    "per_class": [
+     1218,
+     1218,
+     1218,
+     1218
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     1574,
+     195,
+     358,
+     2745
+    ]
+   },
+   "seconds": 10.4
+  }
+ }
+}

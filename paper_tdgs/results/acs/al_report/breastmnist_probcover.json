@@ -1,0 +1,55 @@
+{
+ "dataset": "breastmnist",
+ "method": "probcover",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/ambig/t1cache/embeddings_img224_smokefull/breastmnist_train_uni_224.npz",
+ "N": 546,
+ "C": 2,
+ "ratios": {
+  "0.02": {
+   "bpc": 5,
+   "unit_check_vs_official": true,
+   "delta": 0.4938182532787323,
+   "ball_median_within_class": [
+    1.0,
+    1.0
+   ],
+   "edges_nolab": 948,
+   "probcover": {
+    "per_class": [
+     5,
+     5
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     3,
+     7
+    ]
+   },
+   "seconds": 3.1
+  },
+  "0.05": {
+   "bpc": 13,
+   "unit_check_vs_official": true,
+   "delta": 0.4938182532787323,
+   "ball_median_within_class": [
+    1.0,
+    1.0
+   ],
+   "edges_nolab": 948,
+   "probcover": {
+    "per_class": [
+     13,
+     13
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     10,
+     16
+    ]
+   },
+   "seconds": 0.2
+  }
+ }
+}

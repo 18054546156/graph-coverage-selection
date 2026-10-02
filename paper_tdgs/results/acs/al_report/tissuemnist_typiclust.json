@@ -1,0 +1,68 @@
+{
+ "dataset": "tissuemnist",
+ "method": "typiclust",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/tissuemnist_train_uni_224.npz",
+ "N": 165466,
+ "C": 8,
+ "ratios": {
+  "0.02": {
+   "bpc": 413,
+   "typiclust": {
+    "per_class": [
+     413,
+     413,
+     413,
+     413,
+     413,
+     413,
+     413,
+     413
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     1043,
+     120,
+     163,
+     248,
+     236,
+     190,
+     770,
+     534
+    ]
+   },
+   "seconds": 679.2
+  },
+  "0.05": {
+   "bpc": 1034,
+   "fallback_skip_exhausted_clusters": [
+    "nolab"
+   ],
+   "typiclust": {
+    "per_class": [
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     2611,
+     311,
+     374,
+     650,
+     620,
+     480,
+     1917,
+     1309
+    ]
+   },
+   "seconds": 2270.7
+  }
+ }
+}

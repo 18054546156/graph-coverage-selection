@@ -1,0 +1,69 @@
+{
+ "dataset": "bloodmnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/bloodmnist_train_uni_224.npz",
+ "N": 11959,
+ "C": 8,
+ "ratios": {
+  "0.02": {
+   "bpc": 29,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     29,
+     29,
+     29,
+     29,
+     29,
+     29,
+     29,
+     29
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     25,
+     44,
+     24,
+     41,
+     17,
+     21,
+     34,
+     26
+    ]
+   },
+   "seconds": 4.2
+  },
+  "0.05": {
+   "bpc": 74,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     74,
+     74,
+     74,
+     74,
+     74,
+     74,
+     74,
+     74
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     85,
+     114,
+     61,
+     93,
+     39,
+     56,
+     79,
+     65
+    ]
+   },
+   "seconds": 2.3
+  }
+ }
+}

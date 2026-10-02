@@ -1,0 +1,69 @@
+{
+ "dataset": "tissuemnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/tissuemnist_train_uni_224.npz",
+ "N": 165466,
+ "C": 8,
+ "ratios": {
+  "0.02": {
+   "bpc": 413,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     413,
+     413,
+     413,
+     413,
+     413,
+     413,
+     413,
+     413
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     940,
+     146,
+     174,
+     456,
+     276,
+     164,
+     718,
+     430
+    ]
+   },
+   "seconds": 92.6
+  },
+  "0.05": {
+   "bpc": 1034,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     2294,
+     341,
+     428,
+     1347,
+     831,
+     492,
+     1587,
+     952
+    ]
+   },
+   "seconds": 190.2
+  }
+ }
+}

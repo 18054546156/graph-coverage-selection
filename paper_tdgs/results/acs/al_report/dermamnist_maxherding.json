@@ -1,0 +1,65 @@
+{
+ "dataset": "dermamnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/t1cache/embeddings_img224_smokefull/dermamnist_train_uni_224.npz",
+ "N": 7007,
+ "C": 7,
+ "ratios": {
+  "0.02": {
+   "bpc": 20,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     5,
+     5,
+     15,
+     0,
+     22,
+     91,
+     2
+    ]
+   },
+   "seconds": 3.4
+  },
+  "0.05": {
+   "bpc": 50,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     14,
+     17,
+     36,
+     5,
+     60,
+     212,
+     6
+    ]
+   },
+   "seconds": 0.8
+  }
+ }
+}

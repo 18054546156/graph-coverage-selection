@@ -1,0 +1,69 @@
+{
+ "dataset": "pathmnist",
+ "method": "typiclust",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/pathmnist_train_uni_224.npz",
+ "N": 89996,
+ "C": 9,
+ "ratios": {
+  "0.02": {
+   "bpc": 199,
+   "typiclust": {
+    "per_class": [
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     153,
+     187,
+     241,
+     168,
+     130,
+     277,
+     146,
+     232,
+     257
+    ]
+   },
+   "seconds": 450.9
+  },
+  "0.05": {
+   "bpc": 499,
+   "typiclust": {
+    "per_class": [
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     361,
+     478,
+     624,
+     396,
+     314,
+     724,
+     352,
+     598,
+     644
+    ]
+   },
+   "seconds": 1012.9
+  }
+ }
+}

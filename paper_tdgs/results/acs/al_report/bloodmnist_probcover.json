@@ -1,0 +1,91 @@
+{
+ "dataset": "bloodmnist",
+ "method": "probcover",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/bloodmnist_train_uni_224.npz",
+ "N": 11959,
+ "C": 8,
+ "ratios": {
+  "0.02": {
+   "bpc": 29,
+   "unit_check_vs_official": true,
+   "delta": 0.26191229522228243,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    8.0,
+    2.0
+   ],
+   "edges_nolab": 114187,
+   "probcover": {
+    "per_class": [
+     29,
+     29,
+     29,
+     29,
+     29,
+     29,
+     29,
+     29
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     1,
+     14,
+     17,
+     47,
+     23,
+     17,
+     69,
+     44
+    ]
+   },
+   "seconds": 7.8
+  },
+  "0.05": {
+   "bpc": 74,
+   "unit_check_vs_official": true,
+   "delta": 0.26191229522228243,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    8.0,
+    2.0
+   ],
+   "edges_nolab": 114187,
+   "probcover": {
+    "per_class": [
+     74,
+     74,
+     74,
+     74,
+     74,
+     74,
+     74,
+     74
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     8,
+     64,
+     54,
+     120,
+     56,
+     45,
+     141,
+     104
+    ]
+   },
+   "seconds": 4.4
+  }
+ }
+}

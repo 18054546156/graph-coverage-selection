@@ -1,0 +1,53 @@
+{
+ "dataset": "octmnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/t1cache/embeddings_img224_smokefull/octmnist_train_uni_224.npz",
+ "N": 97477,
+ "C": 4,
+ "ratios": {
+  "0.02": {
+   "bpc": 487,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     487,
+     487,
+     487,
+     487
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     884,
+     270,
+     117,
+     677
+    ]
+   },
+   "seconds": 63.3
+  },
+  "0.05": {
+   "bpc": 1218,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     1218,
+     1218,
+     1218,
+     1218
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     2158,
+     936,
+     326,
+     1452
+    ]
+   },
+   "seconds": 135.8
+  }
+ }
+}

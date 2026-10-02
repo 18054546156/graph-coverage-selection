@@ -1,0 +1,109 @@
+{
+ "dataset": "organsmnist",
+ "method": "probcover",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/organsmnist_train_uni_224.npz",
+ "N": 13932,
+ "C": 11,
+ "ratios": {
+  "0.02": {
+   "bpc": 25,
+   "unit_check_vs_official": true,
+   "delta": 0.3903232216835022,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    2.0,
+    1.0,
+    2.0,
+    2.0,
+    2.0,
+    1.0,
+    1.0
+   ],
+   "edges_nolab": 32562,
+   "probcover": {
+    "per_class": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     11,
+     11,
+     10,
+     3,
+     32,
+     20,
+     76,
+     21,
+     25,
+     34,
+     32
+    ]
+   },
+   "seconds": 8.5
+  },
+  "0.05": {
+   "bpc": 63,
+   "unit_check_vs_official": true,
+   "delta": 0.3903232216835022,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    2.0,
+    1.0,
+    2.0,
+    2.0,
+    2.0,
+    1.0,
+    1.0
+   ],
+   "edges_nolab": 32562,
+   "probcover": {
+    "per_class": [
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     34,
+     24,
+     17,
+     20,
+     59,
+     44,
+     227,
+     61,
+     61,
+     68,
+     78
+    ]
+   },
+   "seconds": 4.9
+  }
+ }
+}

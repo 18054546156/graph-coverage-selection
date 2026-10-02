@@ -1,0 +1,41 @@
+{
+ "dataset": "breastmnist",
+ "method": "typiclust",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/ambig/t1cache/embeddings_img224_smokefull/breastmnist_train_uni_224.npz",
+ "N": 546,
+ "C": 2,
+ "ratios": {
+  "0.02": {
+   "bpc": 5,
+   "typiclust": {
+    "per_class": [
+     5,
+     5
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     4,
+     6
+    ]
+   },
+   "seconds": 4.1
+  },
+  "0.05": {
+   "bpc": 13,
+   "typiclust": {
+    "per_class": [
+     13,
+     13
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     7,
+     19
+    ]
+   },
+   "seconds": 5.0
+  }
+ }
+}

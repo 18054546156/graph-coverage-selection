@@ -1,0 +1,65 @@
+{
+ "dataset": "bloodmnist",
+ "method": "typiclust",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/bloodmnist_train_uni_224.npz",
+ "N": 11959,
+ "C": 8,
+ "ratios": {
+  "0.02": {
+   "bpc": 29,
+   "typiclust": {
+    "per_class": [
+     29,
+     29,
+     29,
+     29,
+     29,
+     29,
+     29,
+     29
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     30,
+     37,
+     23,
+     41,
+     20,
+     17,
+     36,
+     28
+    ]
+   },
+   "seconds": 60.4
+  },
+  "0.05": {
+   "bpc": 74,
+   "typiclust": {
+    "per_class": [
+     74,
+     74,
+     74,
+     74,
+     74,
+     74,
+     74,
+     74
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     49,
+     105,
+     54,
+     93,
+     49,
+     50,
+     112,
+     80
+    ]
+   },
+   "seconds": 136.4
+  }
+ }
+}

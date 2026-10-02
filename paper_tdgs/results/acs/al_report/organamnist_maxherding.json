@@ -1,0 +1,81 @@
+{
+ "dataset": "organamnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/organamnist_train_uni_224.npz",
+ "N": 34561,
+ "C": 11,
+ "ratios": {
+  "0.02": {
+   "bpc": 62,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     62,
+     62,
+     62,
+     62,
+     62,
+     62,
+     62,
+     62,
+     62,
+     62,
+     62
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     41,
+     18,
+     22,
+     28,
+     57,
+     61,
+     157,
+     85,
+     73,
+     58,
+     82
+    ]
+   },
+   "seconds": 18.4
+  },
+  "0.05": {
+   "bpc": 157,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     157,
+     157,
+     157,
+     157,
+     157,
+     157,
+     157,
+     157,
+     157,
+     157,
+     157
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     122,
+     49,
+     51,
+     69,
+     139,
+     153,
+     389,
+     194,
+     214,
+     142,
+     205
+    ]
+   },
+   "seconds": 32.7
+  }
+ }
+}

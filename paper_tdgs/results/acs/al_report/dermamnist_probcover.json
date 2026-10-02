@@ -1,0 +1,85 @@
+{
+ "dataset": "dermamnist",
+ "method": "probcover",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/t1cache/embeddings_img224_smokefull/dermamnist_train_uni_224.npz",
+ "N": 7007,
+ "C": 7,
+ "ratios": {
+  "0.02": {
+   "bpc": 20,
+   "unit_check_vs_official": true,
+   "delta": 0.4921901524066925,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "edges_nolab": 11119,
+   "probcover": {
+    "per_class": [
+     20,
+     20,
+     20,
+     20,
+     20,
+     20,
+     20
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     1,
+     0,
+     4,
+     1,
+     8,
+     125,
+     1
+    ]
+   },
+   "seconds": 4.5
+  },
+  "0.05": {
+   "bpc": 50,
+   "unit_check_vs_official": true,
+   "delta": 0.4921901524066925,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "edges_nolab": 11119,
+   "probcover": {
+    "per_class": [
+     50,
+     50,
+     50,
+     50,
+     50,
+     50,
+     50
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     5,
+     10,
+     21,
+     1,
+     40,
+     268,
+     5
+    ]
+   },
+   "seconds": 3.2
+  }
+ }
+}

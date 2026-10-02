@@ -1,0 +1,91 @@
+{
+ "dataset": "tissuemnist",
+ "method": "probcover",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/tissuemnist_train_uni_224.npz",
+ "N": 165466,
+ "C": 8,
+ "ratios": {
+  "0.02": {
+   "bpc": 413,
+   "unit_check_vs_official": true,
+   "delta": 0.2835312560200691,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "edges_nolab": 305112,
+   "probcover": {
+    "per_class": [
+     413,
+     413,
+     413,
+     413,
+     413,
+     413,
+     413,
+     413
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     1115,
+     161,
+     24,
+     33,
+     32,
+     48,
+     1195,
+     696
+    ]
+   },
+   "seconds": 38.7
+  },
+  "0.05": {
+   "bpc": 1034,
+   "unit_check_vs_official": true,
+   "delta": 0.28350624442100525,
+   "ball_median_within_class": [
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0,
+    1.0
+   ],
+   "edges_nolab": 304726,
+   "probcover": {
+    "per_class": [
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034,
+     1034
+    ]
+   },
+   "probcover_nolab": {
+    "per_class": [
+     2798,
+     396,
+     152,
+     299,
+     238,
+     209,
+     2652,
+     1528
+    ]
+   },
+   "seconds": 34.6
+  }
+ }
+}

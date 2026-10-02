@@ -1,0 +1,49 @@
+{
+ "dataset": "octmnist",
+ "method": "typiclust",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/t1cache/embeddings_img224_smokefull/octmnist_train_uni_224.npz",
+ "N": 97477,
+ "C": 4,
+ "ratios": {
+  "0.02": {
+   "bpc": 487,
+   "typiclust": {
+    "per_class": [
+     487,
+     487,
+     487,
+     487
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     684,
+     170,
+     131,
+     963
+    ]
+   },
+   "seconds": 469.8
+  },
+  "0.05": {
+   "bpc": 1218,
+   "typiclust": {
+    "per_class": [
+     1218,
+     1218,
+     1218,
+     1218
+    ]
+   },
+   "typiclust_nolab": {
+    "per_class": [
+     1724,
+     422,
+     322,
+     2404
+    ]
+   },
+   "seconds": 1104.4
+  }
+ }
+}

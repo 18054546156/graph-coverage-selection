@@ -1,0 +1,73 @@
+{
+ "dataset": "pathmnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/pathmnist_train_uni_224.npz",
+ "N": 89996,
+ "C": 9,
+ "ratios": {
+  "0.02": {
+   "bpc": 199,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199,
+     199
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     139,
+     152,
+     238,
+     137,
+     152,
+     272,
+     162,
+     270,
+     269
+    ]
+   },
+   "seconds": 42.8
+  },
+  "0.05": {
+   "bpc": 499,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499,
+     499
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     343,
+     268,
+     569,
+     264,
+     386,
+     783,
+     388,
+     832,
+     658
+    ]
+   },
+   "seconds": 90.4
+  }
+ }
+}

@@ -1,0 +1,81 @@
+{
+ "dataset": "organsmnist",
+ "method": "maxherding",
+ "emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/t1cache/embeddings_img224_smokefull/organsmnist_train_uni_224.npz",
+ "N": 13932,
+ "C": 11,
+ "ratios": {
+  "0.02": {
+   "bpc": 25,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25,
+     25
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     24,
+     15,
+     6,
+     14,
+     24,
+     20,
+     74,
+     14,
+     12,
+     36,
+     36
+    ]
+   },
+   "seconds": 5.0
+  },
+  "0.05": {
+   "bpc": 63,
+   "kernel": "rbf",
+   "delta": 1.0,
+   "maxherding": {
+    "per_class": [
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63,
+     63
+    ]
+   },
+   "maxherding_nolab": {
+    "per_class": [
+     75,
+     27,
+     19,
+     35,
+     46,
+     55,
+     186,
+     34,
+     35,
+     88,
+     93
+    ]
+   },
+   "seconds": 3.3
+  }
+ }
+}

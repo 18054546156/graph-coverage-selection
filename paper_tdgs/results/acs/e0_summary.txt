@@ -1,0 +1,236 @@
+== identity checks (I1 cls, I2 herding, I3 knnf agreement) ==
+retinamnist  0.02 bpc=    4  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=1.36e-03
+retinamnist  0.05 bpc=   10  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=1.36e-03
+breastmnist  0.02 bpc=    5  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=4.01e-06
+breastmnist  0.05 bpc=   13  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=4.01e-06
+dermamnist   0.02 bpc=   20  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=9.51e-04
+dermamnist   0.05 bpc=   50  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=9.51e-04
+octmnist     0.02 bpc=  487  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=6.50e-06
+octmnist     0.05 bpc= 1218  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=6.50e-06
+tissuemnist  0.02 bpc=  413  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=0.00e+00
+tissuemnist  0.05 bpc= 1034  I1 order=True set=True  I2=True  I3=True  uni-vs-cache maxabs=0.00e+00
+
+== F2 retention: min class keep fraction / erased classes; plurality filter (knnf) for contrast ==
+retinamnist  q=0.0: min 1.00 erased 0  q=0.25: min 0.75 erased 0  q=0.5: min 0.52 erased 0  | knnf: min 0.00 erased 1
+breastmnist  q=0.0: min 1.00 erased 0  q=0.25: min 0.78 erased 0  q=0.5: min 0.53 erased 0  | knnf: min 0.45 erased 0
+dermamnist   q=0.0: min 1.00 erased 0  q=0.25: min 0.75 erased 0  q=0.5: min 0.50 erased 0  | knnf: min 0.00 erased 1
+octmnist     q=0.0: min 1.00 erased 0  q=0.25: min 0.75 erased 0  q=0.5: min 0.50 erased 0  | knnf: min 0.32 erased 0
+tissuemnist  q=0.0: min 1.00 erased 0  q=0.25: min 0.75 erased 0  q=0.5: min 0.50 erased 0  | knnf: min 0.01 erased 0
+
+== purity (class-balanced UNI/DINOv2/CLIP k=50 same-label share), typicality pct, J to cls / herding ==
+-- retinamnist 0.02 bpc=4
+   cls            pur u/d/c 0.393/0.367/0.386  minclass 0.155  typ% 0.653  cos 0.872  J(cls) 1.000  J(herd) 0.026
+   herding        pur u/d/c 0.329/0.302/0.313  minclass 0.145  typ% 0.629  cos 0.916  J(cls) 0.026  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.422/0.352/0.401  minclass 0.225  typ% 0.643  cos 0.902  J(cls) 0.000  J(herd) 0.081
+   knnf_random42  pur u/d/c 0.426/0.391/0.376  minclass 0.225  typ% 0.529  cos 0.876  J(cls) 0.000  J(herd) 0.000
+   graph_a2       pur u/d/c 0.332/0.346/0.327  minclass 0.115  typ% 0.568  cos 0.867  J(cls) 0.176  J(herd) 0.026
+   random         pur u/d/c 0.285/0.315/0.321  minclass 0.095  typ% 0.482  cos 0.854  J(cls) 0.000  J(herd) 0.000
+   facility       pur u/d/c 0.326/0.332/0.342  minclass 0.105  typ% 0.793  cos 0.906  J(cls) 0.111  J(herd) 0.143
+   mv_mean        pur u/d/c 0.394/0.411/0.412  minclass 0.125  typ% 0.626  cos 0.870  J(cls) 0.053  J(herd) 0.000
+   acs_q00_t050   pur u/d/c 0.333/0.286/0.335  minclass 0.105  typ% 0.632  cos 0.888  J(cls) 0.053  J(herd) 0.333
+   acs_q25_t000   pur u/d/c 0.398/0.374/0.390  minclass 0.155  typ% 0.656  cos 0.873  J(cls) 0.905  J(herd) 0.026
+   acs_q25_t050   pur u/d/c 0.386/0.355/0.379  minclass 0.170  typ% 0.724  cos 0.898  J(cls) 0.111  J(herd) 0.081
+   acs_q25_t100   pur u/d/c 0.380/0.382/0.368  minclass 0.120  typ% 0.721  cos 0.922  J(cls) 0.000  J(herd) 0.111
+   acs_q50_t000   pur u/d/c 0.423/0.378/0.401  minclass 0.160  typ% 0.667  cos 0.874  J(cls) 0.538  J(herd) 0.026
+   acs_q50_t050   pur u/d/c 0.417/0.373/0.391  minclass 0.125  typ% 0.675  cos 0.890  J(cls) 0.026  J(herd) 0.026
+   acs_q50_t100   pur u/d/c 0.428/0.381/0.391  minclass 0.180  typ% 0.726  cos 0.917  J(cls) 0.000  J(herd) 0.026
+-- retinamnist 0.05 bpc=10
+   cls            pur u/d/c 0.370/0.376/0.363  minclass 0.160  typ% 0.490  cos 0.849  J(cls) 1.000  J(herd) 0.031
+   herding        pur u/d/c 0.318/0.321/0.321  minclass 0.136  typ% 0.589  cos 0.891  J(cls) 0.031  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.418/0.392/0.396  minclass 0.202  typ% 0.575  cos 0.881  J(cls) 0.042  J(herd) 0.075
+   knnf_random42  pur u/d/c 0.402/0.398/0.376  minclass 0.202  typ% 0.562  cos 0.876  J(cls) 0.031  J(herd) 0.064
+   graph_a2       pur u/d/c 0.344/0.370/0.332  minclass 0.120  typ% 0.439  cos 0.850  J(cls) 0.235  J(herd) 0.020
+   random         pur u/d/c 0.305/0.324/0.323  minclass 0.106  typ% 0.479  cos 0.854  J(cls) 0.031  J(herd) 0.042
+   facility       pur u/d/c 0.301/0.351/0.316  minclass 0.120  typ% 0.610  cos 0.867  J(cls) 0.087  J(herd) 0.064
+   mv_mean        pur u/d/c 0.342/0.368/0.358  minclass 0.138  typ% 0.494  cos 0.859  J(cls) 0.087  J(herd) 0.042
+   acs_q00_t050   pur u/d/c 0.343/0.344/0.342  minclass 0.136  typ% 0.510  cos 0.865  J(cls) 0.111  J(herd) 0.333
+   acs_q25_t000   pur u/d/c 0.386/0.381/0.379  minclass 0.160  typ% 0.497  cos 0.853  J(cls) 0.852  J(herd) 0.031
+   acs_q25_t050   pur u/d/c 0.365/0.367/0.362  minclass 0.126  typ% 0.559  cos 0.876  J(cls) 0.136  J(herd) 0.053
+   acs_q25_t100   pur u/d/c 0.371/0.384/0.362  minclass 0.126  typ% 0.597  cos 0.894  J(cls) 0.020  J(herd) 0.087
+   acs_q50_t000   pur u/d/c 0.407/0.394/0.393  minclass 0.162  typ% 0.542  cos 0.858  J(cls) 0.449  J(herd) 0.031
+   acs_q50_t050   pur u/d/c 0.413/0.370/0.402  minclass 0.154  typ% 0.569  cos 0.872  J(cls) 0.099  J(herd) 0.042
+   acs_q50_t100   pur u/d/c 0.414/0.391/0.389  minclass 0.160  typ% 0.613  cos 0.894  J(cls) 0.031  J(herd) 0.064
+-- breastmnist 0.02 bpc=5
+   cls            pur u/d/c 0.590/0.506/0.528  minclass 0.476  typ% 0.635  cos 0.818  J(cls) 1.000  J(herd) 0.000
+   herding        pur u/d/c 0.616/0.552/0.588  minclass 0.560  typ% 0.750  cos 0.876  J(cls) 0.000  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.652/0.524/0.592  minclass 0.632  typ% 0.799  cos 0.879  J(cls) 0.000  J(herd) 0.429
+   knnf_random42  pur u/d/c 0.688/0.592/0.614  minclass 0.620  typ% 0.709  cos 0.845  J(cls) 0.000  J(herd) 0.053
+   graph_a2       pur u/d/c 0.588/0.508/0.554  minclass 0.416  typ% 0.654  cos 0.822  J(cls) 0.250  J(herd) 0.000
+   random         pur u/d/c 0.624/0.586/0.586  minclass 0.536  typ% 0.416  cos 0.806  J(cls) 0.000  J(herd) 0.000
+   facility       pur u/d/c 0.602/0.536/0.560  minclass 0.540  typ% 0.848  cos 0.890  J(cls) 0.053  J(herd) 0.176
+   mv_mean        pur u/d/c 0.622/0.552/0.540  minclass 0.540  typ% 0.634  cos 0.840  J(cls) 0.111  J(herd) 0.000
+   acs_q00_t050   pur u/d/c 0.592/0.536/0.560  minclass 0.460  typ% 0.575  cos 0.832  J(cls) 0.000  J(herd) 0.538
+   acs_q25_t000   pur u/d/c 0.590/0.506/0.528  minclass 0.476  typ% 0.635  cos 0.818  J(cls) 1.000  J(herd) 0.000
+   acs_q25_t050   pur u/d/c 0.654/0.562/0.584  minclass 0.564  typ% 0.675  cos 0.851  J(cls) 0.053  J(herd) 0.333
+   acs_q25_t100   pur u/d/c 0.632/0.552/0.576  minclass 0.568  typ% 0.748  cos 0.872  J(cls) 0.053  J(herd) 0.333
+   acs_q50_t000   pur u/d/c 0.692/0.572/0.608  minclass 0.584  typ% 0.726  cos 0.835  J(cls) 0.053  J(herd) 0.053
+   acs_q50_t050   pur u/d/c 0.686/0.548/0.578  minclass 0.600  typ% 0.678  cos 0.838  J(cls) 0.053  J(herd) 0.000
+   acs_q50_t100   pur u/d/c 0.696/0.560/0.626  minclass 0.620  typ% 0.786  cos 0.867  J(cls) 0.000  J(herd) 0.053
+-- breastmnist 0.05 bpc=13
+   cls            pur u/d/c 0.582/0.518/0.543  minclass 0.432  typ% 0.487  cos 0.791  J(cls) 1.000  J(herd) 0.061
+   herding        pur u/d/c 0.603/0.537/0.572  minclass 0.498  typ% 0.649  cos 0.842  J(cls) 0.061  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.665/0.559/0.587  minclass 0.634  typ% 0.659  cos 0.855  J(cls) 0.020  J(herd) 0.238
+   knnf_random42  pur u/d/c 0.674/0.568/0.589  minclass 0.625  typ% 0.631  cos 0.834  J(cls) 0.000  J(herd) 0.040
+   graph_a2       pur u/d/c 0.578/0.525/0.546  minclass 0.426  typ% 0.489  cos 0.793  J(cls) 0.486  J(herd) 0.083
+   random         pur u/d/c 0.595/0.560/0.580  minclass 0.514  typ% 0.438  cos 0.810  J(cls) 0.061  J(herd) 0.061
+   facility       pur u/d/c 0.599/0.544/0.575  minclass 0.508  typ% 0.746  cos 0.851  J(cls) 0.106  J(herd) 0.106
+   mv_mean        pur u/d/c 0.605/0.557/0.586  minclass 0.472  typ% 0.569  cos 0.809  J(cls) 0.156  J(herd) 0.061
+   acs_q00_t050   pur u/d/c 0.611/0.555/0.585  minclass 0.508  typ% 0.563  cos 0.818  J(cls) 0.238  J(herd) 0.405
+   acs_q25_t000   pur u/d/c 0.626/0.535/0.559  minclass 0.511  typ% 0.505  cos 0.805  J(cls) 0.486  J(herd) 0.040
+   acs_q25_t050   pur u/d/c 0.653/0.573/0.585  minclass 0.534  typ% 0.575  cos 0.818  J(cls) 0.156  J(herd) 0.156
+   acs_q25_t100   pur u/d/c 0.645/0.548/0.563  minclass 0.562  typ% 0.607  cos 0.845  J(cls) 0.040  J(herd) 0.156
+   acs_q50_t000   pur u/d/c 0.673/0.568/0.585  minclass 0.552  typ% 0.510  cos 0.808  J(cls) 0.083  J(herd) 0.040
+   acs_q50_t050   pur u/d/c 0.674/0.558/0.597  minclass 0.572  typ% 0.577  cos 0.819  J(cls) 0.083  J(herd) 0.061
+   acs_q50_t100   pur u/d/c 0.684/0.561/0.602  minclass 0.597  typ% 0.593  cos 0.829  J(cls) 0.040  J(herd) 0.083
+-- dermamnist 0.02 bpc=20
+   cls            pur u/d/c 0.324/0.303/0.306  minclass 0.061  typ% 0.606  cos 0.743  J(cls) 1.000  J(herd) 0.073
+   herding        pur u/d/c 0.289/0.286/0.300  minclass 0.064  typ% 0.543  cos 0.743  J(cls) 0.073  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.405/0.338/0.358  minclass 0.109  typ% 0.618  cos 0.752  J(cls) 0.081  J(herd) 0.065
+   knnf_random42  pur u/d/c 0.407/0.332/0.339  minclass 0.109  typ% 0.591  cos 0.743  J(cls) 0.073  J(herd) 0.057
+   graph_a2       pur u/d/c 0.271/0.242/0.278  minclass 0.043  typ% 0.540  cos 0.727  J(cls) 0.186  J(herd) 0.049
+   random         pur u/d/c 0.290/0.257/0.283  minclass 0.048  typ% 0.497  cos 0.725  J(cls) 0.061  J(herd) 0.065
+   facility       pur u/d/c 0.312/0.281/0.302  minclass 0.064  typ% 0.710  cos 0.765  J(cls) 0.191  J(herd) 0.061
+   mv_mean        pur u/d/c 0.325/0.306/0.323  minclass 0.063  typ% 0.613  cos 0.741  J(cls) 0.176  J(herd) 0.041
+   acs_q00_t050   pur u/d/c 0.302/0.293/0.304  minclass 0.062  typ% 0.593  cos 0.742  J(cls) 0.250  J(herd) 0.366
+   acs_q25_t000   pur u/d/c 0.347/0.310/0.326  minclass 0.071  typ% 0.638  cos 0.746  J(cls) 0.522  J(herd) 0.061
+   acs_q25_t050   pur u/d/c 0.335/0.312/0.322  minclass 0.064  typ% 0.613  cos 0.745  J(cls) 0.202  J(herd) 0.061
+   acs_q25_t100   pur u/d/c 0.339/0.298/0.318  minclass 0.069  typ% 0.580  cos 0.750  J(cls) 0.073  J(herd) 0.073
+   acs_q50_t000   pur u/d/c 0.380/0.330/0.335  minclass 0.082  typ% 0.647  cos 0.751  J(cls) 0.359  J(herd) 0.069
+   acs_q50_t050   pur u/d/c 0.369/0.313/0.344  minclass 0.067  typ% 0.641  cos 0.753  J(cls) 0.172  J(herd) 0.049
+   acs_q50_t100   pur u/d/c 0.378/0.333/0.362  minclass 0.073  typ% 0.643  cos 0.758  J(cls) 0.081  J(herd) 0.049
+-- dermamnist 0.05 bpc=50
+   cls            pur u/d/c 0.312/0.287/0.302  minclass 0.058  typ% 0.510  cos 0.719  J(cls) 1.000  J(herd) 0.115
+   herding        pur u/d/c 0.288/0.278/0.295  minclass 0.054  typ% 0.515  cos 0.736  J(cls) 0.115  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.384/0.328/0.344  minclass 0.078  typ% 0.590  cos 0.745  J(cls) 0.138  J(herd) 0.124
+   knnf_random42  pur u/d/c 0.388/0.327/0.339  minclass 0.078  typ% 0.572  cos 0.738  J(cls) 0.151  J(herd) 0.138
+   graph_a2       pur u/d/c 0.256/0.248/0.274  minclass 0.053  typ% 0.450  cos 0.710  J(cls) 0.266  J(herd) 0.111
+   random         pur u/d/c 0.289/0.271/0.298  minclass 0.054  typ% 0.524  cos 0.733  J(cls) 0.140  J(herd) 0.118
+   facility       pur u/d/c 0.288/0.273/0.289  minclass 0.052  typ% 0.575  cos 0.738  J(cls) 0.222  J(herd) 0.155
+   mv_mean        pur u/d/c 0.306/0.294/0.313  minclass 0.054  typ% 0.521  cos 0.723  J(cls) 0.237  J(herd) 0.138
+   acs_q00_t050   pur u/d/c 0.296/0.282/0.300  minclass 0.054  typ% 0.499  cos 0.724  J(cls) 0.235  J(herd) 0.383
+   acs_q25_t000   pur u/d/c 0.333/0.299/0.320  minclass 0.067  typ% 0.527  cos 0.721  J(cls) 0.455  J(herd) 0.116
+   acs_q25_t050   pur u/d/c 0.328/0.295/0.308  minclass 0.068  typ% 0.535  cos 0.727  J(cls) 0.248  J(herd) 0.113
+   acs_q25_t100   pur u/d/c 0.330/0.295/0.318  minclass 0.064  typ% 0.559  cos 0.744  J(cls) 0.116  J(herd) 0.125
+   acs_q50_t000   pur u/d/c 0.367/0.314/0.328  minclass 0.077  typ% 0.580  cos 0.734  J(cls) 0.304  J(herd) 0.133
+   acs_q50_t050   pur u/d/c 0.367/0.322/0.338  minclass 0.076  typ% 0.572  cos 0.737  J(cls) 0.220  J(herd) 0.136
+   acs_q50_t100   pur u/d/c 0.376/0.326/0.348  minclass 0.076  typ% 0.613  cos 0.750  J(cls) 0.153  J(herd) 0.131
+-- octmnist 0.02 bpc=487
+   cls            pur u/d/c 0.690/0.658/0.673  minclass 0.371  typ% 0.563  cos 0.857  J(cls) 1.000  J(herd) 0.022
+   herding        pur u/d/c 0.638/0.637/0.653  minclass 0.342  typ% 0.469  cos 0.860  J(cls) 0.022  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.778/0.705/0.731  minclass 0.591  typ% 0.504  cos 0.866  J(cls) 0.018  J(herd) 0.023
+   knnf_random42  pur u/d/c 0.788/0.710/0.737  minclass 0.614  typ% 0.534  cos 0.868  J(cls) 0.020  J(herd) 0.017
+   graph_a2       pur u/d/c 0.595/0.608/0.621  minclass 0.245  typ% 0.536  cos 0.854  J(cls) 0.135  J(herd) 0.016
+   random         pur u/d/c 0.642/0.638/0.653  minclass 0.336  typ% 0.506  cos 0.861  J(cls) 0.016  J(herd) 0.014
+   facility       pur u/d/c 0.668/0.670/0.669  minclass 0.354  typ% 0.627  cos 0.853  J(cls) 0.119  J(herd) 0.017
+   mv_mean        pur u/d/c 0.682/0.681/0.692  minclass 0.361  typ% 0.574  cos 0.858  J(cls) 0.079  J(herd) 0.016
+   acs_q00_t050   pur u/d/c 0.662/0.647/0.662  minclass 0.352  typ% 0.520  cos 0.856  J(cls) 0.102  J(herd) 0.343
+   acs_q25_t000   pur u/d/c 0.721/0.687/0.697  minclass 0.397  typ% 0.559  cos 0.857  J(cls) 0.293  J(herd) 0.022
+   acs_q25_t050   pur u/d/c 0.717/0.683/0.697  minclass 0.387  typ% 0.529  cos 0.859  J(cls) 0.084  J(herd) 0.022
+   acs_q25_t100   pur u/d/c 0.734/0.692/0.707  minclass 0.409  typ% 0.499  cos 0.867  J(cls) 0.016  J(herd) 0.022
+   acs_q50_t000   pur u/d/c 0.783/0.714/0.732  minclass 0.468  typ% 0.557  cos 0.859  J(cls) 0.187  J(herd) 0.020
+   acs_q50_t050   pur u/d/c 0.787/0.711/0.736  minclass 0.473  typ% 0.530  cos 0.861  J(cls) 0.076  J(herd) 0.019
+   acs_q50_t100   pur u/d/c 0.811/0.730/0.754  minclass 0.512  typ% 0.510  cos 0.871  J(cls) 0.020  J(herd) 0.024
+-- octmnist 0.05 bpc=1218
+   cls            pur u/d/c 0.652/0.639/0.653  minclass 0.331  typ% 0.468  cos 0.847  J(cls) 1.000  J(herd) 0.043
+   herding        pur u/d/c 0.641/0.638/0.653  minclass 0.342  typ% 0.476  cos 0.859  J(cls) 0.043  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.779/0.704/0.729  minclass 0.596  typ% 0.503  cos 0.866  J(cls) 0.040  J(herd) 0.051
+   knnf_random42  pur u/d/c 0.784/0.708/0.731  minclass 0.609  typ% 0.526  cos 0.865  J(cls) 0.042  J(herd) 0.042
+   graph_a2       pur u/d/c 0.595/0.612/0.624  minclass 0.268  typ% 0.450  cos 0.847  J(cls) 0.215  J(herd) 0.042
+   random         pur u/d/c 0.644/0.640/0.655  minclass 0.347  typ% 0.504  cos 0.860  J(cls) 0.043  J(herd) 0.044
+   facility       pur u/d/c 0.659/0.662/0.666  minclass 0.338  typ% 0.539  cos 0.842  J(cls) 0.107  J(herd) 0.046
+   mv_mean        pur u/d/c 0.645/0.643/0.656  minclass 0.325  typ% 0.508  cos 0.852  J(cls) 0.150  J(herd) 0.039
+   acs_q00_t050   pur u/d/c 0.640/0.638/0.650  minclass 0.327  typ% 0.458  cos 0.850  J(cls) 0.161  J(herd) 0.354
+   acs_q25_t000   pur u/d/c 0.708/0.679/0.692  minclass 0.384  typ% 0.482  cos 0.850  J(cls) 0.287  J(herd) 0.039
+   acs_q25_t050   pur u/d/c 0.710/0.677/0.695  minclass 0.383  typ% 0.474  cos 0.854  J(cls) 0.137  J(herd) 0.049
+   acs_q25_t100   pur u/d/c 0.732/0.691/0.710  minclass 0.412  typ% 0.500  cos 0.866  J(cls) 0.039  J(herd) 0.054
+   acs_q50_t000   pur u/d/c 0.784/0.711/0.734  minclass 0.474  typ% 0.492  cos 0.856  J(cls) 0.196  J(herd) 0.044
+   acs_q50_t050   pur u/d/c 0.790/0.713/0.741  minclass 0.480  typ% 0.492  cos 0.859  J(cls) 0.111  J(herd) 0.049
+   acs_q50_t100   pur u/d/c 0.812/0.730/0.752  minclass 0.515  typ% 0.513  cos 0.871  J(cls) 0.040  J(herd) 0.053
+-- tissuemnist 0.02 bpc=413
+   cls            pur u/d/c 0.392/0.361/0.351  minclass 0.146  typ% 0.616  cos 0.901  J(cls) 1.000  J(herd) 0.018
+   herding        pur u/d/c 0.299/0.306/0.292  minclass 0.090  typ% 0.493  cos 0.900  J(cls) 0.018  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.443/0.383/0.369  minclass 0.292  typ% 0.561  cos 0.905  J(cls) 0.033  J(herd) 0.018
+   knnf_random42  pur u/d/c 0.446/0.384/0.375  minclass 0.292  typ% 0.560  cos 0.903  J(cls) 0.029  J(herd) 0.016
+   graph_a2       pur u/d/c 0.280/0.297/0.281  minclass 0.090  typ% 0.516  cos 0.894  J(cls) 0.086  J(herd) 0.016
+   random         pur u/d/c 0.305/0.311/0.299  minclass 0.089  typ% 0.502  cos 0.900  J(cls) 0.016  J(herd) 0.018
+   facility       pur u/d/c 0.309/0.313/0.298  minclass 0.090  typ% 0.770  cos 0.907  J(cls) 0.136  J(herd) 0.017
+   mv_mean        pur u/d/c 0.378/0.383/0.373  minclass 0.132  typ% 0.624  cos 0.903  J(cls) 0.084  J(herd) 0.015
+   acs_q00_t050   pur u/d/c 0.349/0.337/0.328  minclass 0.120  typ% 0.579  cos 0.901  J(cls) 0.124  J(herd) 0.344
+   acs_q25_t000   pur u/d/c 0.398/0.357/0.353  minclass 0.148  typ% 0.614  cos 0.902  J(cls) 0.292  J(herd) 0.017
+   acs_q25_t050   pur u/d/c 0.379/0.352/0.344  minclass 0.132  typ% 0.589  cos 0.903  J(cls) 0.116  J(herd) 0.021
+   acs_q25_t100   pur u/d/c 0.361/0.343/0.333  minclass 0.108  typ% 0.522  cos 0.903  J(cls) 0.017  J(herd) 0.021
+   acs_q50_t000   pur u/d/c 0.428/0.373/0.367  minclass 0.156  typ% 0.609  cos 0.902  J(cls) 0.230  J(herd) 0.018
+   acs_q50_t050   pur u/d/c 0.420/0.375/0.369  minclass 0.144  typ% 0.596  cos 0.904  J(cls) 0.103  J(herd) 0.018
+   acs_q50_t100   pur u/d/c 0.429/0.386/0.379  minclass 0.138  typ% 0.553  cos 0.904  J(cls) 0.024  J(herd) 0.019
+-- tissuemnist 0.05 bpc=1034
+   cls            pur u/d/c 0.356/0.335/0.324  minclass 0.125  typ% 0.477  cos 0.893  J(cls) 1.000  J(herd) 0.047
+   herding        pur u/d/c 0.299/0.304/0.293  minclass 0.092  typ% 0.490  cos 0.899  J(cls) 0.047  J(herd) 1.000
+   knnf_herding   pur u/d/c 0.436/0.377/0.368  minclass 0.235  typ% 0.559  cos 0.905  J(cls) 0.062  J(herd) 0.045
+   knnf_random42  pur u/d/c 0.438/0.376/0.367  minclass 0.235  typ% 0.567  cos 0.905  J(cls) 0.059  J(herd) 0.042
+   graph_a2       pur u/d/c 0.278/0.296/0.281  minclass 0.092  typ% 0.394  cos 0.887  J(cls) 0.124  J(herd) 0.043
+   random         pur u/d/c 0.302/0.309/0.294  minclass 0.093  typ% 0.502  cos 0.899  J(cls) 0.046  J(herd) 0.048
+   facility       pur u/d/c 0.300/0.306/0.294  minclass 0.080  typ% 0.625  cos 0.896  J(cls) 0.113  J(herd) 0.041
+   mv_mean        pur u/d/c 0.349/0.353/0.341  minclass 0.115  typ% 0.511  cos 0.896  J(cls) 0.118  J(herd) 0.044
+   acs_q00_t050   pur u/d/c 0.332/0.325/0.313  minclass 0.111  typ% 0.480  cos 0.895  J(cls) 0.150  J(herd) 0.353
+   acs_q25_t000   pur u/d/c 0.373/0.343/0.333  minclass 0.129  typ% 0.482  cos 0.895  J(cls) 0.294  J(herd) 0.044
+   acs_q25_t050   pur u/d/c 0.364/0.342/0.331  minclass 0.119  typ% 0.494  cos 0.898  J(cls) 0.142  J(herd) 0.048
+   acs_q25_t100   pur u/d/c 0.363/0.344/0.334  minclass 0.110  typ% 0.521  cos 0.903  J(cls) 0.045  J(herd) 0.048
+   acs_q50_t000   pur u/d/c 0.413/0.363/0.355  minclass 0.143  typ% 0.493  cos 0.897  J(cls) 0.222  J(herd) 0.046
+   acs_q50_t050   pur u/d/c 0.411/0.368/0.358  minclass 0.137  typ% 0.511  cos 0.899  J(cls) 0.125  J(herd) 0.047
+   acs_q50_t100   pur u/d/c 0.429/0.383/0.377  minclass 0.139  typ% 0.551  cos 0.903  J(cls) 0.053  J(herd) 0.045
+
+== E1 AL baselines ==
+bloodmnist   0.02 maxherding bpc=29 sec=4.2 {'delta': 1.0}
+bloodmnist   0.05 maxherding bpc=74 sec=2.3 {'delta': 1.0}
+bloodmnist   0.02 probcover  bpc=29 sec=7.8 {'delta': 0.26191229522228243, 'unit_check_vs_official': True, 'edges_nolab': 114187}
+bloodmnist   0.05 probcover  bpc=74 sec=4.4 {'delta': 0.26191229522228243, 'unit_check_vs_official': True, 'edges_nolab': 114187}
+bloodmnist   0.02 typiclust  bpc=29 sec=60.4 {}
+bloodmnist   0.05 typiclust  bpc=74 sec=136.4 {}
+breastmnist  0.02 maxherding bpc=5 sec=2.9 {'delta': 1.0}
+breastmnist  0.05 maxherding bpc=13 sec=0.0 {'delta': 1.0}
+breastmnist  0.02 probcover  bpc=5 sec=3.1 {'delta': 0.4938182532787323, 'unit_check_vs_official': True, 'edges_nolab': 948}
+breastmnist  0.05 probcover  bpc=13 sec=0.2 {'delta': 0.4938182532787323, 'unit_check_vs_official': True, 'edges_nolab': 948}
+breastmnist  0.02 typiclust  bpc=5 sec=4.1 {}
+breastmnist  0.05 typiclust  bpc=13 sec=5.0 {}
+dermamnist   0.02 maxherding bpc=20 sec=3.4 {'delta': 1.0}
+dermamnist   0.05 maxherding bpc=50 sec=0.8 {'delta': 1.0}
+dermamnist   0.02 probcover  bpc=20 sec=4.5 {'delta': 0.4921901524066925, 'unit_check_vs_official': True, 'edges_nolab': 11119}
+dermamnist   0.05 probcover  bpc=50 sec=3.2 {'delta': 0.4921901524066925, 'unit_check_vs_official': True, 'edges_nolab': 11119}
+dermamnist   0.02 typiclust  bpc=20 sec=35.9 {}
+dermamnist   0.05 typiclust  bpc=50 sec=77.7 {}
+octmnist     0.02 maxherding bpc=487 sec=63.3 {'delta': 1.0}
+octmnist     0.05 maxherding bpc=1218 sec=135.8 {'delta': 1.0}
+octmnist     0.02 probcover  bpc=487 sec=14.3 {'delta': 0.2893369972705841, 'unit_check_vs_official': True, 'edges_nolab': 742747}
+octmnist     0.05 probcover  bpc=1218 sec=10.4 {'delta': 0.2893838584423065, 'unit_check_vs_official': True, 'edges_nolab': 744289}
+octmnist     0.02 typiclust  bpc=487 sec=469.8 {}
+octmnist     0.05 typiclust  bpc=1218 sec=1104.4 {}
+organamnist  0.02 maxherding bpc=62 sec=18.4 {'delta': 1.0}
+organamnist  0.05 maxherding bpc=157 sec=32.7 {'delta': 1.0}
+organamnist  0.02 probcover  bpc=62 sec=12.9 {'delta': 0.31849825382232677, 'unit_check_vs_official': True, 'edges_nolab': 89485}
+organamnist  0.05 probcover  bpc=157 sec=9.5 {'delta': 0.31849825382232677, 'unit_check_vs_official': True, 'edges_nolab': 89485}
+organamnist  0.02 typiclust  bpc=62 sec=167.1 {}
+organamnist  0.05 typiclust  bpc=157 sec=394.2 {}
+organsmnist  0.02 maxherding bpc=25 sec=5.0 {'delta': 1.0}
+organsmnist  0.05 maxherding bpc=63 sec=3.3 {'delta': 1.0}
+organsmnist  0.02 probcover  bpc=25 sec=8.5 {'delta': 0.3903232216835022, 'unit_check_vs_official': True, 'edges_nolab': 32562}
+organsmnist  0.05 probcover  bpc=63 sec=4.9 {'delta': 0.3903232216835022, 'unit_check_vs_official': True, 'edges_nolab': 32562}
+organsmnist  0.02 typiclust  bpc=25 sec=72.3 {}
+organsmnist  0.05 typiclust  bpc=63 sec=172.0 {}
+pathmnist    0.02 maxherding bpc=199 sec=42.8 {'delta': 1.0}
+pathmnist    0.05 maxherding bpc=499 sec=90.4 {'delta': 1.0}
+pathmnist    0.02 probcover  bpc=199 sec=20.1 {'delta': 0.7281296253204347, 'unit_check_vs_official': True, 'edges_nolab': 30234278}
+pathmnist    0.05 probcover  bpc=499 sec=16.6 {'delta': 0.7281296253204347, 'unit_check_vs_official': True, 'edges_nolab': 30234278}
+pathmnist    0.02 typiclust  bpc=199 sec=450.9 {}
+pathmnist    0.05 typiclust  bpc=499 sec=1012.9 {}
+retinamnist  0.02 maxherding bpc=4 sec=3.7 {'delta': 1.0}
+retinamnist  0.05 maxherding bpc=10 sec=0.1 {'delta': 1.0}
+retinamnist  0.02 probcover  bpc=4 sec=3.3 {'delta': 0.2841543674468994, 'unit_check_vs_official': True, 'edges_nolab': 2182}
+retinamnist  0.05 probcover  bpc=10 sec=0.5 {'delta': 0.2841543674468994, 'unit_check_vs_official': True, 'edges_nolab': 2182}
+retinamnist  0.02 typiclust  bpc=4 sec=7.1 {}
+retinamnist  0.05 typiclust  bpc=10 sec=9.4 {}
+tissuemnist  0.02 maxherding bpc=413 sec=92.6 {'delta': 1.0}
+tissuemnist  0.05 maxherding bpc=1034 sec=190.2 {'delta': 1.0}
+tissuemnist  0.02 probcover  bpc=413 sec=38.7 {'delta': 0.2835312560200691, 'unit_check_vs_official': True, 'edges_nolab': 305112}
+tissuemnist  0.05 probcover  bpc=1034 sec=34.6 {'delta': 0.28350624442100525, 'unit_check_vs_official': True, 'edges_nolab': 304726}
+tissuemnist  0.02 typiclust  bpc=413 sec=679.2 {}
+tissuemnist  0.05 typiclust  bpc=1034 sec=2270.7 {}
