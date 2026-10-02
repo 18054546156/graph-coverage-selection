@@ -1,0 +1,129 @@
+host=hpcgpu107.ln.edu.hk gpu=NVIDIA A100 80GB PCIe ds=pathmnist start=2026-10-02T18:26:53+08:00
+wand backend: stub
+{'PREP': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922', 'DATA_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnist', 'CORR_ROOT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/data/medmnistc', 'OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/full_run_outputs', 'SELECTION_OUT': '/mnt/prj01/hgrp-1502-5TB/xuxiaoyu/reliability_medmnistc_ab/sources/table1_clean_only_20260922/full_run_outputs/selections', 'device': 'cuda', 'datasets': ['bloodmnist'], 'methods': [], 'ratios': [0.02, 0.05], 'selection_seed': 42, 'training_seeds': [42, 43, 44, 45, 46], 'epochs': 1000, 'augment': False, 'smoke_n': 0, 'deterministic': False, 'clean_only': True, 'train_source': 'clean', 'train_corruption': 'pixelate', 'train_severity': 3, 'train_on_corrupted': False}
+Pinned GraphCov methods: []
+GraphCov official base commit: 8cf757adc4c333dc1427d511f0de2f246d15ebac
+MedMNIST-C commit: 8acfd2710c6e0e8b2745be8b1fa1c17b94b8f8a7
+========== bloodmnist ==========
+pipeline imported in 26s
+discovered 90 checkpoints (want 1x2x9x5=90)
+  pathmnist      90 checkpoints
+
+============================================================================================
+pathmnist: test_count=7180 classes=9 corruptions=['brightness_down', 'brightness_up', 'bubble', 'contrast_down', 'contrast_up', 'defocus_blur', 'jpeg_compression', 'motion_blur', 'pixelate', 'saturate', 'stain_deposit']
+============================================================================================
+  distinct clean test index sets across runs: 1 (1 is expected)
+  [brightness_down] opened in 27s; 90 run(s) to evaluate
+    10/90  147s elapsed, 14.7s/run, 0.4M images scored total
+    20/90  268s elapsed, 13.4s/run, 0.7M images scored total
+    30/90  388s elapsed, 12.9s/run, 1.1M images scored total
+    40/90  508s elapsed, 12.7s/run, 1.4M images scored total
+    50/90  627s elapsed, 12.5s/run, 1.8M images scored total
+    60/90  748s elapsed, 12.5s/run, 2.2M images scored total
+    70/90  869s elapsed, 12.4s/run, 2.5M images scored total
+    80/90  991s elapsed, 12.4s/run, 2.9M images scored total
+    90/90  1112s elapsed, 12.4s/run, 3.2M images scored total
+  [brightness_up] opened in 25s; 90 run(s) to evaluate
+    10/90  142s elapsed, 14.2s/run, 3.6M images scored total
+    20/90  261s elapsed, 13.0s/run, 3.9M images scored total
+    30/90  380s elapsed, 12.7s/run, 4.3M images scored total
+    40/90  500s elapsed, 12.5s/run, 4.7M images scored total
+    50/90  617s elapsed, 12.3s/run, 5.0M images scored total
+    60/90  740s elapsed, 12.3s/run, 5.4M images scored total
+    70/90  860s elapsed, 12.3s/run, 5.7M images scored total
+    80/90  980s elapsed, 12.2s/run, 6.1M images scored total
+    90/90  1098s elapsed, 12.2s/run, 6.5M images scored total
+  [bubble] opened in 30s; 90 run(s) to evaluate
+    10/90  149s elapsed, 14.9s/run, 6.8M images scored total
+    20/90  266s elapsed, 13.3s/run, 7.2M images scored total
+    30/90  385s elapsed, 12.8s/run, 7.5M images scored total
+    40/90  502s elapsed, 12.6s/run, 7.9M images scored total
+    50/90  620s elapsed, 12.4s/run, 8.3M images scored total
+    60/90  737s elapsed, 12.3s/run, 8.6M images scored total
+    70/90  857s elapsed, 12.2s/run, 9.0M images scored total
+    80/90  974s elapsed, 12.2s/run, 9.3M images scored total
+    90/90  1096s elapsed, 12.2s/run, 9.7M images scored total
+  [contrast_down] opened in 28s; 90 run(s) to evaluate
+    10/90  149s elapsed, 14.9s/run, 10.1M images scored total
+    20/90  268s elapsed, 13.4s/run, 10.4M images scored total
+    30/90  390s elapsed, 13.0s/run, 10.8M images scored total
+    40/90  510s elapsed, 12.8s/run, 11.1M images scored total
+    50/90  629s elapsed, 12.6s/run, 11.5M images scored total
+    60/90  748s elapsed, 12.5s/run, 11.8M images scored total
+    70/90  867s elapsed, 12.4s/run, 12.2M images scored total
+    80/90  985s elapsed, 12.3s/run, 12.6M images scored total
+    90/90  1101s elapsed, 12.2s/run, 12.9M images scored total
+  [contrast_up] opened in 28s; 90 run(s) to evaluate
+    10/90  144s elapsed, 14.4s/run, 13.3M images scored total
+    20/90  262s elapsed, 13.1s/run, 13.6M images scored total
+    30/90  379s elapsed, 12.6s/run, 14.0M images scored total
+    40/90  495s elapsed, 12.4s/run, 14.4M images scored total
+    50/90  616s elapsed, 12.3s/run, 14.7M images scored total
+    60/90  742s elapsed, 12.4s/run, 15.1M images scored total
+    70/90  861s elapsed, 12.3s/run, 15.4M images scored total
+    80/90  979s elapsed, 12.2s/run, 15.8M images scored total
+    90/90  1098s elapsed, 12.2s/run, 16.2M images scored total
+  [defocus_blur] opened in 31s; 90 run(s) to evaluate
+    10/90  155s elapsed, 15.5s/run, 16.5M images scored total
+    20/90  278s elapsed, 13.9s/run, 16.9M images scored total
+    30/90  396s elapsed, 13.2s/run, 17.2M images scored total
+    40/90  513s elapsed, 12.8s/run, 17.6M images scored total
+    50/90  627s elapsed, 12.5s/run, 17.9M images scored total
+    60/90  741s elapsed, 12.4s/run, 18.3M images scored total
+    70/90  857s elapsed, 12.2s/run, 18.7M images scored total
+    80/90  969s elapsed, 12.1s/run, 19.0M images scored total
+    90/90  1083s elapsed, 12.0s/run, 19.4M images scored total
+  [jpeg_compression] opened in 23s; 90 run(s) to evaluate
+    10/90  139s elapsed, 13.9s/run, 19.7M images scored total
+    20/90  256s elapsed, 12.8s/run, 20.1M images scored total
+    30/90  373s elapsed, 12.4s/run, 20.5M images scored total
+    40/90  489s elapsed, 12.2s/run, 20.8M images scored total
+    50/90  604s elapsed, 12.1s/run, 21.2M images scored total
+    60/90  719s elapsed, 12.0s/run, 21.5M images scored total
+    70/90  835s elapsed, 11.9s/run, 21.9M images scored total
+    80/90  949s elapsed, 11.9s/run, 22.3M images scored total
+    90/90  1067s elapsed, 11.9s/run, 22.6M images scored total
+  [motion_blur] opened in 30s; 90 run(s) to evaluate
+    10/90  145s elapsed, 14.5s/run, 23.0M images scored total
+    20/90  262s elapsed, 13.1s/run, 23.3M images scored total
+    30/90  375s elapsed, 12.5s/run, 23.7M images scored total
+    40/90  487s elapsed, 12.2s/run, 24.1M images scored total
+    50/90  602s elapsed, 12.0s/run, 24.4M images scored total
+    60/90  716s elapsed, 11.9s/run, 24.8M images scored total
+    70/90  832s elapsed, 11.9s/run, 25.1M images scored total
+    80/90  947s elapsed, 11.8s/run, 25.5M images scored total
+    90/90  1064s elapsed, 11.8s/run, 25.8M images scored total
+  [pixelate] opened in 14s; 90 run(s) to evaluate
+    10/90  126s elapsed, 12.6s/run, 26.2M images scored total
+    20/90  237s elapsed, 11.8s/run, 26.6M images scored total
+    30/90  348s elapsed, 11.6s/run, 26.9M images scored total
+    40/90  458s elapsed, 11.4s/run, 27.3M images scored total
+    50/90  572s elapsed, 11.4s/run, 27.6M images scored total
+    60/90  685s elapsed, 11.4s/run, 28.0M images scored total
+    70/90  796s elapsed, 11.4s/run, 28.4M images scored total
+    80/90  909s elapsed, 11.4s/run, 28.7M images scored total
+    90/90  1023s elapsed, 11.4s/run, 29.1M images scored total
+  [saturate] opened in 28s; 90 run(s) to evaluate
+    10/90  140s elapsed, 14.0s/run, 29.4M images scored total
+    20/90  251s elapsed, 12.6s/run, 29.8M images scored total
+    30/90  362s elapsed, 12.1s/run, 30.2M images scored total
+    40/90  474s elapsed, 11.8s/run, 30.5M images scored total
+    50/90  583s elapsed, 11.7s/run, 30.9M images scored total
+    60/90  695s elapsed, 11.6s/run, 31.2M images scored total
+    70/90  805s elapsed, 11.5s/run, 31.6M images scored total
+    80/90  916s elapsed, 11.4s/run, 32.0M images scored total
+    90/90  1025s elapsed, 11.4s/run, 32.3M images scored total
+  [stain_deposit] opened in 29s; 90 run(s) to evaluate
+    10/90  142s elapsed, 14.2s/run, 32.7M images scored total
+    20/90  256s elapsed, 12.8s/run, 33.0M images scored total
+    30/90  367s elapsed, 12.2s/run, 33.4M images scored total
+    40/90  479s elapsed, 12.0s/run, 33.7M images scored total
+    50/90  590s elapsed, 11.8s/run, 34.1M images scored total
+    60/90  703s elapsed, 11.7s/run, 34.5M images scored total
+    70/90  813s elapsed, 11.6s/run, 34.8M images scored total
+    80/90  924s elapsed, 11.5s/run, 35.2M images scored total
+    90/90  1036s elapsed, 11.5s/run, 35.5M images scored total
+
+done: 35.5M images in 3.28h (3009 img/s)
+output tree: /project/prj-sis01/xuxiaoyu/reliability_medmnistc_ab/table1_corruption_s1_20261002
+done=2026-10-02T21:44:22+08:00
