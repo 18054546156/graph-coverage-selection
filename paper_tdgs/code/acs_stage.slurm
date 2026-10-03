@@ -9,6 +9,10 @@
 # E0 of report/proposal_acs_20261002.md: ACS selections + identity checks + descriptives. CPU only
 # (CPU FAISS, as the W1/ambig staging that produced cls_uni). Nothing is trained.
 # Submit:  sbatch --mem=<..> --export=ALL,D=<dataset> acs_stage.slurm   (optionally GPUK=1 + --gres=gpu:1)
+# E5 (report/e5_prereg_20261003.md), same script:
+#   VARIANTS=q25_t000_l00:q00_t000_l00:...  ':'-separated (sbatch --export splits on ',') -> --variants, written to
+#     OUT=$S/acs/e5_sel, reports to REP=$S/acs/e5_report; the staged grid sets are read from $S/acs/sel (I5).
+#   NEWRATIO=1 RATIOS="0.005 0.01" -> --new-ratio (E5c: no staged cls / bench herding at these ratios).
 set -uo pipefail
 umask 002
 S=/mnt/prj01/hgrp-1502-5TB/tdgs_shared
@@ -28,13 +32,16 @@ case $D in
   *) echo "unknown D=$D"; exit 2 ;;
 esac
 EXTRA=""; [[ "${GPUK:-0}" == 1 ]] && EXTRA="--gpu-faiss-kernel"
-mkdir -p $S/acs/sel $S/acs/report
+[[ "${NEWRATIO:-0}" == 1 ]] && EXTRA="$EXTRA --new-ratio"
+OUT=${OUT:-$S/acs/sel}; REP=${REP:-$S/acs/report}
+[[ -n "${VARIANTS:-}" ]] && EXTRA="$EXTRA --grid-dir $S/acs/sel --variants ${VARIANTS//:/ }"
+mkdir -p $OUT $REP
 cd $S/code
 echo "host=$(hostname) ds=$D start=$(date -Is)"; sha256sum acs_select.py acs_stage.slurm mv_select.py tdgs_select.py
 for R in ${RATIOS:-0.02 0.05}; do
   "$PY" acs_select.py --dataset $D --ratio $R --author-emb $EMB --herding-ref $HREF \
       --cls-ref ${CLS/\{R\}/$R} --knnf-report $S/knnf/td_sel/${D}_knnf_report.json \
-      --out-dir $S/acs/sel --report $S/acs/report $EXTRA || echo "FAILED $D $R"
+      --out-dir $OUT --report $REP $EXTRA || echo "FAILED $D $R"
 done
-ls $S/acs/sel | grep "^${D}_" | sed 's/^/staged /'
+ls $OUT | grep "^${D}_" | sed 's/^/staged /'
 echo "done=$(date -Is)"

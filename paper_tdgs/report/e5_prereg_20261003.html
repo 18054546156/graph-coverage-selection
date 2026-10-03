@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>E5 预注册（修订 4）：只在开发种子 s42–46 上补新臂（2026-10-03；集群打戳早于任何 E5 暂存与训练）</title><style>
+body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1.2em;line-height:1.65;color:#1f2328}
+h1{border-bottom:2px solid #d0d7de;padding-bottom:.3em}h2{border-bottom:1px solid #d0d7de;padding-bottom:.25em;margin-top:2em}
+table{border-collapse:collapse;margin:1em 0;font-size:.92em;display:block;overflow-x:auto}
+th,td{border:1px solid #d0d7de;padding:.35em .6em;vertical-align:top}th{background:#f6f8fa}tr:nth-child(even) td{background:#fbfcfd}
+code{background:#f3f4f6;padding:.1em .35em;border-radius:4px;font-size:.88em}
+pre{background:#f6f8fa;padding:1em;overflow-x:auto;border-radius:6px}pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.5em 1em;border-left:4px solid #8aa4c8;background:#f4f7fb;color:#33475b}
+hr{border:none;border-top:1px solid #d0d7de;margin:2em 0}a{color:#0969da}
+</style></head><body>
+<p style="color:#666;font-size:.85em">Generated from <code>report/e5_prereg_20261003.md</code> by <code>code/md2html.py</code>; the Markdown file is the source of truth.</p>
+<h1>E5 预注册（修订 4）：只在开发种子 s42–46 上补新臂（2026-10-03；集群打戳早于任何 E5 暂存与训练）</h1>
+<p>上级文档：<code>PROPOSAL_ACS_20261003.md</code>（§5–§8）、<code>report/e5_design_20261003.md</code>（修订 3）、<code>report/acs_principles_20261003.md</code>。 本文件取代提案 §6 的实验矩阵和 §5 的检验族；原理（P1–P4、S1–S4、引理、区间极小充分集）不变。</p>
+<h2>0. 为什么改成修订 4</h2>
+<p>用户 10-03 决定："前面的五种子比较说明问题已经够了"，不再跑新种子 47–51；数据选择领域的惯例也是固定 3–5 个种子报告。</p>
+<p>担心的问题是赢家诅咒：规则 b&#42;=10、q&#42;=.25 是在 s42–46 上从 12 个预注册候选中挑出来的，主表也报告在同样的 5 个种子上。 打戳前用零 GPU 的留一种子交叉验证（<code>code/acs_loso.py</code> → <code>results/acs/loso.txt</code>）量了这个偏差：</p>
+<table><thead><tr><th>量</th><th>值</th></tr></thead><tbody><tr><td>在 4 个种子上重选规则，5 折里选中 b&#42;=10、q&#42;=.25 的折数</td><td>4/5（另 1 折为 b&#42;=20、q&#42;=.25）</td></tr><tr><td>规则自身的选择乐观偏差（对手固定，只有规则留一）</td><td>平均 +0.18pp，最大 +3.22pp（breast 5%）</td></tr><tr><td>规则留一后仍第一的行数</td><td>9/10（与样本内相同，OCT 2% 仍落后）</td></tr><tr><td>规则与对手都留一（对手也在 4 个种子上挑）</td><td>第一 9/10；10 行平均差 +4.05pp（样本内 +2.56pp）</td></tr></tbody></table>
+<p>最后一行的平均差比样本内还大：从 11 个已发表方法里挑每行最强的对手，这一步本身也有赢家诅咒，而且比挑规则的大。所以样本内的主表对 ACS 是<strong>保守</strong>的。</p>
+<p>结论：C1（优越性）用开发表加 LOSO 报告，不再训练新种子。修订 4 只训练<strong>从未训练过的新臂</strong>。它们的 BA 事先没人见过，所以即使配对的是开发种子，对这些臂的预测仍然是真检验。</p>
+<p>失去的东西照实写：C1 没有新种子上的确认。论文写成"规则在 s42–46 上选出，LOSO 校正后仍 9/10"，不写"样本外确认"。</p>
+<h2>1. 矩阵（275 格）</h2>
+<p>统一设定：</p>
+<ul>
+<li>训练种子 42–46，选样种子 42。</li>
+<li>训练协议同 E2 / Table 1：1000 epochs，224px，无增广，<code>DETERMINISTIC_TRAINING=1</code>，final_epoch，<code>tune_pack.slurm</code> + <code>td_run_one.sh</code>，<code>--exclude=hpcgpu108</code>。</li>
+<li>新臂与同一行已有的开发格配对，用同一种卡：breast / derma / OCT 用 H100，tissue 和 E5c 各行用 A100。</li>
+</ul>
+<h3>1.1 F1 拆解与 λ（185 格）</h3>
+<p>F1 起作用的行是规则 τ&lt;1 的 7 行：breast 5%（τ=.5），derma / OCT / tissue × 2% / 5%（τ=0）。</p>
+<table><thead><tr><th>臂</th><th>含义</th><th>行</th><th>格数</th></tr></thead><tbody><tr><td><code>acs_q25_t000_l00</code></td><td>ACS 关掉 F1（λ=0）</td><td>τ=0 的 6 行 + breast 5%</td><td>35</td></tr><tr><td><code>acs_q00_t000_l00</code></td><td>再关掉 F2（= 每类配额下的 Graph-A2 目标）</td><td>τ=0 的 6 行 + breast 5%</td><td>35</td></tr><tr><td><code>acs_q25_t050_l00</code>、<code>acs_q00_t050_l00</code></td><td>breast 5% 的 q × τ × λ 2×2×2 析因补齐</td><td>breast 5%</td><td>10</td></tr><tr><td><code>&lt;规则臂&gt;_l100</code></td><td>λ=1（只剩类内项）</td><td>7 行</td><td>35</td></tr><tr><td><code>&lt;规则臂&gt;_mask</code></td><td>F1 只掩码：类内核，均匀需求权重</td><td>7 行</td><td>35</td></tr><tr><td><code>&lt;规则臂&gt;_wcls</code></td><td>F1 只类权重：不掩码的核，类平权权重 1/(C·n_c)</td><td>7 行</td><td>35</td></tr></tbody></table>
+<p>规则臂：breast 5% 为 <code>acs_q25_t050</code>，其余 6 行为 <code>acs_q25_t000</code>。λ=.5 的各臂、cls、herding 都已在 E2 里训练过，直接复用。</p>
+<h3>1.2 E5c 切换点：规则没见过的预算（90 格）</h3>
+<table><thead><tr><th>行</th><th>bpc</th><th>规则 τ</th></tr></thead><tbody><tr><td>organS 0.5%</td><td>6</td><td>1</td></tr><tr><td>blood 0.5%</td><td>7</td><td>1</td></tr><tr><td>organS 1%</td><td>12</td><td>.5</td></tr><tr><td>blood 1%</td><td>14</td><td>.5</td></tr><tr><td>organA 0.5%</td><td>15</td><td>.5</td></tr><tr><td>organA 1%</td><td>31</td><td>0</td></tr></tbody></table>
+<p>臂：q=.25 下 τ ∈ {0, .5, 1}，即 <code>acs_q25_t000</code>、<code>acs_q25_t050</code>、<code>acs_q25_t100</code>。6 行 × 3 臂 × 5 种子，A100。</p>
+<p>不跑对手。这一组只问"切换点放对了没有"，不对这些预算下的优越性作任何声称。</p>
+<h3>1.3 合计</h3>
+<table><thead><tr><th>卡</th><th>格数</th><th>按 E2 实测单格时长估计</th></tr></thead><tbody><tr><td>H100</td><td>135（breast 35、derma 50、OCT 50）</td><td>≈22 GPU 小时</td></tr><tr><td>A100</td><td>140（tissue 50、E5c 90）</td><td>≈40 GPU 小时</td></tr><tr><td><strong>合计</strong></td><td><strong>275</strong>（修订 3 为 ≈1060）</td><td><strong>≈62 GPU 小时</strong></td></tr></tbody></table>
+<h2>2. 暂存与恒等检查（训练前，失败的行不训练，照实报告）</h2>
+<ul>
+<li><strong>代码：</strong> <code>acs_select.py</code> 新增 <code>--variants</code>、<code>--grid-dir</code>、<code>--new-ratio</code>；默认网格路径不变。<code>acs_stage.slurm</code> 新增环境变量 <code>VARIANTS</code>、<code>OUT</code>、<code>REP</code>、<code>NEWRATIO</code>。</li>
+<li><strong>输出位置：</strong> 新选择集写到 <code>$S/acs/e5_sel</code>，报告写到 <code>$S/acs/e5_report</code>。训练直接用 <code>TD_SEL_DIR=$S/acs/e5_sel</code>。</li>
+<li><strong>I1–I4：</strong> 同 E2。E5c 的新预算下没有已暂存的 cls 和 bench herding，所以 I2 和 I1 的集合比对记为 n/a；I1 的顺序比对（greedy_init == greedy_multi）照做。</li>
+<li><strong>I5（= 提案 M5）：</strong></li>
+<ul>
+<li>每个用到的 (q, τ)，用新代码重算的 λ=.5 选择集必须与 <code>$S/acs/sel</code> 里已暂存、已训练的集合逐位相同（含顺序）。</li>
+<li>τ=1 时每个变体必须与 λ=.5 的集合相同。</li>
+<li>不通过就中止该行。</li>
+</ul>
+<li><strong>冒烟测试（打戳前，盲测）：</strong> 在不属于 E5 的 retina 上跑过（<code>$S/acs/e5_smoke</code>，作业 36412 / 36413）。只看了退出状态和 I1/I2/I3/I5 行，全部通过；没有看任何中介量。</li>
+</ul>
+<h2>3. 零 GPU 中介检查（暂存时算出；描述性，不改设计）</h2>
+<table><thead><tr><th>编号</th><th>测什么</th><th>预测</th></tr></thead><tbody><tr><td>M1</td><td>每个候选点在 λ=0、空集时的增益中落在异类需求点上的份额 χ_j，与 1−a_j 的 Spearman（全池）</td><td>7 行每行 ≥ .7</td></tr><tr><td>M2</td><td>每类需求覆盖中由异类选点赢得的份额（类均值）</td><td>λ=0 的臂大于对应 λ=.5 的臂：<code>acs_q25_t000_l00</code> &gt; <code>acs_q25_t000</code>，<code>acs_q00_t000_l00</code> &gt; cls；τ=0 的 6 行 6/6</td></tr><tr><td>M3</td><td>各臂的纯度（UNI k=50 同类份额，类平衡）</td><td>τ=0 的 6 行：q00_l00 &lt; q25_l00，且 q00_l00 &lt; cls ≤ ACS</td></tr><tr><td>M4</td><td>F2 保留集合在 k ∈ {20, 50, 100} 之间的 Jaccard</td><td>保留集合 Jaccard 两两 ≥ .8（随机 75% 子集基线为 .6）；同时报告被删集合的 Jaccard</td></tr><tr><td>T4</td><td>derma / OCT 的作者版 Graph-A2（bench fill）的纯度</td><td>低于池子（= 同行 random 的纯度），与 P1 一致</td></tr></tbody></table>
+<p>M1 或 M2 不成立时，H1、H2 照常检验，但论文里的机制解释改写为"未证实"。</p>
+<h2>4. 检验（分析代码 <code>code/e5_eval.py</code> 在本文件打戳时一起打戳）</h2>
+<p>统计量：所涉行的等权行均值差。每行先对 5 个种子求均值，再在行之间取等权平均。</p>
+<p>检验方法：</p>
+<ul>
+<li>单侧符号翻转置换：每个（行，种子）配对差独立翻转，抽 10^5 次，随机种子 20261003。</li>
+<li>95% CI：在每行内对种子做重抽样，抽 10^4 次。</li>
+</ul>
+<h3>4.1 主检验族（Holm 校正，3 个）</h3>
+<table><thead><tr><th>编号</th><th>预测</th><th>行</th><th>对比</th><th>依据</th><th>MDE</th></tr></thead><tbody><tr><td><strong>H1 C2-F1</strong></td><td>ACS &gt; ACS 关掉 F1</td><td>τ=0 的 6 行</td><td>ACS − <code>acs_q25_t000_l00</code></td><td>P1 + 引理；代理 cls − A2 为 +3.77（6/6）</td><td>≈0.99pp（按代理的方差）</td></tr><tr><td><strong>H2 P-int</strong></td><td>F1 与 F2 可相互替代（交互 &lt; 0）</td><td>τ=0 的 6 行</td><td>(cls − <code>acs_q00_t000_l00</code>) − (ACS − <code>acs_q25_t000_l00</code>) &gt; 0</td><td>引理 F1 ⊇ F2</td><td>—</td></tr><tr><td><strong>H3 E5b</strong></td><td>只类权重达不到 ACS</td><td>7 行</td><td>ACS − <code>&lt;规则臂&gt;_wcls</code> &gt; 0</td><td>Round 2b：类权重效应 −0.43、掩码效应 +1.41</td><td>≈1.1pp</td></tr></tbody></table>
+<p>通过的标准：Holm 校正后 p &lt; .05。另外报告点估计为正的行数。</p>
+<h3>4.2 只报效应和 95% CI</h3>
+<ul>
+<li><strong>P-F2only：</strong> <code>acs_q25_t000_l00</code> − <code>acs_q00_t000_l00</code> &gt; 0（6 行）。与 H1 合起来，就是预测 ACS &gt; ACS_l00 &gt; cls_l00。</li>
+<li><strong>只掩码：</strong> <code>&lt;规则臂&gt;_mask</code> − ACS ≈ 0（7 行）。</li>
+<li><strong>λ=1 地形：</strong> <code>&lt;规则臂&gt;_l100</code> − ACS（7 行），不预测符号。b&#42; 和 q 冻结，λ 也不因此重选。</li>
+<li><strong>F1@过渡：</strong> breast 5% 上 ACS − <code>acs_q25_t050_l00</code> ≥ 0，幅度小。同时列出 2×2×2 析因的全部 8 格。</li>
+<li><strong>最差类召回：</strong> H1、H3 两个对比的最差类召回版本。</li>
+</ul>
+<h3>4.3 E5c</h3>
+<p><strong>P-cut</strong>（事先写死的判据）：</p>
+<ul>
+<li>6 行中至少 4 行，规则选的 τ 是三个 τ 里 BA 最高的；</li>
+<li>并且 6 行上 Spearman(bpc, t100 − t000) &lt; 0。</li>
+</ul>
+<p>另外报告开发 10 行加 E5c 6 行（共 16 点）的切换图，作为描述。</p>
+<p>如果 P-cut 失败，论文把 F3 写成"方向成立、位置未定"。</p>
+<h3>4.4 C1（不再训练）</h3>
+<p>开发主表（ACS 对每行最强的已发表方法，9/10）和 §0 的 LOSO 一起报告。C1 不进入本检验族。</p>
+<h3>4.5 其余规则</h3>
+<ul>
+<li><strong>故障处理：</strong> 失败的格最多重跑 2 次；仍失败就整行标为缺失，不补算，不剔除种子。</li>
+<li><strong>硬件：</strong> GPU 型号不对的格剔除并列出。</li>
+<li><strong>不做事后筛选：</strong> 不按结果删行，不挑种子。</li>
+<li><strong>定位：</strong> <code>acs_q00_t000_l00</code> 应与我们以前的每类配额 Graph-A2（derma/OCT 的 <code>a2_uni</code>、tissue 的 <code>$S/sel</code> graph_a2）是同一个目标。暂存报告给出两者的 Jaccard；若为 1.0，两者的 BA 对比可顺带检查训练的确定性（描述性）。</li>
+</ul>
+<h2>5. 执行</h2>
+<ol>
+<li>打戳：<code>$S/acs/e5_stamp.txt</code>，记录本文件、<code>acs_select.py</code>、<code>acs_stage.slurm</code>、<code>e5_eval.py</code>、<code>tune_pack.slurm</code>、<code>td_run_one.sh</code>、<code>results/acs/loso.txt</code> 的 sha256 和 UTC 时间。</li>
+<li>暂存：</li>
+<ul>
+<li><code>acs_stage.slurm</code>，<code>OUT=$S/acs/e5_sel</code>，<code>REP=$S/acs/e5_report</code>；</li>
+<li>derma / OCT / tissue 带 <code>VARIANTS=q25_t000_l00:q00_t000_l00:q25_t000_l100:q25_t000_mask:q25_t000_wcls</code>；</li>
+<li>breast 用 <code>RATIOS=0.05</code>，并加上 <code>q25_t050_l00</code>、<code>q00_t050_l00</code>，<code>l100</code> / <code>mask</code> / <code>wcls</code> 换成 <code>q25_t050_*</code>；</li>
+<li>blood / organA / organS 用 <code>NEWRATIO=1 RATIOS=&quot;0.005 0.01&quot;</code>（网格模式，只训练 q25 的三个 τ）。</li>
+</ul>
+<li>Worklist：<code>$S/work/acs_e5_h100.txt</code>（135 行）、<code>$S/work/acs_e5_a100.txt</code>（140 行），格式 <code>ds ratio arm seed</code>，种子在外层，长格（OCT、tissue）在前。</li>
+<li>训练：<code>tune_pack.slurm</code>，<code>TD_EXP_ROOT=$S/runs/acs_e5_20261003</code>，<code>TD_SEL_DIR=$S/acs/e5_sel</code>，<code>STOP_ON_FAIL=1</code>，作业名 <code>acse5</code>，日志在 <code>$S/acs/logs</code>。</li>
+<li>收割：<code>e5_eval.py --cluster</code> → <code>results/acs/e5_cells.json</code>；分析：<code>e5_eval.py test</code> → <code>results/acs/e5_test.txt</code>。结果追加到本文件 §7，上面的内容不改。</li>
+</ol>
+<h2>6. 打戳</h2>
+<p>（在集群上追加到 <code>acs/e5_stamp.txt</code>）</p>
+<h2>7. 结果</h2>
+<p>（收割后追加）</p>
+<h2>8. 追加：执行记录与中介检查（训练结果出来之前写；以上内容未改）</h2>
+<p><strong>打戳。</strong> <code>acs/e5_stamp.txt</code>，utc=2026-10-03T13:00:53Z，用户 xiaoyuxu2。本地副本 <code>results/acs/e5_stamp.txt</code>。各文件 sha256：</p>
+<table><thead><tr><th>文件</th><th>sha256 前缀</th></tr></thead><tbody><tr><td>本文件</td><td>ce397de7…</td></tr><tr><td><code>acs_select.py</code></td><td>0a47d496…</td></tr><tr><td><code>acs_stage.slurm</code></td><td>29a7ce44…</td></tr><tr><td><code>e5_eval.py</code></td><td>7af6667b…</td></tr><tr><td><code>acs_loso.py</code></td><td>e9bd1786…</td></tr><tr><td><code>loso.txt</code></td><td>70c74a95…（LF 行尾）</td></tr><tr><td><code>tune_pack.slurm</code></td><td>0f239e83…</td></tr><tr><td><code>td_run_one.sh</code></td><td>5787a040…</td></tr></tbody></table>
+<p><strong>暂存。</strong> jobs 36416–36422，全部在打戳之后。</p>
+<ul>
+<li>I1–I4 全部通过；E5c 各行的 I1 集合比对和 I2 记为 n/a，与 §2 一致。</li>
+<li>I5 在 7 行、共 16 个 (行, q, τ) 上全部逐位相同。</li>
+<li><code>$S/acs/e5_sel</code> 共 79 个文件：新臂 37 个，E5c 网格 42 个（其中训练 18 个）；两份 worklist 的每一格都有选择集。</li>
+</ul>
+<p><strong>训练。</strong> 2026-10-03 21:0x HKT 提交，作业名 <code>acse5</code>：</p>
+<ul>
+<li>H100：36423（xiaoyuxu2）、36424（qiangzeng）；</li>
+<li>A100：36425、36426（danranwang）、36427（xiaoyuxu2）。</li>
+</ul>
+<p><strong>中介检查</strong>（<code>code/e5_mediators.py</code> → <code>results/acs/e5_mediators.txt</code>）：</p>
+<table><thead><tr><th>检查</th><th>预测</th><th>结果</th></tr></thead><tbody><tr><td>M1 Spearman(χ, 1−a)</td><td>7 行每行 ≥ .7</td><td><strong>7/7</strong>（.893–.981）</td></tr><tr><td>M2 需求侧泄漏</td><td>τ=0 行上 λ=0 &gt; λ=.5，两对都成立</td><td><strong>6/6</strong>。例如 tissue 2%：cls .545 → cls_l00 .687；ACS .542 → ACS_l00 .638</td></tr><tr><td>M3 纯度链</td><td>cls_l00 &lt; ACS_l00，且 cls_l00 &lt; cls ≤ ACS</td><td><strong>6/6</strong></td></tr><tr><td>M4 k 稳定性</td><td>保留集合 Jaccard ≥ .8</td><td><strong>7/7</strong>（.822–.930）。被删集合的 Jaccard 为 .49–.79</td></tr><tr><td>T4 作者版 Graph-A2 的纯度低于池子</td><td>低于池子</td><td>derma / OCT <strong>4/4</strong>（−.017 至 −.049）；breast 5% 也低（.578 vs .595）</td></tr></tbody></table>
+<p><code>acs_q00_t000_l00</code> 与我们以前的每类配额 Graph-A2 选择集完全相同（Jaccard 1.0，6/6 行：derma/OCT 对 <code>a2_uni</code>，tissue 对 <code>$S/sel</code> 的 graph_a2）。因此 §4.4 的 BA 对比可以直接检查训练的确定性。</p>
+</body></html>

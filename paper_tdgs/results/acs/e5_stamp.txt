@@ -1,0 +1,13 @@
+# ACS E5 rev-4 prereg stamp (written before any E5 staging/training; smoke test 36412/36413 was retina-only into acs/e5_smoke)
+utc=2026-10-03T13:00:53Z user=xiaoyuxu2 host=hpcsrv001.ln.edu.hk
+ce397de74bd4e215d1db682e0a8aa432fae76fef6e9b0ec01b083f44caadcdc2  acs/e5_prereg_20261003.md
+0a47d4965bc9a27b3565de88dfd0cae50c59773be93facf2161835781811dda9  code/acs_select.py
+29a7ce44506795742ef9d91a8870106f0e2135101c47a4c64a24aa5bf0d62061  code/acs_stage.slurm
+7af6667b486976e29cd8424e5b02e1e19dac3a92b71983f985494ae80487c5f1  code/e5_eval.py
+e9bd1786d1988f5a323c9fb598b7d95936dc79521817856c5bf50b1796a3113e  code/acs_loso.py
+70c74a9529d9695bef7527b2799ad9d4698bbdd138d1723b0cf73f6125e4517d  acs/loso.txt
+0f239e83a7c24c5242bfe776d31b62fdf4c3661f5a4b4102ece94b28fba03509  code/tune_pack.slurm
+5787a0400e07fa1ae0a5b4b302256a914fde163719f3306d0468e9aeb4967d4c  code/td_run_one.sh
+e4b667326eea9af30d135c92327f9b55e03197a535bb3dc953009049755d11e5  code/mv_select.py
+6543c803349851ebe1c9c59d17fbbd641b38fdbb9c7d5e38a564cd70542479b5  code/tdgs_select.py
+9fa2e285fd707ca6f4a5384fd2c68446f91daa4c34bb3cf4c59d695bb13e3828  code/tdgs_select_r2.py

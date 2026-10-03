@@ -1,0 +1,332 @@
+{
+ "dataset": "breastmnist",
+ "ratio": 0.05,
+ "N": 546,
+ "C": 2,
+ "bpc": 13,
+ "lam": 0.5,
+ "grid": {
+  "q": [
+   0.0,
+   0.25,
+   0.5
+  ],
+  "tau": [
+   0.0,
+   0.5,
+   1.0
+  ]
+ },
+ "inputs": {
+  "dataset": "breastmnist",
+  "ratio": 0.05,
+  "author_emb": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/ambig/t1cache/embeddings_img224_smokefull/breastmnist_train_uni_224.npz",
+  "herding_ref": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/ambig_20261002/sel/seed_42/herding/breastmnist",
+  "cls_ref": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/ambig/sel/breastmnist_r0.05_cls_uni_s42.npy",
+  "knnf_report": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/td_sel/breastmnist_knnf_report.json",
+  "out_dir": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/acs/e5_sel",
+  "report": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/acs/e5_report",
+  "gpu_faiss_kernel": false,
+  "variants": [
+   "q25_t050_l00",
+   "q00_t050_l00",
+   "q25_t000_l00",
+   "q00_t000_l00",
+   "q25_t050_l100",
+   "q25_t050_mask",
+   "q25_t050_wcls"
+  ],
+  "grid_dir": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/acs/sel",
+  "new_ratio": false
+ },
+ "checks": {
+  "I3_plurality_kept_per_class": {
+   "ours": [
+    66,
+    385
+   ],
+   "knnf": [
+    66,
+    385
+   ],
+   "match": true
+  },
+  "I2_herding_order_match": true,
+  "uni_view_vs_author_cache_maxabs": 4.014000296592712e-06,
+  "I1_order_match_greedy_multi": true,
+  "I1_set_match_staged_cls": true,
+  "I5": {
+   "acs_q00_t000": {
+    "match": true,
+    "ref": "cls (I1)",
+    "k_herd": 0
+   },
+   "acs_q00_t050": {
+    "match": true,
+    "ref": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/acs/sel/breastmnist_r0.05_acs_q00_t050_s42.npy",
+    "k_herd": 7
+   },
+   "acs_q25_t000": {
+    "match": true,
+    "ref": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/acs/sel/breastmnist_r0.05_acs_q25_t000_s42.npy",
+    "k_herd": 0
+   },
+   "acs_q25_t050": {
+    "match": true,
+    "ref": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/acs/sel/breastmnist_r0.05_acs_q25_t050_s42.npy",
+    "k_herd": 7
+   }
+  }
+ },
+ "retention": {},
+ "arms": {
+  "acs_q25_t050_l00": {
+   "q": 0.25,
+   "tau": 0.5,
+   "k_herd": 7,
+   "kind": "l00",
+   "jaccard_to_lam05": 0.4857142857142857
+  },
+  "acs_q00_t050_l00": {
+   "q": 0.0,
+   "tau": 0.5,
+   "k_herd": 7,
+   "kind": "l00",
+   "jaccard_to_lam05": 0.5294117647058824
+  },
+  "acs_q25_t000_l00": {
+   "q": 0.25,
+   "tau": 0.0,
+   "k_herd": 0,
+   "kind": "l00",
+   "jaccard_to_lam05": 0.2682926829268293
+  },
+  "acs_q00_t000_l00": {
+   "q": 0.0,
+   "tau": 0.0,
+   "k_herd": 0,
+   "kind": "l00",
+   "jaccard_to_lam05": 0.4857142857142857
+  },
+  "acs_q25_t050_l100": {
+   "q": 0.25,
+   "tau": 0.5,
+   "k_herd": 7,
+   "kind": "l100",
+   "jaccard_to_lam05": 0.7333333333333333
+  },
+  "acs_q25_t050_mask": {
+   "q": 0.25,
+   "tau": 0.5,
+   "k_herd": 7,
+   "kind": "mask",
+   "jaccard_to_lam05": 0.8571428571428571
+  },
+  "acs_q25_t050_wcls": {
+   "q": 0.25,
+   "tau": 0.5,
+   "k_herd": 7,
+   "kind": "wcls",
+   "jaccard_to_lam05": 0.5757575757575758
+  }
+ },
+ "jaccard": {},
+ "mode": "e5_variants",
+ "variants": [
+  "q25_t050_l00",
+  "q00_t050_l00",
+  "q25_t000_l00",
+  "q00_t000_l00",
+  "q25_t050_l100",
+  "q25_t050_mask",
+  "q25_t050_wcls"
+ ],
+ "mediators": {
+  "M1": {
+   "spearman_chi_vs_1ma": 0.9129714571818198,
+   "chi_mean": 0.3561519415861421,
+   "pass_ge_0p7": true
+  },
+  "M2_leakage": {
+   "acs_q25_t050_l00": {
+    "class_mean": 0.3386940062046051,
+    "per_class": [
+     0.34969863295555115,
+     0.32768937945365906
+    ]
+   },
+   "acs_q00_t050_l00": {
+    "class_mean": 0.4319217801094055,
+    "per_class": [
+     0.45177480578422546,
+     0.41206875443458557
+    ]
+   },
+   "acs_q25_t000_l00": {
+    "class_mean": 0.32942022383213043,
+    "per_class": [
+     0.35471639037132263,
+     0.30412405729293823
+    ]
+   },
+   "acs_q00_t000_l00": {
+    "class_mean": 0.38451510667800903,
+    "per_class": [
+     0.37523123621940613,
+     0.39379897713661194
+    ]
+   },
+   "acs_q25_t050_l100": {
+    "class_mean": 0.3040277063846588,
+    "per_class": [
+     0.3507603108882904,
+     0.2572951018810272
+    ]
+   },
+   "acs_q25_t050_mask": {
+    "class_mean": 0.3166572004556656,
+    "per_class": [
+     0.3564891815185547,
+     0.2768252193927765
+    ]
+   },
+   "acs_q25_t050_wcls": {
+    "class_mean": 0.3312041908502579,
+    "per_class": [
+     0.36424699425697327,
+     0.2981613874435425
+    ]
+   },
+   "cls": {
+    "class_mean": 0.337981641292572,
+    "per_class": [
+     0.30441713333129883,
+     0.3715461492538452
+    ]
+   },
+   "herding": {
+    "class_mean": 0.43285878002643585,
+    "per_class": [
+     0.4780869483947754,
+     0.3876306116580963
+    ]
+   },
+   "ref_random": {
+    "class_mean": 0.42364105582237244,
+    "per_class": [
+     0.49195459485054016,
+     0.3553275167942047
+    ]
+   },
+   "ref_facility": {
+    "class_mean": 0.30428267270326614,
+    "per_class": [
+     0.23399846255779266,
+     0.3745668828487396
+    ]
+   },
+   "ref_graph_a2": {
+    "class_mean": 0.38451510667800903,
+    "per_class": [
+     0.37523123621940613,
+     0.39379897713661194
+    ]
+   },
+   "ref_mv_mean": {
+    "class_mean": 0.3508458733558655,
+    "per_class": [
+     0.2450195550918579,
+     0.45667219161987305
+    ]
+   },
+   "ref_knnf_herding": {
+    "class_mean": 0.3290647640824318,
+    "per_class": [
+     0.4217524528503418,
+     0.2363770753145218
+    ]
+   },
+   "ref_knnf_random42": {
+    "class_mean": 0.35641834139823914,
+    "per_class": [
+     0.43467894196510315,
+     0.2781577408313751
+    ]
+   },
+   "ref_graph_a2_author": {
+    "class_mean": 0.38451510667800903,
+    "per_class": [
+     0.37523123621940613,
+     0.39379897713661194
+    ]
+   },
+   "acs_q00_t050": {
+    "class_mean": 0.3156212866306305,
+    "per_class": [
+     0.28358954191207886,
+     0.34765303134918213
+    ]
+   },
+   "acs_q25_t000": {
+    "class_mean": 0.2723491042852402,
+    "per_class": [
+     0.2512548565864563,
+     0.29344335198402405
+    ]
+   },
+   "acs_q25_t050": {
+    "class_mean": 0.3043086528778076,
+    "per_class": [
+     0.3395376205444336,
+     0.26907968521118164
+    ]
+   }
+  },
+  "M3_purity_uni": {
+   "acs_q25_t050_l00": 0.6538461538461537,
+   "acs_q00_t050_l00": 0.5984615384615385,
+   "acs_q25_t000_l00": 0.6430769230769231,
+   "acs_q00_t000_l00": 0.5776923076923077,
+   "acs_q25_t050_l100": 0.6507692307692308,
+   "acs_q25_t050_mask": 0.6538461538461539,
+   "acs_q25_t050_wcls": 0.6430769230769231,
+   "cls": 0.5823076923076924,
+   "herding": 0.603076923076923,
+   "ref_random": 0.5946153846153845,
+   "ref_facility": 0.5992307692307692,
+   "ref_graph_a2": 0.5776923076923077,
+   "ref_mv_mean": 0.6053846153846154,
+   "ref_knnf_herding": 0.6646153846153846,
+   "ref_knnf_random42": 0.6738461538461539,
+   "ref_graph_a2_author": 0.5776923076923077,
+   "acs_q00_t050": 0.6107692307692308,
+   "acs_q25_t000": 0.6261538461538463,
+   "acs_q25_t050": 0.6530769230769231
+  },
+  "M4": {
+   "20_50": {
+    "kept": 0.8857142857142857,
+    "removed": 0.6363636363636364
+   },
+   "50_100": {
+    "kept": 0.8615384615384616,
+    "removed": 0.5909090909090909
+   },
+   "20_100": {
+    "kept": 0.8222698072805139,
+    "removed": 0.4876543209876543
+   },
+   "pass_kept_ge_0p8": true
+  }
+ },
+ "refs": {
+  "random": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/ambig_20261002/sel/seed_42/random/breastmnist/ratio_0.05/selection_seed_42/selected_indices.npy",
+  "facility": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/ambig_20261002/sel/seed_42/facility/breastmnist/ratio_0.05/selection_seed_42/selected_indices.npy",
+  "graph_a2": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/ambig_20261002/sel/seed_42/graph_a2/breastmnist/ratio_0.05/selection_seed_42/selected_indices.npy",
+  "mv_mean": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/ambig/sel/breastmnist_r0.05_mv_mean_s42.npy",
+  "knnf_herding": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/td_sel/breastmnist_r0.05_knnf_herding_s42.npy",
+  "knnf_random42": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/knnf/td_sel/breastmnist_r0.05_knnf_random42_s42.npy",
+  "graph_a2_author": "/mnt/prj01/hgrp-1502-5TB/tdgs_shared/runs/ambig_20261002/sel/seed_42/graph_a2/breastmnist/ratio_0.05/selection_seed_42/selected_indices.npy"
+ },
+ "seconds": 1.8763034343719482
+}

@@ -1,0 +1,35 @@
+in-sample rule (all 5 seeds): b*=10 q*=0.25
+held-out s42: rule b*=10 q*=0.25  | reti2:q25_t100>herding reti5:q25_t100>probcover brea2:q25_t100>probcover brea5:q25_t050>typiclust derm2:q25_t000>maxherding derm5:q25_t000>random octm2:q25_t000>facility octm5:q25_t000>fps tiss2:q25_t000>maxherding tiss5:q25_t000>typiclust
+held-out s43: rule b*=20 q*=0.25  | reti2:q25_t100>typiclust reti5:q25_t100>probcover brea2:q25_t100>herding brea5:q25_t100>typiclust derm2:q25_t100>maxherding derm5:q25_t000>random octm2:q25_t000>maxherding octm5:q25_t000>fps tiss2:q25_t000>typiclust tiss5:q25_t000>typiclust
+held-out s44: rule b*=10 q*=0.25  | reti2:q25_t100>typiclust reti5:q25_t100>probcover brea2:q25_t100>probcover brea5:q25_t050>probcover derm2:q25_t000>maxherding derm5:q25_t000>random octm2:q25_t000>maxherding octm5:q25_t000>fps tiss2:q25_t000>maxherding tiss5:q25_t000>typiclust
+held-out s45: rule b*=10 q*=0.25  | reti2:q25_t100>herding reti5:q25_t100>probcover brea2:q25_t100>typiclust brea5:q25_t050>typiclust derm2:q25_t000>maxherding derm5:q25_t000>random octm2:q25_t000>maxherding octm5:q25_t000>fps tiss2:q25_t000>maxherding tiss5:q25_t000>typiclust
+held-out s46: rule b*=10 q*=0.25  | reti2:q25_t100>herding reti5:q25_t100>herding brea2:q25_t100>typiclust brea5:q25_t050>typiclust derm2:q25_t000>maxherding derm5:q25_t000>random octm2:q25_t000>maxherding octm5:q25_t000>fps tiss2:q25_t000>maxherding tiss5:q25_t000>typiclust
+
+## per row: in-sample (rule + comparator chosen on all 5 seeds) vs LOSO (both chosen on the other 4)
+row          in-sample d      p |  LOSO d      p  wins | optimism
+retina 0.02        +4.87  0.006 |   +7.47  0.001   5/5 | -2.60
+retina 0.05        +1.16  0.563 |   +3.52  0.248   4/5 | -2.36
+breast 0.02        +1.49  0.748 |   +9.15  0.056   4/5 | -7.66
+breast 0.05       +10.05  0.034 |   +9.49  0.023   5/5 | +0.56
+dermam 0.02        +0.75  0.689 |   +2.15  0.293   4/5 | -1.40
+dermam 0.05        +1.81  0.058 |   +1.81  0.058   5/5 | +0.00
+octmni 0.02        -1.12  0.354 |   -0.58  0.557   2/5 | -0.54
+octmni 0.05        +1.36  0.012 |   +1.36  0.012   5/5 | +0.00
+tissue 0.02        +3.23  0.044 |   +4.20  0.018   5/5 | -0.97
+tissue 0.05        +1.96  0.003 |   +1.96  0.003   5/5 | +0.00
+
+first (mean d >= 0): in-sample 9/10, LOSO 9/10; mean optimism -1.50pp (median -0.76)
+10-row mean d: in-sample +2.56, LOSO +4.05
+
+## isolate the rule's own selection optimism: comparator fixed (in-sample, best on all 5), only the rule is LOSO
+retina 0.02  in-sample  +4.87  rule-LOSO  +4.87  optimism +0.00
+retina 0.05  in-sample  +1.16  rule-LOSO  +1.16  optimism +0.00
+breast 0.02  in-sample  +1.49  rule-LOSO  +1.49  optimism +0.00
+breast 0.05  in-sample +10.05  rule-LOSO  +6.83  optimism +3.22
+dermam 0.02  in-sample  +0.75  rule-LOSO  +2.15  optimism -1.40
+dermam 0.05  in-sample  +1.81  rule-LOSO  +1.81  optimism +0.00
+octmni 0.02  in-sample  -1.12  rule-LOSO  -1.12  optimism +0.00
+octmni 0.05  in-sample  +1.36  rule-LOSO  +1.36  optimism +0.00
+tissue 0.02  in-sample  +3.23  rule-LOSO  +3.23  optimism +0.00
+tissue 0.05  in-sample  +1.96  rule-LOSO  +1.96  optimism +0.00
+rule-selection optimism: mean +0.18pp, max +3.22pp; first under rule-LOSO 9/10

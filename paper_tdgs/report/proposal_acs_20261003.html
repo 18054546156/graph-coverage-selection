@@ -12,7 +12,14 @@ hr{border:none;border-top:1px solid #d0d7de;margin:2em 0}a{color:#0969da}
 </style></head><body>
 <p style="color:#666;font-size:.85em">Generated from <code>PROPOSAL_ACS_20261003.md</code> by <code>code/md2html.py</code>; the Markdown file is the source of truth.</p>
 <h1>PROPOSAL — ACS：类别重叠下的一次性选样，原理与确认实验设计（2026-10-03）</h1>
-<blockquote><p>状态：<strong>提案 / 设计定稿前版本</strong>（对应 E5 设计修订 3）。还没有打戳。预注册（T5）会把本文 §5–§8 原样写死，再在集群上打戳。 现状和待办见 <code>HANDOFF_20261003.md</code>。推导所用的数字由 <code>code/acs_principles_obs.py</code> 生成（<code>results/acs/principles_obs.txt</code>）；其余来自开发集 s42–46（<code>code/acs_eval.load()</code>）。</p>
+<blockquote><p><strong>修订 4（10-03 晚，已打戳 2026-10-03T13:00:53Z）：</strong> 按用户决定不再跑新种子 47–51。所有新格都在 s42–46 上，与开发格配对，只训练从未训练过的新臂，共 275 格（原 ≈1060 格）。</p>
+<ul>
+<li><strong>C1：</strong> 改用开发表加留一种子（LOSO）报告。规则的选择乐观偏差平均 +0.18pp，LOSO 后仍 9/10 第一（<code>results/acs/loso.txt</code>）。</li>
+<li><strong>检验族：</strong> H1 C2-F1、H2 P-int、H3（只类权重 &lt; ACS）。</li>
+<li><strong>E5c：</strong> 只跑 q=.25 下的三个 τ，不跑对手。</li>
+<li><strong>已不适用：</strong> 本文 §5 的检验族、§6 的矩阵和 §7 中关于新种子的段落，由 <strong><code>report/e5_prereg_20261003.md</code></strong> 取代。原理（§2–§4）不变。</li>
+</ul>
+<p>状态（修订 3 时）：提案 / 设计定稿前版本。 现状和待办见 <code>HANDOFF_20261003.md</code>。推导所用的数字由 <code>code/acs_principles_obs.py</code> 生成（<code>results/acs/principles_obs.txt</code>）；其余来自开发集 s42–46（<code>code/acs_eval.load()</code>）。</p>
 <p>证据等级：<strong>A</strong> = 预注册且样本外；<strong>B</strong> = 开发集；<strong>C</strong> = 看过开发集之后写下的推导或解释。</p></blockquote>
 <hr>
 <h2>1. 背景与问题</h2>
