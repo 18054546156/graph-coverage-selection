@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ACS 的原理推导：四个前提 → 各区间的充分必要 → 超参数 → 后续子实验（2026-10-03）</title><style>
+body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1.2em;line-height:1.65;color:#1f2328}
+h1{border-bottom:2px solid #d0d7de;padding-bottom:.3em}h2{border-bottom:1px solid #d0d7de;padding-bottom:.25em;margin-top:2em}
+table{border-collapse:collapse;margin:1em 0;font-size:.92em;display:block;overflow-x:auto}
+th,td{border:1px solid #d0d7de;padding:.35em .6em;vertical-align:top}th{background:#f6f8fa}tr:nth-child(even) td{background:#fbfcfd}
+code{background:#f3f4f6;padding:.1em .35em;border-radius:4px;font-size:.88em}
+pre{background:#f6f8fa;padding:1em;overflow-x:auto;border-radius:6px}pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.5em 1em;border-left:4px solid #8aa4c8;background:#f4f7fb;color:#33475b}
+hr{border:none;border-top:1px solid #d0d7de;margin:2em 0}a{color:#0969da}
+</style></head><body>
+<p style="color:#666;font-size:.85em">Generated from <code>report/acs_principles_20261003.md</code> by <code>code/md2html.py</code>; the Markdown file is the source of truth.</p>
+<h1>ACS 的原理推导：四个前提 → 各区间的充分必要 → 超参数 → 后续子实验（2026-10-03）</h1>
+<blockquote><p>用途：把"每个模块为什么必要、什么时候必要、三个合起来为什么够"写成<strong>从前提推出的结论</strong>，而不是看数据后的归纳。论文 §3（诊断）和 §4（方法）按这里的顺序写。</p>
+<p>数字来源：开发种子 s42–46，零新增训练。</p>
+<ul>
+<li>脚本：<code>code/acs_principles_obs.py</code></li>
+<li>输出：<code>results/acs/principles_obs.txt</code>（O1 超参数地形，O2 选中集纯度，O3 每类多数票损失率）</li>
+</ul>
+<p>上游文档：<code>acs_story_20261003.md</code>（故事）、<code>acs_derivation_20261003.md</code>（每个模块的由来）、<code>e5_design_20261003.md</code>（检验设计，本文对应其修订 3）。</p></blockquote>
+<hr>
+<h2>0. "有没有事后"：三类陈述要分开</h2>
+<table><thead><tr><th>类型</th><th>例子</th><th>需不需要数据</th><th>论文里怎么写</th></tr></thead><tbody><tr><td><strong>结构恒等（定理）</strong></td><td>q=0 时 F2 不起作用；τ=0 时 F3 不起作用；<strong>τ=1 时 F1 不起作用</strong>（没有覆盖阶段）；F2 永远不会删光一个类；命题 1</td><td>不需要，按构造成立。代码用恒等检查 I1–I5 验证</td><td>方法节的命题</td></tr><tr><td><strong>原理推导（条件定理）</strong></td><td>小预算区间 F2 必要；大预算区间 F2 冗余；F1×F2 交互为负；F2 让切换点右移</td><td>需要前提成立。前提各自有独立证据（§1）；推导本身是逻辑</td><td>诊断节：前提 → 推论 → 预测</td></tr><tr><td><strong>调出来的量</strong></td><td>b&#42;=10、q=.25 的具体数值；各效应的大小</td><td>只能由数据定。原理只给方向和量级</td><td>写明在开发集上选定，E5 在新种子上确认</td></tr></tbody></table>
+<p><strong>结论：</strong> 用户说得对，"按区间的极小充分集"可以从前提推出来，不是只能看数据归纳。</p>
+<p>但有两点仍要如实写：</p>
+<ol>
+<li>这套推导是在看过开发集模式之后写下的。开发集只能算"与推导一致"，不能算"证实"。证实要靠 E5：新种子，以及<strong>从未训练过的新臂</strong>（<code>_l00</code>、<code>_l100</code>）。</li>
+<li>推导的强度不会超过前提。§1 的前提 P3 只在 8/10 行成立（OCT 是反例），所以凡是依赖 P3 的结论都要带上这个条件。</li>
+</ol>
+<hr>
+<h2>1. 四个前提（每个都有独立于 ACS 的证据）</h2>
+<p>记号：a_i 是点 i 的 kNN 同类比例（UNI，k=50，1-hop），即 F2 过滤用的那个量。"纯度"指选中集 a 的类平衡均值。</p>
+<table><thead><tr><th>#</th><th>前提</th><th>原理来源</th><th>证据（开发集，零训练）</th><th>成立范围</th></tr></thead><tbody><tr><td><strong>P1 跨类信用</strong></td><td>全局覆盖目标会奖励 a 低的点。点 j 的覆盖增益里，跨类那部分约等于 j 的异类邻居质量，≈ (1−a_j)。另外，j 覆盖到的异类邻居会被算作"已覆盖"，<strong>挤掉那个类在边界处的需求</strong>（需求侧泄漏）</td><td>设施选址的增益分解；命题 1/2</td><td>命题 1 精确（14/14）；命题 2 20/22；A2 选中集纯度低于池（随机）8/10 行（O2）</td><td>retina 两行例外（A2 .332/.344 &gt; 池 .285/.305）。derma/OCT 的 A2 纯度用的是复写版 <code>a2_uni</code>，作者版待补算</td></tr><tr><td><strong>P2 herding 不看一致性</strong></td><td>herding 只按类均值做矩匹配，目标里没有 a，因此它选出的点纯度 ≈ 池纯度</td><td>herding 是逐类的矩匹配（Welling 2009；Chen, Welling &amp; Smola 2010）</td><td>herding 纯度 − 池纯度：10/10 行在 ±.045 以内，8/10 在 ±.01 以内（O2）</td><td>10/10</td></tr><tr><td><strong>P3 纯度对 BA 是凹的</strong></td><td>提纯先帮忙，过了某点开始删掉有信息的难样本，于是收益递减甚至变负。<strong>不是单调的</strong></td><td>数据清洗 vs 难样本（Confident Learning 的噪声 / 难度区分）</td><td>行内"纯度 → BA"斜率 8/10 行为正（tissue ρ .92，breast 2% .81），<strong>OCT 两行为负</strong>（ρ −.48/−.39）；q 的地形是倒 U：q=0/.25/.5 依次为 56.50/58.38/57.26（O1b）</td><td>凹性 10/10 一致；单调只有 8/10</td></tr><tr><td><strong>P4 小预算原型相变</strong></td><td>每类只有几张时，误差主要来自"类原型估不准"，典型点（herding）最好；预算够了以后，误差主要来自边界和类内模态没覆盖到，覆盖更好</td><td>TypiClust（ICML 2022）、ProbCover（NeurIPS 2022）的低预算相变；herding 矩误差 O(1/b)</td><td>不过滤时 herding − cls：bpc ≤ 10 的 3 行全为正（+3.24/+4.81/+8.92），bpc ≥ 13 的 7 行全为负（−5.93 … −1.22）。<strong>10/10 行按 bpc 完全分开</strong>，切换点在 10 与 13 之间（O1a）</td><td>10/10</td></tr></tbody></table>
+<p>几点说明：</p>
+<ul>
+<li>P1、P2 是<strong>选样层面</strong>的事实，不用训练就能测，而且已经测过。</li>
+<li>P3 和 P4 是<strong>训练层面</strong>的前提。它们的证据用到了开发集的 BA，但都不涉及 ACS 的组合臂：P4 只比较 cls 和 herding，P3 用的是行内所有臂的整体趋势。</li>
+<li>P1 里"≈ (1−a_j)"是近似：覆盖核是 2-hop（K = A + A²），a 是 1-hop。E5 的中介检查 M1 会直接测这个近似（§4）。</li>
+</ul>
+<hr>
+<h2>2. 推导：每个区间的充分必要</h2>
+<h3>2.1 结构恒等（不需要前提）</h3>
+<ul>
+<li><strong>S1：</strong> q=0 时 F2 是恒等。</li>
+<li><strong>S2：</strong> τ=0 时 F3 是恒等。</li>
+<li><strong>S3：</strong> τ=1 时 k_h = bpc，没有覆盖阶段，λ 不进入计算，所以 F1 是恒等（新恒等检查 I5 验证）。</li>
+<li><strong>S4：</strong> F2 每类保留 ≥ (1−q)|c| ≥ bpc，不删光任何类（Condorcet 失效被构造排除）。</li>
+</ul>
+<h3>2.2 关键引理：F1 和 F2 作用在同一个变量上，但 F1 多管一件事</h3>
+<ul>
+<li><strong>F2</strong> 在<strong>池</strong>这一侧处理 a：把每类 a 最低的 25% 拿出候选池。它不改覆盖需求，"过滤只改谁能被选"。</li>
+<li><strong>F1</strong> 在<strong>目标</strong>这一侧处理 a，同时处理两件事：</li>
+<ul>
+<li><strong>奖励侧：</strong> 去掉跨类增益，也就是去掉 ≈ (1−a) 的奖励。这一部分和 F2 <strong>可以互相替代</strong>。</li>
+<li><strong>需求侧：</strong> 阻止异类点"代为覆盖"本类的边界。这一部分 F2 <strong>替代不了</strong>，因为过滤不改需求。</li>
+</ul>
+</ul>
+<p><strong>引理（替代且不对称）：</strong> 在覆盖阶段，F1 ⊇ F2 的作用（奖励侧），再加上需求侧。因此：</p>
+<ul>
+<li>有 F1 时，F2 的边际作用小：它只剩下 F1 的软惩罚没有完全挡住的那部分。</li>
+<li>没有 F1 时，F2 的边际作用大。</li>
+<li>反过来，有 F2 时 F1 仍有作用，因为需求侧还在。</li>
+</ul>
+<h3>2.3 三个区间</h3>
+<table><thead><tr><th>区间</th><th>推导</th><th>极小充分集</th><th>每个模块的地位</th></tr></thead><tbody><tr><td><strong>小预算</strong> bpc ≤ b&#42;（τ=1）</td><td>P4 ⇒ 用 herding。S3 ⇒ F1 进不来。P2 ⇒ herding 的纯度 = 池纯度，所以<strong>池是纯度唯一的来源</strong>。P3（池纯度低于最优点）⇒ 提纯池有益</td><td><strong>{F2, F3}</strong></td><td>F3 必要（P4）；F2 必要（P2 + P3）；F1 按构造无关（S3）</td></tr><tr><td><strong>大预算</strong> bpc ≥ 2b&#42;（τ=0）</td><td>P4 ⇒ 用覆盖。P1 ⇒ 不加 F1 时奖励侧和需求侧都会泄漏。引理 ⇒ F1 同时修两侧，F2 只能修奖励侧，而奖励侧 F1 已经修了</td><td><strong>{F1}</strong></td><td>F1 必要（P1，需求侧不可替代）；F2 冗余（引理）；F3 按构造无关（S2）</td></tr><tr><td><strong>过渡</strong> b&#42; &lt; bpc &lt; 2b&#42;（τ=.5）</td><td>一半预算 herding，一半覆盖。herding 那一半同小预算区间；覆盖那一半同大预算区间，但只占一半预算</td><td><strong>{F2, F3}，F1 次要</strong></td><td>F2、F3 必要；F1 的边际预测为正但小（只作用于一半预算）。只报 CI</td></tr></tbody></table>
+<p><strong>对 story §4 的更正：</strong> story 的 4.1 表写过渡区间（breast 5%）"三个都必要"。但 F1 在那一行的必要性<strong>从来没有测过</strong>（没有 λ=0 臂），而按推导它只是次要。改为 {F2, F3} 必要、F1 只报 CI。</p>
+<h3>2.4 由推导得到的、开发集还没见过的预测</h3>
+<table><thead><tr><th>编号</th><th>预测</th><th>从哪里推出</th><th>用到的臂</th><th>开发集情况</th></tr></thead><tbody><tr><td><strong>P-int</strong></td><td>τ=0 行上 F1×F2 交互 &lt; 0：(cls − cls_l00) &gt; (ACS − ACS_l00)</td><td>引理（替代）</td><td><code>acs_q25_t000_l00</code>、<code>acs_q00_t000_l00</code></td><td><strong>未见过</strong>（新臂从未训练）</td></tr><tr><td><strong>P-F1</strong></td><td>τ=0 行上 ACS &gt; ACS_l00</td><td>引理（需求侧不可替代）</td><td><code>acs_q25_t000_l00</code></td><td><strong>未见过</strong></td></tr><tr><td><strong>P-F2only</strong></td><td>τ=0 行上 ACS_l00（只有 F2）介于 A2 式的 q00_l00 和 ACS 之间</td><td>引理（F2 只修奖励侧）</td><td>同上</td><td><strong>未见过</strong></td></tr><tr><td><strong>P-F2×F3</strong></td><td>F2 对 herding 的帮助大于对 cls 的帮助：(t100 − t000</td><td>q=.25) − (t100 − t000</td><td>q=0) &gt; 0</td><td>P2 + 引理：herding 没有 F1，提纯只能靠 F2；cls 已有 F1</td><td>E5a 已有的臂</td><td>9/10 行为正（τ=0 的 6 行全正）。<strong>看过</strong></td></tr><tr><td><strong>P-shift</strong></td><td>加了 F2 以后切换点右移。这解释了 derma 2%、OCT 2% 上"强制 τ=1 更好"的悔憾（+3.76、+1.46）</td><td>P-F2×F3 的直接后果</td><td>同上</td><td><strong>看过</strong>。规则不改（b&#42; 冻结），作为局限写</td></tr></tbody></table>
+<p>P-int、P-F1、P-F2only 用到的臂在任何种子上都没有训练过，所以是真正的事先预测。P-F2×F3 和 P-shift 是推导解释了已经看到的现象，新种子上只算复现。</p>
+<hr>
+<h2>3. 为什么三个模块"够"（充分性的原理含义）</h2>
+<p><strong>设计空间是完备的。</strong> 在固定表示下，"按类配额的贪心选样"只有四个自由输入：</p>
+<ol>
+<li>候选池；</li>
+<li>目标；</li>
+<li>每类预算在子目标之间怎么分；</li>
+<li>表示（编码器和核）。</li>
+</ol>
+<p><strong>表示这一维已经关闭。</strong> 我们之前做过多视图、第 4 视图（BiomedCLIP）、编码器门控、测试嵌入门控、学习器视图，全部是 NO-GO（见 memory 中各条）。</p>
+<p><strong>其余三维各有一个在类别重叠下的已识别失效，各配一个模块，而且是该维上的最小改动：</strong></p>
+<ul>
+<li>池 ← F2（只删类内分位数，不删类）；</li>
+<li>目标 ← F1（只改核的掩码，贪心和配额不变）；</li>
+<li>分配 ← F3（只改 k_h，两端都是已有方法）。</li>
+</ul>
+<p>所以<strong>"充分"在原理上的含义是</strong>：在这个设计空间里，已识别的失效都被修了，没有剩下的自由度。它不是证明"不存在第四种失效"。至于"修完以后超过 SOTA"，仍然是经验命题，由 C1 检验。</p>
+<p>论文里这样写：<strong>完备性（结构论证）+ C1（经验检验）</strong>。不要写"三个模块充分必要"这一句总括。</p>
+<hr>
+<h2>4. 超参数：原理决定什么，数据决定什么</h2>
+<table><thead><tr><th>超参数</th><th>原理给出的</th><th>开发集地形（O1）</th><th>结论</th><th>后续</th></tr></thead><tbody><tr><td><strong>b&#42;（切换点）</strong></td><td>P4：存在切换，位置是"估准类原型所需的每类样本数"</td><td>不过滤时切换点在 bpc 10 与 13 之间（10/10 行一致）。规则候选里 b&#42;=10/20/5 分别为 58.38/58.05/57.74，b&#42;=0（不切换）56.10。<strong>切换本身值 +2.3pp，位置在 5–20 内只差 0.6</strong></td><td>原理决定"要切换"，数据定位置。位置的地形是平的</td><td>E5c：规则没见过的 bpc（6、7、12、14、15、31）；E5a 顺带给出 b&#42; ∈ {5, 20} 的新种子值（+5 格）</td></tr><tr><td><strong>q（过滤分位数）</strong></td><td>S4 给上界：q &lt; 1 − bpc/n_c。P3（凹）预言存在内部最优点</td><td>q=0/.25/.5 依次为 56.50/58.38/57.26，是倒 U。最优点因行而异：OCT 偏小，tissue 和 retina 5% 偏大</td><td><strong>q 不能由"噪声率"推出来：</strong> 每类多数票损失率 ε_c 平均为 .29–.72（O3），远大于 .25；按 ε 去删，等于删掉大半个类。这说明低 a 的点大多是<strong>真实的歧义</strong>，不是标签错误，这正是 P3 凹性的来源</td><td>E5a 在新种子上加 q=.5（规则 τ 下，10 行 × 5 = 50 格），报告地形，不重选</td></tr><tr><td><strong>λ（F1 混合系数）</strong></td><td>λ=0 等于去掉 F1。λ=1 是纯类条件覆盖，需求侧泄漏为 0，但丢掉全局几何项。原理只预测 λ&gt;0 必要，不预测 .5 和 1 谁好</td><td>开发集没有 λ≠.5 的臂</td><td>未知</td><td>E5a 加 <code>_l100</code>：τ=0 的 6 行 + breast 5%，35 格。只报 CI</td></tr><tr><td><strong>k（一致性的近邻数）</strong></td><td>a 的估计方差 ∝ 1/k。只要 k 在 20–100 之间，过滤集合应该几乎相同</td><td>—</td><td>—</td><td>零 GPU 检查 M4：k ∈ {20, 50, 100} 时保留集合的 Jaccard。若 ≥ .8，就不训练</td></tr><tr><td><strong>编码器（一致性用哪个视图）</strong></td><td>—</td><td>三视图的 p_c 一致性 .94–.98（已有）</td><td>不需要再测</td><td>—</td></tr></tbody></table>
+<p><strong>原则：</strong> b&#42; 和 q 冻结不重选。超参数实验只回答"地形平不平"，不回答"能不能再调高"。</p>
+<hr>
+<h2>5. 后续子实验：消融 / 超参数 / 观察分析</h2>
+<h3>5.1 零 GPU 中介检查（打戳后、训练前算完，预测写在预注册里）</h3>
+<table><thead><tr><th>编号</th><th>测什么</th><th>预测</th><th>对应的前提 / 推论</th></tr></thead><tbody><tr><td>M1</td><td>λ=0 时每个点的跨类增益份额 χ_j 与 1−a_j 的 Spearman 相关</td><td>≥ .7（每行）</td><td>P1 的"≈"，以及引理的奖励侧</td></tr><tr><td>M2</td><td>需求侧泄漏：λ=0 与 λ=.5 的选集中，每类覆盖来自异类选点的份额（<code>perclass_crossshare.py</code>）</td><td>λ=0 &gt; λ=.5，10/10 行</td><td>引理的需求侧</td></tr><tr><td>M3</td><td>新臂的纯度排序（τ=0 行）</td><td>q00_l00 &lt; q25_l00 且 q00_l00 &lt; cls ≤ ACS</td><td>引理</td></tr><tr><td>M4</td><td>k ∈ {20, 50, 100} 时 F2 保留集合的 Jaccard</td><td>≥ .8</td><td>§4</td></tr><tr><td>M5</td><td>恒等检查 I5：λ=.5 臂与已暂存臂逐位相同；τ=1 臂与 λ 无关</td><td>全部通过，否则停止</td><td>S3</td></tr></tbody></table>
+<p><strong>判定规则：</strong> 如果 M1 或 M2 不成立，P-int 和 P-F1 的预测<strong>照样检验</strong>，但论文中的机制解释改为"未证实"。不会因此改设计。</p>
+<h3>5.2 消融（训练；E5a 主检验族，Holm 校正）</h3>
+<table><thead><tr><th>检验</th><th>行</th><th>比较</th><th>预测</th></tr></thead><tbody><tr><td>C1 优越性</td><td>10</td><td>ACS vs 事先固定的行最强</td><td>&gt; 0</td></tr><tr><td>C2-F1</td><td><strong>τ=0 的 6 行</strong>（修订 3：从 7 行改为 6 行，breast 5% 只报 CI）</td><td>ACS vs ACS_l00</td><td>&gt; 0</td></tr><tr><td>C2-F2s</td><td>τ&gt;0 的 4 行</td><td>ACS vs q=0</td><td>&gt; 0</td></tr><tr><td>C2-F3</td><td>τ&gt;0 的 4 行</td><td>ACS vs τ=0</td><td>&gt; 0</td></tr><tr><td>P-int</td><td>τ=0 的 6 行</td><td>交互 (cls − cls_l00) − (ACS − ACS_l00)</td><td>&gt; 0（交互为负）</td></tr></tbody></table>
+<p>只报 CI、不进检验族的有：C2-F2l（≈0）、P-F2only、P-F2×F3、C4 反向对照（强制 τ=1）。</p>
+<h3>5.3 超参数（训练；描述性）</h3>
+<table><thead><tr><th>臂</th><th>行</th><th>格数</th><th>GPU 小时</th></tr></thead><tbody><tr><td><code>_l100</code>（λ=1）</td><td>τ=0 的 6 行 + breast 5%</td><td>35</td><td>≈11</td></tr><tr><td>q=.5 @ 规则 τ</td><td>10 行</td><td>50</td><td>≈11.5</td></tr><tr><td>b&#42;=5 邻域：retina 5% 的 <code>acs_q25_t050</code></td><td>1 行</td><td>5</td><td>≈0.2</td></tr><tr><td><strong>合计</strong></td><td></td><td><strong>90</strong></td><td><strong>≈23</strong></td></tr></tbody></table>
+<p>b&#42;=20 邻域不用新增臂：它只改变 breast 5%（→ t100）和 derma 2%（→ t100），这两个臂 E5a 已经有了。</p>
+<h3>5.4 观察分析（训练后，零新增 GPU）</h3>
+<ol>
+<li><strong>中介：</strong> 每行内，用 M2 的泄漏量和 M3 的纯度去解释各臂的 BA 差（描述性，不当作因果证据）。</li>
+<li><strong>切换图：</strong> (τ=1 − τ=0) 对 bpc 作图，q=0 和 q=.25 两条曲线。数据点来自开发 10 行、main-4 8 行和 E5c 6 行。P-shift 预言 q=.25 的曲线整体右移。</li>
+<li><strong>F2 的尾部代价：</strong> 最差类召回的变化对该类 ε_c 作图。预言 ε_c 越低的类（本来就纯）被 F2 伤得越多，即 P3 凹性在类层面的表现。</li>
+<li><strong>每类召回摆动：</strong> 按"跨类对"拆解（沿用已有工具），看 F1 的收益集中在哪些类对上。</li>
+</ol>
+<h3>5.5 规模更新</h3>
+<table><thead><tr><th>实验</th><th>格数</th><th>GPU 小时</th></tr></thead><tbody><tr><td>E5a（修订 2）</td><td>600</td><td>≈139</td></tr><tr><td>E5a 超参数（本文 §5.3）</td><td>90</td><td>≈23</td></tr><tr><td>E5b</td><td>70</td><td>≈22</td></tr><tr><td>E5c</td><td>300</td><td>≈33</td></tr><tr><td><strong>合计</strong></td><td><strong>≈1060</strong></td><td><strong>≈217</strong></td></tr></tbody></table>
+<hr>
+<h2>6. 论文里能写和不能写的</h2>
+<p><strong>能写：</strong></p>
+<ul>
+<li>三个模块对应选样的三个自由输入。在固定表示下这是完备的（§3）。</li>
+<li>每个区间的极小充分集是从 P1–P4 推出的（§2），并且在新种子和新臂上检验（E5）。</li>
+<li>切换本身由原理决定，位置和 q 由数据定，地形是平的（§4）。</li>
+</ul>
+<p><strong>不能写：</strong></p>
+<ul>
+<li>"三个模块在所有数据上都充分必要"。</li>
+<li>"q 由噪声率决定"。O3 直接否定了这一点。</li>
+<li>"纯度越高越好"。OCT 是反例，P3 只有凹性成立。</li>
+</ul>
+</body></html>

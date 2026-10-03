@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PROPOSAL — ACS：类别重叠下的一次性选样，原理与确认实验设计（2026-10-03）</title><style>
+body{font-family:-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;max-width:1100px;margin:2em auto;
+padding:0 1.2em;line-height:1.65;color:#1f2328}
+h1{border-bottom:2px solid #d0d7de;padding-bottom:.3em}h2{border-bottom:1px solid #d0d7de;padding-bottom:.25em;margin-top:2em}
+table{border-collapse:collapse;margin:1em 0;font-size:.92em;display:block;overflow-x:auto}
+th,td{border:1px solid #d0d7de;padding:.35em .6em;vertical-align:top}th{background:#f6f8fa}tr:nth-child(even) td{background:#fbfcfd}
+code{background:#f3f4f6;padding:.1em .35em;border-radius:4px;font-size:.88em}
+pre{background:#f6f8fa;padding:1em;overflow-x:auto;border-radius:6px}pre code{background:none;padding:0}
+blockquote{margin:1em 0;padding:.5em 1em;border-left:4px solid #8aa4c8;background:#f4f7fb;color:#33475b}
+hr{border:none;border-top:1px solid #d0d7de;margin:2em 0}a{color:#0969da}
+</style></head><body>
+<p style="color:#666;font-size:.85em">Generated from <code>PROPOSAL_ACS_20261003.md</code> by <code>code/md2html.py</code>; the Markdown file is the source of truth.</p>
+<h1>PROPOSAL — ACS：类别重叠下的一次性选样，原理与确认实验设计（2026-10-03）</h1>
+<blockquote><p>状态：<strong>提案 / 设计定稿前版本</strong>（对应 E5 设计修订 3）。还没有打戳。预注册（T5）会把本文 §5–§8 原样写死，再在集群上打戳。 现状和待办见 <code>HANDOFF_20261003.md</code>。推导所用的数字由 <code>code/acs_principles_obs.py</code> 生成（<code>results/acs/principles_obs.txt</code>）；其余来自开发集 s42–46（<code>code/acs_eval.load()</code>）。</p>
+<p>证据等级：<strong>A</strong> = 预注册且样本外；<strong>B</strong> = 开发集；<strong>C</strong> = 看过开发集之后写下的推导或解释。</p></blockquote>
+<hr>
+<h2>1. 背景与问题</h2>
+<p><strong>场景。</strong> 医学影像标注贵，只能标注训练集的 2% 或 5%。这是一次性选样：没有标签时一次选完，选完不再迭代。目标是选出能训练出最好分类器的子集。</p>
+<p><strong>现有方法的共同前提。</strong> 覆盖类（Graph-A2、Facility）、典型类（Herding、TypiClust）、多样类（FPS）、概率覆盖类（ProbCover、MaxHerding）都只看特征几何，默认"特征空间里相邻的样本属于同一类"。</p>
+<p><strong>这个前提失效的地方。</strong> 用 1 − UNI kNN 留一法 BA 衡量标签歧义，MedMNIST 2D 单标签数据集里歧义大于 .25 的恰好有五个：retina、breast、derma、OCT、tissue（<code>report/dataset_scope_20261003.md</code>）。在这五个数据集上：</p>
+<table><thead><tr><th>现象</th><th>数字</th><th>等级</th></tr></thead><tbody><tr><td>覆盖式选样不如随机</td><td>Graph-A2 &lt; Random 8/10 行（作者代码）</td><td>B</td></tr><tr><td>现有方法没有稳定的赢家</td><td>10 行的行最强分布在 6 个方法之间</td><td>B</td></tr><tr><td>覆盖的损失能事先预测</td><td>损失 ∝ 选中点的不纯度 ∝ 池的歧义；在 retina / breast 上预注册样本外检验，通过</td><td>A</td></tr></tbody></table>
+<p><strong>研究问题。</strong></p>
+<ol>
+<li>当类别在表示空间中重叠时，一次性选样的三个基本选择（谁可以被选、奖励什么、预算怎么分）各自应该怎么做？</li>
+<li>什么时候需要哪一个？</li>
+</ol>
+<hr>
+<h2>2. 方法：ACS</h2>
+<p>一个按类配额的贪心选样器，在固定表示下有四个自由输入：<strong>候选池、目标、预算分配、表示</strong>。</p>
+<ul>
+<li>表示这一维我们已经全部试过（多视图、第 4 编码器、编码器门控、测试嵌入门控、学习器视图），都是 NO-GO，所以关闭。</li>
+<li>ACS 在其余三维上各做一个最小改动：</li>
+</ul>
+<table><thead><tr><th>模块</th><th>输入</th><th>改动</th><th>来源</th></tr></thead><tbody><tr><td><strong>F2 逐类分位数过滤</strong></td><td>候选池</td><td>每类去掉 kNN 同类比例 a 最低的 q 部分（q=.25）</td><td>Confident Learning 的逐类阈值；全局共识过滤会删光少数类，这是已知的失效</td></tr><tr><td><strong>F1 类条件覆盖</strong></td><td>目标</td><td>覆盖核的跨类项置零，加类权重，与全局项按 λ=.5 混合</td><td>类条件设施选址（Wei, Iyer &amp; Bilmes, ICML 2015）</td></tr><tr><td><strong>F3 每类预算切换</strong></td><td>预算分配</td><td>每类先用 herding 选 k_h = ⌊τ·bpc+½⌋ 个，其余用覆盖补满。τ = 1 / .5 / 0 分别对应 bpc ≤ 10 / 10 &lt; bpc &lt; 20 / bpc ≥ 20</td><td>低预算相变（TypiClust, ICML 2022；ProbCover, NeurIPS 2022）。我们把切换变量从总预算换成每类预算</td></tr></tbody></table>
+<ul>
+<li>b&#42;=10 和 q=.25 是在开发集上从 12 个候选规则中选出来的，<strong>已冻结</strong>。</li>
+<li>两端是已有的方法：(q, τ) = (0, 0) 就是 cls，(0, 1) 就是 herding。</li>
+</ul>
+<hr>
+<h2>3. 原理：四个前提</h2>
+<p>记号：a_i 是点 i 在 UNI 空间 50 个近邻中同类的比例；"纯度"指选中集 a 的类平衡均值。</p>
+<table><thead><tr><th>#</th><th>前提</th><th>原理</th><th>证据（零训练，或不涉及 ACS 组合臂）</th><th>成立范围</th></tr></thead><tbody><tr><td><strong>P1 跨类信用</strong></td><td>全局覆盖会奖励 a 低的点：跨类增益 ≈ (1−a)。同时，异类选点会被算作"已覆盖"本类的边界（需求侧泄漏）</td><td>设施选址增益分解；命题 1（精确）、命题 2（方向）</td><td>命题 1 14/14、命题 2 20/22；Graph-A2 选中集纯度低于池 8/10 行</td><td>retina 两行例外</td></tr><tr><td><strong>P2 herding 不看邻居标签</strong></td><td>herding 只按类均值做矩匹配，目标里没有 a，所以选出来的纯度 ≈ 池纯度</td><td>Welling 2009；Chen, Welling &amp; Smola 2010</td><td>10/10 行差距在 ±.045 内</td><td>10/10</td></tr><tr><td><strong>P3 纯度对 BA 是凹的</strong></td><td>提纯先有帮助，过头就删掉有信息的难样本；不是单调的</td><td>噪声与难样本的区分（Confident Learning）</td><td>行内"纯度 → BA"斜率 8/10 为正，OCT 两行为负；q=0 / .25 / .5 的平均 BA 是 56.50 / 58.38 / 57.26，中间最高</td><td>凹性 10/10；单调只有 8/10</td></tr><tr><td><strong>P4 小预算原型相变</strong></td><td>每类样本很少时，误差主要来自"类原型估不准"，典型点最好；样本多了以后，误差主要来自没覆盖到的边界和类内模态，覆盖更好</td><td>TypiClust / ProbCover；herding 矩误差 O(1/b)</td><td>不过滤时 herding − cls：bpc ≤ 10 的 3 行全正（+3.24 / +4.81 / +8.92），bpc ≥ 13 的 7 行全负。10/10 行按 bpc 完全分开</td><td>10/10</td></tr></tbody></table>
+<p>P1 中"≈ (1−a)"是近似：覆盖核是 2-hop（K = A + A²），a 是 1-hop。中介检查 M1 会直接测量这个近似。</p>
+<hr>
+<h2>4. 推导：各区间的充分必要</h2>
+<h3>4.1 结构恒等（按构造成立，不需要前提）</h3>
+<ul>
+<li><strong>S1</strong> q=0 ⇒ F2 是恒等。</li>
+<li><strong>S2</strong> τ=0 ⇒ F3 是恒等。</li>
+<li><strong>S3</strong> τ=1 ⇒ 没有覆盖阶段，F1 是恒等（由恒等检查 I5 验证）。</li>
+<li><strong>S4</strong> F2 每类保留 ≥ (1−q)|c| ≥ bpc，不会删光任何类。</li>
+</ul>
+<h3>4.2 引理：F1 和 F2 作用在同一个变量上，但 F1 多管一件事</h3>
+<ul>
+<li><strong>F2 在池这一侧处理 a：</strong> 把低 a 的点移出候选池，但不改覆盖需求。</li>
+<li><strong>F1 在目标这一侧处理 a，同时管两件事：</strong></li>
+<ul>
+<li>奖励侧：去掉 ≈ (1−a) 的跨类奖励。这一部分与 F2 可以互相替代。</li>
+<li>需求侧：阻止异类点替本类覆盖边界。这一部分 F2 替代不了。</li>
+</ul>
+</ul>
+<p><strong>结论：</strong> 在覆盖阶段，F1 的作用包含 F2 的作用。因此：</p>
+<ul>
+<li>有 F1 时，F2 的边际作用小；</li>
+<li>没有 F1 时，F2 的边际作用大；</li>
+<li>有 F2 时，F1 仍有作用（需求侧）。</li>
+</ul>
+<h3>4.3 三个区间的极小充分集</h3>
+<p><strong>定义：</strong> 一组模块 M 是区间 R 的极小充分集，当且仅当：(i) 在 R 中达到或超过行最强已发表方法；(ii) 去掉 M 中任何一个模块都会显著变差。</p>
+<table><thead><tr><th>区间</th><th>推导</th><th>极小充分集</th></tr></thead><tbody><tr><td><strong>小预算</strong>（τ=1）</td><td>P4 ⇒ 用 herding；S3 ⇒ F1 进不来；P2 ⇒ 纯度等于池纯度，所以池是唯一的纯度来源；P3 ⇒ 提纯池有益</td><td><strong>{F2, F3}</strong></td></tr><tr><td><strong>大预算</strong>（τ=0）</td><td>P4 ⇒ 用覆盖；P1 ⇒ 不加 F1 时两侧都会泄漏；引理 ⇒ F1 两侧都修，F2 只能修 F1 已经修过的奖励侧</td><td><strong>{F1}</strong>，F2 冗余</td></tr><tr><td><strong>过渡</strong>（τ=.5）</td><td>一半预算用 herding（同小预算），一半用覆盖（同大预算，但只占一半）</td><td><strong>{F2, F3}</strong>，F1 次要</td></tr></tbody></table>
+<p>开发集与推导的对照（B / C）：</p>
+<ul>
+<li><strong>小预算：</strong> 只开 F3 时，3 行中 2 行低于行最强（第 3 行 herding 本身就是行最强，打平）；加上 F2 后 3/3 超过。</li>
+<li><strong>大预算：</strong> 只开 F1 已在 4/6 行超过行最强；F2 的边际作用平均 −0.03（τ&gt;0 的行上则是 +4.76）。</li>
+<li><strong>过渡：</strong> F1 的边际<strong>没有测过</strong>。</li>
+</ul>
+<h3>4.4 充分性的原理含义</h3>
+<p>在固定表示下，三个自由输入上已识别的失效都各被一个模块修了，没有剩下的自由度。这是<strong>设计空间上的完备性</strong>，不是证明"不存在第四种失效"。至于修完以后能不能超过 SOTA，是经验命题，由 C1 检验。</p>
+<hr>
+<h2>5. 假设与预测（打戳时写死）</h2>
+<p><strong>主检验族（5 个，Holm 校正）：</strong></p>
+<table><thead><tr><th>编号</th><th>预测</th><th>行</th><th>比较</th><th>开发集效应</th><th>MDE（5 种子）</th></tr></thead><tbody><tr><td><strong>C1 优越性</strong></td><td>ACS &gt; 事先固定的行最强对手</td><td>10</td><td>ACS − 对手</td><td>+2.56（9/10）</td><td>1.56</td></tr><tr><td><strong>C2-F1</strong></td><td>ACS &gt; ACS 关掉 F1（λ=0）</td><td>τ=0 的 6 行</td><td>ACS − ACS_l00</td><td>未测；代理 cls − A2 为 +3.77（6/6）</td><td>0.99（按代理的方差）</td></tr><tr><td><strong>C2-F2s</strong></td><td>ACS &gt; ACS 关掉 F2（q=0）</td><td>τ&gt;0 的 4 行</td><td>ACS − q00</td><td>+4.76（4/4）</td><td>3.6</td></tr><tr><td><strong>C2-F3</strong></td><td>ACS &gt; ACS 关掉 F3（τ=0）</td><td>τ&gt;0 的 4 行</td><td>ACS − t000</td><td>+5.72（4/4）</td><td>2.19</td></tr><tr><td><strong>P-int</strong></td><td>τ=0 行上 F1×F2 交互 &lt; 0</td><td>τ=0 的 6 行</td><td>(cls − cls_l00) − (ACS − ACS_l00) &gt; 0</td><td><strong>未见过</strong>（新臂）</td><td>—</td></tr></tbody></table>
+<p><strong>只报效应和 95% CI 的预测：</strong></p>
+<table><thead><tr><th>编号</th><th>预测</th><th>来源</th><th>开发集</th></tr></thead><tbody><tr><td>C2-F2l</td><td>τ=0 行上 ACS − q00 ≈ 0</td><td>引理</td><td>−0.03（<strong>看过</strong>）</td></tr><tr><td>P-F2only</td><td>τ=0 行上 q00_l00 &lt; q25_l00 &lt; ACS</td><td>引理</td><td>未见过</td></tr><tr><td>P-F2×F3</td><td>(t100 − t000 | q=.25) − (t100 − t000 | q=0) &gt; 0</td><td>P2 + 引理</td><td>9/10（<strong>看过</strong>）</td></tr><tr><td>P-shift</td><td>加了 F2 后切换点右移，所以 derma 2%、OCT 2% 上强制 τ=1 会更好</td><td>P-F2×F3</td><td>看过；规则不改</td></tr><tr><td>F1@过渡</td><td>breast 5% 上 ACS − ACS_l00 ≥ 0，幅度小</td><td>4.3</td><td>未见过</td></tr><tr><td>C4 反向对照</td><td>τ=0 行上强制 τ=1 与 ACS 的差</td><td>—</td><td>+0.40；预期不显著</td></tr><tr><td>P-cut</td><td>E5c 中，规则选的 τ 在 6 行里至少 4 行是三个 τ 中最好的；(τ=1 − τ=0) 随 bpc 单调下降</td><td>P4</td><td>样本外</td></tr></tbody></table>
+<p><strong>零 GPU 中介检查（打戳后、训练前算完）：</strong></p>
+<table><thead><tr><th>编号</th><th>测什么</th><th>预测</th></tr></thead><tbody><tr><td>M1</td><td>λ=0 时每个点的跨类增益份额 χ_j 与 1−a_j 的 Spearman</td><td>每行 ≥ .7</td></tr><tr><td>M2</td><td>每类覆盖中来自异类选点的份额（需求侧泄漏），λ=0 对比 λ=.5</td><td>λ=0 更大，10/10</td></tr><tr><td>M3</td><td>τ=0 行上新臂的纯度</td><td>q00_l00 &lt; q25_l00，q00_l00 &lt; cls ≤ ACS</td></tr><tr><td>M4</td><td>k ∈ {20, 50, 100} 时 F2 保留集合的 Jaccard</td><td>≥ .8（成立就不训练 k 的变体）</td></tr><tr><td>M5</td><td>I5：λ=.5 臂与已暂存臂逐位相同；τ=1 臂与 λ 无关</td><td>通过，否则停止</td></tr></tbody></table>
+<p>M1 或 M2 不成立时，P-int 和 C2-F1 <strong>照常检验</strong>，但论文中的机制解释改写为"未证实"。中介检查的结果不改设计。</p>
+<hr>
+<h2>6. 实验矩阵</h2>
+<p><strong>统一设定：</strong></p>
+<ul>
+<li>训练种子 47–51，选样种子固定为 42。</li>
+<li>训练沿用 E2 / Table 1 协议，<code>DETERMINISTIC_TRAINING=1</code>，<code>--exclude=hpcgpu108</code>。</li>
+<li>每行的所有臂用同一种卡：retina / breast / derma / OCT 用 H100，tissue 和 main-4 用 A100。</li>
+</ul>
+<h3>6.1 E5a 主表 + 析因（600 格，约 139 GPU 小时）</h3>
+<p>对手（事先固定）：</p>
+<table><thead><tr><th>行</th><th>2%</th><th>5%</th></tr></thead><tbody><tr><td>retina</td><td>TypiClust</td><td>ProbCover</td></tr><tr><td>breast</td><td>Herding</td><td>TypiClust</td></tr><tr><td>derma</td><td>MaxHerding</td><td>Random（作者版）</td></tr><tr><td>OCT</td><td>MaxHerding</td><td>FPS</td></tr><tr><td>tissue</td><td>MaxHerding</td><td>TypiClust</td></tr></tbody></table>
+<p>重跑的对手集合：Graph-A2、Herding、Facility、Random、TypiClust、ProbCover、MaxHerding；OCT 两行另加 FPS。</p>
+<p>ACS 族（每个区间对起作用的模块做全析因）：</p>
+<table><thead><tr><th>区间</th><th>行</th><th>ACS 族的臂</th></tr></thead><tbody><tr><td>τ=1</td><td>retina 2 / 5%，breast 2%</td><td><code>acs_q25_t100</code>（ACS）· herding（−F2）· <code>acs_q25_t000</code>（−F3）· cls</td></tr><tr><td>τ=.5</td><td>breast 5%</td><td>{q0, q25} × {t000, t050} × {λ.5, λ0} 共 8 格，另加强制 <code>acs_q25_t100</code></td></tr><tr><td>τ=0</td><td>derma / OCT / tissue × 2 / 5%</td><td><code>acs_q25_t000</code>（ACS）· cls（−F2）· <code>acs_q25_t000_l00</code>（−F1）· <code>acs_q00_t000_l00</code>（−F1−F2），另加强制 <code>acs_q25_t100</code></td></tr></tbody></table>
+<h3>6.2 超参数（90 格，约 23 GPU 小时；描述性）</h3>
+<table><thead><tr><th>臂</th><th>行</th><th>格数</th><th>要回答的问题</th></tr></thead><tbody><tr><td><code>_l100</code>（λ=1）</td><td>τ=0 的 6 行 + breast 5%</td><td>35</td><td>λ 的地形（原理只预测 λ&gt;0）</td></tr><tr><td>q=.5 @ 规则 τ</td><td>10</td><td>50</td><td>q 的倒 U 在新种子上是否仍成立</td></tr><tr><td>retina 5% <code>acs_q25_t050</code></td><td>1</td><td>5</td><td>b&#42;=5 邻域（b&#42;=20 邻域的臂 E5a 已有）</td></tr></tbody></table>
+<p>b&#42; 和 q 冻结；这些臂<strong>只用来报告地形，不用来重选</strong>。</p>
+<h3>6.3 E5b F1 拆解（70 格，约 22 GPU 小时）</h3>
+<p>在 F1 起作用的 7 行上，把 ACS 的 F1 换成"只掩码"或"只类权重"。</p>
+<p>预测：只掩码 ≈ ACS，只类权重 ≈ −F1。这一预测来自 Round 2b：掩码 +1.41，类权重 −0.43。</p>
+<h3>6.4 E5c 切换点样本外检验（300 格，约 33 GPU 小时）</h3>
+<p>用 main-4 中三个数据集的 0.5% / 1% 预算，这些 bpc 规则从来没见过：</p>
+<table><thead><tr><th>行</th><th>bpc</th><th>规则 τ</th></tr></thead><tbody><tr><td>organS 0.5%</td><td>6</td><td>1</td></tr><tr><td>blood 0.5%</td><td>7</td><td>1</td></tr><tr><td>organS 1%</td><td>12</td><td>.5</td></tr><tr><td>blood 1%</td><td>14</td><td>.5</td></tr><tr><td>organA 0.5%</td><td>15</td><td>.5</td></tr><tr><td>organA 1%</td><td>31</td><td>0</td></tr></tbody></table>
+<ul>
+<li>臂：q=.25 下 τ ∈ {0, .5, 1} 三臂，加 7 个对手。</li>
+<li>种子 47–51，A100。</li>
+</ul>
+<h3>6.5 观察分析（训练后，零新增 GPU）</h3>
+<ol>
+<li><strong>中介：</strong> 每行内用 M2 的泄漏量和 M3 的纯度解释各臂之间的 BA 差。只作描述，不当作因果证据。</li>
+<li><strong>切换图：</strong> (τ=1 − τ=0) 对 bpc 作图，q=0 和 q=.25 两条曲线。数据点来自开发 10 行、main-4 8 行和 E5c 6 行。</li>
+<li><strong>F2 的尾部代价：</strong> 每类召回的变化对该类 ε_c（同类不占多数的比例）作图。</li>
+<li><strong>每类召回的摆动：</strong> 按跨类对拆解。</li>
+</ol>
+<h3>6.6 合计</h3>
+<table><thead><tr><th>实验</th><th>格数</th><th>GPU 小时</th></tr></thead><tbody><tr><td>E5a</td><td>600</td><td>≈139</td></tr><tr><td>超参数</td><td>90</td><td>≈23</td></tr><tr><td>E5b</td><td>70</td><td>≈22</td></tr><tr><td>E5c</td><td>300</td><td>≈33</td></tr><tr><td><strong>合计</strong></td><td><strong>≈1060</strong></td><td><strong>≈217</strong></td></tr></tbody></table>
+<p>按同时 8 张卡算，墙钟时间约 1.5 天；考虑排队，约 2–3 天。</p>
+<hr>
+<h2>7. 统计与功效</h2>
+<ul>
+<li><strong>统计量：</strong> 涉及行的等权行均值差。</li>
+<li><strong>检验：</strong> 单侧，在每个（行，种子）配对内做符号翻转置换，抽 10^5 次。</li>
+<li><strong>报告：</strong> 效应、95% bootstrap CI、同号行数。</li>
+<li><strong>MDE：</strong> 单侧 α=.05、功效 .8，用开发集逐行配对方差合成（与 E5 设计修订 2 的公式相同）。</li>
+<li><strong>种子数：</strong> 用户 10-03 决定统一用 5 个种子。逐行显著性在 retina / breast 上做不到（breast 2% 的 MDE 是 13pp），所以主检验一律用合并检验。</li>
+<li><strong>赢家诅咒：</strong> 开发集的效应是从 12 个规则候选里挑出来的。C1 在新种子上需要保留开发集效应的 61%，才有 80% 的功效。</li>
+<li><strong>故障处理：</strong> 失败的格最多重跑 2 次；仍失败就整行标为缺失，不补算、不剔除种子。</li>
+<li><strong>保守的次要分析：</strong></li>
+<ul>
+<li>对手改为"新种子上每行均值最高的方法"；</li>
+<li>逐行配对 t 检验，BH 校正；</li>
+<li>dev 与新种子合并的描述性表。</li>
+</ul>
+</ul>
+<hr>
+<h2>8. 成功标准</h2>
+<table><thead><tr><th>主张</th><th>成立条件</th></tr></thead><tbody><tr><td>C1</td><td>以下三条同时满足：Holm 校正后 p &lt; .05；点估计上 ACS 至少在 8/10 行领先对手；最差类召回的合并差 ≥ 0，或者为负但不显著</td></tr><tr><td>C2-Fk、P-int</td><td>Holm 校正后 p &lt; .05</td></tr><tr><td>区间结构（§4.3）</td><td>C2-F1、C2-F2s、C2-F3、P-int 都通过，且 C2-F2l 的 CI 包含 0</td></tr><tr><td>切换点</td><td>P-cut：至少 4/6 行，且 (τ=1 − τ=0) 随 bpc 下降</td></tr></tbody></table>
+<p><strong>部分失败时的写法，事先定好：</strong></p>
+<ul>
+<li><strong>C1 失败：</strong> 论文改为诊断和规律论文（审计 + 歧义规律 + 区间结构），不写"优越"。</li>
+<li><strong>P-int 失败：</strong> 删掉"替代"机制，只保留"条件必要"。</li>
+<li><strong>P-cut 失败：</strong> F3 写成"方向成立、位置未定"。</li>
+</ul>
+<hr>
+<h2>9. 风险与已知弱点</h2>
+<ol>
+<li><strong>OCT 2%：</strong> 开发集上 BA 落后 MaxHerding −1.12，最差类召回落后 FPS −12.16。预测新种子上仍然落后，作为局限照实写。</li>
+<li><strong>F2 的尾部代价：</strong> derma 2% 和 OCT 2% 上最差类召回约 −8.5。P3 的凹性和 P-shift 能解释，但规则不改。</li>
+<li><strong>P3 不是单调的：</strong> OCT 上纯度越高 BA 越低，所以"纯度中介"只能写成凹，不能写成越纯越好。</li>
+<li><strong>歧义指标与编码器不匹配混在一起：</strong> tissue 是 DAPI 荧光，而 UNI 是在 H&amp;E 上预训练的，两种原因分不开。</li>
+<li><strong>新颖性：</strong> 单看算子，新颖性中等偏低（三个模块都是已有方法的迁移）。贡献重心在三处：失效诊断、事先可预测的歧义规律、按区间的条件必要性。</li>
+<li><strong>外部效度：</strong> 没有 MedMNIST 以外的数据集。E6 未批准。</li>
+</ol>
+<hr>
+<h2>10. 时间线</h2>
+<table><thead><tr><th>步骤</th><th>内容</th><th>预计</th></tr></thead><tbody><tr><td>1</td><td>T1 / T2 代码 + I5 恒等检查</td><td>0.5 天</td></tr><tr><td>2</td><td>T3 / T4 零 GPU 脚本；写预注册并打戳</td><td>0.5 天</td></tr><tr><td>3</td><td>跑 M1–M5，结果追加到预注册；暂存选样</td><td>0.5 天</td></tr><tr><td>4</td><td>训练 ≈1060 格</td><td>2–3 天</td></tr><tr><td>5</td><td><code>e5_eval.py</code>、读门、图表</td><td>0.5 天</td></tr><tr><td>6</td><td>写论文</td><td>—</td></tr></tbody></table>
+<hr>
+<h2>11. 论文能写和不能写的</h2>
+<p><strong>能写：</strong></p>
+<ul>
+<li>三个模块对应选样的三个自由输入，在固定表示下是完备的。</li>
+<li>每个区间的极小充分集从 P1–P4 推出，并在新种子和新臂上检验。</li>
+<li>切换本身由原理决定；切换的位置和 q 由数据定，地形是平的。</li>
+</ul>
+<p><strong>不能写：</strong></p>
+<ul>
+<li>"三个模块在所有数据上都充分必要"。</li>
+<li>"q 由噪声率决定"：每类同类不占多数的比例 ε_c 平均为 .29–.72，远大于 .25。</li>
+<li>"纯度越高越好"。</li>
+<li>"在低歧义数据上超过 SOTA"：main-4 的结果是打平。</li>
+</ul>
+</body></html>
