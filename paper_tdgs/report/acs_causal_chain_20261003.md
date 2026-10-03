@@ -23,7 +23,7 @@ ACS 对每一处失效迁移一个已发表的修法。规则只用训练集的�
 
 | # | 现象 | 数字 | 等级 | 出处 |
 |---|---|---|---|---|
-| P0-1 | Graph-A2 复现后不是稳定第一 | A100 s42–46 Table 1：paper 宣称第一，我们只有 3/10 格第一，2/10 不如 random | A（复现） | `ba-is-flat-over-the-competitive-region`，`table1_s4246_a100` |
+| P0-1 | Graph-A2 复现后不是稳定第一 | A100 s42–46 Table 1：paper 宣称第一，在 8 个 Table-1 方法里我们只有 1/10 格第一（organS 2%），4/10 格均值低于 random（核对 `results/table1/table1_s4246_a100.txt`，10-03 更正） | A（复现） | `ba-is-flat-over-the-competitive-region`，`table1_s4246_a100` |
 | P0-2 | 竞争区内 BA 是平的 | sd_train 1.37 > sd_subset 0.82；前 4 名的 BA 极差小于 4 次随机抽样的期望（obs/exp .83） | A | 同上 |
 | P0-3 | 贪心目标几乎不分辨候选 | 首选 margin .055–.081，1e-3 嵌入扰动改变 12–76% 的选点 | A | `graph-a2-selection-is-massively-underdetermined` |
 | P0-4 | Graph-A2 在部分数据上**低于 random** | 15 个 encoder×数据集格里有 10 格 A2 < Random；retina A2 − random −6.74 | C → 后经 A0 确认 | `csc-mechanism-synthesis`，`ambig-law-out-of-sample` |
