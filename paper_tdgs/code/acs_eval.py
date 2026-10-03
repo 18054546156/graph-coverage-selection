@@ -102,6 +102,16 @@ def load():
             continue
         a = "cls" if x["arm"] == "tdgs_cls" else x["arm"]
         C[(x["ds"], round(float(x["ratio"]), 4), a, int(x["seed"]))] = dict(ba=x["ba"], worst=x["worst"])
+    # bench fill (report/bench_fill_20261003.md, code/bench_fill_eval.py): AUTHOR-pipeline cells, H100, s42-46.
+    # derma/OCT: knnf_eval mapped OUR rand_cls to "random"; keep it as "rand_cls" and let the author random /
+    # graph_a2 take the published-method names (a2_uni stays under its own name). E2 rule selection uses ACS arms only.
+    bf = "results/acs/bench_fill_cells.json"
+    if os.path.exists(bf):
+        for k in [k for k in C if k[0] in ("dermamnist", "octmnist") and k[2] == "random"]:
+            C[(k[0], k[1], "rand_cls", k[3])] = C.pop(k)
+        for x in json.load(open(bf)):
+            if x["gpu"] == GPU[x["ds"]]:
+                C[(x["ds"], round(float(x["ratio"]), 4), x["arm"], int(x["seed"]))] = dict(ba=x["ba"], worst=x["worst"])
     return C, new, bad
 
 

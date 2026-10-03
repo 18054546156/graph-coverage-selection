@@ -1,0 +1,2002 @@
+[
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top42",
+"seed": 42,
+"ba": 55.88972431077694,
+"worst": 54.761904761904766,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top43",
+"seed": 43,
+"ba": 56.766917293233085,
+"worst": 54.761904761904766,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top44",
+"seed": 44,
+"ba": 54.19799498746867,
+"worst": 46.49122807017544,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top45",
+"seed": 45,
+"ba": 44.73684210526315,
+"worst": 33.33333333333333,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top46",
+"seed": 46,
+"ba": 57.70676691729323,
+"worst": 45.23809523809524,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva42",
+"seed": 42,
+"ba": 52.56892230576441,
+"worst": 12.280701754385964,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva43",
+"seed": 43,
+"ba": 50.0,
+"worst": 0.0,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva44",
+"seed": 44,
+"ba": 41.290726817042604,
+"worst": 25.438596491228072,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva45",
+"seed": 45,
+"ba": 50.43859649122807,
+"worst": 0.8771929824561403,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva46",
+"seed": 46,
+"ba": 50.877192982456144,
+"worst": 1.7543859649122806,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting42",
+"seed": 42,
+"ba": 58.583959899749374,
+"worst": 28.57142857142857,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting43",
+"seed": 43,
+"ba": 44.48621553884712,
+"worst": 38.095238095238095,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting44",
+"seed": 44,
+"ba": 54.38596491228069,
+"worst": 42.10526315789473,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting45",
+"seed": 45,
+"ba": 55.13784461152882,
+"worst": 52.38095238095239,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting46",
+"seed": 46,
+"ba": 39.03508771929825,
+"worst": 28.07017543859649,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps42",
+"seed": 42,
+"ba": 58.45864661654135,
+"worst": 52.63157894736842,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps43",
+"seed": 43,
+"ba": 69.54887218045113,
+"worst": 61.904761904761905,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps44",
+"seed": 44,
+"ba": 51.37844611528821,
+"worst": 45.614035087719294,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps45",
+"seed": 45,
+"ba": 65.97744360902256,
+"worst": 60.526315789473685,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps46",
+"seed": 46,
+"ba": 56.766917293233085,
+"worst": 38.095238095238095,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top42",
+"seed": 42,
+"ba": 16.82408103430238,
+"worst": 4.090909090909091,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top43",
+"seed": 43,
+"ba": 16.353273509028337,
+"worst": 3.1818181818181817,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top44",
+"seed": 44,
+"ba": 22.195424475668684,
+"worst": 5.070842654735272,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top45",
+"seed": 45,
+"ba": 19.786209593168643,
+"worst": 5.369127516778524,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top46",
+"seed": 46,
+"ba": 20.548489001942865,
+"worst": 2.272727272727273,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva42",
+"seed": 42,
+"ba": 31.42863405430893,
+"worst": 12.121212121212121,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva43",
+"seed": 43,
+"ba": 38.185034958493276,
+"worst": 9.097688292319164,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva44",
+"seed": 44,
+"ba": 35.88226024318537,
+"worst": 13.592233009708737,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva45",
+"seed": 45,
+"ba": 36.85042869689611,
+"worst": 15.361670395227442,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva46",
+"seed": 46,
+"ba": 36.62778349605499,
+"worst": 14.392244593586875,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting42",
+"seed": 42,
+"ba": 35.02341983636772,
+"worst": 19.41747572815534,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting43",
+"seed": 43,
+"ba": 31.816657008726096,
+"worst": 7.158836689038031,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting44",
+"seed": 44,
+"ba": 33.860894977823094,
+"worst": 16.256524981357195,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting45",
+"seed": 45,
+"ba": 38.44400232197236,
+"worst": 8.873974645786726,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting46",
+"seed": 46,
+"ba": 33.15902368466571,
+"worst": 11.334824757643549,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps42",
+"seed": 42,
+"ba": 34.25835461927344,
+"worst": 16.778523489932887,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps43",
+"seed": 43,
+"ba": 34.246065321940684,
+"worst": 22.272727272727273,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps44",
+"seed": 44,
+"ba": 28.701781168610385,
+"worst": 18.26994780014914,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps45",
+"seed": 45,
+"ba": 34.83089085819188,
+"worst": 17.272727272727273,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps46",
+"seed": 46,
+"ba": 33.829219543772425,
+"worst": 24.2152466367713,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 42,
+"ba": 44.68207761137569,
+"worst": 24.09090909090909,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 43,
+"ba": 41.13963968719271,
+"worst": 23.636363636363637,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 44,
+"ba": 42.61489349160158,
+"worst": 25.90909090909091,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 45,
+"ba": 37.914343868044966,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 46,
+"ba": 40.14849455581132,
+"worst": 30.434782608695656,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random42",
+"seed": 42,
+"ba": 39.23010277913221,
+"worst": 20.388349514563107,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random43",
+"seed": 43,
+"ba": 41.39143701941235,
+"worst": 26.08695652173913,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random44",
+"seed": 44,
+"ba": 42.15090187081124,
+"worst": 29.126213592233007,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random45",
+"seed": 45,
+"ba": 43.9146820267965,
+"worst": 32.038834951456316,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random46",
+"seed": 46,
+"ba": 41.60249805485295,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top42",
+"seed": 42,
+"ba": 33.4,
+"worst": 27.200000000000003,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top43",
+"seed": 43,
+"ba": 26.400000000000002,
+"worst": 18.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top44",
+"seed": 44,
+"ba": 28.000000000000004,
+"worst": 19.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top45",
+"seed": 45,
+"ba": 31.8,
+"worst": 16.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top46",
+"seed": 46,
+"ba": 37.8,
+"worst": 25.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva42",
+"seed": 42,
+"ba": 72.0,
+"worst": 37.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva43",
+"seed": 43,
+"ba": 68.10000000000001,
+"worst": 40.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva44",
+"seed": 44,
+"ba": 77.30000000000001,
+"worst": 56.39999999999999,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva45",
+"seed": 45,
+"ba": 68.8,
+"worst": 42.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva46",
+"seed": 46,
+"ba": 60.4,
+"worst": 32.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting42",
+"seed": 42,
+"ba": 69.39999999999999,
+"worst": 45.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting43",
+"seed": 43,
+"ba": 69.69999999999999,
+"worst": 44.800000000000004,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting44",
+"seed": 44,
+"ba": 67.7,
+"worst": 40.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting45",
+"seed": 45,
+"ba": 63.5,
+"worst": 26.400000000000002,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting46",
+"seed": 46,
+"ba": 66.4,
+"worst": 29.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps42",
+"seed": 42,
+"ba": 84.6,
+"worst": 71.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps43",
+"seed": 43,
+"ba": 82.0,
+"worst": 72.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps44",
+"seed": 44,
+"ba": 85.1,
+"worst": 71.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps45",
+"seed": 45,
+"ba": 88.6,
+"worst": 80.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps46",
+"seed": 46,
+"ba": 85.80000000000001,
+"worst": 76.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 42,
+"ba": 85.1,
+"worst": 68.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 43,
+"ba": 83.0,
+"worst": 62.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 44,
+"ba": 86.4,
+"worst": 73.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 45,
+"ba": 83.60000000000001,
+"worst": 64.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 46,
+"ba": 83.6,
+"worst": 58.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random42",
+"seed": 42,
+"ba": 85.09999999999998,
+"worst": 71.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random43",
+"seed": 43,
+"ba": 81.0,
+"worst": 58.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random44",
+"seed": 44,
+"ba": 86.2,
+"worst": 66.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random45",
+"seed": 45,
+"ba": 83.3,
+"worst": 58.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "random",
+"run_arm": "random46",
+"seed": 46,
+"ba": 84.7,
+"worst": 66.4,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top42",
+"seed": 42,
+"ba": 11.564012111591264,
+"worst": 2.1739130434782608,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top43",
+"seed": 43,
+"ba": 10.869330040861922,
+"worst": 1.4705882352941175,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top44",
+"seed": 44,
+"ba": 11.981568039509657,
+"worst": 4.3478260869565215,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top45",
+"seed": 45,
+"ba": 12.353352735397008,
+"worst": 2.941176470588235,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "el2n_top",
+"run_arm": "el2n_top46",
+"seed": 46,
+"ba": 11.062821530411265,
+"worst": 6.521739130434782,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva42",
+"seed": 42,
+"ba": 15.837698797659993,
+"worst": 4.597701149425287,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva43",
+"seed": 43,
+"ba": 15.856189552282682,
+"worst": 2.2988505747126435,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva44",
+"seed": 44,
+"ba": 15.479789517006202,
+"worst": 2.941176470588235,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva45",
+"seed": 45,
+"ba": 16.43798688890849,
+"worst": 4.3478260869565215,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "eva",
+"run_arm": "eva46",
+"seed": 46,
+"ba": 23.79401475732722,
+"worst": 8.695652173913043,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting42",
+"seed": 42,
+"ba": 31.915924390745804,
+"worst": 10.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting43",
+"seed": 43,
+"ba": 33.89860951877003,
+"worst": 5.88235294117647,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting44",
+"seed": 44,
+"ba": 35.61284063850428,
+"worst": 14.705882352941178,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting45",
+"seed": 45,
+"ba": 22.898785901167066,
+"worst": 5.747126436781609,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "forgetting",
+"run_arm": "forgetting46",
+"seed": 46,
+"ba": 19.55475203574683,
+"worst": 8.695652173913043,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps42",
+"seed": 42,
+"ba": 20.803627597965722,
+"worst": 2.941176470588235,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps43",
+"seed": 43,
+"ba": 22.09116030220184,
+"worst": 13.043478260869565,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps44",
+"seed": 44,
+"ba": 23.995943204868155,
+"worst": 6.521739130434782,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps45",
+"seed": 45,
+"ba": 15.015698033336273,
+"worst": 6.521739130434782,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "fps",
+"run_arm": "fps46",
+"seed": 46,
+"ba": 19.471822912073375,
+"worst": 0.0,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top42",
+"seed": 42,
+"ba": 55.764411027568926,
+"worst": 54.385964912280706,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top43",
+"seed": 43,
+"ba": 58.45864661654135,
+"worst": 52.63157894736842,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top44",
+"seed": 44,
+"ba": 54.88721804511278,
+"worst": 35.96491228070175,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top45",
+"seed": 45,
+"ba": 58.959899749373434,
+"worst": 38.095238095238095,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top46",
+"seed": 46,
+"ba": 46.8671679197995,
+"worst": 34.21052631578947,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva42",
+"seed": 42,
+"ba": 51.56641604010025,
+"worst": 7.894736842105263,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva43",
+"seed": 43,
+"ba": 47.99498746867168,
+"worst": 7.894736842105263,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva44",
+"seed": 44,
+"ba": 52.00501253132832,
+"worst": 25.438596491228072,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva45",
+"seed": 45,
+"ba": 55.88972431077694,
+"worst": 23.684210526315788,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva46",
+"seed": 46,
+"ba": 48.30827067669173,
+"worst": 6.140350877192982,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting42",
+"seed": 42,
+"ba": 61.96741854636591,
+"worst": 47.61904761904761,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting43",
+"seed": 43,
+"ba": 52.5062656641604,
+"worst": 52.38095238095239,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting44",
+"seed": 44,
+"ba": 61.02756892230576,
+"worst": 57.14285714285714,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting45",
+"seed": 45,
+"ba": 55.32581453634084,
+"worst": 53.50877192982456,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting46",
+"seed": 46,
+"ba": 57.45614035087719,
+"worst": 50.0,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps42",
+"seed": 42,
+"ba": 62.15538847117794,
+"worst": 55.26315789473685,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps43",
+"seed": 43,
+"ba": 68.54636591478697,
+"worst": 64.28571428571429,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps44",
+"seed": 44,
+"ba": 54.699248120300744,
+"worst": 40.35087719298245,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps45",
+"seed": 45,
+"ba": 65.91478696741855,
+"worst": 50.877192982456144,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps46",
+"seed": 46,
+"ba": 68.67167919799499,
+"worst": 58.77192982456141,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top42",
+"seed": 42,
+"ba": 27.063118319626188,
+"worst": 3.43027591349739,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top43",
+"seed": 43,
+"ba": 27.418048865141614,
+"worst": 3.5048471290082026,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top44",
+"seed": 44,
+"ba": 26.019578664927156,
+"worst": 3.5048471290082026,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top45",
+"seed": 45,
+"ba": 28.35085716975827,
+"worst": 3.5048471290082026,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top46",
+"seed": 46,
+"ba": 27.43105985616988,
+"worst": 3.131991051454139,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva42",
+"seed": 42,
+"ba": 43.60442505073595,
+"worst": 24.545454545454547,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva43",
+"seed": 43,
+"ba": 41.27840860329031,
+"worst": 10.663683818046234,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva44",
+"seed": 44,
+"ba": 43.60142066150484,
+"worst": 11.707680835197614,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva45",
+"seed": 45,
+"ba": 43.2377731113151,
+"worst": 21.818181818181817,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva46",
+"seed": 46,
+"ba": 47.949100473823165,
+"worst": 20.388349514563107,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting42",
+"seed": 42,
+"ba": 45.65288306423865,
+"worst": 13.944817300521997,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting43",
+"seed": 43,
+"ba": 42.60788108918897,
+"worst": 10.365398956002982,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting44",
+"seed": 44,
+"ba": 44.55634012661845,
+"worst": 11.0365398956003,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting45",
+"seed": 45,
+"ba": 46.47820612060945,
+"worst": 19.388516032811335,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting46",
+"seed": 46,
+"ba": 41.89518700445559,
+"worst": 14.093959731543624,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps42",
+"seed": 42,
+"ba": 47.185427992858465,
+"worst": 31.363636363636367,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps43",
+"seed": 43,
+"ba": 49.38967400015469,
+"worst": 32.038834951456316,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps44",
+"seed": 44,
+"ba": 46.20292099260242,
+"worst": 27.727272727272727,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps45",
+"seed": 45,
+"ba": 48.58108903393064,
+"worst": 31.363636363636367,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps46",
+"seed": 46,
+"ba": 48.91172275854943,
+"worst": 37.878787878787875,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 42,
+"ba": 47.64824126824325,
+"worst": 30.454545454545457,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 43,
+"ba": 47.74961511244341,
+"worst": 29.545454545454547,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 44,
+"ba": 49.520043466145495,
+"worst": 38.18181818181819,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 45,
+"ba": 45.956765668613144,
+"worst": 38.18181818181819,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 46,
+"ba": 45.78589540546755,
+"worst": 30.434782608695656,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random42",
+"seed": 42,
+"ba": 51.85333607013563,
+"worst": 34.090909090909086,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random43",
+"seed": 43,
+"ba": 51.60599497494409,
+"worst": 40.909090909090914,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random44",
+"seed": 44,
+"ba": 51.82006270738773,
+"worst": 36.89320388349515,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random45",
+"seed": 45,
+"ba": 50.17001087650003,
+"worst": 39.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random46",
+"seed": 46,
+"ba": 51.57260774163136,
+"worst": 30.909090909090907,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top42",
+"seed": 42,
+"ba": 51.7,
+"worst": 43.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top43",
+"seed": 43,
+"ba": 51.0,
+"worst": 36.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top44",
+"seed": 44,
+"ba": 47.7,
+"worst": 26.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top45",
+"seed": 45,
+"ba": 58.50000000000001,
+"worst": 24.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top46",
+"seed": 46,
+"ba": 64.3,
+"worst": 54.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva42",
+"seed": 42,
+"ba": 81.39999999999999,
+"worst": 49.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva43",
+"seed": 43,
+"ba": 83.1,
+"worst": 58.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva44",
+"seed": 44,
+"ba": 83.7,
+"worst": 52.800000000000004,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva45",
+"seed": 45,
+"ba": 82.89999999999999,
+"worst": 60.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva46",
+"seed": 46,
+"ba": 81.39999999999999,
+"worst": 57.99999999999999,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting42",
+"seed": 42,
+"ba": 77.9,
+"worst": 47.199999999999996,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting43",
+"seed": 43,
+"ba": 75.4,
+"worst": 53.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting44",
+"seed": 44,
+"ba": 78.19999999999999,
+"worst": 51.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting45",
+"seed": 45,
+"ba": 78.9,
+"worst": 59.199999999999996,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting46",
+"seed": 46,
+"ba": 77.3,
+"worst": 50.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps42",
+"seed": 42,
+"ba": 89.1,
+"worst": 76.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps43",
+"seed": 43,
+"ba": 88.2,
+"worst": 81.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps44",
+"seed": 44,
+"ba": 88.4,
+"worst": 79.60000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps45",
+"seed": 45,
+"ba": 90.10000000000001,
+"worst": 82.39999999999999,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps46",
+"seed": 46,
+"ba": 89.7,
+"worst": 76.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 42,
+"ba": 87.8,
+"worst": 65.60000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 43,
+"ba": 85.7,
+"worst": 60.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 44,
+"ba": 87.7,
+"worst": 72.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 45,
+"ba": 86.5,
+"worst": 67.60000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "graph_a2",
+"run_arm": "graph_a2",
+"seed": 46,
+"ba": 86.1,
+"worst": 66.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random42",
+"seed": 42,
+"ba": 86.4,
+"worst": 66.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random43",
+"seed": 43,
+"ba": 87.3,
+"worst": 70.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random44",
+"seed": 44,
+"ba": 84.6,
+"worst": 62.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random45",
+"seed": 45,
+"ba": 89.2,
+"worst": 72.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "random",
+"run_arm": "random46",
+"seed": 46,
+"ba": 87.1,
+"worst": 64.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top42",
+"seed": 42,
+"ba": 9.996766322720992,
+"worst": 1.4705882352941175,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top43",
+"seed": 43,
+"ba": 8.405826498515449,
+"worst": 0.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top44",
+"seed": 44,
+"ba": 10.671958138577772,
+"worst": 4.411764705882353,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top45",
+"seed": 45,
+"ba": 9.275391715906753,
+"worst": 2.941176470588235,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "el2n_top",
+"run_arm": "el2n_top46",
+"seed": 46,
+"ba": 9.71317282535203,
+"worst": 2.941176470588235,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva42",
+"seed": 42,
+"ba": 16.55692741864362,
+"worst": 5.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva43",
+"seed": 43,
+"ba": 19.029661639768353,
+"worst": 4.022988505747127,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva44",
+"seed": 44,
+"ba": 20.35979069288885,
+"worst": 4.3478260869565215,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva45",
+"seed": 45,
+"ba": 21.433900696710467,
+"worst": 3.4482758620689653,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "eva",
+"run_arm": "eva46",
+"seed": 46,
+"ba": 19.421230561189994,
+"worst": 5.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting42",
+"seed": 42,
+"ba": 19.109033718434905,
+"worst": 5.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting43",
+"seed": 43,
+"ba": 31.50645265602493,
+"worst": 6.521739130434782,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting44",
+"seed": 44,
+"ba": 32.79454390451833,
+"worst": 15.217391304347828,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting45",
+"seed": 45,
+"ba": 25.212893553223388,
+"worst": 6.521739130434782,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "forgetting",
+"run_arm": "forgetting46",
+"seed": 46,
+"ba": 28.329570508863217,
+"worst": 22.82608695652174,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps42",
+"seed": 42,
+"ba": 22.281506305670696,
+"worst": 14.705882352941178,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps43",
+"seed": 43,
+"ba": 21.889114266396213,
+"worst": 5.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps44",
+"seed": 44,
+"ba": 25.308110650557076,
+"worst": 13.043478260869565,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps45",
+"seed": 45,
+"ba": 24.58009230678778,
+"worst": 13.23529411764706,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "fps",
+"run_arm": "fps46",
+"seed": 46,
+"ba": 20.368021871417234,
+"worst": 10.0,
+"gpu": "H100"
+}
+]

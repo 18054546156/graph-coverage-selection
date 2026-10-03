@@ -4,8 +4,9 @@ per row, paired over s42-46.
 
 acs_eval.py §4.6 compares against every arm we have (incl. our own earlier variants cls / mv_mean / knnf_*);
 this script restricts the opponents to the 8 Table-1 methods (graph_a2, herding, facility, random, fps, eva,
-el2n_top, forgetting), whichever exist for the row. On derma/OCT the Graph-A2 column is `a2_uni` (same
-implementation, W1 tree). Run from paper_tdgs/:  python code/acs_vs_table1.py
+el2n_top, forgetting) + TypiClust/ProbCover/MaxHerding, whichever exist for the row. Since the bench fill
+(10-03, code/bench_fill_eval.py) every high-ambiguity row has all 11, from the AUTHOR pipeline; our derma/OCT
+re-implementation a2_uni is only a fallback if graph_a2 is missing. Run from paper_tdgs/:  python code/acs_vs_table1.py
 """
 import json
 import sys
@@ -26,7 +27,7 @@ print(f"{'row':12s} {'ACS arm':14s} {'ACS':>6s} {'A2':>6s} {'ACS-A2':>7s} | {'be
 for d in E.HIGH:
     for r in E.RATIOS:
         a = sel[f"{d}_{r}"]
-        t1 = [b for b in E.T1B + ["a2_uni"] + E.NEWB if have(d, r, b)]
+        t1 = [b for b in E.T1B + E.NEWB if have(d, r, b)] + ([] if have(d, r, "graph_a2") else ["a2_uni"])
         a2 = "graph_a2" if have(d, r, "graph_a2") else "a2_uni"
         out = []
         for ep in ("ba", "worst"):

@@ -1,0 +1,11 @@
+row          ACS arm           ACS     A2  ACS-A2 | best T1        T1      d      p  wins | worst: best T1         d      p | n_T1
+retina 0.02  acs_q25_t100    36.42  22.01  +14.40 | typiclust   31.54  +4.87  0.006   5/5 | worst: facility    +1.57  0.610 | 11
+retina 0.05  acs_q25_t100    35.24  24.07  +11.17 | probcover   34.08  +1.16  0.563   3/5 | worst: probcover   -3.46  0.159 | 11
+breast 0.02  acs_q25_t100    65.40  54.39  +11.02 | herding     63.91  +1.49  0.748   2/5 | worst: typiclust   +2.38  0.459 | 11
+breast 0.05  acs_q25_t050    77.41  65.08  +12.33 | typiclust   67.36 +10.05  0.034   5/5 | worst: probcover  +12.26  0.016 | 11
+dermam 0.02  acs_q25_t000    43.81  41.30   +2.51 | maxherding  43.07  +0.75  0.689   3/5 | worst: maxherding  -4.15  0.147 | 11
+dermam 0.05  acs_q25_t000    53.21  47.33   +5.88 | random      51.40  +1.81  0.058   5/5 | worst: typiclust   +5.44  0.024 | 11
+octmni 0.02  acs_q25_t000    84.84  84.34   +0.50 | maxherding  85.96  -1.12  0.354   2/5 | worst: fps        -12.16  0.003 | 11
+octmni 0.05  acs_q25_t000    90.46  86.76   +3.70 | fps         89.10  +1.36  0.012   5/5 | worst: fps         -3.76  0.061 | 11
+tissue 0.02  acs_q25_t000    48.08  42.78   +5.30 | maxherding  44.85  +3.23  0.044   5/5 | worst: probcover   +3.31  0.141 | 11
+tissue 0.05  acs_q25_t000    48.97  44.40   +4.56 | typiclust   47.01  +1.96  0.003   5/5 | worst: probcover   -0.83  0.377 | 11

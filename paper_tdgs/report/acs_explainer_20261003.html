@@ -62,7 +62,7 @@
 <p>它们都隐含一个前提：<b>在特征空间里挨得近的图片，属于同一类</b>。</p>
 <div class="box">
   <b>我们的发现：</b>在一些医学数据集里，不同类别的图片在特征空间里严重混在一起（我们称为"标签歧义高"）。这时上面的前提就不成立了。例如糖网病的相邻两个等级，眼底照片本来就很难分清。
-  在这类数据上，覆盖式方法 Graph-A2 有 7/10 的设置甚至不如随机抽样。
+  在这类数据上，覆盖式方法 Graph-A2 有 8/10 的设置甚至不如随机抽样（作者代码）。
   <b>ACS</b>（Ambiguity-aware Class-conditional Selection）是我们针对这类失效设计的选样方法。
 </div>
 
@@ -155,7 +155,7 @@
   <tr><td>E0 / E1</td><td>恒等检查（ACS 的端点退化为已知方法时，结果逐位相同）；加入 TypiClust / ProbCover / MaxHerding 作为对手</td><td>零训练</td><td><span class="tag t-done">完成</span></td></tr>
   <tr><td>E2</td><td>在高歧义 10 行上选规则参数（开发集）</td><td>625 格</td><td><span class="tag t-done">完成</span></td></tr>
   <tr><td>main-4</td><td>把冻结的规则直接用到低歧义 4 个数据集上，预注册</td><td>40 格</td><td><span class="tag t-done">完成</span></td></tr>
-  <tr><td>补表</td><td>用作者管线补齐 retina/breast/derma/OCT 的 FPS / EVA / EL2N / Forgetting，以及 derma/OCT 的作者版 Graph-A2 和 Random</td><td>200 格</td><td><span class="tag t-run">进行中 158/200</span></td></tr>
+  <tr><td>补表</td><td>用作者管线补齐 retina/breast/derma/OCT 的 FPS / EVA / EL2N / Forgetting，以及 derma/OCT 的作者版 Graph-A2 和 Random</td><td>200 格</td><td><span class="tag t-done">完成 200/200</span></td></tr>
 </table>
 
 <h3>7.1 高歧义 10 行：ACS 排第一 9/10（开发种子，<span class="gB">B</span>，领先幅度偏乐观）</h3>
@@ -165,17 +165,17 @@
   <tr><td>retina 5%</td><td class="num">35.24</td><td>ProbCover 34.08</td><td class="num pos">+1.16</td><td class="num">.56</td><td class="num">3/5</td><td class="num">+11.17</td></tr>
   <tr><td>breast 2%</td><td class="num">65.40</td><td>Herding 63.91</td><td class="num pos">+1.49</td><td class="num">.75</td><td class="num">2/5</td><td class="num">+11.02</td></tr>
   <tr><td>breast 5%</td><td class="num">77.41</td><td>TypiClust 67.36</td><td class="num pos">+10.05</td><td class="num">.034</td><td class="num">5/5</td><td class="num">+12.33</td></tr>
-  <tr><td>derma 2%</td><td class="num">43.81</td><td>MaxHerding 43.07</td><td class="num pos">+0.75</td><td class="num">.69</td><td class="num">3/5</td><td class="num">+4.08</td></tr>
-  <tr><td>derma 5%</td><td class="num">53.21</td><td>Random 49.78</td><td class="num pos">+3.43</td><td class="num">.023</td><td class="num">5/5</td><td class="num">+5.59</td></tr>
-  <tr><td>OCT 2%</td><td class="num">84.84</td><td>MaxHerding 85.96</td><td class="num neg">−1.12</td><td class="num">.35</td><td class="num">2/5</td><td class="num">+2.70</td></tr>
-  <tr><td>OCT 5%</td><td class="num">90.46</td><td>MaxHerding 88.80</td><td class="num pos">+1.66</td><td class="num">.005</td><td class="num">5/5</td><td class="num">+2.34</td></tr>
+  <tr><td>derma 2%</td><td class="num">43.81</td><td>MaxHerding 43.07</td><td class="num pos">+0.75</td><td class="num">.69</td><td class="num">3/5</td><td class="num">+2.51</td></tr>
+  <tr><td>derma 5%</td><td class="num">53.21</td><td>Random 51.40</td><td class="num pos">+1.81</td><td class="num">.058</td><td class="num">5/5</td><td class="num">+5.88</td></tr>
+  <tr><td>OCT 2%</td><td class="num">84.84</td><td>MaxHerding 85.96</td><td class="num neg">−1.12</td><td class="num">.35</td><td class="num">2/5</td><td class="num">+0.50</td></tr>
+  <tr><td>OCT 5%</td><td class="num">90.46</td><td>FPS 89.10</td><td class="num pos">+1.36</td><td class="num">.012</td><td class="num">5/5</td><td class="num">+3.70</td></tr>
   <tr><td>tissue 2%</td><td class="num">48.08</td><td>MaxHerding 44.85</td><td class="num pos">+3.23</td><td class="num">.044</td><td class="num">5/5</td><td class="num">+5.30</td></tr>
   <tr><td>tissue 5%</td><td class="num">48.97</td><td>TypiClust 47.01</td><td class="num pos">+1.96</td><td class="num">.003</td><td class="num">5/5</td><td class="num">+4.56</td></tr>
 </table>
 <ul>
-  <li><b>最强方法一直在换：</b>MaxHerding 4 行、TypiClust 3 行、ProbCover / Herding / Random 各 1 行。现有方法里没有一个在高歧义数据上稳定领先。</li>
-  <li><b>最差类召回落后的行：</b>OCT 2% −6.08、derma 2% −4.15、retina 5% −3.46。</li>
-  <li><b>口径还没补齐：</b>补表完成后，"最强已发表方法"这一列可能会变。</li>
+  <li><b>最强方法一直在换：</b>TypiClust 3 行、MaxHerding 3 行、ProbCover / Herding / Random / FPS 各 1 行。现有方法里没有一个在高歧义数据上稳定领先。</li>
+  <li><b>最差类召回落后的行：</b>OCT 2%（对 FPS −12.16，p .003）、derma 2% −4.15、OCT 5%（对 FPS −3.76）、retina 5% −3.46。</li>
+  <li><b>口径已补齐（10-03 晚）：</b>每行都和全部 11 个已发表方法比较，derma/OCT 的 Graph-A2 和 Random 已换成作者代码的结果。未校正 p &lt; .05 的有 5 行。</li>
 </ul>
 
 <h3>7.2 低歧义 8 行（main-4）：ACS 排第一 1/8，没有一行显著落后（预注册，<span class="gA">A</span>）</h3>
@@ -216,14 +216,14 @@
 <table>
   <tr><th>检验方式</th><th>全部 5 个种子（<b>已定，用户 10-03</b>）</th><th>retina/breast 10 个种子（原推荐，未采用）</th><th>开发集效应</th></tr>
   <tr><td>单行（breast 2%）</td><td class="num">13.3pp</td><td class="num">8.3pp</td><td class="num">+1.49</td></tr>
-  <tr><td><b>10 行合并（主检验 C1）</b></td><td class="num">1.57pp</td><td class="num"><b>1.19pp</b></td><td class="num">+2.75</td></tr>
+  <tr><td><b>10 行合并（主检验 C1，补表后）</b></td><td class="num"><b>1.56pp</b></td><td class="num">1.19pp</td><td class="num">+2.56</td></tr>
   <tr><td>C2-F2，10 行合并</td><td class="num">1.53pp</td><td class="num">1.14pp</td><td class="num">+1.89</td></tr>
   <tr><td>C2-F3，4 行合并</td><td class="num">2.19pp</td><td class="num">1.55pp</td><td class="num">+5.72</td></tr>
 </table>
 <p>结论：</p>
 <ul>
   <li><b>单行显著性做不到。</b>breast 测试集只有 156 张，不管 5 个还是 10 个种子都不够。所以主检验用 10 行合并。</li>
-  <li><b>决定统一用 5 个新种子（47–51）。</b>代价是 C1 的真实效应需要保留开发集的 57% 以上，才有 80% 的把握检测到。</li>
+  <li><b>决定统一用 5 个新种子（47–51）。</b>代价是 C1 的真实效应需要保留开发集的 61% 以上，才有 80% 的把握检测到。</li>
   <li><b>开发种子不能并入检验。</b>种子 42–46 用来选过参数，只能作描述。</li>
 </ul>
 
@@ -237,7 +237,7 @@
   <tr><td>E5c</td><td>blood / organA / organS × 0.5%/1%（每类预算 6–31）</td><td>τ = 0 / 0.5 / 1 三种 + 7 个已发表方法</td><td>47–51</td><td class="num">300</td><td class="num">33</td><td class="blank">未跑</td></tr>
   <tr><th colspan="4">合计</th><th class="num">≈960</th><th class="num">≈195</th><td class="blank">—</td></tr>
 </table>
-<p>"7 个已发表方法"指 Graph-A2、Herding、Facility、Random、TypiClust、ProbCover、MaxHerding。补表完成后，若某个方法成为某行最强、或与最强差距不到 1pp，也会加进来。名单在打戳前写死。</p>
+<p>"7 个已发表方法"指 Graph-A2、Herding、Facility、Random、TypiClust、ProbCover、MaxHerding。按补表后的结果，OCT 两行再加 FPS（它是 OCT 5% 的行最强）。每行事先固定的对手：retina TypiClust / ProbCover，breast Herding / TypiClust，derma MaxHerding / Random，OCT MaxHerding / FPS，tissue MaxHerding / TypiClust（各为 2% / 5%）。</p>
 
 <h3>8.4 判定标准（打戳时写死）</h3>
 <ul>
@@ -337,7 +337,7 @@
   <tr><td>10-01 – 10-02</td><td>歧义规律在 retina/breast 上预注册检验通过；同时发现 herding 在小池子上赢、全局过滤会删光整类</td><td class="gA">预注册</td> </tr>
   <tr><td>10-02</td><td>命题 1/2 验证；提出 ACS</td><td class="gC">零训练，事后</td></tr>
   <tr><td>10-03</td><td>E2 选出规则并冻结；main-4 打平的预测成立；E5 设计稿完成</td><td><span class="gB">E2：B</span> · <span class="gA">main-4：A</span></td></tr>
-  <tr><td class="blank">待定</td><td class="blank">补表完成 → 固定对手 → E5 预注册打戳 → 训练 → 结果</td><td class="blank">—</td></tr>
+  <tr><td class="blank">待定</td><td class="blank">（补表完成、对手已固定）→ 代码加 λ=0 臂 → E5 预注册打戳 → 训练 → 结果</td><td class="blank">—</td></tr>
 </table>
 
 <footer>

@@ -35,3 +35,18 @@ Selection seed = training seed (42–46), as in the original bench. graph_a2 is 
 ## Stamp
 
 (appended on the cluster in `benchfill/stamp.txt`: sha256 of this file and `bench_fill_select.slurm`, UTC, before staging)
+
+## Results (appended 2026-10-03 evening after harvest; nothing above this line changed)
+
+200/200 cells, 0 failures, all H100 (jobs 36326 xiaoyuxu2 96 cells, 36327 danranwang 104 cells).
+Harvest: `code/bench_fill_eval.py --cluster` → `results/acs/bench_fill_cells.json`. Each cell writes metrics.jsonl twice, so cells are deduplicated per (ds, ratio, method, seed).
+Merged in `acs_eval.load()`: derma/OCT `graph_a2` and `random` are now the AUTHOR cells. Our re-implementations stay as `a2_uni` / `rand_cls`, for the appendix only.
+
+- **ACS vs per-row best published method** (all 11 published methods in every row, `results/acs/acs_vs_published_benchfill.txt`): still first in 9/10 rows; OCT 2% −1.12 vs MaxHerding.
+  - derma 5%: best = author Random 51.40, ACS +1.81 (p .058; it was +3.43 vs our rand_cls).
+  - OCT 5%: best = FPS 89.10, ACS +1.36 (p .012).
+  - Raw p < .05 in 5 rows.
+- **Graph-A2 (author) vs ACS:** ACS ahead 10/10; derma 2% +2.51, OCT 2% +0.50.
+- **Graph-A2 < Random:** 8/10 high-ambiguity rows (was 7/10 with the re-implementations).
+- **Worst-class recall:** FPS is far ahead on OCT (2%: 74.32 vs ACS 62.16, −12.16, p .003; 5%: −3.76).
+- **Ablation re-read with author A2** (`results/acs/e2_ablation_benchfill.txt`): F1 (cls vs A2) +3.74pp, 10/10; ACS vs A2 +7.14pp, 10/10.

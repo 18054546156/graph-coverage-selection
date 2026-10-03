@@ -12,6 +12,9 @@ sys.path.insert(0, "code")
 import acs_eval as E  # noqa: E402
 
 C, _, _ = E.load()
+for x in json.load(open("results/acs/acs_main4_cells.json")):  # main-4 run (acs_main4_prereg_20261003.md), A100
+    if x["gpu"] == "A100":
+        C[(x["ds"], round(x["ratio"], 4), x["arm"], x["seed"])] = dict(ba=x["ba"], worst=x["worst"])
 have = lambda d, r, a: all((d, r, a, s) in C for s in E.S5)
 V = lambda d, r, a, ep: np.array([C[(d, r, a, s)][ep] for s in E.S5])
 sel = json.load(open("results/acs/e2_selected_rule.json"))["arms"]
@@ -27,7 +30,7 @@ def arm(d, r, m):
     if m == "acs":
         return sel.get(f"{d}_{r}", "acs_q25_t000")
     if m == "graph_a2" and not have(d, r, "graph_a2"):
-        return "a2_uni"  # same author implementation, W1 tree (derma/OCT)
+        return "a2_uni"  # fallback only: our re-implementation; the bench fill supplies author graph_a2 for derma/OCT
     return m
 
 
