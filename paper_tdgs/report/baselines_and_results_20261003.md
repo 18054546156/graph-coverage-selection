@@ -8,7 +8,7 @@
 
 | 方法 | 论文 | 官方代码 | 我们实际用的代码 |
 |---|---|---|---|
-| **Graph-A2** | Rustamov et al., MICCAI 2026, arXiv:2606.22002 | https://github.com/zahiriddin-rustamov/graph-coverage-selection | 作者仓库 `graphcov/`（commit 8cf757a），**未改** |
+| **Graph-A2** | Rustamov et al., MICCAI 2026, arXiv:2606.22002 | https://github.com/zahiriddin-rustamov/graph-coverage-selection | 作者仓库 `graphcov/`（commit 8cf757a），**未改**；derma/OCT 例外，见 2.3 节 |
 | Herding | Welling, ICML 2009 | 无独立官方实现，用 Graph-A2 作者仓库的实现 | `graphcov/run/selection.py`（作者），未改 |
 | Facility Location | Wei et al., ICML 2015 | 同上 | 同上，未改 |
 | FPS / k-Center | Sener & Savarese, ICLR 2018 | 同上 | 同上，未改 |
@@ -60,9 +60,14 @@
 
 这 3 个方法也**没有调参**，选择种子固定为 42。
 
-### 2.3 Graph-A2 在 derma/OCT 上的那一列
+### 2.3 更正（10-03）：derma/OCT 上的 Graph-A2 和 Random 两列不是作者代码
 
-这一列（`a2_uni`）是同一份作者实现，在另一棵目录（W1）里跑出来的。参数相同，没有改动。
+本文第一版说这一列"是同一份作者实现"，**这是错的**：
+
+- **Graph-A2 列（`a2_uni`）是我们自己复写的 Graph-A2 目标**（`mv_select.py`，λ=0，CPU FAISS），不是作者管线跑出来的。参数相同（k=50、2 跳、全局），但实现不同；Graph-A2 的选择对微小扰动很敏感，两者的结果不能视为等同。
+- **Random 列（`rand_cls`）也是我们自己写的**类平衡随机，选择种子固定为 42；作者的 random 是选择种子等于训练种子。
+
+**处理：** 已在 derma/OCT 上用作者管线补跑 graph_a2 和 random（见第 3 节"补跑"）。结果出来后，这两列换成作者代码的数字，旧数字放附录并标明是复写版本。retina/breast 的 4 列是作者管线跑的，没有这个问题。
 
 ## 3. 已有结果（全表）
 
@@ -91,7 +96,13 @@
 
 - **原论文的 5 个数据集**（blood、organA、organS、path、tissue）：8 个原方法加 3 个新 SOTA，共 11 个对手，全部在 A100 上复现完成。
 - **ACS 在 blood/organA/organS/path 上的 40 格**：10-03 已提交到 A100，正在训练。按 rule 本身算，这 4 个数据集是样本外的，因为它们没有参与选 rule。
-- **我们加的 4 个数据集**（retina、breast、derma、OCT）：原论文没有这几个。这里只跑了 4 个 Table-1 方法加 3 个新 SOTA；FPS、EVA、EL2N、Forgetting 没跑（"—"）。这 4 个方法在原 5 个数据集上都排在后面，但论文里要加脚注说明。
+- **我们加的 4 个数据集**（retina、breast、derma、OCT）：原论文没有这几个。原来只跑了 4 个 Table-1 方法加 3 个新 SOTA；FPS、EVA、EL2N、Forgetting 是"—"。
+- **derma/OCT 的 Graph-A2 和 Random 两列是我们的复写版本**，见 2.3 节。
+- **补跑（10-03，用户要求"表补充完整"）：** 共 200 格，计划和盖章在 `report/bench_fill_20261003.md`。
+  - retina/breast：FPS、EVA、EL2N、Forgetting，80 格；
+  - derma/OCT：上面 4 个，加作者版 Graph-A2 和 Random，120 格。
+  - 全部用作者管线，配置与 Table 1 相同，选择种子等于训练种子，H100。
+  - 已提交选择阶段（作业 36317、36321），选完即训练。
 
 ### 3.2 最差类召回（%），种子 42–46 均值
 
