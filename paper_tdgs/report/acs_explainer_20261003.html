@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ACS：给非专业读者的实验说明（2026-10-03）</title>
+<style>
+  :root { --ink:#1f2933; --mute:#616e7c; --line:#d9e2ec; --bg:#f7f9fb; --acc:#1d6fa5; --ok:#2f8f4e; --warn:#b7791f; --bad:#c53030; --todo:#8a94a6; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:16px/1.7 -apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; color:var(--ink); background:#fff; }
+  header { background:linear-gradient(135deg,#123c5a,#1d6fa5); color:#fff; padding:40px 24px 32px; }
+  header h1 { margin:0 0 8px; font-size:28px; }
+  header p { margin:4px 0; opacity:.92; }
+  nav { position:sticky; top:0; background:#fff; border-bottom:1px solid var(--line); padding:8px 24px; z-index:9; font-size:14px; overflow-x:auto; white-space:nowrap; }
+  nav a { color:var(--acc); text-decoration:none; margin-right:14px; }
+  main { max-width:1040px; margin:0 auto; padding:8px 24px 64px; }
+  h2 { margin-top:48px; padding-bottom:6px; border-bottom:2px solid var(--line); font-size:22px; }
+  h3 { margin-top:28px; font-size:18px; }
+  table { border-collapse:collapse; width:100%; margin:12px 0 18px; font-size:14px; }
+  th, td { border:1px solid var(--line); padding:6px 9px; text-align:left; vertical-align:top; }
+  th { background:var(--bg); }
+  td.num { text-align:right; font-variant-numeric:tabular-nums; }
+  .box { border-left:4px solid var(--acc); background:var(--bg); padding:12px 16px; margin:14px 0; border-radius:0 6px 6px 0; }
+  .box.warn { border-color:var(--warn); background:#fffaf0; }
+  .box.ok { border-color:var(--ok); background:#f0fff4; }
+  .tag { display:inline-block; font-size:12px; padding:1px 8px; border-radius:10px; color:#fff; margin-left:4px; }
+  .t-done { background:var(--ok); } .t-run { background:var(--warn); } .t-todo { background:var(--todo); }
+  .gA { color:var(--ok); font-weight:600; } .gB { color:var(--warn); font-weight:600; } .gC { color:var(--mute); font-weight:600; }
+  .pos { color:var(--ok); font-weight:600; } .neg { color:var(--bad); font-weight:600; }
+  td.blank { background:repeating-linear-gradient(45deg,#fafbfc,#fafbfc 6px,#f0f3f6 6px,#f0f3f6 12px); color:var(--todo); text-align:center; }
+  .flow { display:flex; flex-wrap:wrap; gap:8px; align-items:stretch; margin:16px 0; }
+  .flow .step { flex:1 1 150px; border:1px solid var(--line); border-radius:8px; padding:10px 12px; background:#fff; }
+  .flow .step b { display:block; color:var(--acc); margin-bottom:4px; }
+  .flow .arrow { align-self:center; color:var(--mute); font-size:20px; }
+  code { background:#eef2f6; padding:1px 5px; border-radius:4px; font-size:13px; }
+  a { color:var(--acc); }
+  footer { color:var(--mute); font-size:13px; border-top:1px solid var(--line); margin-top:48px; padding-top:12px; }
+  dl.gloss dt { font-weight:600; margin-top:8px; } dl.gloss dd { margin:0 0 0 1.2em; color:#334e68; }
+</style>
+</head>
+<body>
+<header>
+  <h1>标签歧义下的医学图像选样：ACS 的实验说明</h1>
+  <p>面向非本领域读者：要解决什么问题、为什么这样设计实验、做到了哪一步、代码和论文在哪里。</p>
+  <p>状态截至 2026-10-03。斜纹格是<strong>尚未完成的实验</strong>，故意留空，结果出来前不填任何数字。</p>
+</header>
+<nav>
+  <a href="#q">1 问题</a><a href="#gloss">2 术语</a><a href="#flow">3 流程</a><a href="#why">4 起因</a>
+  <a href="#acs">5 方法</a><a href="#scope">6 数据集</a><a href="#done">7 已有结果</a><a href="#e5">8 待做实验设计</a>
+  <a href="#risk">9 风险</a><a href="#novel">10 新意</a><a href="#code">11 代码</a><a href="#refs">12 论文</a><a href="#time">13 时间线</a>
+</nav>
+<main>
+
+<h2 id="q">1. 我们在研究什么</h2>
+<p>医院里有大量影像，但请医生逐张标注很贵。<b>选样（data selection）</b>要回答的问题是：只能标注其中 2% 或 5% 时，挑哪些图片，训练出来的分类模型最好？</p>
+<p>现有方法大多按"几何"来挑：</p>
+<ul>
+  <li><b>覆盖</b>：选的点要能代表整个数据分布，例如 Graph-A2、Facility Location；</li>
+  <li><b>典型</b>：选每类最有代表性的点，例如 Herding、TypiClust；</li>
+  <li><b>多样</b>：选的点彼此差异要大，例如 FPS。</li>
+</ul>
+<p>它们都隐含一个前提：<b>在特征空间里挨得近的图片，属于同一类</b>。</p>
+<div class="box">
+  <b>我们的发现：</b>在一些医学数据集里，不同类别的图片在特征空间里严重混在一起（我们称为"标签歧义高"）。这时上面的前提就不成立了。例如糖网病的相邻两个等级，眼底照片本来就很难分清。
+  在这类数据上，覆盖式方法 Graph-A2 有 7/10 的设置甚至不如随机抽样。
+  <b>ACS</b>（Ambiguity-aware Class-conditional Selection）是我们针对这类失效设计的选样方法。
+</div>
+
+<h2 id="gloss">2. 先认识几个词</h2>
+<dl class="gloss">
+  <dt>预算比例（2% / 5%）</dt><dd>只允许标注训练集的 2% 或 5%。</dd>
+  <dt>每类预算 bpc</dt><dd>预算平均分到每个类别后，每类能选多少张。retina 2% 时每类只有 4 张，OCT 5% 时每类有 1218 张。</dd>
+  <dt>平衡准确率 BA</dt><dd>先算每个类别各自的识别率，再取平均。少数类和多数类的权重一样，不会被多数类"刷分"。</dd>
+  <dt>最差类召回</dt><dd>所有类别中识别率最低的那一类的识别率。它反映有没有某种病被系统性漏诊。</dd>
+  <dt>种子（seed）</dt><dd>训练过程里的随机性，例如初始化和数据顺序。同一设置要换几个种子重复训练，才能把方法本身的差异和运气分开。</dd>
+  <dt>配对比较</dt><dd>两个方法用同一个种子各训练一次，比较它们的差，再对所有种子求平均。这样能抵消种子本身带来的波动。</dd>
+  <dt>开发集种子 / 新种子</dt><dd>种子 42–46 被用来选 ACS 的参数，在这批种子上的成绩偏乐观。种子 47 之后从未被看过，才能用来做最终检验。</dd>
+  <dt>预注册 / 打戳</dt><dd>实验跑之前，先把"测什么、怎么判定成功、预测是什么"写成文件，在服务器上记录它的哈希值和时间，然后才开始训练。这样事后无法偷偷改标准。</dd>
+  <dt>SOTA（行最强）</dt><dd>在某个数据集和预算组合（一"行"）上，已发表方法里成绩最好的那个。ACS 每一行都和该行的最强方法比，不和弱方法比。</dd>
+  <dt>证据等级</dt><dd><span class="gA">A</span> = 预注册并且样本外确认；<span class="gB">B</span> = 规则事先写好，但数据已经看过（开发集）；<span class="gC">C</span> = 事后发现。</dd>
+</dl>
+
+<h2 id="flow">3. 一次实验是怎么跑的</h2>
+<div class="flow">
+  <div class="step"><b>① 提取特征</b>用病理基础模型 UNI 把每张训练图片变成一个向量。只用训练集，不碰测试集。</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>② 选样</b>各方法按自己的准则，从训练集里挑出 2% 或 5%。选样的随机种子固定为 42。</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>③ 训练</b>只用选出的图片训练分类网络。所有方法设置相同：1000 个 epoch、224 像素、不做数据增广、确定性训练。</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>④ 测试</b>在官方测试集上算 BA 和最差类召回。</div>
+  <div class="arrow">→</div>
+  <div class="step"><b>⑤ 配对统计</b>同一行、同一种子，ACS 减去对手；再做配对 t 检验或置换检验，多行时做多重比较校正。</div>
+</div>
+<p>每个"方法 × 数据集 × 比例 × 种子"组合称为一<b>格</b>，一格就是一次完整的训练加测试。小数据集一格约 2 分钟；TissueMNIST 5% 一格约 56 分钟（集群 A100/H100 实测）。</p>
+<div class="box warn">规矩：同一行里的所有方法用同一种 GPU；作者的代码一律不改，对比方法按作者的默认配置运行、不调参；不挑种子；结果文件只追加，不覆盖。</div>
+
+<h2 id="why">4. 起因：复现 Graph-A2 时看到了什么</h2>
+<p>起点是复现 MICCAI 2026 论文 Graph-A2 的 Table 1（Rustamov et al.，<a href="https://arxiv.org/abs/2606.22002">arXiv:2606.22002</a>），用种子 42–46，在 A100 上运行。</p>
+<table>
+  <tr><th>#</th><th>现象</th><th>数字</th><th>等级</th></tr>
+  <tr><td>P0-1</td><td>Graph-A2 并不是稳定的第一</td><td>8 个 Table-1 方法里，只在 1/10 格第一（organS 2%）；有 4/10 格均值低于随机抽样</td><td class="gA">A</td></tr>
+  <tr><td>P0-2</td><td>在表现好的那几个方法之间，成绩几乎一样（BA 是"平的"）</td><td>前三名方法选中的图片几乎不重叠（Jaccard 4.9%），成绩却打平；不同子集带来的差异小于换训练种子带来的差异（0.82 &lt; 1.37）</td><td class="gA">A</td></tr>
+  <tr><td>P0-3</td><td>Graph-A2 的选择几乎是"随便定的"</td><td>给特征加 0.001 的扰动，就有 12–76% 的选点改变</td><td class="gA">A</td></tr>
+  <tr><td>P0-4</td><td>在某些数据集上明显低于随机</td><td>retina 上比随机低约 7pp</td><td class="gC">C</td> </tr>
+</table>
+<p>结论：再设计"更好的覆盖准则"走不通，我们试过约 20 条思路，都失败了。真正该问的是：<b>覆盖式选样在什么数据上、因为什么原因会系统性失效？</b></p>
+
+<h2 id="acs">5. 方法 ACS：三个组件，每个修一种失效</h2>
+<table>
+  <tr><th>组件</th><th>它修的失效</th><th>通俗比喻</th><th>理论 / 来源</th><th>已有证据</th></tr>
+  <tr><td><b>F1</b> 类条件覆盖</td>
+      <td>覆盖的"功劳"跨过了类别边界。一个错标或模糊的点，看上去像是覆盖了一片区域，其实覆盖的是别的类。</td>
+      <td>点名时只数自己班的人，不把隔壁班的人算进来。</td>
+      <td>命题 1：把跨类部分置零后，算法恰好等于 cls，14/14 精确成立。来源：Wei et al. ICML 2015 的类条件 Facility Location。</td>
+      <td>歧义规律在 retina/breast 上预注册样本外检验通过 <span class="gA">A</span>；开发集上 F1 带来 +3.95pp <span class="gB">B</span></td></tr>
+  <tr><td><b>F2</b> 逐类分位数过滤</td>
+      <td>直接用"多数投票"删掉可疑样本时，少数类会被整类删光，例如增殖期糖网病只剩 0 张。</td>
+      <td>每个班各自去掉最不像本班的 25%，而不是全校统一划一条线。</td>
+      <td>多数投票保留率与类一致率的相关 ρ=.98；被删光的类可以事先预测（4/4）。来源：Confident Learning（JAIR 2021）、HyperCore（2025）。</td>
+      <td>不删光任何类（构造保证）；开发集上 +1.89pp，10 行中 8 行为正 <span class="gB">B</span></td></tr>
+  <tr><td><b>F3</b> 典型 ↔ 覆盖切换</td>
+      <td>每类只能选几张时，"覆盖"不如直接选最典型的样本。</td>
+      <td>只能带 4 张照片去认人，就带最标准的正脸照，不要带侧脸。</td>
+      <td>低预算相变：TypiClust（ICML 2022）、ProbCover（NeurIPS 2022）。我们改成按<b>每类预算</b>切换。</td>
+      <td>在它生效的 4 行上 +5.7pp <span class="gB">B</span>，只有 2 个数据集，没有做过样本外检验</td></tr>
+</table>
+<h3>规则：只用训练集的量（每类预算 bpc）决定每个组件开不开</h3>
+<table>
+  <tr><th>每类预算</th><th>τ（典型样本占比）</th><th>行</th><th>F1</th><th>F2</th><th>F3</th></tr>
+  <tr><td>bpc ≤ 10</td><td>1</td><td>retina 2%/5%，breast 2%</td><td>—</td><td>✓</td><td>✓</td></tr>
+  <tr><td>10 &lt; bpc &lt; 20</td><td>0.5</td><td>breast 5%</td><td>✓</td><td>✓</td><td>✓</td></tr>
+  <tr><td>bpc ≥ 20</td><td>0</td><td>derma / OCT / tissue，以及低歧义的四个数据集</td><td>✓</td><td>✓</td><td>—</td></tr>
+</table>
+<p>两个参数 b*=10、q*=0.25 在开发集（E2）上选定后已经冻结，之后不再调整。</p>
+
+<h2 id="scope">6. 为什么是这五个数据集</h2>
+<p>判定标准只用训练集就能算：<b>标签歧义 = 1 − UNI 特征上 kNN 留一法的平衡准确率</b>。MedMNIST 的 11 个 2D 单标签数据集里，歧义大于 0.25 的正好是下面 5 个，是标准选出来的，不是看结果挑的。</p>
+<table>
+  <tr><th>数据集</th><th>来源 / 成像方式</th><th>任务</th><th>训练集</th><th>歧义</th><th>类别为什么会混在一起</th></tr>
+  <tr><td>DermaMNIST</td><td>HAM10000，皮肤镜</td><td>7 类皮肤病变</td><td class="num">7,007</td><td class="num">.716</td><td>痣、黑色素瘤、良性角化外观相近；痣占 67%</td></tr>
+  <tr><td>RetinaMNIST</td><td>DeepDRiD，眼底照片</td><td>糖网病 5 级分级</td><td class="num">1,080</td><td class="num">.641</td><td>相邻等级的界线本身就模糊</td></tr>
+  <tr><td>TissueMNIST</td><td>BBBC051，肾皮质细胞荧光显微</td><td>8 类</td><td class="num">165,466</td><td class="num">.603</td><td>分辨率低；荧光图像和 H&amp;E 预训练的编码器不匹配</td></tr>
+  <tr><td>BreastMNIST</td><td>BUSI，乳腺超声</td><td>良性 / 恶性</td><td class="num">546</td><td class="num">.376</td><td>斑点噪声大，判读依赖操作者</td></tr>
+  <tr><td>OCTMNIST</td><td>Kermany，视网膜 OCT</td><td>CNV / DME / 玻璃膜疣 / 正常</td><td class="num">97,477</td><td class="num">.287</td><td>单张扫描上玻璃膜疣与正常、与 CNV 可能重叠</td></tr>
+</table>
+<p>低歧义组：organS .227、organC .191、organA .103、pneumonia .055、blood .051、path .004。这些数据集里类别本身就清楚，预测是 ACS 和其他方法<b>打平</b>，不会更好。</p>
+<div class="box warn">边界不是一条清楚的线：OCT 和 organS 的歧义只差 0.06。所以论文的主图应该是"ACS 的领先幅度对歧义"的连续散点图，"五个 / 四个"的分组只作汇总。</div>
+
+<h2 id="done">7. 已经完成的实验与结果</h2>
+<table>
+  <tr><th>实验</th><th>做了什么</th><th>规模</th><th>状态</th></tr>
+  <tr><td>Table 1 复现</td><td>作者代码不改，在 A100 上跑种子 42–46</td><td>—</td><td><span class="tag t-done">完成</span></td></tr>
+  <tr><td>E0 / E1</td><td>恒等检查（ACS 的端点退化为已知方法时，结果逐位相同）；加入 TypiClust / ProbCover / MaxHerding 作为对手</td><td>零训练</td><td><span class="tag t-done">完成</span></td></tr>
+  <tr><td>E2</td><td>在高歧义 10 行上选规则参数（开发集）</td><td>625 格</td><td><span class="tag t-done">完成</span></td></tr>
+  <tr><td>main-4</td><td>把冻结的规则直接用到低歧义 4 个数据集上，预注册</td><td>40 格</td><td><span class="tag t-done">完成</span></td></tr>
+  <tr><td>补表</td><td>用作者管线补齐 retina/breast/derma/OCT 的 FPS / EVA / EL2N / Forgetting，以及 derma/OCT 的作者版 Graph-A2 和 Random</td><td>200 格</td><td><span class="tag t-run">进行中 158/200</span></td></tr>
+</table>
+
+<h3>7.1 高歧义 10 行：ACS 排第一 9/10（开发种子，<span class="gB">B</span>，领先幅度偏乐观）</h3>
+<table>
+  <tr><th>行</th><th>ACS BA</th><th>该行最强已发表方法</th><th>ACS − 最强</th><th>p（未校正）</th><th>5 个种子中领先</th><th>ACS − Graph-A2</th></tr>
+  <tr><td>retina 2%</td><td class="num">36.42</td><td>TypiClust 31.54</td><td class="num pos">+4.87</td><td class="num">.006</td><td class="num">5/5</td><td class="num">+14.40</td></tr>
+  <tr><td>retina 5%</td><td class="num">35.24</td><td>ProbCover 34.08</td><td class="num pos">+1.16</td><td class="num">.56</td><td class="num">3/5</td><td class="num">+11.17</td></tr>
+  <tr><td>breast 2%</td><td class="num">65.40</td><td>Herding 63.91</td><td class="num pos">+1.49</td><td class="num">.75</td><td class="num">2/5</td><td class="num">+11.02</td></tr>
+  <tr><td>breast 5%</td><td class="num">77.41</td><td>TypiClust 67.36</td><td class="num pos">+10.05</td><td class="num">.034</td><td class="num">5/5</td><td class="num">+12.33</td></tr>
+  <tr><td>derma 2%</td><td class="num">43.81</td><td>MaxHerding 43.07</td><td class="num pos">+0.75</td><td class="num">.69</td><td class="num">3/5</td><td class="num">+4.08</td></tr>
+  <tr><td>derma 5%</td><td class="num">53.21</td><td>Random 49.78</td><td class="num pos">+3.43</td><td class="num">.023</td><td class="num">5/5</td><td class="num">+5.59</td></tr>
+  <tr><td>OCT 2%</td><td class="num">84.84</td><td>MaxHerding 85.96</td><td class="num neg">−1.12</td><td class="num">.35</td><td class="num">2/5</td><td class="num">+2.70</td></tr>
+  <tr><td>OCT 5%</td><td class="num">90.46</td><td>MaxHerding 88.80</td><td class="num pos">+1.66</td><td class="num">.005</td><td class="num">5/5</td><td class="num">+2.34</td></tr>
+  <tr><td>tissue 2%</td><td class="num">48.08</td><td>MaxHerding 44.85</td><td class="num pos">+3.23</td><td class="num">.044</td><td class="num">5/5</td><td class="num">+5.30</td></tr>
+  <tr><td>tissue 5%</td><td class="num">48.97</td><td>TypiClust 47.01</td><td class="num pos">+1.96</td><td class="num">.003</td><td class="num">5/5</td><td class="num">+4.56</td></tr>
+</table>
+<ul>
+  <li><b>最强方法一直在换：</b>MaxHerding 4 行、TypiClust 3 行、ProbCover / Herding / Random 各 1 行。现有方法里没有一个在高歧义数据上稳定领先。</li>
+  <li><b>最差类召回落后的行：</b>OCT 2% −6.08、derma 2% −4.15、retina 5% −3.46。</li>
+  <li><b>口径还没补齐：</b>补表完成后，"最强已发表方法"这一列可能会变。</li>
+</ul>
+
+<h3>7.2 低歧义 8 行（main-4）：ACS 排第一 1/8，没有一行显著落后（预注册，<span class="gA">A</span>）</h3>
+<table>
+  <tr><th>行</th><th>ACS</th><th>最强</th><th>ACS − 最强</th><th>BH 校正 q</th><th>名次 / 12</th></tr>
+  <tr><td><b>blood 2%</b></td><td class="num">86.77</td><td>Random 84.68</td><td class="num pos">+2.09</td><td class="num">.46</td><td class="num"><b>1</b></td></tr>
+  <tr><td>blood 5%</td><td class="num">91.72</td><td>Herding 93.70</td><td class="num neg">−1.98</td><td class="num">.073</td><td class="num">4</td></tr>
+  <tr><td>organA 2%</td><td class="num">87.70</td><td>Herding 87.78</td><td class="num">−0.08</td><td class="num">.81</td><td class="num">2</td></tr>
+  <tr><td>organA 5%</td><td class="num">91.91</td><td>Facility 92.33</td><td class="num">−0.42</td><td class="num">.073</td><td class="num">3</td></tr>
+  <tr><td>organS 2%</td><td class="num">62.08</td><td>Graph-A2 63.41</td><td class="num neg">−1.33</td><td class="num">.46</td><td class="num">3</td></tr>
+  <tr><td>organS 5%</td><td class="num">68.01</td><td>Facility 68.53</td><td class="num">−0.52</td><td class="num">.72</td><td class="num">2</td></tr>
+  <tr><td>path 2%</td><td class="num">81.15</td><td>Herding 82.08</td><td class="num">−0.93</td><td class="num">.81</td><td class="num">5</td></tr>
+  <tr><td>path 5%</td><td class="num">87.46</td><td>Facility 87.64</td><td class="num">−0.18</td><td class="num">.85</td><td class="num">3</td></tr>
+</table>
+<div class="box ok">事先写下的预测是"打平：多数行差距 &lt; 1pp，校正后没有一行显著落后"。结果是 5/8 行差距 &lt; 1pp、0/8 行显著落后，<b>预测成立</b>。blood 5% 和 organA 5% 未校正时 p &lt; .05，校正后不显著，照实报告。</div>
+
+<h2 id="e5">8. 还没做的实验：E5 设计 <span class="tag t-todo">GPU 已批准 · 未打戳 · 未提交</span></h2>
+<p>开发集上的 9/10 不能当最终证据，因为参数就是在同一批种子上选的。E5 要用<b>从未看过的新种子</b>，把"ACS 更好"和"每个组件都需要"分别写成可以被推翻的检验。</p>
+
+<h3>8.1 把"充分必要"写成四个可检验的主张</h3>
+<table>
+  <tr><th>#</th><th>主张</th><th>具体检验</th><th>实验</th><th>结果</th></tr>
+  <tr><td>C1</td><td>优越性（三个组件合起来足够）</td><td>新种子上，ACS 超过每行最强的已发表方法。对手在开发种子上事先固定，跑之前写死；10 行合并成一个检验</td><td>E5a</td><td class="blank">未跑</td></tr>
+  <tr><td>C2</td><td>条件必要</td><td>只在规则让某组件生效的行上，检验去掉它会不会变差：F1 7 行，F2 10 行，F3 4 行</td><td>E5a</td><td class="blank">未跑</td></tr>
+  <tr><td>C3</td><td>极小性</td><td>把生效组件的所有组合都跑一遍（全析因），看是否任何去掉一部分的组合都不如 ACS</td><td>E5a</td><td class="blank">未跑</td></tr>
+  <tr><td>C4</td><td>开关确实由规则决定</td><td>F3 的切换点放到规则没见过的预算上检验（main-4 的 0.5% 和 1%）；另在 τ=0 的行上强制打开 F3 作反向对照</td><td>E5c，E5a</td><td class="blank">未跑</td></tr>
+</table>
+<div class="box">
+  <b>两条设计原则：</b>
+  <ol>
+    <li><b>一次只改一个变量。</b>"去掉 F1"的做法是把 λ 设成 0，greedy 和类配额都保持不变。不能直接拿作者的 Graph-A2 当"去掉 F1"，因为它同时换了 greedy 和配额。</li>
+    <li><b>不生效的组件不算证据。</b>在那些行上它按构造什么都不做，"去掉它没影响"是同义反复。</li>
+  </ol>
+</div>
+
+<h3>8.2 用几个种子：用开发集实测的方差来算</h3>
+<p>MDE（最小可检测差距）指：在 80% 把握、单侧 α=.05 下能检测到的最小差距。</p>
+<table>
+  <tr><th>检验方式</th><th>全部 5 个种子</th><th>retina/breast 用 10 个种子，其余 5 个（推荐）</th><th>开发集效应</th></tr>
+  <tr><td>单行（breast 2%）</td><td class="num">13.3pp</td><td class="num">8.3pp</td><td class="num">+1.49</td></tr>
+  <tr><td><b>10 行合并（主检验 C1）</b></td><td class="num">1.57pp</td><td class="num"><b>1.19pp</b></td><td class="num">+2.75</td></tr>
+  <tr><td>C2-F2，10 行合并</td><td class="num">1.53pp</td><td class="num">1.14pp</td><td class="num">+1.89</td></tr>
+  <tr><td>C2-F3，4 行合并</td><td class="num">2.19pp</td><td class="num">1.55pp</td><td class="num">+5.72</td></tr>
+</table>
+<p>结论：</p>
+<ul>
+  <li><b>单行显著性做不到。</b>breast 测试集只有 156 张，不管 5 个还是 10 个种子都不够。所以主检验用 10 行合并。</li>
+  <li><b>retina/breast 多跑 5 个种子很划算。</b>合并检验的方差几乎都来自这两个数据集，它们每格只要约 2 分钟，多 5 个种子只多花约 9 GPU 小时。</li>
+  <li><b>开发种子不能并入检验。</b>种子 42–46 用来选过参数，只能作描述。</li>
+</ul>
+
+<h3>8.3 实验矩阵（每一行内的所有方法用同一种 GPU）</h3>
+<table>
+  <tr><th>实验</th><th>行</th><th>参与比较的方法</th><th>种子</th><th>格数</th><th>GPU 小时</th><th>结果</th></tr>
+  <tr><td>E5a</td><td>retina 2/5%，breast 2%（τ=1）</td><td>7 个已发表方法 + ACS、去掉 F2、去掉 F3、两者都去掉</td><td>47–56</td><td class="num">300</td><td class="num">12</td><td class="blank">未跑</td></tr>
+  <tr><td>E5a</td><td>breast 5%（τ=0.5）</td><td>7 个已发表方法 + F1×F2×F3 全部 8 种组合 + 强制 τ=1</td><td>47–56</td><td class="num">160</td><td class="num">5</td><td class="blank">未跑</td></tr>
+  <tr><td>E5a</td><td>derma / OCT / tissue × 2%/5%（τ=0）</td><td>7 个已发表方法 + ACS、去掉 F1、去掉 F2、两者都去掉、强制 τ=1</td><td>47–51</td><td class="num">360</td><td class="num">131</td><td class="blank">未跑</td></tr>
+  <tr><td>E5b</td><td>F1 生效的 7 行</td><td>F1 拆成"只掩码"和"只类权重"两种，看收益来自哪一部分</td><td>同上</td><td class="num">80</td><td class="num">23</td><td class="blank">未跑</td></tr>
+  <tr><td>E5c</td><td>blood / organA / organS × 0.5%/1%（每类预算 6–31）</td><td>τ = 0 / 0.5 / 1 三种 + 7 个已发表方法</td><td>47–51</td><td class="num">300</td><td class="num">33</td><td class="blank">未跑</td></tr>
+  <tr><th colspan="4">合计</th><th class="num">≈1200</th><th class="num">≈205</th><td class="blank">—</td></tr>
+</table>
+<p>"7 个已发表方法"指 Graph-A2、Herding、Facility、Random、TypiClust、ProbCover、MaxHerding。补表完成后，若某个方法成为某行最强、或与最强差距不到 1pp，也会加进来。名单在打戳前写死。</p>
+
+<h3>8.4 判定标准（打戳时写死）</h3>
+<ul>
+  <li><b>C1 成立需要同时满足三条：</b>
+    <ol>
+      <li>10 行合并检验做 Holm 校正后 p &lt; .05；</li>
+      <li>至少 8/10 行 ACS 领先事先固定的对手；</li>
+      <li>最差类召回不显著变差。</li>
+    </ol></li>
+  <li><b>C2（F1 / F2 / F3）：</b>对应行的合并检验做 Holm 校正后 p &lt; .05。C1 和三个 C2 共 4 个检验一起做 Holm 校正。</li>
+  <li><b>保守版本，同时报告：</b>对手换成"新种子上各行均值最高的方法"，这样选对手对它有利；另报逐行 BH 校正的结果。</li>
+  <li><b>失败的格：</b>最多重跑 2 次，仍然失败就整行标为缺失。不补算、不删种子。</li>
+</ul>
+
+<h3>8.5 E5 结果（结果出来后填）</h3>
+<table>
+  <tr><th>检验</th><th>效应（pp）</th><th>95% CI</th><th>p（Holm）</th><th>同号行数</th><th>是否成立</th></tr>
+  <tr><td>C1 优越性</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td></tr>
+  <tr><td>C2-F1</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td></tr>
+  <tr><td>C2-F2</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td></tr>
+  <tr><td>C2-F3</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td></tr>
+  <tr><td>C3 析因 / 交互</td><td class="blank">—</td><td class="blank">—</td><td class="blank">（描述性）</td><td class="blank">—</td><td class="blank">—</td></tr>
+  <tr><td>C4 切换点（E5c）</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td></tr>
+  <tr><td>E5b 掩码 vs 类权重</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td><td class="blank">—</td></tr>
+</table>
+
+<h2 id="risk">9. 开发数据里已经看到的风险（事先写进预测，不回避）</h2>
+<table>
+  <tr><th>风险</th><th>开发集数字</th><th>事先的预测与处理</th></tr>
+  <tr><td>OCT 2% 输给 MaxHerding</td><td class="num">−1.12pp</td><td>预计新种子上打平或落后。C1 是合并检验，这一行不决定成败。</td></tr>
+  <tr><td>F2 在 derma 2% 和 OCT 2% 上有代价</td><td>BA −2.80 / −0.70，最差类召回各约 −8.5</td><td>预计这两行仍 ≤ 0，尾部代价照实报告。</td></tr>
+  <tr><td>F3 的开关在大池子上不总对（新发现）</td><td>强制打开 F3 时，derma 2% 比 ACS 好 3.76pp，OCT 2%（每类 487 张）好 1.46pp；6 行平均 ACS 只领先 0.40pp</td><td>预计反向对照不显著，作为局限写进论文。b* 和 q* 不会因此再调。</td></tr>
+  <tr><td>歧义指标混合了两种原因</td><td>tissue 是荧光图像，而 UNI 是在 H&amp;E 上预训练的</td><td>论文里称为"表示空间中的类别重叠"，不声称这是纯粹的标签歧义。</td></tr>
+</table>
+
+<h2 id="novel">10. 新意在哪里（如实评估）</h2>
+<div class="box warn"><b>算子本身新意中等偏低。</b>三个组件都是从已有工作迁移来的，审稿人可能会说"A+B+C 的组合"。最接近的工作是 HyperCore（逐类超球加自适应阈值），必须在相关工作里正面区分。</div>
+<p><b>能站住的新意在诊断和规律层面：</b></p>
+<ol>
+  <li><b>失效诊断。</b>类别重叠时，覆盖式选样系统性地不如随机。损失大小可以事先预测（Pearson .90），并且通过了先打戳后训练的样本外检验。</li>
+  <li><b>按失效分配组件。</b>每个组件对应一种可测的失效；组件开不开只看训练集上的每类预算，不看测试结果。命题 1 证明 F1 恰好等于"切断跨类的覆盖功劳"。</li>
+  <li><b>范围事先划定，并做了反向预测。</b>预测低歧义数据上打平，结果确实打平。</li>
+  <li><b>审计。</b>原论文声称 Graph-A2 第一，我们的独立复现只有 1/10 格第一。</li>
+</ol>
+<p><b>建议的论文定位：</b>"覆盖式选样什么时候失效：一条标签歧义规律，和一个由规则控制的最小修复"。以规律为主线，ACS 作为它的推论，而不是作为"新的 SOTA 算子"。</p>
+
+<h2 id="code">11. 参考代码</h2>
+<p>代码仓库：<a href="https://github.com/18054546156/graph-coverage-selection/tree/tdgs-research/paper_tdgs">github.com/18054546156/graph-coverage-selection（分支 tdgs-research，目录 paper_tdgs/）</a>。作者原仓库的 <code>graphcov/</code> 一行未改。</p>
+<table>
+  <tr><th>文件</th><th>作用</th></tr>
+  <tr><td><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/code/acs_select.py"><code>code/acs_select.py</code></a></td><td>ACS 选样：F2 过滤、F3 herding 与覆盖的分配、F1 覆盖贪心，以及恒等检查 I1–I4</td></tr>
+  <tr><td><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/code/acs_stage.slurm"><code>code/acs_stage.slurm</code></a></td><td>在集群上暂存选样结果</td></tr>
+  <tr><td><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/code/acs_eval.py"><code>code/acs_eval.py</code></a></td><td>E2 结果收集与规则选择；统一的数据加载</td></tr>
+  <tr><td><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/code/acs_vs_table1.py"><code>code/acs_vs_table1.py</code></a></td><td>ACS 与每行最强已发表方法比较（§7.1 的表）</td></tr>
+  <tr><td><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/code/acs_ablation.py"><code>code/acs_ablation.py</code></a></td><td>开发集上的组件消融</td></tr>
+  <tr><td><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/code/acs_main4_eval.py"><code>code/acs_main4_eval.py</code></a></td><td>main-4 结果收集与预注册分析（§7.2 的表）</td></tr>
+  <tr><td><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/code/acs_full_table.py"><code>code/acs_full_table.py</code></a></td><td>全部方法 × 全部行的总表</td></tr>
+  <tr><td><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/code/al_baselines_select.py"><code>code/al_baselines_select.py</code></a></td><td>调用 TypiClust / ProbCover / MaxHerding 的官方实现</td></tr>
+  <tr><td class="blank"><code>code/e5_eval.py</code></td><td class="blank">E5 分析脚本（未写）</td></tr>
+</table>
+<p>相关文档：</p>
+<ul>
+  <li><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/report/e5_design_20261003.md">E5 设计稿</a></li>
+  <li><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/report/status_20261003.md">进度汇总</a></li>
+  <li><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/report/dataset_scope_20261003.md">数据集范围</a></li>
+  <li><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/report/acs_derivation_20261003.md">组件由来</a></li>
+  <li><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/report/acs_causal_chain_20261003.md">因果链与子实验清单</a></li>
+  <li><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/report/acs_main4_prereg_20261003.md">main-4 预注册与结果</a></li>
+  <li><a href="https://github.com/18054546156/graph-coverage-selection/blob/tdgs-research/paper_tdgs/report/baselines_and_results_20261003.md">对比方法、官方仓库与总表</a></li>
+</ul>
+
+<h2 id="refs">12. 相关论文</h2>
+<table>
+  <tr><th>论文</th><th>在本工作中的角色</th><th>链接</th></tr>
+  <tr><td>Rustamov et al., One-Shot Data Selection for Medical Image Classification via Graph Coverage（Graph-A2，MICCAI 2026）</td><td>被审计的方法；Table 1 协议</td><td><a href="https://arxiv.org/abs/2606.22002">arXiv:2606.22002</a> · <a href="https://github.com/zahiriddin-rustamov/graph-coverage-selection">代码</a></td></tr>
+  <tr><td>Wei, Iyer, Bilmes, Submodularity in Data Subset Selection and Active Learning（ICML 2015）</td><td>F1 的来源：类条件 Facility Location</td><td><a href="https://proceedings.mlr.press/v37/wei15.html">PMLR v37</a></td></tr>
+  <tr><td>Northcutt et al., Confident Learning（JAIR 2021）</td><td>F2 的来源：逐类阈值</td><td><a href="https://arxiv.org/abs/1911.00068">arXiv:1911.00068</a></td></tr>
+  <tr><td>Moser et al., HyperCore（2025）</td><td>F2 的来源，也是最接近的对手</td><td><a href="https://arxiv.org/abs/2509.21746">arXiv:2509.21746</a></td></tr>
+  <tr><td>Hacohen et al., TypiClust（ICML 2022）</td><td>F3 的来源；对比方法</td><td><a href="https://arxiv.org/abs/2202.02794">arXiv:2202.02794</a> · <a href="https://github.com/avihu111/TypiClust">代码</a></td></tr>
+  <tr><td>Yehuda et al., ProbCover（NeurIPS 2022）</td><td>F3 的来源；对比方法</td><td><a href="https://arxiv.org/abs/2205.11320">arXiv:2205.11320</a></td></tr>
+  <tr><td>Bae et al., MaxHerding（ECCV 2024）</td><td>对比方法</td><td><a href="https://arxiv.org/abs/2407.12212">arXiv:2407.12212</a> · <a href="https://github.com/BorealisAI/uherding">代码</a></td></tr>
+  <tr><td>Sorscher et al., Beyond neural scaling laws（NeurIPS 2022）</td><td>"数据少时保留简单样本"，支持 F3 的思路</td><td><a href="https://arxiv.org/abs/2206.14486">arXiv:2206.14486</a></td></tr>
+  <tr><td>Paul et al., EL2N（NeurIPS 2021）</td><td>对比方法</td><td><a href="https://arxiv.org/abs/2107.07075">arXiv:2107.07075</a></td></tr>
+  <tr><td>Yang et al., MedMNIST v2</td><td>数据集</td><td><a href="https://arxiv.org/abs/2110.14795">arXiv:2110.14795</a></td></tr>
+  <tr><td>Chen et al., UNI（Nature Medicine 2024）</td><td>特征编码器</td><td><a href="https://arxiv.org/abs/2308.15474">arXiv:2308.15474</a></td></tr>
+  <tr><td class="blank">外部高歧义数据集（E6）</td><td class="blank">真正检验范围标准本身的实验，未选定、未申请</td><td class="blank">—</td></tr>
+</table>
+
+<h2 id="time">13. 时间线：哪些是先预测的，哪些是事后发现的</h2>
+<table>
+  <tr><th>日期</th><th>事件</th><th>性质</th></tr>
+  <tr><td>09-25</td><td>发现 Graph-A2 偏好选"和邻居标签不一致"的点</td><td class="gC">事后观察</td></tr>
+  <tr><td>09-27 – 09-28</td><td>类条件覆盖（F1 的前身）有正收益；收益大小事先由跨类边比例预测</td><td class="gB">事先写好的判定门槛</td></tr>
+  <tr><td>09-30</td><td>Table 1 在 A100 上复现完成</td><td class="gA">复现</td></tr>
+  <tr><td>10-01 – 10-02</td><td>歧义规律在 retina/breast 上预注册检验通过；同时发现 herding 在小池子上赢、全局过滤会删光整类</td><td class="gA">预注册</td> </tr>
+  <tr><td>10-02</td><td>命题 1/2 验证；提出 ACS</td><td class="gC">零训练，事后</td></tr>
+  <tr><td>10-03</td><td>E2 选出规则并冻结；main-4 打平的预测成立；E5 设计稿完成</td><td><span class="gB">E2：B</span> · <span class="gA">main-4：A</span></td></tr>
+  <tr><td class="blank">待定</td><td class="blank">补表完成 → 固定对手 → E5 预注册打戳 → 训练 → 结果</td><td class="blank">—</td></tr>
+</table>
+
+<footer>
+  本页由 <code>paper_tdgs/report/acs_explainer_20261003.html</code> 生成，数字来自 <code>code/acs_vs_table1.py</code>（E2，种子 42–46）、<code>report/acs_main4_prereg_20261003.md</code> §5，以及 <code>report/e5_design_20261003.md</code> §1 的方差计算，没有新增训练。
+  斜纹格是未完成的实验；结果出来后只追加，不改动其他内容。
+</footer>
+</main>
+</body>
+</html>
