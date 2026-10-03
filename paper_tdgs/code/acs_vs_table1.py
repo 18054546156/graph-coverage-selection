@@ -1,5 +1,6 @@
 #!/usr/bin/env python
-"""ACS (E2-selected rule) vs the PUBLISHED Table-1 methods only, per row, paired over s42-46.
+"""ACS (E2-selected rule) vs per-row SOTA = best PUBLISHED method (8 Table-1 methods + TypiClust/ProbCover/MaxHerding),
+per row, paired over s42-46.
 
 acs_eval.py §4.6 compares against every arm we have (incl. our own earlier variants cls / mv_mean / knnf_*);
 this script restricts the opponents to the 8 Table-1 methods (graph_a2, herding, facility, random, fps, eva,
@@ -25,7 +26,7 @@ print(f"{'row':12s} {'ACS arm':14s} {'ACS':>6s} {'A2':>6s} {'ACS-A2':>7s} | {'be
 for d in E.HIGH:
     for r in E.RATIOS:
         a = sel[f"{d}_{r}"]
-        t1 = [b for b in E.T1B if have(d, r, b)] + (["a2_uni"] if have(d, r, "a2_uni") else [])
+        t1 = [b for b in E.T1B + ["a2_uni"] + E.NEWB if have(d, r, b)]
         a2 = "graph_a2" if have(d, r, "graph_a2") else "a2_uni"
         out = []
         for ep in ("ba", "worst"):
