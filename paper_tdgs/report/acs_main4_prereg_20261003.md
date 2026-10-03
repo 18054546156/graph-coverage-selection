@@ -48,3 +48,26 @@ No seed is dropped; no row is excluded after seeing results.
 
 (appended on the cluster in `acs/main4_stamp.txt`: sha256 of this file, `acs_stage.slurm` as edited, `acs_select.py`,
 `knnf_select.py`, UTC time, before staging)
+
+## 5. Results (appended 2026-10-03 after harvest; nothing above this line changed)
+
+40/40 cells, 0 failures, all A100 (jobs 36315/36316). Harvest `code/acs_main4_eval.py --cluster` → `results/acs/acs_main4_cells.json`;
+analysis `code/acs_main4_eval.py` → `results/acs/acs_main4_test.txt`, `acs_main4_analysis.json`. Opponent pool = all 11 published methods in every row.
+
+| row | ACS | SOTA | SOTA BA | ACS − SOTA | p | q (BH) | rank /12 |
+|---|---|---|---|---|---|---|---|
+| blood 2% | 86.77 | Random | 84.68 | +2.09 | .232 | .464 | 1 |
+| blood 5% | 91.72 | Herding | 93.70 | −1.98 | .012 | .073 | 4 |
+| organA 2% | 87.70 | Herding | 87.78 | −0.08 | .680 | .806 | 2 |
+| organA 5% | 91.91 | Facility | 92.33 | −0.42 | .018 | .073 | 3 |
+| organS 2% | 62.08 | Graph-A2 | 63.41 | −1.33 | .219 | .464 | 3 |
+| organS 5% | 68.01 | Facility | 68.53 | −0.52 | .449 | .718 | 2 |
+| path 2% | 81.15 | Herding | 82.08 | −0.93 | .705 | .806 | 5 |
+| path 5% | 87.46 | Facility | 87.64 | −0.18 | .854 | .854 | 3 |
+
+- Prediction (§3): "|Δ| < 1pp in most rows; no row significantly behind after BH" → **holds**: |Δ| < 1pp in 5/8, 0/8 significant after BH.
+  Raw p < .05 behind in 2 rows (blood 5% −1.98, organA 5% −0.42, both 0/5 seeds ahead); they do not survive BH, and are reported.
+- ACS first 1/8 (blood 2%), mean rank 2.88/12, mean ACS − SOTA −0.42pp. Worst-class recall: 0/8 significantly behind after BH, mean −0.85pp.
+- Secondary ACS − Graph-A2: mean +0.61pp; significant only in blood 2% (+5.47, p .013).
+- Supported claim: "ACS does not lose to the per-row SOTA on the low-ambiguity rows." Not supported: "ACS beats SOTA on these rows."
+- Exploratory, not preregistered: ACS − cls (= F2, since τ=0 here) mean +0.53pp BA, 5/8 rows positive; blood 2% +4.43 (p .012), blood 5% −1.69 (p .040).
