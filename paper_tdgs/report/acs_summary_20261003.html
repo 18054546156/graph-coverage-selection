@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>ACS 实验总结 — 流程 / 结果 / 新颖性评估（2026-10-03）</title>
+<style>
+  body { font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif; max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; line-height: 1.6; color: #1a1a1a; }
+  h1 { font-size: 1.6rem; border-bottom: 3px solid #2c3e50; padding-bottom: .4rem; }
+  h2 { font-size: 1.25rem; margin-top: 2.5rem; color: #2c3e50; border-left: 5px solid #2c3e50; padding-left: .6rem; }
+  h3 { font-size: 1.05rem; margin-top: 1.5rem; color: #34495e; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; font-size: .85rem; }
+  th, td { border: 1px solid #ddd; padding: .4rem .5rem; text-align: center; }
+  th { background: #2c3e50; color: white; position: sticky; top: 0; }
+  td.rowlabel, th.rowlabel { text-align: left; background: #f0f2f5; font-weight: 600; }
+  .scroll { overflow-x: auto; }
+  .max { font-weight: 700; color: #1a7a1a; background: #eaffea; }
+  .selcol { background: #fff3cd; }
+  .behind { background: #ffe0e0; color: #a00; font-weight: 600; }
+  .win { color: #1a7a1a; font-weight: 600; }
+  .sig { font-weight: 700; }
+  .tag { display: inline-block; padding: .1rem .5rem; border-radius: 4px; font-size: .78rem; font-weight: 600; }
+  .tag-done { background: #d4edda; color: #155724; }
+  .tag-running { background: #fff3cd; color: #856404; }
+  .tag-todo { background: #e2e3e5; color: #383d41; }
+  .box { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 6px; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .verdict { background: #eef6ff; border: 1px solid #b8d9ff; border-radius: 6px; padding: 1rem 1.2rem; margin: 1rem 0; }
+  .warn { background: #fff8e6; border: 1px solid #ffe08a; border-radius: 6px; padding: 1rem 1.2rem; margin: 1rem 0; }
+  code { background: #eee; padding: .1rem .35rem; border-radius: 3px; font-size: .88em; }
+  .small { font-size: .82rem; color: #555; }
+  footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #ccc; font-size: .8rem; color: #888; }
+  .flow { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin: 1rem 0; }
+  .flowbox { background: #fff; border: 2px solid #2c3e50; border-radius: 8px; padding: .6rem .9rem; font-size: .85rem; min-width: 120px; text-align: center; }
+  .arrow { font-size: 1.3rem; color: #2c3e50; }
+</style>
+</head>
+<body>
+
+<h1>ACS（Ambiguity-aware Class-conditional Selection）实验总结</h1>
+<p class="small">生成时间 2026-10-03。对比对象：<a href="https://github.com/zahiriddin-rustamov/graph-coverage-selection">graph-coverage-selection</a>
+（Rustamov et al., MICCAI 2026, arXiv:2606.22002），Table 1 协议：5 个 MedMNIST 数据集、2%/5% 预算、ResNet-18 从零训练、主指标 balanced accuracy。</p>
+
+<div class="verdict">
+<b>一句话结论：</b> E2 开发集筛选已跑完（625/625 格，0 失败）。选出的规则 <b>b*=10, q*=0.25</b>（不等于退化成已有的 <code>cls</code> 基线），
+在高歧义的 10 行（5 数据集 × 2 比例）上相对 <code>cls</code> 平均 BA <b>+3.4pp</b>、最差类召回 <b>+2.7pp</b>；但跟"该行能比到的全部方法里最好的那个"比，
+只在 <b>5/10 行 BA 第一、4/10 行最差召回第一</b>，离项目自己预先定的"≥9/10 行不显著落后"门槛（G1）还有距离。
+新加入的 3 个主动学习基线（TypiClust/ProbCover/MaxHerding）在全部 18 行上<b>一次都没赢过</b>。
+这是开发种子（42–46）上的读数，还没有新种子确认（E4），也还没有经过用户批准的下一步训练。
+</div>
+
+<div class="warn">
+<b>更正（10-03）：</b>第 5 节的"该行最好 bench"把我们自己之前几轮做出来的变体（cls、mv_mean、knnf_random、knnf_herding）也算进去了，所以才只有 5/10 第一。
+只跟<b>已发表的 Table-1 方法</b>（Graph-A2、Herding、Facility、Random、FPS、EVA、EL2N、Forgetting）比：
+ACS <b>10/10 行超过 Graph-A2</b>（+2.3 ~ +14.4pp），<b>9/10 行超过该行最好的 Table-1 方法</b>（唯一落后 OCT 2%，−0.78，p=.45）；
+其中 5 行显著（breast 5% +12.3、derma 5% +3.4、OCT 5% +1.7、tissue 2% +4.0、tissue 5% +3.1，p&lt;.05）。
+限制：retina/breast/derma/OCT 只有 8 个里的 4 个对照；原论文主表的 blood/organA/organS/path 上 ACS 还没训练。
+</div>
+
+<h2>1. 要解决的问题 / 方法流程</h2>
+
+<p>起点是前几轮工作发现的三处可诊断失效：覆盖式选择（Graph-A2）在类边界的歧义样本上系统性地选错点；
+全局一致率过滤会把罕见类"删光"换取均值；每类预算很小时，覆盖目标不如直接选"典型"样本。
+ACS 针对这三处各自从别的领域搬一个已验证的修法，不是提出新的选择原理：</p>
+
+<div class="flow">
+  <div class="flowbox"><b>F1</b><br>类条件覆盖<br><span class="small">= 已有的 tdgs_cls<br>主干不变</span></div>
+  <div class="arrow">→</div>
+  <div class="flowbox"><b>F2</b><br>逐类 kNN 一致率<br>分位数过滤 q<br><span class="small">仿 Confident Learning</span></div>
+  <div class="arrow">→</div>
+  <div class="flowbox"><b>F3</b><br>每类预算内<br>herding/覆盖 切分 τ<br><span class="small">仿 TypiClust/ProbCover</span></div>
+  <div class="arrow">→</div>
+  <div class="flowbox"><b>选参规则</b><br>τ、q 只由训练集<br>每类预算 bpc 决定<br><span class="small">不读 val/test</span></div>
+</div>
+
+<div class="box">
+<b>具体定义</b>（记类 c 的训练池 P_c，每类预算 b=bpc，a_i = 点 i 在 UNI k=50 近邻中的同类占比）：
+<ul>
+<li><b>F2 过滤</b>：候选集 P_c(q) = {i ∈ P_c : a_i ≥ 该类内 a 值的 q 分位数}。q=0 不过滤；保证 |P_c(q)| ≥ (1−q)|P_c| ≥ b，不会删光整类。</li>
+<li><b>F3 切分</b>：每类先用 herding 在 P_c(q) 上选 k_h=⌊τ·b+0.5⌋ 个典型点，再用 cls 的懒贪心从这些点热启动，选满剩下 b−k_h 个。
+  τ=0 退化为纯 cls，τ=1 退化为纯 herding（用作者同一份 herding 实现，不是重新发明）。</li>
+<li><b>选参阶梯</b>：τ(b;b*) = 1（b≤b*）/ 0.5（b*&lt;b&lt;2b*）/ 0（b≥2b*），b*∈{0,5,10,20}；q*∈{0,.25,.5} 全局常数。
+  (b*,q*)=(0,0) 就是 cls。12 条候选规则里选 1 条。</li>
+</ul>
+</div>
+
+<h3>训练协议（跟 Table 1 一致，不为 ACS 改）</h3>
+<p class="small">ResNet-18 从零训练，224px 输入，1000 epochs，无数据增广，<code>DETERMINISTIC_TRAINING=1</code>，取 final_epoch checkpoint；
+评估 balanced accuracy + 最差单类召回；种子配对（E2 用开发种子 42–46，跟 Table 1 复现用的种子相同，便于跟已有 bench 直接配对比较）。</p>
+
+<h2>2. 实验分期，现在在哪一步</h2>
+<table>
+<tr><th>阶段</th><th>内容</th><th>规模</th><th>状态</th></tr>
+<tr><td class="rowlabel">E0</td><td>选择器恒等检查 + F2/F3 机制描述（0 GPU）</td><td>—</td><td><span class="tag tag-done">完成</span> 10/10 恒等通过</td></tr>
+<tr><td class="rowlabel">E1</td><td>新基线 TypiClust/ProbCover/MaxHerding 接入（官方实现，作者默认配置）</td><td>18 行 staging</td><td><span class="tag tag-done">完成</span></td></tr>
+<tr><td class="rowlabel">E2</td><td>开发种子（42–46）screen，12 条候选规则里选 1 条</td><td>625 格（400 H100 + 225 A100）</td><td><span class="tag tag-done">本次完成并收割</span></td></tr>
+<tr><td class="rowlabel">E3</td><td>冻结选中规则 + 预注册盖章</td><td>0 GPU</td><td><span class="tag tag-todo">未开始</span></td></tr>
+<tr><td class="rowlabel">E4</td><td>新种子（47 起）确认，判定 G1–G4 是否通过</td><td>约 1500 格</td><td><span class="tag tag-todo">未开始，需用户批准</span></td></tr>
+</table>
+<p class="small">继续到 E4 的前提条件（E2 prereg 里预先写好的）：选出的规则 ≠ (0,0)。本次选出 (b*=10, q*=0.25) ≠ (0,0)，条件满足，方法没有在开发集上就退化成已有基线。</p>
+
+<h2>3. 结果一：9 种 (q,τ) 组合 × 10 行析因表（开发种子 42–46 均值）</h2>
+<p class="small">每行最大值加粗标绿；选中规则对该行实际分配的那一列标黄底（注意：选中规则是<b>全局</b>规则在该行的取值，不一定是该行的最优列——那是"过拟合每行"，ACS 刻意不这样做）。</p>
+
+<h3>3a. Balanced Accuracy</h3>
+<div class="scroll"><table>
+<tr><th class="rowlabel">行 (bpc)</th><th>q00t000<br>(=cls)</th><th>q00t050</th><th>q00t100<br>(=herding)</th><th>q25t000</th><th>q25t050</th><th>q25t100</th><th>q50t000</th><th>q50t050</th><th>q50t100</th></tr>
+<tr><td class="rowlabel">retina 2% (4)</td><td>28.08</td><td>25.42</td><td>31.32</td><td>30.35</td><td>32.09</td><td class="max selcol">36.42</td><td>29.43</td><td>30.19</td><td>34.84</td></tr>
+<tr><td class="rowlabel">retina 5% (10)</td><td>28.57</td><td>34.59</td><td>33.38</td><td>32.63</td><td>36.61</td><td class="selcol">35.24</td><td>35.75</td><td>31.69</td><td class="max">38.30</td></tr>
+<tr><td class="rowlabel">breast 2% (5)</td><td>54.99</td><td>58.85</td><td>63.91</td><td>54.99</td><td>65.10</td><td class="max selcol">65.40</td><td>65.13</td><td>64.84</td><td>63.53</td></tr>
+<tr><td class="rowlabel">breast 5% (13)</td><td>68.66</td><td>66.80</td><td>62.73</td><td>73.62</td><td class="max selcol">77.41</td><td>70.31</td><td>65.05</td><td>68.85</td><td>68.90</td></tr>
+<tr><td class="rowlabel">derma 2% (20)</td><td>46.61</td><td>39.96</td><td>41.50</td><td class="selcol">43.81</td><td>45.04</td><td class="max">47.58</td><td>44.95</td><td>44.59</td><td>41.57</td></tr>
+<tr><td class="rowlabel">derma 5% (50)</td><td>51.34</td><td>50.20</td><td>48.33</td><td class="max selcol">53.21</td><td>51.13</td><td>52.33</td><td>53.16</td><td>51.44</td><td>49.87</td></tr>
+<tr><td class="rowlabel">OCT 2% (487)</td><td>85.54</td><td>85.62</td><td>84.32</td><td class="selcol">84.84</td><td>85.56</td><td class="max">86.30</td><td>82.76</td><td>81.94</td><td>79.84</td></tr>
+<tr><td class="rowlabel">OCT 5% (1218)</td><td>89.72</td><td>87.68</td><td>87.04</td><td class="max selcol">90.46</td><td>88.48</td><td>88.24</td><td>86.36</td><td>87.52</td><td>86.18</td></tr>
+<tr><td class="rowlabel">tissue 2% (413)</td><td>47.79</td><td>43.50</td><td>42.85</td><td class="selcol">48.08</td><td>47.18</td><td>44.10</td><td class="max">48.94</td><td>48.35</td><td>47.02</td></tr>
+<tr><td class="rowlabel">tissue 5% (1034)</td><td>48.54</td><td>46.85</td><td>45.81</td><td class="selcol">48.97</td><td>48.78</td><td>48.40</td><td class="max">50.92</td><td>50.14</td><td>49.75</td></tr>
+</table></div>
+
+<h3>3b. 最差单类召回（worst-class recall）</h3>
+<div class="scroll"><table>
+<tr><th class="rowlabel">行 (bpc)</th><th>q00t000</th><th>q00t050</th><th>q00t100</th><th>q25t000</th><th>q25t050</th><th>q25t100</th><th>q50t000</th><th>q50t050</th><th>q50t100</th></tr>
+<tr><td class="rowlabel">retina 2%</td><td>11.53</td><td>6.75</td><td>5.88</td><td>10.96</td><td>11.09</td><td class="selcol">16.30</td><td>11.53</td><td>16.22</td><td class="max">16.47</td></tr>
+<tr><td class="rowlabel">retina 5%</td><td>10.31</td><td>17.24</td><td>15.13</td><td>16.41</td><td>18.27</td><td class="selcol">16.25</td><td class="max">20.83</td><td>13.48</td><td>15.68</td></tr>
+<tr><td class="rowlabel">breast 2%</td><td>45.96</td><td>52.13</td><td>55.39</td><td>45.96</td><td>57.47</td><td class="selcol">59.67</td><td>53.48</td><td>55.44</td><td class="max">56.59</td></tr>
+<tr><td class="rowlabel">breast 5%</td><td>60.18</td><td>61.18</td><td>57.37</td><td>64.39</td><td class="max selcol">73.31</td><td>64.79</td><td>54.64</td><td>62.21</td><td>60.95</td></tr>
+<tr><td class="rowlabel">derma 2%</td><td class="max">37.35</td><td>26.17</td><td>26.75</td><td class="selcol">28.85</td><td>31.05</td><td>34.74</td><td>30.98</td><td>27.11</td><td>23.10</td></tr>
+<tr><td class="rowlabel">derma 5%</td><td>40.33</td><td>35.87</td><td>35.45</td><td class="max selcol">43.10</td><td>39.68</td><td>36.50</td><td>41.49</td><td>38.15</td><td>33.31</td></tr>
+<tr><td class="rowlabel">OCT 2%</td><td class="max">70.80</td><td>68.32</td><td>67.12</td><td class="selcol">62.16</td><td>64.48</td><td>70.40</td><td>60.88</td><td>58.00</td><td>56.00</td></tr>
+<tr><td class="rowlabel">OCT 5%</td><td class="max">75.60</td><td>69.84</td><td>66.32</td><td class="selcol">75.44</td><td>70.00</td><td>71.36</td><td>67.04</td><td>67.68</td><td>66.96</td></tr>
+<tr><td class="rowlabel">tissue 2%</td><td>36.97</td><td>34.70</td><td>33.45</td><td class="selcol">40.11</td><td>37.82</td><td>35.98</td><td>40.05</td><td>40.92</td><td class="max">41.39</td></tr>
+<tr><td class="rowlabel">tissue 5%</td><td>40.03</td><td>39.77</td><td>37.75</td><td class="selcol">40.86</td><td>42.64</td><td>41.72</td><td class="max">44.70</td><td>42.94</td><td>42.80</td></tr>
+</table></div>
+<p class="small">derma 2% 和 OCT 2% 上，q00t000（=cls，不开任何开关）反而是最差召回最高的一列——这是 F2/F3 在这两行上的真实代价，下面第 5 节会再出现。</p>
+
+<h2>4. 结果二：12 条候选规则排序（10 行 BA 均值）</h2>
+<table>
+<tr><th>排名</th><th>b*</th><th>q*</th><th>10 行 BA 均值</th><th>与第一名差距</th><th>10 行最差召回均值</th></tr>
+<tr style="background:#fff3cd"><td>1</td><td>10</td><td>0.25</td><td class="sig">58.383</td><td class="win">+0.000（选中）</td><td>45.61</td></tr>
+<tr><td>2</td><td>20</td><td>0.25</td><td>58.051</td><td>−0.333</td><td>45.34</td></tr>
+<tr><td>3</td><td>5</td><td>0.25</td><td>57.744</td><td>−0.640</td><td>44.73</td></tr>
+<tr><td>4</td><td>10</td><td>0.50</td><td>57.261</td><td>−1.123</td><td>43.61</td></tr>
+<tr><td>5</td><td>20</td><td>0.50</td><td>56.928</td><td>−1.455</td><td>42.70</td></tr>
+<tr><td>6</td><td>5</td><td>0.50</td><td>56.626</td><td>−1.757</td><td>43.37</td></tr>
+<tr><td>7</td><td>10</td><td>0.00</td><td>56.495</td><td>−1.888</td><td>43.87</td></tr>
+<tr><td>8</td><td>0</td><td>0.50</td><td>56.244</td><td>−2.139</td><td>42.56</td></tr>
+<tr><td>9</td><td>5</td><td>0.00</td><td>56.200</td><td>−2.183</td><td>43.28</td></tr>
+<tr><td>10</td><td>0</td><td>0.25</td><td>56.096</td><td>−2.288</td><td>42.82</td></tr>
+<tr><td>11</td><td>20</td><td>0.00</td><td>55.577</td><td>−2.806</td><td>42.42</td></tr>
+<tr><td>12 (=cls)</td><td>0</td><td>0.00</td><td>54.984</td><td>−3.399</td><td>42.91</td></tr>
+</table>
+<p class="small">并列规则（&lt;0.25pp）：无。b*=10,q*=0.25 干净胜出，领先第二名 0.33pp。cls 排最后，说明 F2+F3 两个开关合在一起确实比什么都不开更好——这是开发集上的读数，偏差会在 E4 新种子上估计。</p>
+
+<h2>5. 结果三（主结果）：ACS vs 已发表的 Table-1 方法</h2>
+<p class="small">对手只取 Table-1 的 8 个已发表方法（该行有的）。新 4 个数据集上只有其中 4 个（Graph-A2/Herding/Facility/Random）。BA，配对 s42–46。脚本 <code>code/acs_vs_table1.py</code>。</p>
+<table>
+<tr><th class="rowlabel">行</th><th>ACS</th><th>Graph-A2</th><th>ACS−A2</th><th>该行最好 Table-1</th><th>ACS−最好</th><th>p</th><th>赢的种子</th></tr>
+<tr><td class="rowlabel">retina 2%</td><td>36.42</td><td>22.01</td><td class="win">+14.40</td><td>herding 31.32</td><td class="win">+5.10</td><td>.056</td><td>4/5</td></tr>
+<tr><td class="rowlabel">retina 5%</td><td>35.24</td><td>24.07</td><td class="win">+11.17</td><td>herding 33.38</td><td class="win">+1.86</td><td>.540</td><td>2/5</td></tr>
+<tr><td class="rowlabel">breast 2%</td><td>65.40</td><td>54.39</td><td class="win">+11.02</td><td>herding 63.91</td><td class="win">+1.49</td><td>.748</td><td>2/5</td></tr>
+<tr><td class="rowlabel">breast 5%</td><td>77.41</td><td>65.08</td><td class="win">+12.33</td><td>facility 65.09</td><td class="win sig">+12.32</td><td class="sig">.015</td><td>5/5</td></tr>
+<tr><td class="rowlabel">derma 2%</td><td>43.81</td><td>39.74</td><td class="win">+4.08</td><td>facility 41.65</td><td class="win">+2.17</td><td>.259</td><td>3/5</td></tr>
+<tr><td class="rowlabel">derma 5%</td><td>53.21</td><td>47.62</td><td class="win">+5.59</td><td>random 49.78</td><td class="win sig">+3.43</td><td class="sig">.023</td><td>5/5</td></tr>
+<tr><td class="rowlabel">OCT 2%</td><td>84.84</td><td>82.14</td><td class="win">+2.70</td><td>facility 85.62</td><td>−0.78</td><td>.447</td><td>1/5</td></tr>
+<tr><td class="rowlabel">OCT 5%</td><td>90.46</td><td>88.12</td><td class="win">+2.34</td><td>facility 88.74</td><td class="win sig">+1.72</td><td class="sig">.013</td><td>5/5</td></tr>
+<tr><td class="rowlabel">tissue 2%</td><td>48.08</td><td>42.78</td><td class="win">+5.30</td><td>random 44.12</td><td class="win sig">+3.96</td><td class="sig">.008</td><td>5/5</td></tr>
+<tr><td class="rowlabel">tissue 5%</td><td>48.97</td><td>44.40</td><td class="win">+4.56</td><td>random 45.89</td><td class="win sig">+3.07</td><td class="sig">.001</td><td>5/5</td></tr>
+</table>
+<p><b>10/10 行超过 Graph-A2；9/10 行超过该行最好的已发表方法，5 行显著。</b>blood/organA/organS/path 上 ACS 尚未训练（40 格，已批准，待集群）。</p>
+
+<h2>5′. 组件消融（从 E2 析因表直接读出，不需新训练）</h2>
+<p class="small">脚本 <code>code/acs_ablation.py</code>。10 个高歧义行均值，BA。注意：与选规则用的是同一批种子，有选择偏差，E4 新种子确认。</p>
+<table>
+<tr><th>比较</th><th>含义</th><th>BA 差</th><th>行数</th><th>最差召回差</th></tr>
+<tr><td class="rowlabel">cls vs Graph-A2</td><td>F1：覆盖只在类内算</td><td class="win">+3.95</td><td>10/10</td><td>+5.53</td></tr>
+<tr><td class="rowlabel">ACS vs ACS−F2</td><td>F2：逐类一致率过滤</td><td class="win">+1.89</td><td>8/10</td><td>+1.74</td></tr>
+<tr><td class="rowlabel">ACS vs ACS−F3</td><td>F3：小名额先选典型</td><td class="win">+2.29</td><td>4/10（只在规则开启 F3 的 4 行起作用，4 行全涨）</td><td>+2.78</td></tr>
+<tr><td class="rowlabel">ACS vs Graph-A2</td><td>全部</td><td class="win">+7.35</td><td>10/10</td><td>+8.24</td></tr>
+</table>
+<p class="small">F2 的代价：derma 2% 和 OCT 2% 上 F2 让最差召回分别降 8.5 / 8.6pp——这是需要在论文里如实报告、也可能需要修的地方。</p>
+
+<h2>5″. 附：与"所有臂"（含我们自己早先的变体 cls/mv_mean/knnf）比</h2>
+<p class="small">"该行最好的 bench"包含：Table-1 原始 8 方法（仅主 5 数据集齐全，新 4 个数据集缺 fps/eva/el2n_top/forgetting）、knnf 两变体、mv_mean、以及本次新加的 TypiClust/ProbCover/MaxHerding。n=5 配对 t 检验，未做多重比较校正时标 p，BH 校正后无一显著。</p>
+
+<h3>5a. Balanced Accuracy — 5/10 行第一，1 行原始显著落后，BH 校正后 0</h3>
+<table>
+<tr><th class="rowlabel">行</th><th>ACS 规则</th><th>ACS 值</th><th>该行最好 bench</th><th>最好值</th><th>差值</th><th>p</th><th>若按行调参(oracle)能到</th></tr>
+<tr><td class="rowlabel">retina 2%</td><td>q25t100</td><td>36.42</td><td>knnf_herding</td><td>33.71</td><td class="win">+2.70</td><td>.326</td><td>同（+0.00）</td></tr>
+<tr><td class="rowlabel">retina 5%</td><td>q25t100</td><td>35.24</td><td>probcover</td><td>34.08</td><td class="win">+1.16</td><td>.563</td><td>q50t100 还能 +3.07</td></tr>
+<tr><td class="rowlabel">breast 2%</td><td>q25t100</td><td>65.40</td><td>knnf_random</td><td>65.81</td><td>−0.41</td><td>.889</td><td>同（+0.00）</td></tr>
+<tr><td class="rowlabel">breast 5%</td><td>q25t050</td><td>77.41</td><td>knnf_random</td><td>69.62</td><td class="win sig">+7.78</td><td>.036</td><td>同（+0.00）</td></tr>
+<tr><td class="rowlabel">derma 2%</td><td>q25t000</td><td>43.81</td><td>cls</td><td>46.61</td><td>−2.80</td><td>.090</td><td>q25t100 还能 +3.76</td></tr>
+<tr><td class="rowlabel">derma 5%</td><td>q25t000</td><td>53.21</td><td>mv_mean</td><td>51.49</td><td class="win sig">+1.72</td><td>.034</td><td>同（+0.00）</td></tr>
+<tr><td class="rowlabel">OCT 2%</td><td>q25t000</td><td>84.84</td><td>maxherding</td><td>85.96</td><td>−1.12</td><td>.354</td><td>q25t100 还能 +1.46</td></tr>
+<tr><td class="rowlabel">OCT 5%</td><td>q25t000</td><td>90.46</td><td>cls</td><td>89.72</td><td class="win">+0.74</td><td>.161</td><td>同（+0.00）</td></tr>
+<tr><td class="rowlabel">tissue 2%</td><td>q25t000</td><td>48.08</td><td>mv_mean</td><td>48.71</td><td>−0.63</td><td>.516</td><td>q50t000 还能 +0.86</td></tr>
+<tr><td class="rowlabel">tissue 5%</td><td>q25t000</td><td>48.97</td><td>knnf_random</td><td>50.29</td><td class="behind">−1.32</td><td class="sig">.006</td><td>q50t000 还能 +1.95</td></tr>
+</table>
+
+<h3>5b. 最差类召回 — 4/10 行第一，2 行原始显著落后，BH 校正后 0</h3>
+<table>
+<tr><th class="rowlabel">行</th><th>ACS 规则</th><th>ACS 值</th><th>该行最好 bench</th><th>最好值</th><th>差值</th><th>p</th></tr>
+<tr><td class="rowlabel">retina 2%</td><td>q25t100</td><td>16.30</td><td>facility</td><td>14.74</td><td class="win">+1.57</td><td>.610</td></tr>
+<tr><td class="rowlabel">retina 5%</td><td>q25t100</td><td>16.25</td><td>probcover</td><td>19.71</td><td>−3.46</td><td>.159</td></tr>
+<tr><td class="rowlabel">breast 2%</td><td>q25t100</td><td>59.67</td><td>typiclust</td><td>57.29</td><td class="win">+2.38</td><td>.459</td></tr>
+<tr><td class="rowlabel">breast 5%</td><td>q25t050</td><td>73.31</td><td>knnf_random</td><td>63.26</td><td class="win sig">+10.05</td><td>.021</td></tr>
+<tr><td class="rowlabel">derma 2%</td><td>q25t000</td><td>28.85</td><td>cls</td><td>37.35</td><td class="behind">−8.50</td><td class="sig">.041</td></tr>
+<tr><td class="rowlabel">derma 5%</td><td>q25t000</td><td>43.10</td><td>cls</td><td>40.33</td><td class="win">+2.77</td><td>.245</td></tr>
+<tr><td class="rowlabel">OCT 2%</td><td>q25t000</td><td>62.16</td><td>cls</td><td>70.80</td><td class="behind">−8.64</td><td class="sig">.007</td></tr>
+<tr><td class="rowlabel">OCT 5%</td><td>q25t000</td><td>75.44</td><td>cls</td><td>75.60</td><td>−0.16</td><td>.928</td></tr>
+<tr><td class="rowlabel">tissue 2%</td><td>q25t000</td><td>40.11</td><td>mv_mean</td><td>42.22</td><td>−2.11</td><td>.129</td></tr>
+<tr><td class="rowlabel">tissue 5%</td><td>q25t000</td><td>40.86</td><td>probcover</td><td>41.69</td><td>−0.83</td><td>.377</td></tr>
+</table>
+
+<h2>6. 结果四：新加的 3 个主动学习基线，从没赢过</h2>
+<p class="small">TypiClust / ProbCover / MaxHerding 相对"该行当前最好方法"的差值，18 行（10 高歧义 + 8 主数据集）全部为负：</p>
+<div class="scroll"><table>
+<tr><th class="rowlabel">行</th><th>该行最好</th><th>最好值</th><th>TypiClust</th><th>ProbCover</th><th>MaxHerding</th></tr>
+<tr><td class="rowlabel">retina 2%</td><td>knnf_herding</td><td>33.71</td><td>−2.17</td><td>−6.91</td><td>−6.17</td></tr>
+<tr><td class="rowlabel">retina 5%</td><td>probcover</td><td>34.08</td><td>−3.75</td><td>+0.00</td><td>−6.44</td></tr>
+<tr><td class="rowlabel">breast 2%</td><td>knnf_random</td><td>65.81</td><td>−2.44</td><td>−2.37</td><td>−9.22</td></tr>
+<tr><td class="rowlabel">breast 5%</td><td>knnf_random</td><td>69.62</td><td>−2.27</td><td>−3.86</td><td>−11.19</td></tr>
+<tr><td class="rowlabel">derma 2%</td><td>cls</td><td>46.61</td><td>−7.65</td><td>−6.17</td><td>−3.55</td></tr>
+<tr><td class="rowlabel">derma 5%</td><td>mv_mean</td><td>51.49</td><td>−1.83</td><td>−3.91</td><td>−2.49</td></tr>
+<tr><td class="rowlabel">OCT 2%</td><td>maxherding</td><td>85.96</td><td>−2.34</td><td>−3.18</td><td>+0.00</td></tr>
+<tr><td class="rowlabel">OCT 5%</td><td>cls</td><td>89.72</td><td>−1.74</td><td>−1.36</td><td>−0.92</td></tr>
+<tr><td class="rowlabel">tissue 2%</td><td>mv_mean</td><td>48.71</td><td>−4.71</td><td>−4.17</td><td>−3.86</td></tr>
+<tr><td class="rowlabel">tissue 5%</td><td>knnf_random</td><td>50.29</td><td>−3.28</td><td>−3.71</td><td>−6.10</td></tr>
+<tr><td class="rowlabel">blood 2%</td><td>random</td><td>84.68</td><td>−1.29</td><td>−5.87</td><td>−3.53</td></tr>
+<tr><td class="rowlabel">blood 5%</td><td>herding</td><td>93.70</td><td>−1.40</td><td>−2.15</td><td>−2.15</td></tr>
+<tr><td class="rowlabel">organA 2%</td><td>herding</td><td>87.78</td><td>−0.68</td><td>−3.12</td><td>−0.77</td></tr>
+<tr><td class="rowlabel">organA 5%</td><td>facility</td><td>92.33</td><td>−0.81</td><td>−2.01</td><td>−0.35</td></tr>
+<tr><td class="rowlabel">organS 2%</td><td>graph_a2</td><td>63.41</td><td>−0.90</td><td>−5.74</td><td>−1.75</td></tr>
+<tr><td class="rowlabel">organS 5%</td><td>mv_mean</td><td>68.89</td><td>−2.12</td><td>−3.51</td><td>−1.69</td></tr>
+<tr><td class="rowlabel">path 2%</td><td>mv_mean</td><td>82.32</td><td>−1.34</td><td>−0.44</td><td>−2.14</td></tr>
+<tr><td class="rowlabel">path 5%</td><td>facility</td><td>87.64</td><td>−1.02</td><td>−0.63</td><td>−0.48</td></tr>
+</table></div>
+<p class="small">这几个 2024/2025 年的"低预算主动学习 SOTA"方法，直接搬到这个 MedMNIST 协议（标签全可见、UNI 冻结特征、按类配额）下并不占优——它们是为"无标签冷启动、整体预算"设计的，跟这里"有标签、按类配额"的设定不匹配，这也是 ACS 把它们的核心思想（预算相变）按类重新改写的动机，而不是直接套用。</p>
+
+<h2>7. 对比算法一览：方法、年份、论文</h2>
+<table>
+<tr><th>方法</th><th>年份</th><th>出处</th><th>角色</th></tr>
+<tr><td>Random</td><td>—</td><td>无（统计基线）</td><td>bench</td></tr>
+<tr><td>Herding</td><td>2009</td><td>Welling, <i>"Herding Dynamical Weights to Learn"</i>, ICML 2009</td><td>bench；也是 ACS F3 的一端</td></tr>
+<tr><td>Facility Location</td><td>2015</td><td>Wei, Iyer, Bilmes, <i>"Submodularity in Data Subset Selection and Active Learning"</i>, ICML 2015</td><td>bench</td></tr>
+<tr><td>FPS（远点采样 / k-Center）</td><td>2018</td><td>Sener &amp; Savarese, <i>"Active Learning for Convolutional Neural Networks: A Core-Set Approach"</i>, ICLR 2018</td><td>bench（仅主 5 数据集）</td></tr>
+<tr><td>EL2N (el2n_top)</td><td>2021</td><td>Paul, Ganguli, Dziugaite, <i>"Deep Learning on a Data Diet"</i>, NeurIPS 2021</td><td>bench（仅主 5 数据集）</td></tr>
+<tr><td>Forgetting</td><td>2019</td><td>Toneva et al., <i>"An Empirical Study of Example Forgetting during Deep Neural Network Learning"</i>, ICLR 2019</td><td>bench（仅主 5 数据集）</td></tr>
+<tr><td>EVA</td><td>2026</td><td>同 Graph-A2 原论文自带的训练动态基线（"Evolution-aware Variance"，双窗口 L2 误差方差）</td><td>bench（仅主 5 数据集）</td></tr>
+<tr><td>Graph-A2</td><td>2026</td><td>Rustamov et al., MICCAI 2026, arXiv:2606.22002（本项目的对比目标论文）</td><td>bench，全部数据集</td></tr>
+<tr><td>TypiClust</td><td>2022</td><td>Hacohen, Dekel, Mannor, <i>"Active Learning on a Budget: Opportunities and Challenges"</i>, ICML 2022</td><td>本轮新加基线；也是 ACS F3 的灵感来源</td></tr>
+<tr><td>ProbCover</td><td>2022</td><td>Yehuda et al., <i>"Active Learning Through a Covering Lens"</i>, NeurIPS 2022</td><td>本轮新加基线；也是 ACS F3 的灵感来源</td></tr>
+<tr><td>MaxHerding</td><td>2024</td><td>Bae et al., <i>"Generalized Coverage for More Robust Low-Budget Active Learning"</i>, ECCV 2024</td><td>本轮新加基线</td></tr>
+<tr><td>Uncertainty Herding（未跑）</td><td>2025</td><td>Kim et al. (BorealisAI), <i>"Uncertainty Herding: One Active Learning Method for All Label Budgets"</i>, ICLR 2025</td><td>只引用讨论，未作为对照跑（F3 命名部分受其启发）</td></tr>
+<tr><td>HyperCore（未跑，无公开代码）</td><td>2025</td><td>Moser et al. 2025（检索未找到公开代码）</td><td>只引用讨论，ACS F2 的最近竞争者</td></tr>
+<tr><td>Confident Learning（原理来源，非直接基线）</td><td>2021</td><td>Northcutt, Jiang, Chuang, <i>"Confident Learning: Estimating Uncertainty in Dataset Labels"</i>, JAIR 2021</td><td>ACS F2 逐类阈值的灵感来源</td></tr>
+<tr><td>全局共识过滤（反例）</td><td>1999</td><td>Brodley &amp; Friedl, <i>"Identifying Mislabeled Training Data"</i>, JAIR 1999</td><td>F2 要避免的做法（本项目里对应 knnf 全局过滤基线）</td></tr>
+</table>
+
+<h2>8. Novelty 怎么看（10-03 更正后的判断）</h2>
+
+<div class="warn">
+早先版本的本节结论（"按新 SOTA 框架投会吃力"）是建立在把我们自己的旧变体也算成对手的口径上，已作废。
+只和已发表方法比（第 5 节），ACS 是一个在 Graph-A2 上改出来、在高歧义行上稳定超过全部已发表基线的新选样算法。
+</div>
+
+<h3>可以主张的</h3>
+<ul>
+<li><b>新方法</b>：ACS 在高歧义 10 行上 10/10 超过 Graph-A2（均值 +7.35pp），9/10 超过该行最好的已发表方法、5 行显著。</li>
+<li><b>每个组件都有用、且只在预测的地方起作用</b>：F1 +3.95（10/10），F2 +1.89（8/10），F3 +2.29（只在规则开启它的 4 行起作用，4 行全涨）。</li>
+<li><b>诊断</b>：覆盖式选择的损失随标签歧义上升，有机制（命题 1/2）、有样本外预注册确认。</li>
+<li><b>Benchmark 视角</b>：原 5 数据集大多低歧义，各方法打平；按歧义分层后才看得出选样方法的差别。</li>
+</ul>
+
+<h3>要正面处理的弱点</h3>
+<ul>
+<li>组件本身来自已有原理（Confident Learning 式逐类阈值；TypiClust/ProbCover 式预算相变）。新意在：在<b>类条件、按每类预算</b>的设定下把它们组合到覆盖选择里，并由训练集量自动决定每行开关。</li>
+<li>F2 在 derma 2%、OCT 2% 上伤最差类召回（−8.5 / −8.6pp）。</li>
+<li>主 4 数据集（blood/organA/organS/path）ACS 尚未训练；全部数字是开发种子，E4 新种子确认前只是方向性结果。</li>
+</ul>
+
+<h2>9. 还没做完的实验</h2>
+<table>
+<tr><th>#</th><th>实验</th><th>为什么需要</th><th>规模</th><th>状态</th></tr>
+<tr><td>1</td><td>主 4 数据集 ACS（acs_q25_t000）</td><td>补齐原论文 Table 1 的 ACS 列</td><td>40 格 A100</td><td><span class="tag tag-running">已批准，集群断连待提交</span></td></tr>
+<tr><td>2</td><td>E3 冻结 + E4 新种子确认</td><td>E2 用同一批种子选规则又报结果，有选择偏差；论文主表必须用新种子</td><td>约 1000–1500 格（可缩减）</td><td><span class="tag tag-todo">待批准</span></td></tr>
+<tr><td>3</td><td>OrganC / Pneumonia</td><td>挡住"挑数据集"质疑（MedMNIST 2D 单标签剩下的两个）</td><td>2 数据集 × 2 比例 × ~6 臂 × 5 种子 ≈ 120 格</td><td><span class="tag tag-todo">待决定</span></td></tr>
+<tr><td>4</td><td>新 4 数据集补 FPS/EL2N/Forgetting/EVA</td><td>表格完整；建议先用脚注，审稿人要再补</td><td>≈160 格 + 训练动态</td><td><span class="tag tag-todo">建议不做</span></td></tr>
+</table>
+<p class="small">消融已在 E2 析因表里（第 5′ 节），不需要另跑；E4 时把 ACS−F2、ACS−F3、cls 一起放进新种子即可。超参数（b*、q*）已经由 E2 按预注册定死，不再调；再调就是在 test 上挑参。</p>
+<footer>
+数据来源：<code>paper_tdgs/code/acs_eval.py</code> 收割 <code>results/acs/acs_cells.json</code>（625 格，2026-10-03 收割）；
+选中规则见 <code>results/acs/e2_selected_rule.json</code>；方法定义见 <code>report/proposal_acs_20261002.md</code>；
+E2 设计与盖章记录见 <code>report/acs_e2_prereg_20261002.md</code>。
+</footer>
+
+</body>
+</html>

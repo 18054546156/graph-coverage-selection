@@ -1,0 +1,4322 @@
+[
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 85.75814108534804,
+"worst": 69.38775510204081,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 85.75814108534804,
+"worst": 69.38775510204081,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 83.89035561995138,
+"worst": 61.49659863945578,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 83.89035561995138,
+"worst": 61.49659863945578,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 85.06746602746846,
+"worst": 65.578231292517,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 85.06746602746846,
+"worst": 65.578231292517,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 84.55973959164649,
+"worst": 62.857142857142854,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 84.55973959164649,
+"worst": 62.857142857142854,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 85.01260055331038,
+"worst": 64.89795918367346,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 85.01260055331038,
+"worst": 64.89795918367346,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 86.58506354883765,
+"worst": 71.29251700680273,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 86.58506354883765,
+"worst": 71.29251700680273,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 84.97141954592279,
+"worst": 61.36054421768707,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 84.97141954592279,
+"worst": 61.36054421768707,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 85.03654672823917,
+"worst": 65.74965612104539,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 85.03654672823917,
+"worst": 65.74965612104539,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 86.27567838421257,
+"worst": 69.38775510204081,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 86.27567838421257,
+"worst": 69.38775510204081,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 86.20035970746326,
+"worst": 63.8095238095238,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 86.20035970746326,
+"worst": 63.8095238095238,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 85.34287711748806,
+"worst": 65.4421768707483,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 85.34287711748806,
+"worst": 65.4421768707483,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 85.94050303212867,
+"worst": 65.03401360544217,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 85.94050303212867,
+"worst": 65.03401360544217,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 85.6911803479642,
+"worst": 60.136054421768705,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 85.6911803479642,
+"worst": 60.136054421768705,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 85.08325324853647,
+"worst": 60.816326530612244,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 85.08325324853647,
+"worst": 60.816326530612244,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 84.72408622275864,
+"worst": 61.49659863945578,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 84.72408622275864,
+"worst": 61.49659863945578,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 85.47509196928958,
+"worst": 66.39455782312925,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 85.47509196928958,
+"worst": 66.39455782312925,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 85.0455539182735,
+"worst": 62.857142857142854,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 85.0455539182735,
+"worst": 62.857142857142854,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 85.88814189711485,
+"worst": 64.48979591836735,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 85.88814189711485,
+"worst": 64.48979591836735,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 85.20510882626374,
+"worst": 67.67537826685007,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 85.20510882626374,
+"worst": 67.67537826685007,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 85.99768954771888,
+"worst": 65.03401360544217,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 85.99768954771888,
+"worst": 65.03401360544217,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 84.87525428680324,
+"worst": 65.85034013605441,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 84.87525428680324,
+"worst": 65.85034013605441,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 84.94357252098129,
+"worst": 66.53061224489795,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 84.94357252098129,
+"worst": 66.53061224489795,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 84.26644793237813,
+"worst": 61.36054421768707,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 84.26644793237813,
+"worst": 61.36054421768707,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 85.08561466817642,
+"worst": 62.44897959183674,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 85.08561466817642,
+"worst": 62.44897959183674,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 84.7963595485572,
+"worst": 62.585034013605444,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 84.7963595485572,
+"worst": 62.585034013605444,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 83.49854592141921,
+"worst": 59.455782312925166,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 83.49854592141921,
+"worst": 59.455782312925166,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 84.35624974723616,
+"worst": 62.72108843537415,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 84.35624974723616,
+"worst": 62.72108843537415,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 83.81063940078414,
+"worst": 58.36734693877551,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 83.81063940078414,
+"worst": 58.36734693877551,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 84.5695842198374,
+"worst": 63.129251700680264,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 84.5695842198374,
+"worst": 63.129251700680264,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 84.5756349241319,
+"worst": 65.98639455782312,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 84.5756349241319,
+"worst": 65.98639455782312,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 52.38386017971942,
+"worst": 37.878787878787875,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 52.38386017971942,
+"worst": 37.878787878787875,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 52.044268224526824,
+"worst": 43.47826086956522,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 52.044268224526824,
+"worst": 43.47826086956522,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 50.04592493704648,
+"worst": 37.878787878787875,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 50.04592493704648,
+"worst": 37.878787878787875,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 52.39529886304181,
+"worst": 44.09090909090909,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 52.39529886304181,
+"worst": 44.09090909090909,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 50.589476999866065,
+"worst": 30.303030303030305,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 50.589476999866065,
+"worst": 30.303030303030305,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 47.710798597521645,
+"worst": 40.77669902912621,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 47.710798597521645,
+"worst": 40.77669902912621,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 50.947749860045434,
+"worst": 34.78260869565217,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 50.947749860045434,
+"worst": 34.78260869565217,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 53.08197356424921,
+"worst": 43.47826086956522,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 53.08197356424921,
+"worst": 43.47826086956522,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 52.055602072753516,
+"worst": 43.47826086956522,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 52.055602072753516,
+"worst": 43.47826086956522,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 52.91764351512895,
+"worst": 39.130434782608695,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 52.91764351512895,
+"worst": 39.130434782608695,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 51.34434612975751,
+"worst": 38.83495145631068,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 51.34434612975751,
+"worst": 38.83495145631068,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 50.63982341421397,
+"worst": 33.980582524271846,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 50.63982341421397,
+"worst": 33.980582524271846,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 52.313775340422474,
+"worst": 29.126213592233007,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 52.313775340422474,
+"worst": 29.126213592233007,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 51.23672053824937,
+"worst": 31.06796116504854,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 51.23672053824937,
+"worst": 31.06796116504854,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 51.86782655526548,
+"worst": 40.77669902912621,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 51.86782655526548,
+"worst": 40.77669902912621,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 51.59608450635959,
+"worst": 39.80582524271845,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 51.59608450635959,
+"worst": 39.80582524271845,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 56.58304964919256,
+"worst": 49.54545454545455,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 56.58304964919256,
+"worst": 49.54545454545455,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 52.74521346379323,
+"worst": 40.77669902912621,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 52.74521346379323,
+"worst": 40.77669902912621,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 54.474151208358315,
+"worst": 45.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 54.474151208358315,
+"worst": 45.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 54.67260824597139,
+"worst": 43.689320388349515,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 54.67260824597139,
+"worst": 43.689320388349515,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 48.74206810542471,
+"worst": 37.878787878787875,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 48.74206810542471,
+"worst": 37.878787878787875,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 46.21074188194009,
+"worst": 30.097087378640776,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 46.21074188194009,
+"worst": 30.097087378640776,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 48.017221025188825,
+"worst": 40.909090909090914,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 48.017221025188825,
+"worst": 40.909090909090914,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 47.763440149022415,
+"worst": 38.63636363636363,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 47.763440149022415,
+"worst": 38.63636363636363,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 47.368440556963414,
+"worst": 36.81818181818181,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 47.368440556963414,
+"worst": 36.81818181818181,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 51.200941304633915,
+"worst": 33.63636363636363,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 51.200941304633915,
+"worst": 33.63636363636363,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 50.41924585388534,
+"worst": 33.980582524271846,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 50.41924585388534,
+"worst": 33.980582524271846,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 50.36312008930478,
+"worst": 33.18181818181819,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 50.36312008930478,
+"worst": 33.18181818181819,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 50.51333285860707,
+"worst": 32.27272727272727,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 50.51333285860707,
+"worst": 32.27272727272727,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 46.3980529814355,
+"worst": 28.18181818181818,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 46.3980529814355,
+"worst": 28.18181818181818,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 79.1880341880342,
+"worst": 68.37606837606837,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 79.1880341880342,
+"worst": 68.37606837606837,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 82.52136752136752,
+"worst": 74.78632478632478,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 82.52136752136752,
+"worst": 74.78632478632478,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 78.03418803418803,
+"worst": 68.37606837606837,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 78.03418803418803,
+"worst": 68.37606837606837,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 82.6923076923077,
+"worst": 75.64102564102564,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 82.6923076923077,
+"worst": 75.64102564102564,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 82.47863247863248,
+"worst": 68.80341880341881,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 82.47863247863248,
+"worst": 68.80341880341881,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 81.75213675213675,
+"worst": 74.78632478632478,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 81.75213675213675,
+"worst": 74.78632478632478,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 76.75213675213675,
+"worst": 67.09401709401709,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 76.75213675213675,
+"worst": 67.09401709401709,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 80.5982905982906,
+"worst": 72.22222222222221,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 80.5982905982906,
+"worst": 72.22222222222221,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 84.65811965811966,
+"worst": 77.77777777777779,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 84.65811965811966,
+"worst": 77.77777777777779,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 82.00854700854701,
+"worst": 69.65811965811966,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 82.00854700854701,
+"worst": 69.65811965811966,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 83.24786324786324,
+"worst": 77.77777777777779,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 83.24786324786324,
+"worst": 77.77777777777779,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 78.93162393162393,
+"worst": 69.65811965811966,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 78.93162393162393,
+"worst": 69.65811965811966,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 83.71794871794872,
+"worst": 79.48717948717949,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 83.71794871794872,
+"worst": 79.48717948717949,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 84.4017094017094,
+"worst": 79.05982905982906,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 84.4017094017094,
+"worst": 79.05982905982906,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 85.25641025641026,
+"worst": 80.76923076923077,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 85.25641025641026,
+"worst": 80.76923076923077,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 79.74358974358975,
+"worst": 64.1025641025641,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 79.74358974358975,
+"worst": 64.1025641025641,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 82.13675213675214,
+"worst": 72.22222222222221,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 82.13675213675214,
+"worst": 72.22222222222221,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 79.40170940170941,
+"worst": 66.23931623931624,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 79.40170940170941,
+"worst": 66.23931623931624,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 82.26495726495726,
+"worst": 70.94017094017094,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 82.26495726495726,
+"worst": 70.94017094017094,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 80.29914529914531,
+"worst": 67.52136752136752,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 80.29914529914531,
+"worst": 67.52136752136752,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 80.5982905982906,
+"worst": 72.22222222222221,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 80.5982905982906,
+"worst": 72.22222222222221,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 79.87179487179488,
+"worst": 69.23076923076923,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 79.87179487179488,
+"worst": 69.23076923076923,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 81.7948717948718,
+"worst": 74.35897435897436,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 81.7948717948718,
+"worst": 74.35897435897436,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 82.17948717948718,
+"worst": 74.35897435897436,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 82.17948717948718,
+"worst": 74.35897435897436,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 85.04273504273505,
+"worst": 82.90598290598291,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 85.04273504273505,
+"worst": 82.90598290598291,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 82.26495726495726,
+"worst": 77.35042735042735,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 82.26495726495726,
+"worst": 77.35042735042735,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 80.81196581196582,
+"worst": 68.80341880341881,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 80.81196581196582,
+"worst": 68.80341880341881,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 80.08547008547009,
+"worst": 65.8119658119658,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 80.08547008547009,
+"worst": 65.8119658119658,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 82.09401709401709,
+"worst": 72.64957264957265,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 82.09401709401709,
+"worst": 72.64957264957265,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 84.52991452991454,
+"worst": 73.93162393162393,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 84.52991452991454,
+"worst": 73.93162393162393,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 88.6,
+"worst": 76.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 88.6,
+"worst": 76.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 89.5,
+"worst": 76.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 89.5,
+"worst": 76.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 90.7,
+"worst": 79.60000000000001,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 90.7,
+"worst": 79.60000000000001,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 90.99999999999999,
+"worst": 74.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 90.99999999999999,
+"worst": 74.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 88.79999999999998,
+"worst": 71.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 88.79999999999998,
+"worst": 71.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 89.1,
+"worst": 70.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 89.1,
+"worst": 70.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 89.7,
+"worst": 73.2,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 89.7,
+"worst": 73.2,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 88.1,
+"worst": 64.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 88.1,
+"worst": 64.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 90.1,
+"worst": 78.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 90.1,
+"worst": 78.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 91.10000000000001,
+"worst": 76.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 91.10000000000001,
+"worst": 76.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 88.19999999999999,
+"worst": 70.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 88.19999999999999,
+"worst": 70.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 89.4,
+"worst": 69.19999999999999,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 89.4,
+"worst": 69.19999999999999,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 88.1,
+"worst": 68.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 88.1,
+"worst": 68.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 89.0,
+"worst": 70.39999999999999,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 89.0,
+"worst": 70.39999999999999,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 88.3,
+"worst": 68.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 88.3,
+"worst": 68.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 88.1,
+"worst": 69.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 88.1,
+"worst": 69.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 88.7,
+"worst": 68.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 88.7,
+"worst": 68.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 89.19999999999999,
+"worst": 73.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 89.19999999999999,
+"worst": 73.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 89.0,
+"worst": 74.4,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 89.0,
+"worst": 74.4,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 86.9,
+"worst": 66.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 86.9,
+"worst": 66.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 86.8,
+"worst": 61.199999999999996,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 86.8,
+"worst": 61.199999999999996,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 87.2,
+"worst": 66.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 87.2,
+"worst": 66.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 89.69999999999999,
+"worst": 76.8,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 89.69999999999999,
+"worst": 76.8,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 90.39999999999999,
+"worst": 73.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 90.39999999999999,
+"worst": 73.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 86.5,
+"worst": 63.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 86.5,
+"worst": 63.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 85.9,
+"worst": 63.2,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 85.9,
+"worst": 63.2,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 87.8,
+"worst": 68.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 87.8,
+"worst": 68.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 84.8,
+"worst": 61.199999999999996,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 84.8,
+"worst": 61.199999999999996,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 87.0,
+"worst": 63.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 87.0,
+"worst": 63.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 86.6,
+"worst": 66.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 86.6,
+"worst": 66.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 73.13836186713357,
+"worst": 48.29931972789115,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 73.13836186713357,
+"worst": 48.29931972789115,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 74.46263532691599,
+"worst": 51.29251700680272,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 74.46263532691599,
+"worst": 51.29251700680272,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 76.11710227843672,
+"worst": 53.74149659863946,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 76.11710227843672,
+"worst": 53.74149659863946,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 73.84010857682807,
+"worst": 54.98960498960499,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 73.84010857682807,
+"worst": 54.98960498960499,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 74.17390127297992,
+"worst": 56.19047619047619,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 74.17390127297992,
+"worst": 56.19047619047619,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 75.38278962892761,
+"worst": 48.843537414965986,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 75.38278962892761,
+"worst": 48.843537414965986,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 76.37861376765794,
+"worst": 51.42857142857142,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 76.37861376765794,
+"worst": 51.42857142857142,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 74.34406171256711,
+"worst": 44.353741496598644,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 74.34406171256711,
+"worst": 44.353741496598644,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 75.60004460672155,
+"worst": 52.81980742778541,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 75.60004460672155,
+"worst": 52.81980742778541,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 75.11729096827912,
+"worst": 51.70068027210885,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 75.11729096827912,
+"worst": 51.70068027210885,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 73.76169800346915,
+"worst": 57.14285714285714,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 73.76169800346915,
+"worst": 57.14285714285714,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 76.13827377301156,
+"worst": 51.508120649651964,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 76.13827377301156,
+"worst": 51.508120649651964,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 75.79425112782246,
+"worst": 54.292343387471,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 75.79425112782246,
+"worst": 54.292343387471,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 75.64417549350274,
+"worst": 52.38095238095239,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 75.64417549350274,
+"worst": 52.38095238095239,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 76.25719929610902,
+"worst": 59.591836734693885,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 76.25719929610902,
+"worst": 59.591836734693885,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 75.34709048480465,
+"worst": 51.156462585034014,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 75.34709048480465,
+"worst": 51.156462585034014,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 77.21309440585924,
+"worst": 52.7891156462585,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 77.21309440585924,
+"worst": 52.7891156462585,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 78.43560368310058,
+"worst": 60.136054421768705,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 78.43560368310058,
+"worst": 60.136054421768705,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 78.03051092211756,
+"worst": 51.29251700680272,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 78.03051092211756,
+"worst": 51.29251700680272,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 75.41342299463984,
+"worst": 49.523809523809526,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 75.41342299463984,
+"worst": 49.523809523809526,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 76.35005985550394,
+"worst": 46.802721088435376,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 76.35005985550394,
+"worst": 46.802721088435376,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 78.65637492155497,
+"worst": 50.06802721088436,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 78.65637492155497,
+"worst": 50.06802721088436,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 76.99066894932041,
+"worst": 47.074829931972786,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 76.99066894932041,
+"worst": 47.074829931972786,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 75.50107652141442,
+"worst": 50.884353741496604,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 75.50107652141442,
+"worst": 50.884353741496604,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 77.79337966651217,
+"worst": 52.7891156462585,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 77.79337966651217,
+"worst": 52.7891156462585,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 74.07657933955693,
+"worst": 49.65612104539202,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 74.07657933955693,
+"worst": 49.65612104539202,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 73.60375580887025,
+"worst": 45.30612244897959,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 73.60375580887025,
+"worst": 45.30612244897959,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 70.83171896142484,
+"worst": 43.191196698762035,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 70.83171896142484,
+"worst": 43.191196698762035,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 71.99894778628455,
+"worst": 44.70426409903714,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 71.99894778628455,
+"worst": 44.70426409903714,
+"host": "hpcgpu111"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 72.80231347339738,
+"worst": 45.94222833562586,
+"host": "hpcgpu112"
+},
+{
+"ds": "organcmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 72.80231347339738,
+"worst": 45.94222833562586,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 36.2946117651006,
+"worst": 17.391304347826086,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 36.2946117651006,
+"worst": 17.391304347826086,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 37.695151466911106,
+"worst": 13.043478260869565,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 37.695151466911106,
+"worst": 13.043478260869565,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 34.44795947831387,
+"worst": 17.391304347826086,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 34.44795947831387,
+"worst": 17.391304347826086,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 39.81027350152673,
+"worst": 13.043478260869565,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 39.81027350152673,
+"worst": 13.043478260869565,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 38.81395219929665,
+"worst": 21.73913043478261,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 38.81395219929665,
+"worst": 21.73913043478261,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 45.98322342221585,
+"worst": 41.81818181818181,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 45.98322342221585,
+"worst": 41.81818181818181,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 44.21233970168627,
+"worst": 39.130434782608695,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 44.21233970168627,
+"worst": 39.130434782608695,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 47.10787868940006,
+"worst": 31.818181818181817,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 47.10787868940006,
+"worst": 31.818181818181817,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 47.76848850779386,
+"worst": 34.84848484848485,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 47.76848850779386,
+"worst": 34.84848484848485,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 47.99642982600405,
+"worst": 39.130434782608695,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 47.99642982600405,
+"worst": 39.130434782608695,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 38.36699582348867,
+"worst": 30.097087378640776,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 38.36699582348867,
+"worst": 30.097087378640776,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 36.863872708310005,
+"worst": 24.137931034482758,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 36.863872708310005,
+"worst": 24.137931034482758,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 41.81642849449999,
+"worst": 30.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 41.81642849449999,
+"worst": 30.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 34.657626332188514,
+"worst": 20.689655172413794,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 34.657626332188514,
+"worst": 20.689655172413794,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 33.26339404305173,
+"worst": 20.689655172413794,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 33.26339404305173,
+"worst": 20.689655172413794,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 45.21323186356817,
+"worst": 25.757575757575758,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 45.21323186356817,
+"worst": 25.757575757575758,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 41.024290576067656,
+"worst": 21.21212121212121,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 41.024290576067656,
+"worst": 21.21212121212121,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 40.49604344613657,
+"worst": 21.73913043478261,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 40.49604344613657,
+"worst": 21.73913043478261,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 43.8337906775039,
+"worst": 21.21212121212121,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 43.8337906775039,
+"worst": 21.21212121212121,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 49.33084156833687,
+"worst": 36.36363636363637,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 49.33084156833687,
+"worst": 36.36363636363637,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 42.31470008942689,
+"worst": 26.21359223300971,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 42.31470008942689,
+"worst": 26.21359223300971,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 37.741586495357346,
+"worst": 28.155339805825243,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 37.741586495357346,
+"worst": 28.155339805825243,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 38.96648021008836,
+"worst": 27.184466019417474,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 38.96648021008836,
+"worst": 27.184466019417474,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 41.31463935009706,
+"worst": 21.818181818181817,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 41.31463935009706,
+"worst": 21.818181818181817,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 38.34086140644548,
+"worst": 25.24271844660194,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 38.34086140644548,
+"worst": 25.24271844660194,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 38.86684418220194,
+"worst": 13.043478260869565,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 38.86684418220194,
+"worst": 13.043478260869565,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 38.834586276284504,
+"worst": 21.73913043478261,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 38.834586276284504,
+"worst": 21.73913043478261,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 36.50501212512328,
+"worst": 13.043478260869565,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 36.50501212512328,
+"worst": 13.043478260869565,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 36.64621745820685,
+"worst": 17.391304347826086,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 36.64621745820685,
+"worst": 17.391304347826086,
+"host": "hpcgpu111"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 37.11114996087753,
+"worst": 25.24271844660194,
+"host": "hpcgpu112"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 37.11114996087753,
+"worst": 25.24271844660194,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 76.92307692307692,
+"worst": 62.82051282051282,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 76.92307692307692,
+"worst": 62.82051282051282,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 85.21367521367522,
+"worst": 85.04273504273505,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 85.21367521367522,
+"worst": 85.04273504273505,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 85.08547008547009,
+"worst": 83.84615384615385,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 85.08547008547009,
+"worst": 83.84615384615385,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 80.08547008547009,
+"worst": 67.09401709401709,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 80.08547008547009,
+"worst": 67.09401709401709,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 81.19658119658119,
+"worst": 66.23931623931624,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 81.19658119658119,
+"worst": 66.23931623931624,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 78.80341880341881,
+"worst": 70.94017094017094,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 78.80341880341881,
+"worst": 70.94017094017094,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 78.41880341880342,
+"worst": 69.65811965811966,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 78.41880341880342,
+"worst": 69.65811965811966,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 81.45299145299145,
+"worst": 72.64957264957265,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 81.45299145299145,
+"worst": 72.64957264957265,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 80.12820512820514,
+"worst": 71.7948717948718,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 80.12820512820514,
+"worst": 71.7948717948718,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 83.46153846153847,
+"worst": 74.35897435897436,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 83.46153846153847,
+"worst": 74.35897435897436,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 70.55555555555554,
+"worst": 50.85470085470085,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 70.55555555555554,
+"worst": 50.85470085470085,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 81.62393162393163,
+"worst": 77.35042735042735,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 81.62393162393163,
+"worst": 77.35042735042735,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 80.12820512820514,
+"worst": 74.35897435897436,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 80.12820512820514,
+"worst": 74.35897435897436,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 78.03418803418803,
+"worst": 65.8119658119658,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 78.03418803418803,
+"worst": 65.8119658119658,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 80.94017094017094,
+"worst": 71.36752136752136,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 80.94017094017094,
+"worst": 71.36752136752136,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 81.32478632478633,
+"worst": 73.93162393162393,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 81.32478632478633,
+"worst": 73.93162393162393,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 82.13675213675214,
+"worst": 69.65811965811966,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 82.13675213675214,
+"worst": 69.65811965811966,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 76.92307692307692,
+"worst": 60.256410256410255,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 76.92307692307692,
+"worst": 60.256410256410255,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 75.38461538461539,
+"worst": 57.692307692307686,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 75.38461538461539,
+"worst": 57.692307692307686,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 80.98290598290599,
+"worst": 68.37606837606837,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 80.98290598290599,
+"worst": 68.37606837606837,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 82.56410256410255,
+"worst": 78.2051282051282,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 82.56410256410255,
+"worst": 78.2051282051282,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 79.7008547008547,
+"worst": 77.35042735042735,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 79.7008547008547,
+"worst": 77.35042735042735,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 78.71794871794873,
+"worst": 74.35897435897436,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 78.71794871794873,
+"worst": 74.35897435897436,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 76.83760683760683,
+"worst": 70.08547008547008,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 76.83760683760683,
+"worst": 70.08547008547008,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 74.27350427350427,
+"worst": 66.23931623931624,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 74.27350427350427,
+"worst": 66.23931623931624,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 71.58119658119658,
+"worst": 50.85470085470085,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 71.58119658119658,
+"worst": 50.85470085470085,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 72.26495726495726,
+"worst": 52.991452991452995,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 72.26495726495726,
+"worst": 52.991452991452995,
+"host": "hpcgpu112"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 76.92307692307692,
+"worst": 62.82051282051282,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 76.92307692307692,
+"worst": 62.82051282051282,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 75.08547008547009,
+"worst": 56.837606837606835,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 75.08547008547009,
+"worst": 56.837606837606835,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 71.53846153846153,
+"worst": 47.43589743589743,
+"host": "hpcgpu111"
+},
+{
+"ds": "pneumoniamnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 71.53846153846153,
+"worst": 47.43589743589743,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 85.69999999999999,
+"worst": 71.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 42,
+"ba": 85.69999999999999,
+"worst": 71.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 86.1,
+"worst": 67.60000000000001,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 43,
+"ba": 86.1,
+"worst": 67.60000000000001,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 85.39999999999999,
+"worst": 71.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 44,
+"ba": 85.39999999999999,
+"worst": 71.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 84.7,
+"worst": 67.60000000000001,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 45,
+"ba": 84.7,
+"worst": 67.60000000000001,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 85.8,
+"worst": 76.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_uni",
+"seed": 46,
+"ba": 85.8,
+"worst": 76.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 85.5,
+"worst": 66.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 42,
+"ba": 85.5,
+"worst": 66.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 86.0,
+"worst": 68.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 43,
+"ba": 86.0,
+"worst": 68.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 85.1,
+"worst": 65.60000000000001,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 44,
+"ba": 85.1,
+"worst": 65.60000000000001,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 85.1,
+"worst": 69.19999999999999,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 45,
+"ba": 85.1,
+"worst": 69.19999999999999,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 86.0,
+"worst": 67.2,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_dinov2",
+"seed": 46,
+"ba": 86.0,
+"worst": 67.2,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 86.3,
+"worst": 68.4,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 42,
+"ba": 86.3,
+"worst": 68.4,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 82.19999999999999,
+"worst": 58.4,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 43,
+"ba": 82.19999999999999,
+"worst": 58.4,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 86.0,
+"worst": 67.60000000000001,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 44,
+"ba": 86.0,
+"worst": 67.60000000000001,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 86.89999999999999,
+"worst": 69.19999999999999,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 45,
+"ba": 86.89999999999999,
+"worst": 69.19999999999999,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 84.5,
+"worst": 64.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "mv_mean",
+"seed": 46,
+"ba": 84.5,
+"worst": 64.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 85.1,
+"worst": 68.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 42,
+"ba": 85.1,
+"worst": 68.0,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 83.0,
+"worst": 62.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 43,
+"ba": 83.0,
+"worst": 62.8,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 88.1,
+"worst": 71.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 44,
+"ba": 88.1,
+"worst": 71.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 86.1,
+"worst": 71.2,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 45,
+"ba": 86.1,
+"worst": 71.2,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 82.5,
+"worst": 57.599999999999994,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "cls_clip",
+"seed": 46,
+"ba": 82.5,
+"worst": 57.599999999999994,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 83.1,
+"worst": 68.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 42,
+"ba": 83.1,
+"worst": 68.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 82.89999999999999,
+"worst": 63.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 43,
+"ba": 82.89999999999999,
+"worst": 63.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 82.69999999999999,
+"worst": 69.19999999999999,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 44,
+"ba": 82.69999999999999,
+"worst": 69.19999999999999,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 79.5,
+"worst": 43.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 45,
+"ba": 79.5,
+"worst": 43.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 82.5,
+"worst": 62.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "a2_uni",
+"seed": 46,
+"ba": 82.5,
+"worst": 62.4,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 83.8,
+"worst": 62.8,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 42,
+"ba": 83.8,
+"worst": 62.8,
+"host": "hpcgpu112"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 86.2,
+"worst": 64.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 43,
+"ba": 86.2,
+"worst": 64.0,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 85.7,
+"worst": 65.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 44,
+"ba": 85.7,
+"worst": 65.2,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 86.3,
+"worst": 69.19999999999999,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 45,
+"ba": 86.3,
+"worst": 69.19999999999999,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 84.5,
+"worst": 63.6,
+"host": "hpcgpu111"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "rand_cls",
+"seed": 46,
+"ba": 84.5,
+"worst": 63.6,
+"host": "hpcgpu111"
+}
+]

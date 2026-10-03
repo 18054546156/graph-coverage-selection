@@ -1,0 +1,16 @@
+{
+ "bstar": 10,
+ "q": 0.25,
+ "arms": {
+  "retinamnist_0.02": "acs_q25_t100",
+  "retinamnist_0.05": "acs_q25_t100",
+  "breastmnist_0.02": "acs_q25_t100",
+  "breastmnist_0.05": "acs_q25_t050",
+  "dermamnist_0.02": "acs_q25_t000",
+  "dermamnist_0.05": "acs_q25_t000",
+  "octmnist_0.02": "acs_q25_t000",
+  "octmnist_0.05": "acs_q25_t000",
+  "tissuemnist_0.02": "acs_q25_t000",
+  "tissuemnist_0.05": "acs_q25_t000"
+ }
+}

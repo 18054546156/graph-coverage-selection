@@ -1,0 +1,5627 @@
+[
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 80.04053548494957,
+"worst": 49.22279792746114,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 80.10662361943596,
+"worst": 44.73229706390328,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 82.71643030069986,
+"worst": 54.40414507772021,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 80.991846667141,
+"worst": 54.74956822107081,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 81.87508940609531,
+"worst": 46.286701208981,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 77.61108504500992,
+"worst": 53.54058721934369,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 78.55195237924192,
+"worst": 58.549222797927456,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 79.5855684564124,
+"worst": 58.20379965457686,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 78.11217734920443,
+"worst": 56.82210708117444,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 80.16605106233496,
+"worst": 54.2314335060449,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 82.0084116969441,
+"worst": 51.29533678756477,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 85.03772429817612,
+"worst": 63.212435233160626,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 82.37692121218357,
+"worst": 51.122625215889464,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 81.25465470922632,
+"worst": 50.431778929188255,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 86.27153041977057,
+"worst": 63.903281519861835,
+"gpu": "A100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 57.769423558897245,
+"worst": 52.38095238095239,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 58.52130325814537,
+"worst": 54.761904761904766,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 62.03007518796993,
+"worst": 52.63157894736842,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 55.70175438596491,
+"worst": 44.73684210526316,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 60.21303258145363,
+"worst": 56.14035087719298,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 56.45363408521303,
+"worst": 43.859649122807014,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 53.63408521303259,
+"worst": 42.98245614035088,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 55.263157894736835,
+"worst": 50.0,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 49.81203007518798,
+"worst": 37.719298245614034,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 59.77443609022557,
+"worst": 55.26315789473685,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 60.46365914786968,
+"worst": 59.523809523809526,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 62.28070175438596,
+"worst": 50.0,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 69.9874686716792,
+"worst": 61.904761904761905,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 60.338345864661655,
+"worst": 58.77192982456141,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 72.43107769423558,
+"worst": 57.14285714285714,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 71.3032581453634,
+"worst": 61.904761904761905,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 64.66165413533835,
+"worst": 57.89473684210527,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 62.531328320802004,
+"worst": 61.904761904761905,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 67.04260651629073,
+"worst": 59.523809523809526,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 61.46616541353384,
+"worst": 57.14285714285714,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 65.72681704260653,
+"worst": 59.523809523809526,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 68.67167919799499,
+"worst": 58.77192982456141,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 66.47869674185463,
+"worst": 54.385964912280706,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 62.96992481203007,
+"worst": 47.368421052631575,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 61.779448621553875,
+"worst": 47.368421052631575,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 72.74436090225565,
+"worst": 69.2982456140351,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 61.09022556390977,
+"worst": 57.89473684210527,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 61.46616541353384,
+"worst": 40.476190476190474,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 61.34085213032581,
+"worst": 59.523809523809526,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 67.54385964912281,
+"worst": 50.0,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 61.2781954887218,
+"worst": 53.50877192982456,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 59.02255639097744,
+"worst": 56.14035087719298,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 65.6015037593985,
+"worst": 52.63157894736842,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 80.95238095238095,
+"worst": 78.57142857142857,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 50.814536340852136,
+"worst": 42.10526315789473,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 67.54385964912281,
+"worst": 66.66666666666666,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 57.83208020050126,
+"worst": 39.473684210526315,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 52.31829573934837,
+"worst": 23.684210526315788,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 53.446115288220554,
+"worst": 47.368421052631575,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 51.817042606516296,
+"worst": 46.49122807017544,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 56.390977443609025,
+"worst": 34.21052631578947,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 60.77694235588973,
+"worst": 59.64912280701754,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 49.56140350877193,
+"worst": 32.45614035087719,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 76.8796992481203,
+"worst": 72.80701754385966,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 73.62155388471177,
+"worst": 59.523809523809526,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 64.97493734335839,
+"worst": 57.14285714285714,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 64.78696741854637,
+"worst": 60.526315789473685,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 60.902255639097746,
+"worst": 59.523809523809526,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 68.92230576441104,
+"worst": 64.03508771929825,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 57.26817042606517,
+"worst": 45.23809523809524,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 40.51060535283547,
+"worst": 26.81818181818182,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 42.00924039624546,
+"worst": 27.727272727272727,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 39.39317499061721,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 43.27444468723504,
+"worst": 28.78787878787879,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 34.62812012465278,
+"worst": 25.757575757575758,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 46.24977688007265,
+"worst": 28.78787878787879,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 41.301307141537144,
+"worst": 25.757575757575758,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 44.62836637595924,
+"worst": 26.08695652173913,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 46.233574277408266,
+"worst": 36.36363636363637,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 40.65976016993781,
+"worst": 27.27272727272727,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 44.12955201878388,
+"worst": 26.08695652173913,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 45.4122577381451,
+"worst": 29.09090909090909,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 45.826742041167826,
+"worst": 33.00970873786408,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 47.63671659400527,
+"worst": 32.27272727272727,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 42.21321572861122,
+"worst": 34.78260869565217,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 47.32324726245919,
+"worst": 36.89320388349515,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 48.306872739429025,
+"worst": 34.95145631067961,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 47.62279281412123,
+"worst": 32.038834951456316,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 46.171515931153515,
+"worst": 34.84848484848485,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 48.47313980719313,
+"worst": 34.95145631067961,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 48.01826506425624,
+"worst": 39.09090909090909,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 40.533793141560366,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 45.61526211387865,
+"worst": 33.18181818181819,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 46.10844570361392,
+"worst": 26.08695652173913,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 44.45759578324848,
+"worst": 34.78260869565217,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 42.213964691477216,
+"worst": 24.271844660194176,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 48.31845370405701,
+"worst": 33.980582524271846,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 45.66034371639659,
+"worst": 30.303030303030305,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 41.920486264683646,
+"worst": 27.27272727272727,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 44.85196536708523,
+"worst": 19.696969696969695,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 39.534855190148015,
+"worst": 24.242424242424242,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 45.027173509436565,
+"worst": 25.24271844660194,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 42.355107264326236,
+"worst": 23.300970873786408,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 41.11181471544156,
+"worst": 20.388349514563107,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 39.819156381594894,
+"worst": 22.330097087378643,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 44.317864296098335,
+"worst": 34.54545454545455,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 43.16364386362104,
+"worst": 31.838565022421523,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 42.72354198515306,
+"worst": 30.434782608695656,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 40.30943157887713,
+"worst": 31.818181818181817,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 44.81949831646405,
+"worst": 36.36363636363637,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 37.18187063284948,
+"worst": 24.242424242424242,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 41.270998682798734,
+"worst": 21.35922330097087,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 40.681785598851036,
+"worst": 27.27272727272727,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 43.10152653237323,
+"worst": 31.363636363636367,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 39.99747560591775,
+"worst": 26.08695652173913,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 36.79217963515765,
+"worst": 26.08695652173913,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 40.77224007107166,
+"worst": 28.636363636363637,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 41.65844947253018,
+"worst": 34.54545454545455,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 40.460774425632906,
+"worst": 29.596412556053814,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 35.14752593488841,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 86.49999999999999,
+"worst": 75.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 86.79999999999998,
+"worst": 69.19999999999999,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 84.7,
+"worst": 63.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 85.6,
+"worst": 70.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 84.5,
+"worst": 63.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 84.6,
+"worst": 62.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 84.8,
+"worst": 62.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 86.4,
+"worst": 62.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 84.7,
+"worst": 61.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 83.7,
+"worst": 62.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 84.8,
+"worst": 61.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 86.0,
+"worst": 64.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 85.1,
+"worst": 63.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 85.39999999999999,
+"worst": 68.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 86.5,
+"worst": 65.60000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 83.1,
+"worst": 72.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 86.3,
+"worst": 66.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 86.6,
+"worst": 72.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 87.5,
+"worst": 68.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 87.99999999999999,
+"worst": 72.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 80.30000000000001,
+"worst": 59.599999999999994,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 85.2,
+"worst": 63.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 83.8,
+"worst": 65.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 80.0,
+"worst": 54.400000000000006,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 84.5,
+"worst": 62.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 84.8,
+"worst": 59.599999999999994,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 76.7,
+"worst": 49.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 83.7,
+"worst": 60.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 81.89999999999999,
+"worst": 62.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 82.6,
+"worst": 58.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 77.1,
+"worst": 50.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 79.0,
+"worst": 52.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 80.89999999999999,
+"worst": 55.60000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 80.89999999999999,
+"worst": 59.199999999999996,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 81.3,
+"worst": 63.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 88.0,
+"worst": 74.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 84.5,
+"worst": 66.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 84.1,
+"worst": 62.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 86.5,
+"worst": 66.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 86.7,
+"worst": 72.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 84.89999999999999,
+"worst": 63.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 83.89999999999999,
+"worst": 59.599999999999994,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 79.4,
+"worst": 55.60000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 82.5,
+"worst": 57.99999999999999,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 83.2,
+"worst": 60.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 84.8,
+"worst": 71.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 82.69999999999999,
+"worst": 59.199999999999996,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 83.3,
+"worst": 55.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 83.5,
+"worst": 66.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 83.8,
+"worst": 62.4,
+"gpu": "H100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 86.87692174004101,
+"worst": 69.76744186046511,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 88.7461042337078,
+"worst": 71.94767441860465,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 86.55795640195376,
+"worst": 66.76356589147287,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 87.41582464812709,
+"worst": 66.92111959287533,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 85.4591560468958,
+"worst": 64.43798449612403,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 83.88735187502628,
+"worst": 67.22646310432569,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 85.39809916424491,
+"worst": 68.14249363867685,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 84.61713430883745,
+"worst": 66.66666666666666,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 84.76167396349481,
+"worst": 65.0381679389313,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 84.64431422887215,
+"worst": 69.21119592875317,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 86.74301034959458,
+"worst": 65.69767441860465,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 87.19090748378943,
+"worst": 65.01937984496125,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 86.7857588597849,
+"worst": 61.531007751937985,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 87.91905276506272,
+"worst": 65.64922480620154,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 86.86781646911442,
+"worst": 70.68702290076337,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 62.26596423846475,
+"worst": 38.21022727272727,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 57.85510305337065,
+"worst": 38.495904690990315,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 64.93702767008958,
+"worst": 43.43434343434344,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 62.870722756575326,
+"worst": 31.89033189033189,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 60.364982646770585,
+"worst": 29.725829725829726,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 57.23384336830467,
+"worst": 30.59163059163059,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 57.272786083540126,
+"worst": 30.53977272727273,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 59.493970498070006,
+"worst": 29.709605361131796,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 57.05923060621606,
+"worst": 31.890660592255127,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 57.29947922329818,
+"worst": 30.014430014430015,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 60.73356181869497,
+"worst": 32.323232323232325,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 61.77933323695677,
+"worst": 35.22727272727273,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 63.632521700180675,
+"worst": 33.477633477633475,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 63.09401247308924,
+"worst": 30.88023088023088,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 63.31503887754959,
+"worst": 36.221590909090914,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 78.80309545499848,
+"worst": 37.52969121140142,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 77.38697565068234,
+"worst": 20.902612826603324,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 82.29443704500198,
+"worst": 33.4916864608076,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 83.33907746807931,
+"worst": 35.86698337292161,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 79.06393173641916,
+"worst": 29.216152019002372,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 84.6826892835248,
+"worst": 38.242280285035626,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 82.59272099663933,
+"worst": 33.966745843230406,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 82.75325578626213,
+"worst": 31.353919239904986,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 78.74428743616551,
+"worst": 34.91686460807601,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 80.63321758998924,
+"worst": 28.978622327790976,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 82.69197270227923,
+"worst": 42.75534441805225,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 84.1871145093546,
+"worst": 40.38004750593824,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 79.94769252819293,
+"worst": 37.05463182897862,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 77.56551197835542,
+"worst": 36.104513064133016,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 80.53025336547886,
+"worst": 36.104513064133016,
+"gpu": "A100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 21.60299262133639,
+"worst": 4.411764705882353,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 24.163036128994325,
+"worst": 10.869565217391305,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 27.591380780198136,
+"worst": 2.1739130434782608,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 22.770555898521323,
+"worst": 8.695652173913043,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 30.954757915160062,
+"worst": 7.608695652173914,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 30.4518035100097,
+"worst": 10.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 29.60787253432107,
+"worst": 15.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 29.007437457741712,
+"worst": 15.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 32.28635682158921,
+"worst": 9.782608695652174,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 30.395596319487318,
+"worst": 5.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 34.30996266572596,
+"worst": 9.782608695652174,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 31.932768909662823,
+"worst": 11.956521739130435,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 31.43769291824676,
+"worst": 7.608695652173914,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 32.74612693653173,
+"worst": 14.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 30.002263574095306,
+"worst": 11.956521739130435,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 35.218684775259426,
+"worst": 16.304347826086957,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 35.17206102830938,
+"worst": 18.478260869565215,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 36.008289972660734,
+"worst": 18.478260869565215,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 37.5029250080842,
+"worst": 10.869565217391305,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 38.175853249845666,
+"worst": 17.391304347826086,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 24.494488050092606,
+"worst": 10.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 28.79627833142252,
+"worst": 17.647058823529413,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 29.768115942028984,
+"worst": 5.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 31.31740012346768,
+"worst": 10.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 32.7702619278596,
+"worst": 15.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 25.814710291912867,
+"worst": 10.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 31.399006379163357,
+"worst": 20.588235294117645,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 32.42916776905665,
+"worst": 13.23529411764706,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 30.044448364053274,
+"worst": 22.058823529411764,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 31.246200429197167,
+"worst": 15.217391304347828,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 33.56016109592262,
+"worst": 14.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 36.577064408971985,
+"worst": 10.294117647058822,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 31.461739718376116,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 33.689860951877,
+"worst": 20.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 38.91645353793692,
+"worst": 16.176470588235293,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 23.160890143163716,
+"worst": 10.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 29.073169297704087,
+"worst": 7.608695652173914,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 23.702736866860686,
+"worst": 6.521739130434782,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 29.995325866478524,
+"worst": 7.352941176470589,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 31.765881764999854,
+"worst": 10.869565217391305,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 25.195990240174034,
+"worst": 8.823529411764707,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 26.9226269218332,
+"worst": 8.823529411764707,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 25.446923597025016,
+"worst": 10.869565217391305,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 29.382661610371287,
+"worst": 9.782608695652174,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 27.0450657024429,
+"worst": 8.823529411764707,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 32.50827527412764,
+"worst": 3.260869565217391,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 28.645824146750154,
+"worst": 14.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 28.68118881735603,
+"worst": 10.869565217391305,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 34.441984889907985,
+"worst": 8.695652173913043,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 33.43313637298998,
+"worst": 6.521739130434782,
+"gpu": "H100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 38.43882892515765,
+"worst": 26.090828138913626,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 41.276425828721976,
+"worst": 28.376372810923122,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 44.917626657227785,
+"worst": 36.420302760463045,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 47.34720295020771,
+"worst": 43.34975369458128,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 45.53258113279003,
+"worst": 39.282470481380564,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 47.725035388682315,
+"worst": 39.811912225705335,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 46.79563519871055,
+"worst": 39.14623069936422,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 49.43124421095835,
+"worst": 44.24540976265114,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 46.4754424262195,
+"worst": 35.240690281562216,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 49.97099842814209,
+"worst": 42.09583519928348,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 48.94063102251479,
+"worst": 43.48410210479176,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 47.55516644186806,
+"worst": 41.09900090826522,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 42.871506760176295,
+"worst": 27.702089009990914,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 48.688462880934296,
+"worst": 40.281562216167124,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 47.831679975291884,
+"worst": 36.55767484105359,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 42.87439828560905,
+"worst": 35.87647593097184,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 45.46141075586689,
+"worst": 38.14188186405462,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 44.08386633880178,
+"worst": 35.29237162362719,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 41.90601457091437,
+"worst": 32.24341507720254,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 46.18210472396721,
+"worst": 38.334079713390054,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 47.27433215403709,
+"worst": 35.33151680290645,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 48.698806788188925,
+"worst": 37.82924613987284,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 49.35726315033927,
+"worst": 40.25974025974026,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 49.08578462633971,
+"worst": 42.543663233318405,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 50.26286697508506,
+"worst": 44.290192566054635,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 46.964502511056736,
+"worst": 36.01271571298819,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 49.308210657091166,
+"worst": 42.64305177111717,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 47.39823294719583,
+"worst": 35.37693006357856,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 49.65294224313986,
+"worst": 47.10793082886106,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 48.4146250419114,
+"worst": 43.46049046321526,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 47.46127243588503,
+"worst": 41.080439299495396,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 48.98117500156924,
+"worst": 41.585040071237756,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 47.187398447306265,
+"worst": 41.827138378862514,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 43.96862247285631,
+"worst": 38.1633870005963,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 47.494679328434884,
+"worst": 44.31582071831404,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 42,
+"ba": 41.52371123332196,
+"worst": 25.9763851044505,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 43,
+"ba": 45.60622583089534,
+"worst": 35.945384387058475,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 44,
+"ba": 44.6992253065792,
+"worst": 34.97536945812808,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 45,
+"ba": 46.27846848287592,
+"worst": 36.0949395432154,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "maxherding",
+"seed": 46,
+"ba": 46.1473590125787,
+"worst": 36.3015731671119,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 42,
+"ba": 43.49304636835505,
+"worst": 36.21496867787669,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 43,
+"ba": 44.28212102471337,
+"worst": 32.58819650511045,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 44,
+"ba": 43.924487722711866,
+"worst": 36.78474114441417,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 45,
+"ba": 45.0500659833324,
+"worst": 37.823936696340255,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "probcover",
+"seed": 46,
+"ba": 45.97667637682436,
+"worst": 40.553907022749755,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "tdgs_cls",
+"seed": 42,
+"ba": 47.27925403114502,
+"worst": 39.3732970027248,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "tdgs_cls",
+"seed": 43,
+"ba": 50.045029006303196,
+"worst": 42.00626959247649,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "tdgs_cls",
+"seed": 44,
+"ba": 47.91748781900577,
+"worst": 39.453649798477386,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "tdgs_cls",
+"seed": 45,
+"ba": 44.54721184575194,
+"worst": 22.661217075386013,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "tdgs_cls",
+"seed": 46,
+"ba": 49.16154795443565,
+"worst": 41.37726328287326,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 42,
+"ba": 42.20338873993774,
+"worst": 32.60672116257947,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 43,
+"ba": 40.742005265646874,
+"worst": 30.472297910990008,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 44,
+"ba": 46.1192023108029,
+"worst": 38.082517067379044,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 45,
+"ba": 44.072964745561656,
+"worst": 37.79668607254814,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.02,
+"arm": "typiclust",
+"seed": 46,
+"ba": 46.873552809831274,
+"worst": 40.09990917347865,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 91.77013119540966,
+"worst": 69.77547495682211,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 91.68772196133264,
+"worst": 72.71157167530224,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 91.41808359510041,
+"worst": 72.71157167530224,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 90.65417150597895,
+"worst": 74.09326424870466,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 92.20207293230993,
+"worst": 75.99309153713298,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 91.83742989843569,
+"worst": 73.40241796200345,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 91.47246616695341,
+"worst": 73.92055267702936,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 88.62457111437325,
+"worst": 59.41278065630398,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 93.5280416434814,
+"worst": 78.23834196891191,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 92.27302385672873,
+"worst": 77.0293609671848,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 91.92905707477405,
+"worst": 68.39378238341969,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 92.30262899358462,
+"worst": 70.12089810017271,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 93.02567719326626,
+"worst": 75.47495682210709,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 91.75603201825422,
+"worst": 74.26597582037996,
+"gpu": "A100"
+},
+{
+"ds": "bloodmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 92.46239386679983,
+"worst": 76.68393782383419,
+"gpu": "A100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 67.29323308270676,
+"worst": 63.1578947368421,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 61.591478696741866,
+"worst": 51.75438596491229,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 68.35839598997492,
+"worst": 60.526315789473685,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 67.60651629072683,
+"worst": 61.40350877192983,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 69.17293233082707,
+"worst": 69.04761904761905,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 75.12531328320802,
+"worst": 69.2982456140351,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 69.9874686716792,
+"worst": 61.40350877192983,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 74.56140350877195,
+"worst": 65.78947368421053,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 74.56140350877195,
+"worst": 65.78947368421053,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 73.87218045112782,
+"worst": 59.64912280701754,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 75.81453634085213,
+"worst": 75.43859649122807,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 76.8796992481203,
+"worst": 72.80701754385966,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 78.44611528822054,
+"worst": 76.19047619047619,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 81.76691729323309,
+"worst": 75.43859649122807,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 74.12280701754386,
+"worst": 66.66666666666666,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 71.61654135338347,
+"worst": 64.28571428571429,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 60.77694235588973,
+"worst": 45.23809523809524,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 73.30827067669173,
+"worst": 72.80701754385966,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 71.99248120300751,
+"worst": 70.17543859649122,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 73.87218045112782,
+"worst": 71.42857142857143,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 69.9874686716792,
+"worst": 61.904761904761905,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 68.35839598997492,
+"worst": 60.526315789473685,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 69.42355889724311,
+"worst": 57.89473684210527,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 59.02255639097744,
+"worst": 45.23809523809524,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 58.45864661654135,
+"worst": 47.61904761904761,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 70.86466165413535,
+"worst": 63.1578947368421,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 70.86466165413535,
+"worst": 63.1578947368421,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 64.97493734335839,
+"worst": 56.14035087719298,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 72.24310776942356,
+"worst": 69.04761904761905,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 65.28822055137844,
+"worst": 59.523809523809526,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 63.53383458646616,
+"worst": 59.523809523809526,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 71.9298245614035,
+"worst": 66.66666666666666,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 72.24310776942356,
+"worst": 69.04761904761905,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 65.97744360902256,
+"worst": 54.761904761904766,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 70.80200501253134,
+"worst": 54.761904761904766,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 61.8421052631579,
+"worst": 40.35087719298245,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 52.63157894736842,
+"worst": 38.59649122807017,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 61.21553884711779,
+"worst": 43.859649122807014,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 61.02756892230576,
+"worst": 48.24561403508772,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 55.45112781954887,
+"worst": 39.473684210526315,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 68.23308270676691,
+"worst": 57.89473684210527,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 68.1704260651629,
+"worst": 64.91228070175438,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 62.59398496240601,
+"worst": 56.14035087719298,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 72.86967418546367,
+"worst": 71.9298245614035,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 56.954887218045116,
+"worst": 54.385964912280706,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 72.4937343358396,
+"worst": 64.03508771929825,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 57.64411027568923,
+"worst": 54.761904761904766,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 75.87719298245614,
+"worst": 68.42105263157895,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 70.17543859649122,
+"worst": 57.01754385964912,
+"gpu": "H100"
+},
+{
+"ds": "breastmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 60.58897243107769,
+"worst": 47.368421052631575,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 50.244028334713,
+"worst": 34.78260869565217,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 53.28403188980043,
+"worst": 45.909090909090914,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 50.72950773109645,
+"worst": 32.72727272727273,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 46.822470519819085,
+"worst": 35.90909090909091,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 49.90365057042974,
+"worst": 30.0,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 52.476825602749166,
+"worst": 39.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 52.814901133699074,
+"worst": 45.0,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 52.9387091357025,
+"worst": 43.63636363636363,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 54.65551404465082,
+"worst": 45.45454545454545,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 53.16881887907137,
+"worst": 42.27272727272727,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 52.65676257000458,
+"worst": 39.39393939393939,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 51.74601828476163,
+"worst": 43.18181818181818,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 48.960664092777996,
+"worst": 37.878787878787875,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 50.71700841096518,
+"worst": 39.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 51.569591851639686,
+"worst": 38.83495145631068,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 51.53203584584838,
+"worst": 39.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 53.901897015455205,
+"worst": 43.18181818181818,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 50.372364642718736,
+"worst": 30.434782608695656,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 52.970524865089864,
+"worst": 34.78260869565217,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 52.89217869809877,
+"worst": 34.95145631067961,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 50.141782485235254,
+"worst": 40.77669902912621,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 52.725235008319515,
+"worst": 39.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 51.77904159289463,
+"worst": 39.39393939393939,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 55.81640097750004,
+"worst": 43.47826086956522,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 55.32661393761794,
+"worst": 44.66019417475729,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 52.3218703458985,
+"worst": 40.77669902912621,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 52.32551612527349,
+"worst": 39.39393939393939,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 49.52942632901252,
+"worst": 34.84848484848485,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 50.34476215130695,
+"worst": 36.89320388349515,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 52.65505937566493,
+"worst": 38.83495145631068,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 48.543617818408066,
+"worst": 30.434782608695656,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 49.23002703848303,
+"worst": 34.84848484848485,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 50.48401536192031,
+"worst": 31.818181818181817,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 51.28998794728778,
+"worst": 39.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 49.78017244278845,
+"worst": 30.303030303030305,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 45.279323638547424,
+"worst": 28.78787878787879,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 50.74636473720637,
+"worst": 40.45454545454545,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 48.500189559341614,
+"worst": 34.78260869565217,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 49.0141196241313,
+"worst": 36.36363636363637,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 51.469842100878225,
+"worst": 33.00970873786408,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 48.65432944885473,
+"worst": 38.63636363636363,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 45.295062157263565,
+"worst": 32.27272727272727,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 48.46673145552069,
+"worst": 30.909090909090907,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 47.82676541598793,
+"worst": 30.434782608695656,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 47.67340954477577,
+"worst": 31.818181818181817,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 48.79574742474116,
+"worst": 36.36363636363637,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 49.32689681558887,
+"worst": 37.878787878787875,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 48.89461535875156,
+"worst": 39.39393939393939,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 50.056048385088936,
+"worst": 34.84848484848485,
+"gpu": "H100"
+},
+{
+"ds": "dermamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 51.25686751966623,
+"worst": 39.80582524271845,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 85.9,
+"worst": 68.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 88.69999999999999,
+"worst": 70.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 86.6,
+"worst": 64.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 89.8,
+"worst": 77.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 87.4,
+"worst": 69.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 89.6,
+"worst": 71.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 89.89999999999999,
+"worst": 74.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 90.69999999999999,
+"worst": 78.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 90.99999999999999,
+"worst": 76.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 91.10000000000001,
+"worst": 76.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 89.1,
+"worst": 73.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 86.2,
+"worst": 64.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 88.9,
+"worst": 69.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 89.19999999999999,
+"worst": 73.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 89.0,
+"worst": 68.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 89.3,
+"worst": 72.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 90.4,
+"worst": 77.60000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 87.7,
+"worst": 71.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 87.1,
+"worst": 71.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 86.7,
+"worst": 63.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 88.3,
+"worst": 67.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 84.0,
+"worst": 65.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 86.2,
+"worst": 64.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 86.8,
+"worst": 68.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 86.5,
+"worst": 70.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 86.0,
+"worst": 65.60000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 88.8,
+"worst": 67.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 85.7,
+"worst": 59.199999999999996,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 87.3,
+"worst": 68.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 89.8,
+"worst": 78.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 86.8,
+"worst": 63.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 86.1,
+"worst": 72.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 87.79999999999998,
+"worst": 73.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 85.8,
+"worst": 69.19999999999999,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 84.39999999999999,
+"worst": 56.00000000000001,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 88.99999999999999,
+"worst": 74.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 88.5,
+"worst": 69.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 88.6,
+"worst": 70.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 88.79999999999998,
+"worst": 72.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 89.1,
+"worst": 73.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 88.5,
+"worst": 70.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 89.2,
+"worst": 71.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 88.19999999999999,
+"worst": 74.0,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 88.2,
+"worst": 72.39999999999999,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 87.69999999999999,
+"worst": 71.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 87.4,
+"worst": 68.4,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 89.7,
+"worst": 76.8,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 87.9,
+"worst": 71.6,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 88.4,
+"worst": 75.2,
+"gpu": "H100"
+},
+{
+"ds": "octmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 86.5,
+"worst": 65.2,
+"gpu": "H100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 91.66283237739407,
+"worst": 76.11434108527132,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 92.06735020355399,
+"worst": 77.71317829457365,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 92.16245205797141,
+"worst": 76.01744186046511,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 92.4341525533725,
+"worst": 76.88953488372093,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 91.56711878776113,
+"worst": 73.20736434108527,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 90.64687906374672,
+"worst": 81.4922480620155,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 90.62383859144671,
+"worst": 76.30813953488372,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 89.34355008187619,
+"worst": 76.74418604651163,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 90.54720731514479,
+"worst": 77.47093023255815,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 90.44567408280604,
+"worst": 76.84108527131784,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 91.62091943871597,
+"worst": 74.8062015503876,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 91.69035893460126,
+"worst": 74.4186046511628,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 90.32427270695543,
+"worst": 73.44961240310077,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 92.17471382462998,
+"worst": 76.21124031007753,
+"gpu": "A100"
+},
+{
+"ds": "organamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 91.77975098743563,
+"worst": 75.1453488372093,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 66.83604544197065,
+"worst": 36.853932584269664,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 67.32783495004199,
+"worst": 43.18181818181818,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 67.82376578733134,
+"worst": 40.54834054834055,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 67.37262612850856,
+"worst": 39.863325740318906,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 66.60731528684063,
+"worst": 34.16856492027335,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 66.25180035590773,
+"worst": 38.67243867243867,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 65.25919312899101,
+"worst": 35.64213564213564,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 66.02723295867486,
+"worst": 38.52813852813853,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 65.0998487535653,
+"worst": 36.79653679653679,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 64.2314017048544,
+"worst": 38.095238095238095,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 67.10856757553707,
+"worst": 39.20454545454545,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 66.89949016872157,
+"worst": 38.81673881673882,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 67.3235378740422,
+"worst": 36.62921348314607,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 66.13347263652146,
+"worst": 40.4040404040404,
+"gpu": "A100"
+},
+{
+"ds": "organsmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 66.38916361860603,
+"worst": 34.38202247191011,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 87.8097096271142,
+"worst": 42.75534441805225,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 85.88747823208335,
+"worst": 48.45605700712589,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 87.81377630988953,
+"worst": 40.85510688836104,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 88.43690790536117,
+"worst": 50.5938242280285,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 85.8667185771943,
+"worst": 46.79334916864608,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 88.23036364438912,
+"worst": 45.13064133016627,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 87.12055934039834,
+"worst": 42.042755344418055,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 88.96305489176386,
+"worst": 40.38004750593824,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 86.18761718184928,
+"worst": 40.61757719714964,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 84.54489121097102,
+"worst": 41.09263657957244,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 87.5137975370865,
+"worst": 41.33016627078385,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 83.8162584286374,
+"worst": 44.180522565320665,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 87.18947076312698,
+"worst": 47.74346793349169,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 87.45371468716672,
+"worst": 48.69358669833729,
+"gpu": "A100"
+},
+{
+"ds": "pathmnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 87.11378495266018,
+"worst": 45.36817102137768,
+"gpu": "A100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 35.182026633741955,
+"worst": 11.76470588235294,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 36.7758767674986,
+"worst": 14.130434782608695,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 35.1036246582591,
+"worst": 17.647058823529413,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 30.23652879442632,
+"worst": 14.705882352941178,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 35.641208807361025,
+"worst": 27.941176470588236,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 31.579886527324568,
+"worst": 17.647058823529413,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 30.42190669371197,
+"worst": 11.76470588235294,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 35.03621718552489,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 33.98171502484052,
+"worst": 20.588235294117645,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 32.106299791280826,
+"worst": 10.294117647058822,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 37.02445835905577,
+"worst": 22.058823529411764,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 38.62474645030426,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 34.603845136255394,
+"worst": 14.705882352941178,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 33.38389628715054,
+"worst": 15.217391304347828,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 39.39697798159744,
+"worst": 17.647058823529413,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 37.85148602169503,
+"worst": 16.176470588235293,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 31.91842314137049,
+"worst": 13.23529411764706,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 35.36226004644736,
+"worst": 8.695652173913043,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 32.974689126025226,
+"worst": 15.217391304347828,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 38.0829879178058,
+"worst": 27.941176470588236,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 35.534938413146364,
+"worst": 20.588235294117645,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 31.04521268777376,
+"worst": 21.73913043478261,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 32.68686245112737,
+"worst": 17.391304347826086,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 38.5966134579769,
+"worst": 16.176470588235293,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 40.91060352176853,
+"worst": 28.26086956521739,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 36.1669459387953,
+"worst": 15.217391304347828,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 30.094599758944057,
+"worst": 8.695652173913043,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 32.44739395008378,
+"worst": 8.695652173913043,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 28.880794896669315,
+"worst": 15.217391304347828,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 30.861275244730574,
+"worst": 19.565217391304348,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 38.9689860951877,
+"worst": 22.058823529411764,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 35.57483023194285,
+"worst": 11.76470588235294,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 39.33230443601728,
+"worst": 19.565217391304348,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 39.44439544933416,
+"worst": 11.76470588235294,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 38.20428021283476,
+"worst": 13.23529411764706,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 31.581650351294936,
+"worst": 19.11764705882353,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 29.83719904753506,
+"worst": 11.76470588235294,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 24.5224740570891,
+"worst": 15.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 25.979333862480523,
+"worst": 7.352941176470589,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 26.302260634388684,
+"worst": 16.176470588235293,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 31.630096716347705,
+"worst": 15.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 36.64814651497781,
+"worst": 22.058823529411764,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 32.47167592674251,
+"worst": 16.176470588235293,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 30.890378340241643,
+"worst": 17.391304347826086,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 38.759149836846284,
+"worst": 27.941176470588236,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 29.404885792397916,
+"worst": 15.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 31.586912426139875,
+"worst": 11.956521739130435,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 35.37237263721081,
+"worst": 23.91304347826087,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 24.672134520974808,
+"worst": 5.0,
+"gpu": "H100"
+},
+{
+"ds": "retinamnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 30.589587559161597,
+"worst": 19.565217391304348,
+"gpu": "H100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 42,
+"ba": 47.58143243521764,
+"worst": 39.946260635915806,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 43,
+"ba": 47.05384697618714,
+"worst": 40.842980112793114,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 44,
+"ba": 46.64152806791532,
+"worst": 38.82669055082848,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 45,
+"ba": 45.77414498091408,
+"worst": 38.51321092700403,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q00_t050",
+"seed": 46,
+"ba": 47.18975768437709,
+"worst": 40.70756829377519,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 42,
+"ba": 49.35949334931143,
+"worst": 41.06583072100313,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 43,
+"ba": 48.584925360409336,
+"worst": 39.3193013882669,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 44,
+"ba": 49.24860709380062,
+"worst": 42.77929155313351,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 45,
+"ba": 48.563743433657976,
+"worst": 41.2897447380206,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t000",
+"seed": 46,
+"ba": 49.08054568653186,
+"worst": 39.85669502910882,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 42,
+"ba": 48.77114497543115,
+"worst": 39.05060456784595,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 43,
+"ba": 48.53135112338575,
+"worst": 41.96148678907299,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 44,
+"ba": 48.31819468398499,
+"worst": 42.09583519928348,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 45,
+"ba": 48.90065878181051,
+"worst": 44.701691896705256,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t050",
+"seed": 46,
+"ba": 49.388963807427125,
+"worst": 45.40976265114196,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 42,
+"ba": 47.35214475153763,
+"worst": 40.25974025974026,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 43,
+"ba": 48.349247939550736,
+"worst": 40.93148231079265,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 44,
+"ba": 49.13104293353795,
+"worst": 44.46423271000297,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 45,
+"ba": 48.574919718436725,
+"worst": 40.618002686968204,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q25_t100",
+"seed": 46,
+"ba": 48.60450851013255,
+"worst": 42.31974921630094,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 42,
+"ba": 50.005829493633634,
+"worst": 41.46887595163457,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 43,
+"ba": 50.41227932738632,
+"worst": 44.20062695924764,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 44,
+"ba": 50.1985817647179,
+"worst": 43.394536497984774,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 45,
+"ba": 52.67480800567932,
+"worst": 48.05194805194805,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t000",
+"seed": 46,
+"ba": 51.30458801977051,
+"worst": 46.39498432601881,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 42,
+"ba": 49.9127672936519,
+"worst": 43.394536497984774,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 43,
+"ba": 50.56327178877312,
+"worst": 43.2154052843708,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 44,
+"ba": 50.298505276913794,
+"worst": 42.76757725033587,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 45,
+"ba": 49.834137382975804,
+"worst": 42.27974568574024,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t050",
+"seed": 46,
+"ba": 50.09234290607534,
+"worst": 43.03627407075683,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 42,
+"ba": 48.892938549322636,
+"worst": 43.098842386464824,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 43,
+"ba": 49.72523308978572,
+"worst": 42.59424161472247,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 44,
+"ba": 50.83394013189919,
+"worst": 43.92994953992282,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 45,
+"ba": 50.05262797972598,
+"worst": 41.9167039856695,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "acs_q50_t100",
+"seed": 46,
+"ba": 49.25794193155798,
+"worst": 42.45409762651142,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 42,
+"ba": 45.24601521226963,
+"worst": 36.0949395432154,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 43,
+"ba": 44.094571180456946,
+"worst": 34.07971339005822,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 44,
+"ba": 43.70036854321657,
+"worst": 30.900134348410212,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 45,
+"ba": 44.240937178361946,
+"worst": 33.22884012539185,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "maxherding",
+"seed": 46,
+"ba": 43.63441754856434,
+"worst": 33.63188535602329,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 42,
+"ba": 46.132015383212355,
+"worst": 42.99373557533795,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 43,
+"ba": 46.27351684327973,
+"worst": 40.75393291777976,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 44,
+"ba": 47.01214221628055,
+"worst": 41.73345206292669,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 45,
+"ba": 46.87680737245958,
+"worst": 40.09990917347865,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "probcover",
+"seed": 46,
+"ba": 46.605413435673896,
+"worst": 42.875041213320145,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 42,
+"ba": 47.68169299777799,
+"worst": 40.93202730780647,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 43,
+"ba": 46.82537304713765,
+"worst": 38.961038961038966,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 44,
+"ba": 46.216690429623746,
+"worst": 40.39774413772633,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 45,
+"ba": 47.324241616972394,
+"worst": 41.199168892846544,
+"gpu": "A100"
+},
+{
+"ds": "tissuemnist",
+"ratio": 0.05,
+"arm": "typiclust",
+"seed": 46,
+"ba": 46.98614965283667,
+"worst": 40.080609046126284,
+"gpu": "A100"
+}
+]

@@ -1,0 +1,34 @@
+
+## ba: ACS / ACS-F2 / ACS-F3 / cls (F1 only) / Graph-A2
+  retina 0.02  tau=1.0 acs= 36.42 noF2= 31.32 noF3= 30.35 cls= 28.08 a2= 22.01
+  retina 0.05  tau=1.0 acs= 35.24 noF2= 33.38 noF3= 32.63 cls= 28.57 a2= 24.07
+  breast 0.02  tau=1.0 acs= 65.40 noF2= 63.91 noF3= 54.99 cls= 54.99 a2= 54.39
+  breast 0.05  tau=0.5 acs= 77.41 noF2= 66.80 noF3= 73.62 cls= 68.66 a2= 65.08
+  dermam 0.02  tau=0.0 acs= 43.81 noF2= 46.61 noF3= 43.81 cls= 46.61 a2= 39.74
+  dermam 0.05  tau=0.0 acs= 53.21 noF2= 51.34 noF3= 53.21 cls= 51.34 a2= 47.62
+  octmni 0.02  tau=0.0 acs= 84.84 noF2= 85.54 noF3= 84.84 cls= 85.54 a2= 82.14
+  octmni 0.05  tau=0.0 acs= 90.46 noF2= 89.72 noF3= 90.46 cls= 89.72 a2= 88.12
+  tissue 0.02  tau=0.0 acs= 48.08 noF2= 47.79 noF3= 48.08 cls= 47.79 a2= 42.78
+  tissue 0.05  tau=0.0 acs= 48.97 noF2= 48.54 noF3= 48.97 cls= 48.54 a2= 44.40
+  mean acs=58.38 noF2=56.50 noF3=56.10 cls=54.98 a2=51.03
+  F2 (ACS vs -F2): +1.89pp, rows 8/10, paired-cell p=0.0145
+  F3 (ACS vs -F3): +2.29pp, rows 4/10, paired-cell p=0.000241
+  F1 (cls vs A2) : +3.95pp, rows 10/10, paired-cell p=6.19e-09
+  all (ACS vs A2): +7.35pp, rows 10/10, paired-cell p=9.08e-14
+
+## worst: ACS / ACS-F2 / ACS-F3 / cls (F1 only) / Graph-A2
+  retina 0.02  tau=1.0 acs= 16.30 noF2=  5.88 noF3= 10.96 cls= 11.53 a2= 11.84
+  retina 0.05  tau=1.0 acs= 16.25 noF2= 15.13 noF3= 16.41 cls= 10.31 a2= 16.99
+  breast 0.02  tau=1.0 acs= 59.67 noF2= 55.39 noF3= 45.96 cls= 45.96 a2= 46.54
+  breast 0.05  tau=0.5 acs= 73.31 noF2= 61.18 noF3= 64.39 cls= 60.18 a2= 41.58
+  dermam 0.02  tau=0.0 acs= 28.85 noF2= 37.35 noF3= 28.85 cls= 37.35 a2= 25.72
+  dermam 0.05  tau=0.0 acs= 43.10 noF2= 40.33 noF3= 43.10 cls= 40.33 a2= 36.87
+  octmni 0.02  tau=0.0 acs= 62.16 noF2= 70.80 noF3= 62.16 cls= 70.80 a2= 61.28
+  octmni 0.05  tau=0.0 acs= 75.44 noF2= 75.60 noF3= 75.44 cls= 75.60 a2= 68.24
+  tissue 0.02  tau=0.0 acs= 40.11 noF2= 36.97 noF3= 40.11 cls= 36.97 a2= 29.83
+  tissue 0.05  tau=0.0 acs= 40.86 noF2= 40.03 noF3= 40.86 cls= 40.03 a2= 34.82
+  mean acs=45.61 noF2=43.87 noF3=42.82 cls=42.91 a2=37.37
+  F2 (ACS vs -F2): +1.74pp, rows 7/10, paired-cell p=0.166
+  F3 (ACS vs -F3): +2.78pp, rows 3/10, paired-cell p=0.00292
+  F1 (cls vs A2) : +5.53pp, rows 7/10, paired-cell p=0.000113
+  all (ACS vs A2): +8.24pp, rows 9/10, paired-cell p=2.2e-06

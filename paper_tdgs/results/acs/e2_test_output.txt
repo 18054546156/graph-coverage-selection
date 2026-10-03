@@ -1,0 +1,89 @@
+new cells 625 (expected 625); excluded for wrong GPU: 0 []
+missing factorial cells (row, arm): 0 []
+
+## factorial, seed-mean ba (s42-46)
+row            bpc q00t000 q00t050 q00t100 q25t000 q25t050 q25t100 q50t000 q50t050 q50t100
+retina 0.02      4    28.08    25.42    31.32    30.35    32.09    36.42    29.43    30.19    34.84
+retina 0.05     10    28.57    34.59    33.38    32.63    36.61    35.24    35.75    31.69    38.30
+breast 0.02      5    54.99    58.85    63.91    54.99    65.10    65.40    65.13    64.84    63.53
+breast 0.05     13    68.66    66.80    62.73    73.62    77.41    70.31    65.05    68.85    68.90
+dermam 0.02     20    46.61    39.96    41.50    43.81    45.04    47.58    44.95    44.59    41.57
+dermam 0.05     50    51.34    50.20    48.33    53.21    51.13    52.33    53.16    51.44    49.87
+octmni 0.02    487    85.54    85.62    84.32    84.84    85.56    86.30    82.76    81.94    79.84
+octmni 0.05   1218    89.72    87.68    87.04    90.46    88.48    88.24    86.36    87.52    86.18
+tissue 0.02    413    47.79    43.50    42.85    48.08    47.18    44.10    48.94    48.35    47.02
+tissue 0.05   1034    48.54    46.85    45.81    48.97    48.78    48.40    50.92    50.14    49.75
+
+## factorial, seed-mean worst (s42-46)
+row            bpc q00t000 q00t050 q00t100 q25t000 q25t050 q25t100 q50t000 q50t050 q50t100
+retina 0.02      4    11.53     6.75     5.88    10.96    11.09    16.30    11.53    16.22    16.47
+retina 0.05     10    10.31    17.24    15.13    16.41    18.27    16.25    20.83    13.48    15.68
+breast 0.02      5    45.96    52.13    55.39    45.96    57.47    59.67    53.48    55.44    56.59
+breast 0.05     13    60.18    61.18    57.37    64.39    73.31    64.79    54.64    62.21    60.95
+dermam 0.02     20    37.35    26.17    26.75    28.85    31.05    34.74    30.98    27.11    23.10
+dermam 0.05     50    40.33    35.87    35.45    43.10    39.68    36.50    41.49    38.15    33.31
+octmni 0.02    487    70.80    68.32    67.12    62.16    64.48    70.40    60.88    58.00    56.00
+octmni 0.05   1218    75.60    69.84    66.32    75.44    70.00    71.36    67.04    67.68    66.96
+tissue 0.02    413    36.97    34.70    33.45    40.11    37.82    35.98    40.05    40.92    41.39
+tissue 0.05   1034    40.03    39.77    37.75    40.86    42.64    41.72    44.70    42.94    42.80
+
+## rule selection (mean over 10 rows of seed-mean BA)
+  b*=10 q*=0.25  BA 58.383 (жд to top +0.000)  worst 45.61
+  b*=20 q*=0.25  BA 58.051 (жд to top -0.333)  worst 45.34
+  b*= 5 q*=0.25  BA 57.744 (жд to top -0.640)  worst 44.73
+  b*=10 q*=0.50  BA 57.261 (жд to top -1.123)  worst 43.61
+  b*=20 q*=0.50  BA 56.928 (жд to top -1.455)  worst 42.70
+  b*= 5 q*=0.50  BA 56.626 (жд to top -1.757)  worst 43.37
+  b*=10 q*=0.00  BA 56.495 (жд to top -1.888)  worst 43.87
+  b*= 0 q*=0.50  BA 56.244 (жд to top -2.139)  worst 42.56
+  b*= 5 q*=0.00  BA 56.200 (жд to top -2.183)  worst 43.28
+  b*= 0 q*=0.25  BA 56.096 (жд to top -2.288)  worst 42.82
+  b*=20 q*=0.00  BA 55.577 (жд to top -2.806)  worst 42.42
+  b*= 0 q*=0.00  BA 54.984 (жд to top -3.399)  worst 42.91
+tied (<0.25pp): [(10, 0.25)]  -> SELECTED b*=10 q*=0.25
+
+## selected rule vs row-best bench (ba); paired over s42-46
+  retina 0.02: rule acs_q25_t100   36.42 | best bench knnf_herding   33.71 | d +2.70 p 0.326 | oracle acs_q25_t100 +0.00 | n_bench 11  
+  retina 0.05: rule acs_q25_t100   35.24 | best bench probcover      34.08 | d +1.16 p 0.563 | oracle acs_q50_t100 +3.07 | n_bench 11  
+  breast 0.02: rule acs_q25_t100   65.40 | best bench knnf_random    65.81 | d -0.41 p 0.889 | oracle acs_q25_t100 +0.00 | n_bench 11  
+  breast 0.05: rule acs_q25_t050   77.41 | best bench knnf_random    69.62 | d +7.78 p 0.036 | oracle acs_q25_t050 +0.00 | n_bench 11  
+  dermam 0.02: rule acs_q25_t000   43.81 | best bench cls            46.61 | d -2.80 p 0.090 | oracle acs_q25_t100 +3.76 | n_bench 11  
+  dermam 0.05: rule acs_q25_t000   53.21 | best bench mv_mean        51.49 | d +1.72 p 0.034 | oracle acs_q25_t000 +0.00 | n_bench 11  
+  octmni 0.02: rule acs_q25_t000   84.84 | best bench maxherding     85.96 | d -1.12 p 0.354 | oracle acs_q25_t100 +1.46 | n_bench 11  
+  octmni 0.05: rule acs_q25_t000   90.46 | best bench cls            89.72 | d +0.74 p 0.161 | oracle acs_q25_t000 +0.00 | n_bench 11  
+  tissue 0.02: rule acs_q25_t000   48.08 | best bench mv_mean        48.71 | d -0.63 p 0.516 | oracle acs_q50_t000 +0.86 | n_bench 15  
+  tissue 0.05: rule acs_q25_t000   48.97 | best bench knnf_random    50.29 | d -1.32 p 0.006 | oracle acs_q50_t000 +1.95 | n_bench 15  BEHIND(raw)
+  first 5/10; significantly behind raw 1, BH 0
+
+## selected rule vs row-best bench (worst); paired over s42-46
+  retina 0.02: rule acs_q25_t100   16.30 | best bench facility       14.74 | d +1.57 p 0.610 | oracle acs_q50_t100 +0.16 | n_bench 11  
+  retina 0.05: rule acs_q25_t100   16.25 | best bench probcover      19.71 | d -3.46 p 0.159 | oracle acs_q50_t000 +4.58 | n_bench 11  
+  breast 0.02: rule acs_q25_t100   59.67 | best bench typiclust      57.29 | d +2.38 p 0.459 | oracle acs_q25_t100 +0.00 | n_bench 11  
+  breast 0.05: rule acs_q25_t050   73.31 | best bench knnf_random    63.26 | d +10.05 p 0.021 | oracle acs_q25_t050 +0.00 | n_bench 11  
+  dermam 0.02: rule acs_q25_t000   28.85 | best bench cls            37.35 | d -8.50 p 0.041 | oracle cls +8.50 | n_bench 11  BEHIND(raw)
+  dermam 0.05: rule acs_q25_t000   43.10 | best bench cls            40.33 | d +2.77 p 0.245 | oracle acs_q25_t000 +0.00 | n_bench 11  
+  octmni 0.02: rule acs_q25_t000   62.16 | best bench cls            70.80 | d -8.64 p 0.007 | oracle cls +8.64 | n_bench 11  BEHIND(raw)
+  octmni 0.05: rule acs_q25_t000   75.44 | best bench cls            75.60 | d -0.16 p 0.928 | oracle cls +0.16 | n_bench 11  
+  tissue 0.02: rule acs_q25_t000   40.11 | best bench mv_mean        42.22 | d -2.11 p 0.129 | oracle acs_q50_t100 +1.29 | n_bench 15  
+  tissue 0.05: rule acs_q25_t000   40.86 | best bench probcover      41.69 | d -0.83 p 0.377 | oracle acs_q50_t000 +3.84 | n_bench 15  
+  first 4/10; significantly behind raw 2, BH 0
+
+## new baselines vs row best (BA, seed mean)
+  retina 0.02: best knnf_herding  33.71 | typiclust:-2.17 probcover:-6.91 maxherding:-6.17
+  retina 0.05: best probcover     34.08 | typiclust:-3.75 probcover:+0.00 maxherding:-6.44
+  breast 0.02: best knnf_random   65.81 | typiclust:-2.44 probcover:-2.37 maxherding:-9.22
+  breast 0.05: best knnf_random   69.62 | typiclust:-2.27 probcover:-3.86 maxherding:-11.19
+  dermam 0.02: best cls           46.61 | typiclust:-7.65 probcover:-6.17 maxherding:-3.55
+  dermam 0.05: best mv_mean       51.49 | typiclust:-1.83 probcover:-3.91 maxherding:-2.49
+  octmni 0.02: best maxherding    85.96 | typiclust:-2.34 probcover:-3.18 maxherding:+0.00
+  octmni 0.05: best cls           89.72 | typiclust:-1.74 probcover:-1.36 maxherding:-0.92
+  tissue 0.02: best mv_mean       48.71 | typiclust:-4.71 probcover:-4.17 maxherding:-3.86
+  tissue 0.05: best knnf_random   50.29 | typiclust:-3.28 probcover:-3.71 maxherding:-6.10
+  bloodm 0.02: best random        84.68 | typiclust:-1.29 probcover:-5.87 maxherding:-3.53
+  bloodm 0.05: best herding       93.70 | typiclust:-1.40 probcover:-2.15 maxherding:-2.15
+  organa 0.02: best herding       87.78 | typiclust:-0.68 probcover:-3.12 maxherding:-0.77
+  organa 0.05: best facility      92.33 | typiclust:-0.81 probcover:-2.01 maxherding:-0.35
+  organs 0.02: best graph_a2      63.41 | typiclust:-0.90 probcover:-5.74 maxherding:-1.75
+  organs 0.05: best mv_mean       68.89 | typiclust:-2.12 probcover:-3.51 maxherding:-1.69
+  pathmn 0.02: best mv_mean       82.32 | typiclust:-1.34 probcover:-0.44 maxherding:-2.14
+  pathmn 0.05: best facility      87.64 | typiclust:-1.02 probcover:-0.63 maxherding:-0.48

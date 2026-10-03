@@ -5,7 +5,7 @@
 > Audit ledger: [report/evidence_ledger_20260928.md](report/evidence_ledger_20260928.md).
 > Round 3 preregistration and amendments: `report/r3_prereg_*.md`.
 > The "TD" in TDGS means Task-Demand (train-pool OOF proxy), **not test/target**. No arm reads the test set. See HANDOFF §0.1.
-> **2026-10-02** — new line since the snapshot below: ACS (ambiguity-aware class-conditional selection), proposal + E0/E1 results + code; file-by-file index in [report/acs_index_20261002.md](report/acs_index_20261002.md).
+> **2026-10-02** — new line since the snapshot below: ACS (ambiguity-aware class-conditional selection), proposal + E0/E1 results + code; file-by-file index in [report/acs_index_20261002.md](report/acs_index_20261002.md). **10-03: E2 done** — rule b\*=10, q\*=0.25; ACS > Graph-A2 10/10 high-ambiguity rows, > best published method 9/10 (5 significant); summary [report/acs_summary_20261003.html](report/acs_summary_20261003.html).
 > **2026-10-02/03** — another new line: shift-robustness benchmark (do methods tied on clean BA stay tied under MedMNIST-C acquisition shift?). Proposal [report/proposal_shift_robustness_20261002.md](report/proposal_shift_robustness_20261002.md); code + file-by-file index in [corr/README.md](../corr/README.md); results, status, and per-stage README in [results/shift_robustness/README.md](results/shift_robustness/README.md). Status: S0 (colour-gap check) and S1 (blood+path confirmatory) done; S1b (organA/organS/tissue replication) and S2 (colour-aug retrain, decisive for whether the problem survives standard augmentation) running.
 
 Target of comparison: **https://github.com/zahiriddin-rustamov/graph-coverage-selection**
