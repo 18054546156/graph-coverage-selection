@@ -22,7 +22,7 @@ case $D in
   dermamnist|octmnist)
     EMB=$S/knnf/t1cache/$E/${D}_train_uni_224.npz; HREF=$S/runs/knnf_20261002/sel/seed_42/herding/$D
     CLS=$S/w1/sel/${D}_r{R}_cls_uni_s42.npy ;;
-  tissuemnist)
+  tissuemnist|bloodmnist|organamnist|organsmnist|pathmnist)
     EMB=$S/t1cache/$E/${D}_train_uni_224.npz; HREF=$S/runs/table1_s4246_20260928/sel/seed_42/herding/$D
     CLS=$S/sel/${D}_r{R}_tdgs_cls_s42.npy ;;
   *) echo "unknown D=$D"; exit 2 ;;

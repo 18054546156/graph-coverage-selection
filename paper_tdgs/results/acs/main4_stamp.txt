@@ -1,0 +1,7 @@
+# ACS main-4 prereg stamp (written before any staging/training)
+utc=2026-10-03T06:04:39Z user=xiaoyuxu2 host=hpcsrv001.ln.edu.hk
+36bd69926ce52276afd63395e571f734f2a98a73a6833ab359a56d3b72901182  acs/acs_main4_prereg_20261003.md
+dc81f2d93e59004507ca9eabdb9da42bd82d56af60d889a83f624bdbf9609300  code/acs_stage.slurm
+bb170092db4da55b0c4b0f196c545f27ffdaef16fd186a5407dd0f6000c29b2d  code/acs_select.py
+899d47db57d58e548a4344b248e4a05723a69940283de908a7eb474a5a2a2001  code/knnf_select.py
+0f239e83a7c24c5242bfe776d31b62fdf4c3661f5a4b4102ece94b28fba03509  code/tune_pack.slurm
