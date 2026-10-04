@@ -1,0 +1,10 @@
+# ACS E7 (main-4 module ablation, negative control) prereg stamp; written before any E7 staging/training
+utc=2026-10-04T08:27:19Z user=xiaoyuxu2 host=hpcsrv001.ln.edu.hk
+df19399deb97173495c5b00d777cfac5641e08df28abb2768e8655849da8e3af  acs/e7_main4_ablation_prereg_20261004.md
+43fd23bea464e0306cdaeb993b2e009a6cd601ac1489a406f90b0b4e314e0a7d  code/e7_eval.py
+0a47d4965bc9a27b3565de88dfd0cae50c59773be93facf2161835781811dda9  code/acs_select.py
+29a7ce44506795742ef9d91a8870106f0e2135101c47a4c64a24aa5bf0d62061  code/acs_stage.slurm
+0f239e83a7c24c5242bfe776d31b62fdf4c3661f5a4b4102ece94b28fba03509  code/tune_pack.slurm
+5787a0400e07fa1ae0a5b4b302256a914fde163719f3306d0468e9aeb4967d4c  code/td_run_one.sh
+7af6667b486976e29cd8424e5b02e1e19dac3a92b71983f985494ae80487c5f1  code/e5_eval.py
+36faf28034c84469c9cc89d9a35e017fe358d9e74962c0182472ec573d580abf  code/acs_eval.py

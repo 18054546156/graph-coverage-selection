@@ -1,0 +1,10 @@
+{
+ "bloodmnist_0.02": "graph_a2",
+ "bloodmnist_0.05": "graph_a2",
+ "organamnist_0.02": "graph_a2",
+ "organamnist_0.05": "graph_a2",
+ "organsmnist_0.02": "graph_a2",
+ "organsmnist_0.05": "graph_a2",
+ "pathmnist_0.02": "graph_a2",
+ "pathmnist_0.05": "graph_a2"
+}
