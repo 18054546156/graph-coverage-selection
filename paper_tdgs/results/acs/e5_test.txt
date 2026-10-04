@@ -1,0 +1,44 @@
+new cells 275 (expected 275); excluded for wrong GPU: 0 []
+
+## §4.1 primary family (one-sided sign-flip permutation, Holm over 3), BA
+  H1 C2-F1: ACS - ACS_l00 (6 tau=0 rows)
+    effect +0.05pp  95% CI [-0.58, +0.51]  p 0.4615  Holm 0.4615  not significant  | rows > 0: 3/6
+    per row: derma2 -0.31  derma5 -1.46  octmn2 -2.78  octmn5 +0.54  tissu2 +2.92  tissu5 +1.40
+  H2 P-int: (cls - cls_l00) - (ACS - ACS_l00) (6 tau=0 rows)
+    effect +4.07pp  95% CI [+2.87, +5.12]  p 0.0000  Holm 0.0000  PASS  | rows > 0: 6/6
+    per row: derma2 +7.19  derma5 +5.18  octmn2 +6.18  octmn5 +1.06  tissu2 +2.09  tissu5 +2.74
+  H3 E5b: ACS - ACS_wcls (7 F1 rows)
+    effect +1.46pp  95% CI [+1.08, +1.91]  p 0.0009  Holm 0.0019  PASS  | rows > 0: 6/7
+    per row: breas5 +3.25  derma2 +2.65  derma5 +0.44  octmn2 -1.98  octmn5 +1.26  tissu2 +3.63  tissu5 +0.97
+
+## §4.2 effect + 95% CI only (BA unless stated)
+  P-F2only: ACS_l00 - cls_l00 (q25 vs q0 at lam=0; 6 rows; predicted > 0): +4.04 [+3.42, +4.60]  rows > 0 6/6  | derma2 +4.39 derma5 +7.05 octmn2 +5.48 octmn5 +1.80 tissu2 +2.38 tissu5 +3.16
+  mask-only - ACS (7 rows; predicted ~ 0): +0.22 [-0.85, +1.22]  rows > 0 4/7  | breas5 -1.18 derma2 +0.80 derma5 +0.94 octmn2 +1.86 octmn5 -1.10 tissu2 +0.36 tissu5 -0.14
+  lam=1 - ACS (7 rows; landscape, no prediction of sign): -0.47 [-1.20, +0.14]  rows > 0 3/7  | breas5 -2.56 derma2 -1.00 derma5 -1.05 octmn2 +0.68 octmn5 -0.86 tissu2 +0.59 tissu5 +0.92
+  worst recall, H1 contrast: -0.18 [-1.55, +1.18]  rows > 0 4/6  | derma2 -1.51 derma5 +2.31 octmn2 -10.48 octmn5 +1.20 tissu2 +5.39 tissu5 +2.02
+  worst recall, H3 contrast: +3.28 [+2.06, +4.71]  rows > 0 6/7  | breas5 +5.69 derma2 +6.12 derma5 +4.60 octmn2 -5.84 octmn5 +3.36 tissu2 +6.45 tissu5 +2.60
+
+## §4.2 breast 5% (tau=.5): 2x2x2 q x tau x lam, seed-mean BA / worst
+  cls                 68.66/ 60.18   acs_q00_t000_l00    65.08/ 41.58
+  acs_q00_t050        66.80/ 61.18   acs_q00_t050_l00    59.84/ 44.91
+  acs_q25_t000        73.62/ 64.39   acs_q25_t000_l00    64.82/ 52.98
+  acs_q25_t050        77.41/ 73.31   acs_q25_t050_l00    70.54/ 63.28
+  F1@transition ACS - ACS_l00 = +6.87 [+1.69, +12.04] (predicted >= 0, small)
+
+## §4.3 E5c switch point at budgets the rule never saw (q=.25), seed-mean BA
+  organs 0.005 bpc   6 rule tau 1    t000  42.04 t050  43.00 t100  45.86  best 1   HIT  t100-t000 +3.83
+  bloodm 0.005 bpc   7 rule tau 1    t000  70.01 t050  71.96 t100  68.36  best 0.5 miss  t100-t000 -1.65
+  organs 0.01  bpc  12 rule tau 0.5  t000  51.08 t050  55.08 t100  56.33  best 1   miss  t100-t000 +5.25
+  bloodm 0.01  bpc  14 rule tau 0.5  t000  78.23 t050  77.19 t100  76.84  best 0   miss  t100-t000 -1.39
+  organa 0.005 bpc  15 rule tau 0.5  t000  72.03 t050  74.05 t100  72.38  best 0.5 HIT  t100-t000 +0.35
+  organa 0.01  bpc  31 rule tau 0    t000  83.93 t050  82.75 t100  83.04  best 0   HIT  t100-t000 -0.89
+  P-cut: rule tau best in 3/6 (criterion >= 4), Spearman(bpc, t100 - t000) = -0.14 (criterion < 0) -> FAIL
+  descriptive, E5c 6 + dev 10 rows: Spearman(bpc, t100 - t000) = -0.56; sign of t100 - t000 for bpc <= 10: 4/5 positive, bpc >= 20: 5/7 negative
+
+## §4.4 determinism side-check: acs_q00_t000_l00 vs our earlier class-quota Graph-A2 cells (same set?)
+  dermam 0.02: l00  39.74 vs a2_uni  39.74 (meaningful only if the e5 report shows Jaccard 1.0 to ref_a2_quota_ours)
+  dermam 0.05: l00  47.62 vs a2_uni  47.62 (meaningful only if the e5 report shows Jaccard 1.0 to ref_a2_quota_ours)
+  octmni 0.02: l00  82.14 vs a2_uni  82.14 (meaningful only if the e5 report shows Jaccard 1.0 to ref_a2_quota_ours)
+  octmni 0.05: l00  88.12 vs a2_uni  88.12 (meaningful only if the e5 report shows Jaccard 1.0 to ref_a2_quota_ours)
+  tissue 0.02: l00  42.78 vs graph_a2  42.78 (meaningful only if the e5 report shows Jaccard 1.0 to ref_a2_quota_ours)
+  tissue 0.05: l00  44.40 vs graph_a2  44.40 (meaningful only if the e5 report shows Jaccard 1.0 to ref_a2_quota_ours)

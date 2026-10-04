@@ -123,4 +123,46 @@ hr{border:none;border-top:1px solid #d0d7de;margin:2em 0}a{color:#0969da}
 <p><strong>中介检查</strong>（<code>code/e5_mediators.py</code> → <code>results/acs/e5_mediators.txt</code>）：</p>
 <table><thead><tr><th>检查</th><th>预测</th><th>结果</th></tr></thead><tbody><tr><td>M1 Spearman(χ, 1−a)</td><td>7 行每行 ≥ .7</td><td><strong>7/7</strong>（.893–.981）</td></tr><tr><td>M2 需求侧泄漏</td><td>τ=0 行上 λ=0 &gt; λ=.5，两对都成立</td><td><strong>6/6</strong>。例如 tissue 2%：cls .545 → cls_l00 .687；ACS .542 → ACS_l00 .638</td></tr><tr><td>M3 纯度链</td><td>cls_l00 &lt; ACS_l00，且 cls_l00 &lt; cls ≤ ACS</td><td><strong>6/6</strong></td></tr><tr><td>M4 k 稳定性</td><td>保留集合 Jaccard ≥ .8</td><td><strong>7/7</strong>（.822–.930）。被删集合的 Jaccard 为 .49–.79</td></tr><tr><td>T4 作者版 Graph-A2 的纯度低于池子</td><td>低于池子</td><td>derma / OCT <strong>4/4</strong>（−.017 至 −.049）；breast 5% 也低（.578 vs .595）</td></tr></tbody></table>
 <p><code>acs_q00_t000_l00</code> 与我们以前的每类配额 Graph-A2 选择集完全相同（Jaccard 1.0，6/6 行：derma/OCT 对 <code>a2_uni</code>，tissue 对 <code>$S/sel</code> 的 graph_a2）。因此 §4.4 的 BA 对比可以直接检查训练的确定性。</p>
+<h2>9. 结果（训练后追加，2026-10-04；以上内容未改）</h2>
+<p><strong>执行。</strong></p>
+<ul>
+<li>275/275 格完成，0 失败，未重试。GPU 型号与 §1 一致：H100 135 格、A100 140 格，剔除 0 格。</li>
+<li>收割：<code>e5_eval.py --cluster</code> → <code>results/acs/e5_cells.json</code>。</li>
+<li>检验：<code>e5_eval.py test</code> → <code>results/acs/e5_test.txt</code>。分析代码即打戳版本（sha256 7af6667b…）。</li>
+</ul>
+<h3>9.1 主检验族（Holm，3 个；BA）</h3>
+<table><thead><tr><th>编号</th><th>对比</th><th>效应</th><th>95% CI</th><th>Holm p</th><th>为正的行</th><th>判定</th></tr></thead><tbody><tr><td>H1 C2-F1</td><td>ACS − ACS_l00（τ=0 的 6 行）</td><td>+0.05pp</td><td>[−0.58, +0.51]</td><td>.46</td><td>3/6</td><td><strong>不成立</strong></td></tr><tr><td>H2 P-int</td><td>(cls − cls_l00) − (ACS − ACS_l00)</td><td>+4.07pp</td><td>[+2.87, +5.12]</td><td>&lt;.001</td><td>6/6</td><td><strong>成立</strong></td></tr><tr><td>H3 E5b</td><td>ACS − ACS_wcls（7 行）</td><td>+1.46pp</td><td>[+1.08, +1.91]</td><td>.002</td><td>6/7</td><td><strong>成立</strong></td></tr></tbody></table>
+<p>H1 逐行：derma2 −0.31，derma5 −1.46，oct2 −2.78，oct5 +0.54，tissue2 +2.92，tissue5 +1.40。</p>
+<h3>9.2 只报效应与 CI</h3>
+<table><thead><tr><th>量</th><th>效应 [95% CI]</th><th>为正的行</th><th>与预测</th></tr></thead><tbody><tr><td>P-F2only：ACS_l00 − cls_l00</td><td>+4.04 [+3.42, +4.60]</td><td>6/6</td><td>符合（&gt;0）</td></tr><tr><td>只掩码 − ACS</td><td>+0.22 [−0.85, +1.22]</td><td>4/7</td><td>符合（≈0）</td></tr><tr><td>λ=1 − ACS</td><td>−0.47 [−1.20, +0.14]</td><td>3/7</td><td>不预测符号</td></tr><tr><td>F1@过渡（breast 5%）：ACS − ACS_l00</td><td>+6.87 [+1.69, +12.04]</td><td>—</td><td>符号符合；幅度不是预测的"小"</td></tr><tr><td>最差类召回，H1 对比</td><td>−0.18 [−1.55, +1.18]</td><td>4/6</td><td>oct2 −10.48</td></tr><tr><td>最差类召回，H3 对比</td><td>+3.28 [+2.06, +4.71]</td><td>6/7</td><td>oct2 −5.84</td></tr></tbody></table>
+<p>breast 5% 的 2×2×2 析因（BA / 最差类召回）：</p>
+<table><thead><tr><th></th><th>λ=.5</th><th>λ=0</th></tr></thead><tbody><tr><td>q=0，τ=0</td><td>68.66 / 60.18</td><td>65.08 / 41.58</td></tr><tr><td>q=0，τ=.5</td><td>66.80 / 61.18</td><td>59.84 / 44.91</td></tr><tr><td>q=.25，τ=0</td><td>73.62 / 64.39</td><td>64.82 / 52.98</td></tr><tr><td>q=.25，τ=.5</td><td>77.41 / 73.31</td><td>70.54 / 63.28</td></tr></tbody></table>
+<h3>9.3 E5c 切换点（q=.25）</h3>
+<table><thead><tr><th>行</th><th>bpc</th><th>规则 τ</th><th>t000</th><th>t050</th><th>t100</th><th>最优 τ</th><th>命中</th></tr></thead><tbody><tr><td>organS 0.5%</td><td>6</td><td>1</td><td>42.04</td><td>43.00</td><td>45.86</td><td>1</td><td>是</td></tr><tr><td>blood 0.5%</td><td>7</td><td>1</td><td>70.01</td><td>71.96</td><td>68.36</td><td>.5</td><td>否</td></tr><tr><td>organS 1%</td><td>12</td><td>.5</td><td>51.08</td><td>55.08</td><td>56.33</td><td>1</td><td>否</td></tr><tr><td>blood 1%</td><td>14</td><td>.5</td><td>78.23</td><td>77.19</td><td>76.84</td><td>0</td><td>否</td></tr><tr><td>organA 0.5%</td><td>15</td><td>.5</td><td>72.03</td><td>74.05</td><td>72.38</td><td>.5</td><td>是</td></tr><tr><td>organA 1%</td><td>31</td><td>0</td><td>83.93</td><td>82.75</td><td>83.04</td><td>0</td><td>是</td></tr></tbody></table>
+<p><strong>P-cut 不成立。</strong> 两条判据都没过：</p>
+<ul>
+<li>命中 3/6，判据要求 ≥4；</li>
+<li>Spearman(bpc, t100 − t000) = −0.14，符号对，但 6 行太弱。</li>
+</ul>
+<p>描述（开发 10 行加 E5c 6 行，共 16 点）：</p>
+<ul>
+<li>Spearman(bpc, t100 − t000) = −0.56；</li>
+<li>bpc ≤ 10 的 5 行中 4 行 t100 − t000 为正；bpc ≥ 20 的 7 行中 5 行为负。</li>
+</ul>
+<p>按 §4.3，论文把 F3 写成"方向成立、位置未定"。</p>
+<h3>9.4 确定性旁证（§4.5）</h3>
+<p><code>acs_q00_t000_l00</code> 与我们以前的每类配额 Graph-A2 选择集 Jaccard 为 1.0（§8）。两者 6/6 行 BA 逐位相同（例如 derma 2% 都是 39.74，tissue 5% 都是 44.40），训练确定性成立。</p>
+<h3>9.5 结论（对原理部分的影响）</h3>
+<ol>
+<li><strong>τ=0 区间：F1 与 F2 互为替代，不是"F1 必要、F2 冗余"。</strong></li>
+<ul>
+<li>只开 F2：+4.04（6/6）；只开 F1：+4.12，即 H2 与 H1 两项之和；两个都开：再多 +0.05。</li>
+<li>H2 证实了替代关系（引理 F1 ⊇ F2 的方向对）。H1 不成立说明，在已有 F2 的 ACS 里 F1 不再必要。</li>
+<li>所以第 4 节"大预算极小充分集 = {F1}"要改为"{F1} 或 {F2} 任一即足够，两者都开没有额外收益"。</li>
+<li>M1–M3 的机制（泄漏份额、纯度链）都成立，只是两条路修的是同一个缺口。</li>
+</ul>
+<li><strong>F1 的作用来自类掩码，不来自类权重。</strong> H3 成立，只掩码 ≈ ACS。λ=1 不更好，λ=.5 保留。</li>
+<li><strong>过渡区（breast 5%）F1 贡献 +6.87pp</strong>，比预测的"小"大得多。这里 herding 只占一半预算，覆盖阶段的跨类泄漏仍然重要。</li>
+<li><strong>切换点位置没有得到样本外支持</strong>（P-cut 不成立）。"小 bpc 选典型、大 bpc 选覆盖"的方向在 16 点上成立（ρ −0.56）。b&#42;=10 只能写成在开发行上选出的值，不能写成预测出来的切换位置。</li>
+</ol>
 </body></html>
