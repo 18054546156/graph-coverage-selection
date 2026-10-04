@@ -1,0 +1,22 @@
+Per-row dF1 = cls - graph_a2 on main-4, seed-paired (seeds share the subset: within-row training noise only)
+row             bpc ep       mean    sd  n-   t p2 signflip p2
+organs 0.02      -1 ba      +0.22  1.48   4  0.762       1.000
+organs 0.02      -1 worst   +2.29  6.51   2  0.475       0.625
+organs 0.05      -1 ba      -0.94  1.89   4  0.327       0.312
+organs 0.05      -1 worst   -6.50  8.81   4  0.174       0.188
+organa 0.02      -1 ba      +0.47  1.08   2  0.387       0.438
+organa 0.02      -1 worst   +2.29  4.00   2  0.270       0.312
+organa 0.05      -1 ba      -0.96  0.79   5  0.055       0.062
+organa 0.05      -1 worst   -5.87  6.26   4  0.104       0.188
+bloodm 0.02      -1 ba      +1.04  1.26   1  0.136       0.125
+bloodm 0.02      -1 worst   +2.35  5.72   2  0.411       0.500
+bloodm 0.05      -1 ba      +0.68  1.63   2  0.405       0.375
+bloodm 0.05      -1 worst   +0.52  4.96   3  0.827       0.938
+pathmn 0.02      -1 ba      +1.11  2.83   2  0.431       0.625
+pathmn 0.02      -1 worst   -2.52  5.95   3  0.398       0.500
+pathmn 0.05      -1 ba      -0.96  1.82   3  0.302       0.312
+pathmn 0.05      -1 worst   -2.28  2.73   4  0.135       0.188
+
+Descriptive (§4.3 known risk): main-4 bpc = {'organs 0.02': 25, 'organs 0.05': 63, 'organa 0.02': 62, 'organa 0.05': 157, 'bloodm 0.02': 29, 'bloodm 0.05': 74, 'pathmn 0.02': 199, 'pathmn 0.05': 499}
+18 rows: Spearman(bpc, dF1 BA) = -0.23; Spearman(overlap, dF1 BA) = +0.79; Spearman(bpc, overlap) = -0.40
+partial rank corr(overlap, dF1 | bpc) = +0.78; partial rank corr(bpc, dF1 | overlap) = +0.14

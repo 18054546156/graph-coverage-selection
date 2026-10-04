@@ -1,0 +1,60 @@
+E7 cells 80; excluded (not A100): 0 []
+
+## ba  (row = seed-mean; positive = module helps)
+row              overlap     dF1  dF2|noF1  ACS-cls ACS-ACS_l00
+derma     0.02     0.716   +5.31     +4.39    -2.80       -0.31
+derma     0.05     0.716   +4.01     +7.05    +1.87       -1.46
+retina    0.02     0.641   +6.06         —        —           —
+retina    0.05     0.641   +4.50         —        —           —
+tissue    0.02     0.603   +5.01     +2.38    +0.29       +2.92
+tissue    0.05     0.603   +4.13     +3.16    +0.43       +1.40
+breast    0.02     0.376   +0.60         —        —           —
+breast    0.05     0.376   +3.58     -0.25        —       +8.80
+oct       0.02     0.287   +1.20     +5.48    -0.70       -2.78
+oct       0.05     0.287   +2.96     +1.80    +0.74       +0.54
+organs    0.02     0.227   +0.22     +0.52    -1.55       -1.85
+organs    0.05     0.227   -0.94     +0.04    +1.51       +0.52
+organa    0.02     0.103   +0.47     -0.06    +0.27       +0.80
+organa    0.05     0.103   -0.96     -0.50    +1.10       +0.64
+blood     0.02     0.051   +1.04     +1.25    +4.43       +4.22
+blood     0.05     0.051   +0.68     -0.15    -1.69       -0.86
+path      0.02     0.004   +1.11     -0.53    -1.55       +0.09
+path      0.05     0.004   -0.96     -2.20    +1.69       +2.93
+
+H1 dose (datasets n=9): Spearman(overlap, dF1) = +0.833; exact one-sided p = 0.0041
+H2 F1 negative control (dF1): high mean +3.74 (n=10, rows+ 10) vs low mean +0.08 (n=8, rows+ 5); diff +3.66; exact one-sided p = 0.0001; low 95% CI [-0.67, +0.84]  -> within ±1pp
+H3 F2 negative control (dF2|noF1): high mean +4.04 (n=6, rows+ 6) vs low mean -0.20 (n=8, rows+ 3); diff +4.25; exact one-sided p = 0.0003; low 95% CI [-1.03, +0.63]
+D1 F2 given F1 (ACS-cls), descriptive: high mean -0.03 (n=6, rows+ 4) vs low mean +0.53 (n=8, rows+ 5); diff -0.55; exact one-sided p = 0.6963; low 95% CI [-1.25, +2.30]
+D2 F1 given F2 (ACS-ACS_l00), descriptive: high mean +0.05 (n=6, rows+ 3) vs low mean +0.81 (n=8, rows+ 6); diff -0.76; exact one-sided p = 0.7522; low 95% CI [-0.82, +2.44]
+
+## worst  (row = seed-mean; positive = module helps)
+row              overlap     dF1  dF2|noF1  ACS-cls ACS-ACS_l00
+derma     0.02     0.716  +12.19     +4.64    -8.50       -1.51
+derma     0.05     0.716   +6.97     +3.92    +2.77       +2.31
+retina    0.02     0.641   -0.31         —        —           —
+retina    0.05     0.641   -6.69         —        —           —
+tissue    0.02     0.603   +7.15     +4.89    +3.13       +5.39
+tissue    0.05     0.603   +5.21     +4.02    +0.84       +2.02
+breast    0.02     0.376   -0.58         —        —           —
+breast    0.05     0.376  +18.60    +11.40        —      +11.40
+oct       0.02     0.287   +5.44    +11.36    -8.64      -10.48
+oct       0.05     0.287   +9.36     +6.00    -0.16       +1.20
+organs    0.02     0.227   +2.29     +1.78    -4.14       -3.63
+organs    0.05     0.227   -6.50     -0.88    +7.25       +1.64
+organa    0.02     0.103   +2.29     +2.65    -0.22       -0.57
+organa    0.05     0.103   -5.87     -2.76    +4.01       +0.90
+blood     0.02     0.051   +2.35     +5.66   +10.98       +7.67
+blood     0.05     0.051   +0.52     +4.15    -1.73       -5.35
+path      0.02     0.004   -2.52     -1.85    +0.14       -0.52
+path      0.05     0.004   -2.28     -2.14    +1.47       +1.33
+
+H1 dose (datasets n=9): Spearman(overlap, dF1) = +0.417; exact one-sided p = 0.1348
+H2 F1 negative control (dF1): high mean +5.73 (n=10, rows+ 7) vs low mean -1.22 (n=8, rows+ 4); diff +6.95; exact one-sided p = 0.0104; low 95% CI [-4.26, +1.83]
+H3 F2 negative control (dF2|noF1): high mean +5.81 (n=6, rows+ 6) vs low mean +0.83 (n=8, rows+ 4); diff +4.98; exact one-sided p = 0.0047; low 95% CI [-1.83, +3.48]
+D1 F2 given F1 (ACS-cls), descriptive: high mean -1.76 (n=6, rows+ 3) vs low mean +2.22 (n=8, rows+ 5); diff -3.98; exact one-sided p = 0.9124; low 95% CI [-1.92, +6.37]
+D2 F1 given F2 (ACS-ACS_l00), descriptive: high mean -0.18 (n=6, rows+ 4) vs low mean +0.18 (n=8, rows+ 4); diff -0.36; exact one-sided p = 0.5581; low 95% CI [-3.08, +3.44]
+
+## Holm (BA, family H1-H3)
+  H1: p 0.0041  Holm 0.0041  PASS
+  H2: p 0.0001  Holm 0.0003  PASS
+  H3: p 0.0003  Holm 0.0007  PASS
